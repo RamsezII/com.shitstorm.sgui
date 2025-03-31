@@ -6,7 +6,8 @@ namespace _SGUI_
 {
     public class SguiWindow : MonoBehaviour
     {
-        public static SguiWindow focus;
+        public static readonly ListListener<SguiWindow> instances = new();
+        public bool HasFocus => instances.IsLast(this);
 
         public Canvas canvas;
         public GraphicRaycaster raycaster;
@@ -35,8 +36,7 @@ namespace _SGUI_
 
         protected virtual void OnDestroy()
         {
-            if (this == focus)
-                focus = null;
+            instances.RemoveElement(this);
         }
     }
 }
