@@ -61,10 +61,10 @@ namespace _SGUI_
             float char_width = txt_scheduler.GetPreferredValues("_", body_width, float.PositiveInfinity).x;
             int max_chars = (int)(body_width / char_width);
 
-            int bar_count = max_chars - 5;
+            int bar_count = max_chars - 9;
             int count = (int)(Mathf.Clamp01(progress) * bar_count);
 
-            txt_scheduler.text = $"{typeof(NUCLEOR).FullName}({Util_ark.GetRotator()})\n{schedulable.description}\n{new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
+            txt_scheduler.text = $"{schedulable.description}\n({Util_ark.GetRotator()}) {new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
             rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT.rect.width, float.PositiveInfinity).y);
         }
     }
