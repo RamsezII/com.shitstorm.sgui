@@ -55,10 +55,16 @@ namespace _SGUI_
         {
             Schedulable schedulable = NUCLEOR.instance.scheduler.list._list[0];
 
-            string progressBar = schedulable.progressBar;
-            string text = $"{typeof(NUCLEOR).FullName}({Util_ark.GetRotator()})\n{schedulable.description}\n\n{progressBar}";
+            float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
 
-            txt_scheduler.text = text;
+            float body_width = rT_scheduler.rect.width;
+            float char_width = txt_scheduler.GetPreferredValues("_", body_width, float.PositiveInfinity).x;
+            int max_chars = (int)(body_width / char_width);
+
+            int bar_count = max_chars - 5;
+            int count = (int)(Mathf.Clamp01(progress) * bar_count);
+
+            txt_scheduler.text = $"{typeof(NUCLEOR).FullName}({Util_ark.GetRotator()})\n{schedulable.description}\n{new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
             rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT.rect.width, float.PositiveInfinity).y);
         }
     }
