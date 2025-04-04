@@ -57,7 +57,7 @@ namespace _SGUI_
 
         void UpdateHue()
         {
-            const float ui_hue_speed = .05f;
+            const float ui_hue_speed = .03f;
             ui_hue_current = (ui_hue_start + Time.unscaledTime * ui_hue_speed) % 1;
             body_background.color = body_background.color.ModifyHsv(ui_hue_current, ui_alpha);
         }
