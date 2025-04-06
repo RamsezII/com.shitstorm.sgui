@@ -1,39 +1,28 @@
 using _ARK_;
 using _UTIL_;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiWindow : MonoBehaviour
+    public partial class SguiWindow : MonoBehaviour
     {
         public static readonly ListListener<SguiWindow> instances = new();
         public bool HasFocus => instances.IsLast(this);
 
-        public Canvas canvas;
-        public GraphicRaycaster raycaster;
-        public Traductable tmp_title;
-        public Graphic body_background;
-        public Button button_hide, button_fullscreen, button_close;
+        [HideInInspector] public Animator animator;
 
-        [SerializeField, Range(0, 1)] float ui_hue_start, ui_hue_current;
-        [SerializeField] float ui_alpha;
+        [SerializeField] bool animated_toggle = true;
+
+        public readonly OnValue<bool> isActive = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Awake()
         {
-            canvas = GetComponent<Canvas>();
-            raycaster = GetComponent<GraphicRaycaster>();
-
-            tmp_title = transform.Find("rT/header/title").GetComponent<Traductable>();
-            body_background = transform.Find("rT/body/background").GetComponent<Graphic>();
-            ui_alpha = body_background.color.a;
-            ui_hue_start = body_background.color.GetHue();
-
-            button_hide = transform.Find("rT/header/buttons/hide").GetComponent<Button>();
-            button_fullscreen = transform.Find("rT/header/buttons/fullscreen").GetComponent<Button>();
-            button_close = transform.Find("rT/header/buttons/close").GetComponent<Button>();
+            animator = GetComponent<Animator>();
+            animator.writeDefaultValuesOnDisable = true;
+            animator.keepAnimatorStateOnDisable = true;
+            AwakeUI();
         }
 
         protected virtual void OnEnable()
@@ -51,15 +40,49 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
-        }
+            if (!animated_toggle)
+                isActive.AddListener(toggle => gameObject.SetActive(toggle));
+            else
+                isActive.AddListener(toggle =>
+                {
+                    BaseStates state = state_base;
+                    float offset = 0;
 
-        //--------------------------------------------------------------------------------------------------------------
+                    switch (state)
+                    {
+                        case BaseStates.Default:
+                            if (toggle)
+                            {
+                                gameObject.SetActive(true);
+                                state = BaseStates.toActive;
+                            }
+                            break;
 
-        void UpdateHue()
-        {
-            const float ui_hue_speed = .03f;
-            ui_hue_current = (ui_hue_start + Time.unscaledTime * ui_hue_speed) % 1;
-            body_background.color = body_background.color.ModifyHsv(ui_hue_current, ui_alpha);
+                        case BaseStates.Active:
+                            if (!toggle)
+                                state = BaseStates.fromActive_;
+                            break;
+
+                        case BaseStates.toActive:
+                            if (!toggle)
+                            {
+                                state = BaseStates.fromActive_;
+                                offset = 1 - animator.GetNormlizedTimeClamped((int)AnimLayers.Base);
+                            }
+                            break;
+
+                        case BaseStates.fromActive_:
+                            if (toggle)
+                            {
+                                state = BaseStates.toActive;
+                                offset = 1 - animator.GetNormlizedTimeClamped((int)AnimLayers.Base);
+                            }
+                            break;
+                    }
+
+                    if (state != state_base)
+                        animator.CrossFade((int)state, 0, (int)AnimLayers.Base, offset);
+                });
         }
 
         //--------------------------------------------------------------------------------------------------------------
