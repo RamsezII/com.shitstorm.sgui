@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15, g: 0.15, b: 0.15, a: 1}
+  m_Color: {r: 0.15, g: 0.15, b: 0.15, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -512,6 +512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  animated_toggle: 1
+  state_base: 0
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
   tmp_title: {fileID: 0}
@@ -519,11 +521,10 @@ MonoBehaviour:
   button_hide: {fileID: 0}
   button_fullscreen: {fileID: 0}
   button_close: {fileID: 0}
+  anim_alpha: 1
   ui_hue_start: 0
   ui_hue_current: 0
   ui_alpha: 0
-  animated_toggle: 1
-  state_base: 0
 --- !u!1 &8691622465564368630
 GameObject:
   m_ObjectHideFlags: 0
