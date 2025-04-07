@@ -30,14 +30,14 @@ namespace _SGUI_
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
             NUCLEOR.delegates.onLateUpdate += UpdateHue;
 
-            IMGUI_global.instance.users_keydown.RemoveElement(OnIMGui_toggle_fullscreen);
-            IMGUI_global.instance.users_keydown.AddElement(OnIMGui_toggle_fullscreen, this);
+            IMGUI_global.instance.users.RemoveElement(OnIMGui_toggle_fullscreen);
+            IMGUI_global.instance.users.AddElement(OnIMGui_toggle_fullscreen, this);
         }
 
         protected virtual void OnDisable()
         {
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
-            IMGUI_global.instance.users_keydown.RemoveElement(OnIMGui_toggle_fullscreen);
+            IMGUI_global.instance.users.RemoveElement(OnIMGui_toggle_fullscreen);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -93,11 +93,12 @@ namespace _SGUI_
 
         bool OnIMGui_toggle_fullscreen(Event e)
         {
-            if (e.keyCode == KeyCode.F11)
-            {
-                fullscreen.Toggle();
-                return true;
-            }
+            if (e.type == EventType.KeyDown)
+                if (e.keyCode == KeyCode.F11)
+                {
+                    fullscreen.Toggle();
+                    return true;
+                }
             return false;
         }
 
