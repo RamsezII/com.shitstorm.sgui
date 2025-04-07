@@ -11,12 +11,16 @@ namespace _SGUI_
 
         public Traductable tmp_title;
         public Graphic body_background;
+        [HideInInspector] public RectTransform rT;
         public Button button_hide, button_fullscreen, button_close;
 
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;
 
         [SerializeField, Range(0, 1)] float ui_hue_start, ui_hue_current;
         [SerializeField] float ui_alpha;
+
+        Rect init_rect;
+        protected readonly OnValue<bool> fullscreen = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -25,14 +29,35 @@ namespace _SGUI_
             canvas = GetComponent<Canvas>();
             raycaster = GetComponent<GraphicRaycaster>();
 
+            rT = (RectTransform)transform.Find("rT");
+            init_rect = rT.rect;
+
             tmp_title = transform.Find("rT/header/title").GetComponent<Traductable>();
             body_background = transform.Find("rT/body/background").GetComponent<Graphic>();
             ui_alpha = body_background.color.a;
             ui_hue_start = body_background.color.GetHue();
 
-            button_hide = transform.Find("rT/header/buttons/hide").GetComponent<Button>();
-            button_fullscreen = transform.Find("rT/header/buttons/fullscreen").GetComponent<Button>();
-            button_close = transform.Find("rT/header/buttons/close").GetComponent<Button>();
+            button_hide = transform.Find("rT/header/buttons/hide/button").GetComponent<Button>();
+            button_fullscreen = transform.Find("rT/header/buttons/fullscreen/button").GetComponent<Button>();
+            button_close = transform.Find("rT/header/buttons/close/button").GetComponent<Button>();
+
+            fullscreen.AddListener(toggle =>
+            {
+                if (toggle)
+                {
+                    rT.sizeDelta = Vector2.zero;
+                    rT.anchorMin = Vector2.zero;
+                    rT.anchorMax = Vector2.one;
+                }
+                else
+                {
+                    rT.sizeDelta = init_rect.size;
+                    rT.anchorMin = new Vector2(.5f, .5f);
+                    rT.anchorMax = new Vector2(.5f, .5f);
+                }
+            });
+
+            button_fullscreen.onClick.AddListener(fullscreen.Toggle);
         }
 
         //--------------------------------------------------------------------------------------------------------------
