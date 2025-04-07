@@ -30,14 +30,14 @@ namespace _SGUI_
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
             NUCLEOR.delegates.onLateUpdate += UpdateHue;
 
-            IMGUI_global.instance.users.RemoveElement(OnIMGui_toggle_fullscreen);
-            IMGUI_global.instance.users.AddElement(OnIMGui_toggle_fullscreen, this);
+            IMGUI_global.instance.users_ongui.RemoveElement(OnIMGui_toggle_fullscreen);
+            IMGUI_global.instance.users_ongui.AddElement(OnIMGui_toggle_fullscreen, this);
         }
 
         protected virtual void OnDisable()
         {
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
-            IMGUI_global.instance.users.RemoveElement(OnIMGui_toggle_fullscreen);
+            IMGUI_global.instance.users_ongui.RemoveElement(OnIMGui_toggle_fullscreen);
         }
 
         //--------------------------------------------------------------------------------------------------------------
