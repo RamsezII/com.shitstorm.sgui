@@ -36,6 +36,7 @@ namespace _SGUI_
                             {
                                 case BaseStates.Default:
                                     animator.Update(0);
+                                    OnUpdateAlpha();
                                     gameObject.SetActive(false);
                                     break;
 

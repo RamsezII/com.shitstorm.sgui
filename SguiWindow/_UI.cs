@@ -71,7 +71,6 @@ namespace _SGUI_
 
         protected virtual void OnUpdateAlpha()
         {
-
         }
     }
 }
