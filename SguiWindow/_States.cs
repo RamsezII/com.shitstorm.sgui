@@ -36,6 +36,7 @@ namespace _SGUI_
                             {
                                 case BaseStates.Default:
                                     animator.Update(0);
+                                    animator.enabled = false;
                                     OnUpdateAlpha();
                                     gameObject.SetActive(false);
                                     break;
@@ -43,6 +44,12 @@ namespace _SGUI_
                                 case BaseStates.toActive:
                                 case BaseStates.fromActive_:
                                     NUCLEOR.delegates.onLateUpdate += OnUpdateAlpha;
+                                    break;
+
+                                case BaseStates.Active:
+                                    animator.Update(0);
+                                    animator.enabled = false;
+                                    OnUpdateAlpha();
                                     break;
                             }
 

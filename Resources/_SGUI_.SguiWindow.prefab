@@ -518,6 +518,7 @@ MonoBehaviour:
   raycaster: {fileID: 0}
   tmp_title: {fileID: 0}
   body_background: {fileID: 0}
+  rT: {fileID: 0}
   button_hide: {fileID: 0}
   button_fullscreen: {fileID: 0}
   button_close: {fileID: 0}
@@ -657,8 +658,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoSize: 0
   traductions:
-    english: COBRA
-    french: COBRA
+    english: _SGUI_SguiWindow
+    french: _SGUI_SguiWindow
   english: 
   francais: 
 --- !u!114 &7995039898302153677
@@ -681,7 +682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Window
+  m_text: _SGUI_SguiWindow
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 14d31e747ddbe2f4da52434d09e340c4, type: 2}

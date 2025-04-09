@@ -58,13 +58,19 @@ namespace _SGUI_
                             if (toggle)
                             {
                                 gameObject.SetActive(true);
+                                animator.enabled = true;
+                                animator.Update(0);
                                 state = BaseStates.toActive;
                             }
                             break;
 
                         case BaseStates.Active:
                             if (!toggle)
+                            {
+                                animator.enabled = true;
+                                animator.Update(0);
                                 state = BaseStates.fromActive_;
+                            }
                             break;
 
                         case BaseStates.toActive:
@@ -107,6 +113,7 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             instances.RemoveElement(this);
+            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})");
         }
     }
 }
