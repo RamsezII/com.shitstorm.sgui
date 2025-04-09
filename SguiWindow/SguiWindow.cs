@@ -22,6 +22,7 @@ namespace _SGUI_
             animator = GetComponent<Animator>();
             animator.writeDefaultValuesOnDisable = true;
             animator.keepAnimatorStateOnDisable = true;
+            animator.Update(0);
             AwakeUI();
         }
 
@@ -113,7 +114,7 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             instances.RemoveElement(this);
-            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})");
+            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());
         }
     }
 }
