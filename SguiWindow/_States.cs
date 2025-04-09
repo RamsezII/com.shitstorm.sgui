@@ -53,6 +53,10 @@ namespace _SGUI_
                                     break;
                             }
 
+                            onState?.Invoke(state);
+                            onState_once?.Invoke(state);
+                            onState_once = null;
+
                             state_base = state;
                         }
                         break;

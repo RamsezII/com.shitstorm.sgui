@@ -1,5 +1,6 @@
 using _ARK_;
 using _UTIL_;
+using System;
 using UnityEngine;
 
 namespace _SGUI_
@@ -14,6 +15,8 @@ namespace _SGUI_
         [SerializeField] bool animated_toggle = true;
 
         public readonly OnValue<bool> isActive = new();
+
+        public Action<BaseStates> onState, onState_once;
 
         //--------------------------------------------------------------------------------------------------------------
 
