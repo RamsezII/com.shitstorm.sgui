@@ -1,6 +1,5 @@
 ﻿using _UTIL_;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_

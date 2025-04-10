@@ -9,7 +9,7 @@ namespace _SGUI_
         [HideInInspector] public Canvas canvas;
         [HideInInspector] public GraphicRaycaster raycaster;
 
-        public Traductable tmp_title;
+        public Traductable trad_title;
         public Graphic body_background;
         [HideInInspector] public RectTransform rT;
         public Button button_hide, button_fullscreen, button_close;
@@ -32,7 +32,7 @@ namespace _SGUI_
             rT = (RectTransform)transform.Find("rT");
             init_rect = rT.rect;
 
-            tmp_title = transform.Find("rT/header/title").GetComponent<Traductable>();
+            trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
             body_background = transform.Find("rT/body/background").GetComponent<Graphic>();
             ui_alpha = body_background.color.a;
             ui_hue_start = body_background.color.GetHue();
