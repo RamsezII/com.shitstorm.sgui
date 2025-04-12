@@ -2,5 +2,9 @@
     "name": "com.ram16.sgui",
     "version": "7.7.7",
     "displayName": "ram16._SGUI_",
-    "description": "Fragile and immense, seed and tree — seed as central Heart."
+    "description": "Fragile and immense, seed and tree — seed as central Heart.",
+    "author": {
+        "name": "RamsezII",
+        "url": "https://github.com/RamsezII"
+    }
 }
