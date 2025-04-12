@@ -14,7 +14,7 @@ namespace _SGUI_
 
         [SerializeField] bool animated_toggle = true;
 
-        public readonly OnValue<bool> sgui_toggle = new();
+        public readonly OnValue<bool> sgui_toggle_window = new();
 
         public Action<BaseStates> onState, onState_once;
         public Action onDestroy;

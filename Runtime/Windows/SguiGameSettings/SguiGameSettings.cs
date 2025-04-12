@@ -1,3 +1,5 @@
+using _ARK_;
+
 namespace _SGUI_
 {
     public class SguiGameSettings : SguiWindow
@@ -10,6 +12,18 @@ namespace _SGUI_
         {
             base.Awake();
             instance = this;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void Start()
+        {
+            base.Start();
+            NUCLEOR.instance.subScheduler.AddRoutine(Util.EWhile(
+                () => state_base == 0,
+                null,
+                () => sgui_toggle_window.Update(true))
+                );
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -5,9 +5,9 @@
         void AwakeToggle()
         {
             if (!animated_toggle)
-                sgui_toggle.AddListener(toggle => gameObject.SetActive(toggle));
+                sgui_toggle_window.AddListener(toggle => gameObject.SetActive(toggle));
             else
-                sgui_toggle.AddListener(toggle =>
+                sgui_toggle_window.AddListener(toggle =>
                 {
                     BaseStates state = state_base;
                     float offset = 0;

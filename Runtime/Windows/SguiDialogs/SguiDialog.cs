@@ -48,7 +48,7 @@ namespace _SGUI_
                     Destroy(gameObject);
             };
 
-            sgui_toggle.Update(true);
+            sgui_toggle_window.Update(true);
 
             bool waiting = true;
             bool value = false;
@@ -67,7 +67,7 @@ namespace _SGUI_
             while (waiting)
                 yield return default;
 
-            sgui_toggle.Update(false);
+            sgui_toggle_window.Update(false);
 
             yield return value;
         }
