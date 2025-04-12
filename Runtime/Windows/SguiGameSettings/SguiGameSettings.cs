@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace _SGUI_
 {
     public class SguiGameSettings : SguiWindow
