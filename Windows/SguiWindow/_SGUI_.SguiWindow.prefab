@@ -409,7 +409,6 @@ GameObject:
   - component: {fileID: 760598685874526509}
   - component: {fileID: 3658741933048503878}
   - component: {fileID: -4522585111822584277}
-  - component: {fileID: -3348127568436379902}
   m_Layer: 5
   m_Name: _SGUI_.SguiWindow
   m_TagString: Untagged
@@ -499,33 +498,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &-3348127568436379902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8602497956687100555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0632574cbf188db489f78ab9320058fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  animated_toggle: 1
-  state_base: 0
-  canvas: {fileID: 0}
-  raycaster: {fileID: 0}
-  tmp_title: {fileID: 0}
-  body_background: {fileID: 0}
-  rT: {fileID: 0}
-  button_hide: {fileID: 0}
-  button_fullscreen: {fileID: 0}
-  button_close: {fileID: 0}
-  anim_alpha: 1
-  ui_hue_start: 0
-  ui_hue_current: 0
-  ui_alpha: 0
 --- !u!1 &8691622465564368630
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,8 +630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoSize: 0
   traductions:
-    english: _SGUI_SguiWindow
-    french: _SGUI_SguiWindow
+    english: Cobra OS
+    french: Cobra OS
   english: 
   francais: 
 --- !u!114 &7995039898302153677
@@ -682,7 +654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: _SGUI_SguiWindow
+  m_text: Cobra OS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 14d31e747ddbe2f4da52434d09e340c4, type: 2}

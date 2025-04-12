@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public partial class SguiWindow : MonoBehaviour
+    public abstract partial class SguiWindow : MonoBehaviour
     {
         public static readonly ListListener<SguiWindow> instances = new();
         public bool HasFocus => instances.IsLast(this);
