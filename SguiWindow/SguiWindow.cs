@@ -17,6 +17,7 @@ namespace _SGUI_
         public readonly OnValue<bool> isActive = new();
 
         public Action<BaseStates> onState, onState_once;
+        public Action onDestroy;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -116,6 +117,7 @@ namespace _SGUI_
 
         protected virtual void OnDestroy()
         {
+            onDestroy?.Invoke();
             instances.RemoveElement(this);
             Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());
         }
