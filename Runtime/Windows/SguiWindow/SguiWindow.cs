@@ -14,7 +14,7 @@ namespace _SGUI_
 
         [SerializeField] bool animated_toggle = true;
 
-        public readonly OnValue<bool> isActive = new();
+        public readonly OnValue<bool> sgui_toggle = new();
 
         public Action<BaseStates> onState, onState_once;
         public Action onDestroy;
@@ -28,6 +28,7 @@ namespace _SGUI_
             animator.keepAnimatorStateOnDisable = true;
             animator.Update(0);
             AwakeUI();
+            AwakeToggle();
         }
 
         protected virtual void OnEnable()
@@ -49,55 +50,6 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
-            if (!animated_toggle)
-                isActive.AddListener(toggle => gameObject.SetActive(toggle));
-            else
-                isActive.AddListener(toggle =>
-                {
-                    BaseStates state = state_base;
-                    float offset = 0;
-
-                    switch (state)
-                    {
-                        case BaseStates.Default:
-                            if (toggle)
-                            {
-                                gameObject.SetActive(true);
-                                animator.enabled = true;
-                                animator.Update(0);
-                                state = BaseStates.toActive;
-                            }
-                            break;
-
-                        case BaseStates.Active:
-                            if (!toggle)
-                            {
-                                animator.enabled = true;
-                                animator.Update(0);
-                                state = BaseStates.fromActive_;
-                            }
-                            break;
-
-                        case BaseStates.toActive:
-                            if (!toggle)
-                            {
-                                state = BaseStates.fromActive_;
-                                offset = 1 - animator.GetNormlizedTimeClamped((int)AnimLayers.Base);
-                            }
-                            break;
-
-                        case BaseStates.fromActive_:
-                            if (toggle)
-                            {
-                                state = BaseStates.toActive;
-                                offset = 1 - animator.GetNormlizedTimeClamped((int)AnimLayers.Base);
-                            }
-                            break;
-                    }
-
-                    if (state != state_base)
-                        animator.CrossFade((int)state, 0, (int)AnimLayers.Base, offset);
-                });
         }
 
         //--------------------------------------------------------------------------------------------------------------
