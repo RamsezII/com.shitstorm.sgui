@@ -19,6 +19,8 @@ namespace _SGUI_
         public Action<BaseStates> onState, onState_once;
         public Action onDestroy;
 
+        [SerializeField] bool animate_hue = true;
+
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Awake()
@@ -34,7 +36,8 @@ namespace _SGUI_
         protected virtual void OnEnable()
         {
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
-            NUCLEOR.delegates.onLateUpdate += UpdateHue;
+            if (animate_hue)
+                NUCLEOR.delegates.onLateUpdate += UpdateHue;
 
             IMGUI_global.instance.users_ongui.RemoveElement(OnIMGui_toggle_fullscreen);
             IMGUI_global.instance.users_ongui.AddElement(OnIMGui_toggle_fullscreen, this);
