@@ -8,11 +8,12 @@ namespace _SGUI_
     {
         [HideInInspector] public Canvas canvas;
         [HideInInspector] public GraphicRaycaster raycaster;
+        [HideInInspector] public RectTransform rT, rT_parent;
 
         public Traductable trad_title;
         public Graphic body_background;
-        [HideInInspector] public RectTransform rT;
         public Button button_hide, button_fullscreen, button_close;
+        internal SguiZone zone_header, zone_outline;
 
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;
 
@@ -20,7 +21,7 @@ namespace _SGUI_
         [SerializeField] float ui_alpha;
 
         Rect init_rect;
-        protected readonly OnValue<bool> fullscreen = new();
+        public readonly OnValue<bool> fullscreen = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -28,8 +29,9 @@ namespace _SGUI_
         {
             canvas = GetComponent<Canvas>();
             raycaster = GetComponent<GraphicRaycaster>();
-
             rT = (RectTransform)transform.Find("rT");
+            rT_parent = (RectTransform)rT.parent;
+
             init_rect = rT.rect;
 
             trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
@@ -40,6 +42,13 @@ namespace _SGUI_
             button_hide = transform.Find("rT/header/buttons/hide/button").GetComponent<Button>();
             button_fullscreen = transform.Find("rT/header/buttons/fullscreen/button").GetComponent<Button>();
             button_close = transform.Find("rT/header/buttons/close/button").GetComponent<Button>();
+
+            zone_header = transform.Find("rT/header/gradient").GetComponent<SguiZone>();
+            zone_outline = transform.Find("rT/selected").GetComponent<SguiZone>();
+
+            zone_header.onDragDelta += OnHeaderDrag;
+            zone_outline.onDragBegin += OnOutlineBeginDrag;
+            zone_outline.onDragDelta += OnOutlineDrag;
 
             fullscreen.AddListener(toggle =>
             {
