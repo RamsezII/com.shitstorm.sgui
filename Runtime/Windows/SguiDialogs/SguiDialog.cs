@@ -1,4 +1,5 @@
-﻿using _UTIL_;
+﻿using _ARK_;
+using _UTIL_;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,9 @@ namespace _SGUI_
 
         public static SguiDialog ShowDialog(out IEnumerator<bool> routine)
         {
-            SguiDialog dialog = Util.Instantiate<SguiDialog>(SGUI_global.instance.rT);
-            routine = dialog.ERoutine();
-            return dialog;
+            SguiDialog clone = Util.Instantiate<SguiDialog>(SGUI_global.instance.rT);
+            routine = clone.ERoutine();
+            return clone;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -41,19 +42,17 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+
         IEnumerator<bool> ERoutine()
         {
             while (state_base == 0)
-                yield return default;
-            yield return default;
+                yield return false;
 
-            onState += state =>
+            onState += (state, onEnter) =>
             {
                 if (state == BaseStates.Default)
                     Destroy(gameObject);
             };
-
-            sgui_toggle_window.Update(true);
 
             bool waiting = true;
             bool value = false;
@@ -71,6 +70,9 @@ namespace _SGUI_
 
             while (waiting)
                 yield return default;
+
+            button_no.interactable = false;
+            button_yes.interactable = false;
 
             sgui_toggle_window.Update(false);
 

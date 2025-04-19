@@ -1,6 +1,7 @@
 using _ARK_;
 using _UTIL_;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _SGUI_
@@ -16,13 +17,16 @@ namespace _SGUI_
 
         public readonly OnValue<bool> sgui_toggle_window = new();
 
-        public Action<BaseStates> onState, onState_once;
+        public Action<BaseStates, bool> onState, onState_once;
         public Action onDestroy;
 
         [SerializeField]
         bool
             animate_hue = true,
-            can_fullscreen;
+            can_fullscreen,
+            open_on_awake = true;
+
+        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SGUI_global.instance.rT);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -62,6 +66,16 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
+            if (open_on_awake)
+            {
+                NUCLEOR.instance.subScheduler.AddRoutine(EOpen());
+                IEnumerator<float> EOpen()
+                {
+                    while(state_base==0)
+                        yield return 0;
+                    sgui_toggle_window.Update(true);
+                }
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
