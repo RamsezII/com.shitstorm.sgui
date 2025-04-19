@@ -19,7 +19,10 @@ namespace _SGUI_
         public Action<BaseStates> onState, onState_once;
         public Action onDestroy;
 
-        [SerializeField] bool animate_hue = true;
+        [SerializeField]
+        bool
+            animate_hue = true,
+            can_fullscreen;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -47,6 +50,12 @@ namespace _SGUI_
         {
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
             IMGUI_global.instance.users_ongui.RemoveElement(OnIMGui_toggle_fullscreen);
+        }
+
+        private void OnApplicationFocus(bool focus)
+        {
+            if (focus)
+                CheckBounds();
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 ﻿using _UTIL_;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -32,6 +33,10 @@ namespace _SGUI_
             button_hide.gameObject.SetActive(false);
             button_fullscreen.gameObject.SetActive(false);
             button_close.gameObject.SetActive(false);
+
+            Vector2 size = rT.rect.size;
+            Vector2 psize = rT_parent.rect.size;
+            rT.anchoredPosition = .5f * (psize - size);
         }
 
         //--------------------------------------------------------------------------------------------------------------
