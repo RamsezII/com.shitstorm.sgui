@@ -1,4 +1,5 @@
 using _ARK_;
+using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace _SGUI_
 
         public TMP_InputField main_input_field;
         [SerializeField] TextMeshProUGUI lint_tmp, footer_tmp;
+        public Func<string, string> linter;
 
         [SerializeField] bool init_b;
 
@@ -26,6 +28,18 @@ namespace _SGUI_
             main_input_field.onValueChanged.AddListener(OnValueChange);
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            USAGES.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.TrueMouse, UsageGroups.IMGUI, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            USAGES.RemoveUser(this);
+        }
+
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Start()
@@ -36,7 +50,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Init(in string file_path, in bool create_if_none)
+        public void Init(in string file_path, in bool create_if_none, in Func<string, string> linter)
         {
             this.file_path = file_path;
 
@@ -65,6 +79,8 @@ namespace _SGUI_
 
         protected virtual void OnValueChange(string text)
         {
+            if (linter != null)
+                text = linter(text);
             lint_tmp.text = text;
         }
 
