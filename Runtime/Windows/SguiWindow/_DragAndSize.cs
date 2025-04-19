@@ -91,19 +91,22 @@ namespace _SGUI_
 
         void OnSizeDrag_begin(Vector2 mouse_pos)
         {
+            Vector2 size = rT.rect.size;
+
             mouse_pos = ScreenPositionToLocal(mouse_pos);
 
-            Vector2 size = rT.rect.size;
+            mouse_pos.x /= size.x;
+            mouse_pos.y /= size.y;
 
             dragmode = 0;
 
-            if (mouse_pos.x >= size.x)
+            if (mouse_pos.x >= .9f)
                 dragmode |= DRAG_MODES.RIGHT;
-            if (mouse_pos.x <= 0)
+            if (mouse_pos.x <= .1f)
                 dragmode |= DRAG_MODES.LEFT;
-            if (mouse_pos.y >= size.y)
+            if (mouse_pos.y >= .9f)
                 dragmode |= DRAG_MODES.TOP;
-            if (mouse_pos.y <= 0)
+            if (mouse_pos.y <= .1f)
                 dragmode |= DRAG_MODES.BOTTOM;
         }
 
