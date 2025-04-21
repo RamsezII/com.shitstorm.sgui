@@ -24,7 +24,7 @@ namespace _SGUI_
 
             main_input_field = transform.Find("rT/body/file_body/Scroll View/Viewport/Content/InputField").GetComponent<TMP_InputField>();
             lint_tmp = transform.Find("rT/body/file_body/Scroll View/Viewport/Content/InputField/Text Area/Text/Lint").GetComponent<TextMeshProUGUI>();
-            footer_tmp = transform.Find("rT/body/footer/text").GetComponent<TextMeshProUGUI>();
+            footer_tmp = transform.Find("rT/body/file_body/footer/text").GetComponent<TextMeshProUGUI>();
             main_input_field.onValueChanged.AddListener(OnValueChange);
         }
 
