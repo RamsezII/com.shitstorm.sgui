@@ -72,6 +72,7 @@ namespace _SGUI_
                     if (e.keyCode == KeyCode.S)
                     {
                         Debug.Log("SAVE");
+                        File.WriteAllText(file_path, main_input_field.text);
                         return true;
                     }
             return false;
