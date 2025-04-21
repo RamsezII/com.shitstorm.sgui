@@ -26,6 +26,8 @@ namespace _SGUI_
             can_fullscreen,
             open_on_awake = true;
 
+        [SerializeField] protected bool oblivionized;
+
         public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SGUI_global.instance.rT);
 
         //--------------------------------------------------------------------------------------------------------------
@@ -89,6 +91,14 @@ namespace _SGUI_
                     return true;
                 }
             return false;
+        }
+
+        public void Oblivionize()
+        {
+            if (oblivionized)
+                return;
+            oblivionized = true;
+            sgui_toggle_window.Update(false);
         }
 
         //--------------------------------------------------------------------------------------------------------------

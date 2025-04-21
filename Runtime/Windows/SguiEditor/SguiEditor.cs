@@ -8,7 +8,7 @@ namespace _SGUI_
 {
     public partial class SguiEditor : SguiWindow
     {
-        public string file_path;
+        public string folder_path;
 
         public TMP_InputField main_input_field;
         [SerializeField] TextMeshProUGUI lint_tmp, footer_tmp;
@@ -16,15 +16,22 @@ namespace _SGUI_
 
         [SerializeField] bool init_b;
 
+        [SerializeField] Button_Folder prefab_folder;
+        [SerializeField] Button_File prefab_file;
+
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
             base.Awake();
 
-            main_input_field = transform.Find("rT/body/file_body/Scroll View/Viewport/Content/InputField").GetComponent<TMP_InputField>();
-            lint_tmp = transform.Find("rT/body/file_body/Scroll View/Viewport/Content/InputField/Text Area/Text/Lint").GetComponent<TextMeshProUGUI>();
-            footer_tmp = transform.Find("rT/body/file_body/footer/text").GetComponent<TextMeshProUGUI>();
+            main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
+            lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
+            footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
+
+            prefab_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
+            prefab_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
+
             main_input_field.onValueChanged.AddListener(OnValueChange);
         }
 
@@ -45,22 +52,20 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
+
+            prefab_folder.gameObject.SetActive(false);
+            prefab_file.gameObject.SetActive(false);
+
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void Init(in string file_path, in bool create_if_none, in Func<string, string> linter)
+        protected void Init(in string folder_path)
         {
-            this.file_path = file_path;
-
-            if (File.Exists(file_path))
-                main_input_field.text = File.ReadAllText(file_path);
-            else
-                main_input_field.text = string.Empty;
-
+            this.folder_path = folder_path;
+            footer_tmp.text = folder_path;
             init_b = true;
-            footer_tmp.text = file_path;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -72,7 +77,7 @@ namespace _SGUI_
                     if (e.keyCode == KeyCode.S)
                     {
                         Debug.Log("SAVE");
-                        File.WriteAllText(file_path, main_input_field.text);
+                        File.WriteAllText(folder_path, main_input_field.text);
                         return true;
                     }
             return false;
