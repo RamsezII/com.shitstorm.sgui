@@ -1,19 +1,11 @@
 using _ARK_;
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class SguiEditor : SguiWindow
+    public partial class SguiEditor : SguiNotepad
     {
-        public TMP_InputField main_input_field;
-        [SerializeField] TextMeshProUGUI lint_tmp, footer_tmp;
-        public Func<string, string> linter;
-
-        [SerializeField] bool init_b;
-
         [SerializeField] RectTransform content_parent_rT, content_rT;
         [SerializeField] VerticalLayoutGroup content_layout;
 
@@ -29,18 +21,12 @@ namespace _SGUI_
         {
             base.Awake();
 
-            main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
-            lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
-            footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
-
             content_parent_rT = (RectTransform)transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport");
             content_rT = (RectTransform)content_parent_rT.Find("content_layout");
             content_layout = content_rT.GetComponent<VerticalLayoutGroup>();
 
             prefab_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
             prefab_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
-
-            main_input_field.onValueChanged.AddListener(OnValueChange);
         }
 
         protected override void OnEnable()
@@ -72,8 +58,6 @@ namespace _SGUI_
         protected void Init(in string folder_path)
         {
             footer_tmp.text = folder_path;
-            init_b = true;
-
             root_folder = NewFolder();
             root_folder.Init(folder_path, 0);
         }
@@ -93,13 +77,6 @@ namespace _SGUI_
                         return true;
                     }
             return false;
-        }
-
-        protected virtual void OnValueChange(string text)
-        {
-            if (linter != null)
-                text = linter(text);
-            lint_tmp.text = text;
         }
 
         public void SetDirty_HierarchySize()
