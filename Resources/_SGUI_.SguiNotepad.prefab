@@ -1405,7 +1405,7 @@ PrefabInstance:
     - target: {fileID: 8602497956687100555, guid: 4919d5e9b2082144ba72c94703740d4b,
         type: 3}
       propertyPath: m_Name
-      value: _SGUI_.SguiEditor
+      value: _SGUI_.SguiNotepad
       objectReference: {fileID: 0}
     - target: {fileID: 8691622465564368630, guid: 4919d5e9b2082144ba72c94703740d4b,
         type: 3}
@@ -1489,6 +1489,7 @@ MonoBehaviour:
   animate_hue: 1
   can_fullscreen: 0
   open_on_awake: 1
+  oblivionized: 0
   dragmode: 0
   state_base: 0
   canvas: {fileID: 0}
@@ -1504,11 +1505,13 @@ MonoBehaviour:
   ui_hue_start: 0
   ui_hue_current: 0
   ui_alpha: 0
-  file_path: 
+  folder_path: 
   main_input_field: {fileID: 0}
   lint_tmp: {fileID: 0}
   footer_tmp: {fileID: 0}
   init_b: 0
+  prefab_folder: {fileID: 0}
+  prefab_file: {fileID: 0}
 --- !u!1001 &8394494994353221021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1520,7 +1523,7 @@ PrefabInstance:
     - target: {fileID: 1366371529127254373, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
       propertyPath: m_Size
-      value: 0.61538464
+      value: 0.6153846
       objectReference: {fileID: 0}
     - target: {fileID: 1366371529127254373, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
@@ -1655,7 +1658,12 @@ PrefabInstance:
     - target: {fileID: 6494687521275554026, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
       propertyPath: m_Size
-      value: 0.8
+      value: 0.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6494687521275554026, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.0000003814696
       objectReference: {fileID: 0}
     - target: {fileID: 8553645686201868768, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
