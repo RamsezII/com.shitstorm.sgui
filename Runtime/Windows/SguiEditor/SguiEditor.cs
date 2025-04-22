@@ -1,8 +1,8 @@
 using _ARK_;
 using System;
-using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
@@ -14,10 +14,14 @@ namespace _SGUI_
 
         [SerializeField] bool init_b;
 
+        [SerializeField] RectTransform content_parent_rT, content_rT;
+        [SerializeField] VerticalLayoutGroup content_layout;
+
         [SerializeField] Button_Folder prefab_folder;
         [SerializeField] Button_File prefab_file;
 
         [SerializeField] internal Button_Folder root_folder;
+        [SerializeField] internal float hierarchy_width = 5;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -28,6 +32,10 @@ namespace _SGUI_
             main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
             lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
             footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
+
+            content_parent_rT = (RectTransform)transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport");
+            content_rT = (RectTransform)content_parent_rT.Find("content_layout");
+            content_layout = content_rT.GetComponent<VerticalLayoutGroup>();
 
             prefab_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
             prefab_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
@@ -67,7 +75,7 @@ namespace _SGUI_
             init_b = true;
 
             root_folder = NewFolder();
-            root_folder.Init(folder_path);
+            root_folder.Init(folder_path, 0);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -92,6 +100,25 @@ namespace _SGUI_
             if (linter != null)
                 text = linter(text);
             lint_tmp.text = text;
+        }
+
+        public void SetDirty_HierarchySize()
+        {
+            Util.AddAction(ref NUCLEOR.delegates.onLateUpdate, ResizeHierarchy);
+        }
+
+        public void ResizeHierarchy()
+        {
+            Vector2 parent_size = content_parent_rT.rect.size;
+            Vector2 size = parent_size;
+            Vector2 pref_size = new(content_layout.preferredWidth, content_layout.preferredHeight);
+
+            if (pref_size.x > size.x)
+                size.x = pref_size.x;
+            if (pref_size.y > size.y)
+                size.y = pref_size.y;
+
+            content_rT.sizeDelta = size;
         }
 
         //--------------------------------------------------------------------------------------------------------------

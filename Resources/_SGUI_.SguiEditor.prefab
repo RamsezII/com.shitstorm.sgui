@@ -536,17 +536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3445333133191237291, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3445333133191237291, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
-        type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3445333133191237291, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
-        type: 3}
-      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3445333133191237291, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
@@ -583,6 +573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Value
       value: 0.000010681119
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750159381884906884, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
+        type: 3}
+      propertyPath: m_VerticalScrollbarVisibility
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8553645686201868768, guid: 8b0da29c0dba7ff48909fbff49f88cc5,
         type: 3}
