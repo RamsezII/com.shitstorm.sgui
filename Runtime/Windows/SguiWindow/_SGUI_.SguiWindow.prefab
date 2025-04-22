@@ -1248,10 +1248,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6920316775870833724}
     m_Modifications:
-    - target: {fileID: 3710442945465002236, guid: 4475536219fa22f439e87f2843333f7f,
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294114815
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081782410183615251, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
@@ -1352,16 +1357,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.french
-      value: "\xC9dition"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.english
-      value: Edit
       objectReference: {fileID: 0}
     - target: {fileID: 7131296123643598439, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
@@ -1562,10 +1557,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6920316775870833724}
     m_Modifications:
-    - target: {fileID: 3710442945465002236, guid: 4475536219fa22f439e87f2843333f7f,
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294114815
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081782410183615251, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
@@ -1666,16 +1666,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.french
-      value: Fichier
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.english
-      value: File
       objectReference: {fileID: 0}
     - target: {fileID: 7131296123643598439, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
@@ -1701,10 +1691,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6920316775870833724}
     m_Modifications:
-    - target: {fileID: 3710442945465002236, guid: 4475536219fa22f439e87f2843333f7f,
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294114815
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039089121231221761, guid: 4475536219fa22f439e87f2843333f7f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081782410183615251, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
@@ -1805,16 +1800,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.french
-      value: Manuel
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093157792286594046, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: traductions.english
-      value: Manual
       objectReference: {fileID: 0}
     - target: {fileID: 7131296123643598439, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}

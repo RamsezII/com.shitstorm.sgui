@@ -50,6 +50,8 @@ namespace _SGUI_
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
 
+            main_input_field.onValueChanged.AddListener(OnValueChange);
+
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
         }
 
@@ -77,6 +79,11 @@ namespace _SGUI_
                         return true;
                     }
             return false;
+        }
+
+        protected virtual void OnValueChange(string text)
+        {
+
         }
 
         public void SetDirty_HierarchySize()
