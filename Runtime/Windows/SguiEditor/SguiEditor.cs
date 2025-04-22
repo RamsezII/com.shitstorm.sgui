@@ -8,8 +8,6 @@ namespace _SGUI_
 {
     public partial class SguiEditor : SguiWindow
     {
-        public string folder_path;
-
         public TMP_InputField main_input_field;
         [SerializeField] TextMeshProUGUI lint_tmp, footer_tmp;
         public Func<string, string> linter;
@@ -18,6 +16,8 @@ namespace _SGUI_
 
         [SerializeField] Button_Folder prefab_folder;
         [SerializeField] Button_File prefab_file;
+
+        [SerializeField] internal Button_Folder root_folder;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -63,12 +63,17 @@ namespace _SGUI_
 
         protected void Init(in string folder_path)
         {
-            this.folder_path = folder_path;
             footer_tmp.text = folder_path;
             init_b = true;
+
+            root_folder = NewFolder();
+            root_folder.Init(folder_path);
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        internal Button_Folder NewFolder() => Instantiate(prefab_folder, prefab_folder.transform.parent);
+        internal Button_File NewFile() => Instantiate(prefab_file, prefab_folder.transform.parent);
 
         protected virtual bool OnImguiInput(Event e)
         {
@@ -77,7 +82,6 @@ namespace _SGUI_
                     if (e.keyCode == KeyCode.S)
                     {
                         Debug.Log("SAVE");
-                        File.WriteAllText(folder_path, main_input_field.text);
                         return true;
                     }
             return false;
