@@ -9,13 +9,21 @@ namespace _SGUI_
         [SerializeField] protected TextMeshProUGUI footer_tmp;
 
         //--------------------------------------------------------------------------------------------------------------
-        
+
         protected override void Awake()
         {
             main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
             footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
 
             base.Awake();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void Start()
+        {
+            main_input_field.text = string.Empty;
+            base.Start();
         }
     }
 }

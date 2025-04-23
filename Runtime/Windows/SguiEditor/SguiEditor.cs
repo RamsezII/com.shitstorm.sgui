@@ -1,3 +1,4 @@
+using System.IO;
 using _ARK_;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,12 +46,12 @@ namespace _SGUI_
 
         protected override void Start()
         {
+            main_input_field.onValueChanged.AddListener(OnValueChange);
+
             base.Start();
 
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
-
-            main_input_field.onValueChanged.AddListener(OnValueChange);
 
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
         }
@@ -68,6 +69,14 @@ namespace _SGUI_
 
         internal Button_Folder NewFolder() => Instantiate(prefab_folder, prefab_folder.transform.parent);
         internal Button_File NewFile() => Instantiate(prefab_file, prefab_folder.transform.parent);
+
+        internal void OnFileSelection(in Button_File button_file)
+        {
+            if (File.Exists(button_file.full_path))
+                main_input_field.text = File.ReadAllText(button_file.full_path);
+            else
+                main_input_field.text = string.Empty;
+        }
 
         protected virtual bool OnImguiInput(Event e)
         {
