@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiWindow
+    partial class SguiWindow1
     {
         [HideInInspector] public Canvas canvas;
         [HideInInspector] public GraphicRaycaster raycaster;

@@ -6,7 +6,7 @@ namespace _SGUI_
 {
     internal class SguiZone : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler
     {
-        public SguiWindow window;
+        public SguiWindow1 window;
 
         const float doubleckick_time = .3f;
         float doubleclick_last;
@@ -17,7 +17,7 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
-            window = GetComponentInParent<SguiWindow>();
+            window = GetComponentInParent<SguiWindow1>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public abstract partial class SguiWindow : MonoBehaviour
+    public abstract partial class SguiWindow1 : MonoBehaviour
     {
-        public static readonly ListListener<SguiWindow> instances = new();
+        public static readonly ListListener<SguiWindow1> instances = new();
         public bool HasFocus => instances.IsLast(this);
 
         [HideInInspector] public Animator animator;
@@ -28,7 +28,7 @@ namespace _SGUI_
 
         [SerializeField] protected bool oblivionized;
 
-        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
+        public static T InstantiateWindow<T>() where T : SguiWindow1 => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
 
         //--------------------------------------------------------------------------------------------------------------
 

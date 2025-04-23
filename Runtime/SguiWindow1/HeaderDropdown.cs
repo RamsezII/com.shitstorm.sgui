@@ -7,7 +7,7 @@ namespace _SGUI_
 {
     internal class HeaderDropdown : MonoBehaviour
     {
-        public SguiWindow window;
+        public SguiWindow1 window;
         public Button button;
         public TMP_Dropdown dropdown;
         public Action<string> onItemClick;
@@ -16,7 +16,7 @@ namespace _SGUI_
 
         private void Awake()
         {
-            window = GetComponentInParent<SguiWindow>();
+            window = GetComponentInParent<SguiWindow1>();
             RectTransform child_rt = (RectTransform)transform.GetChild(0);
             button = child_rt.GetComponent<Button>();
             dropdown = child_rt.GetComponent<TMP_Dropdown>();

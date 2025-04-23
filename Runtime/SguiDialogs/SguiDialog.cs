@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class SguiDialog : SguiWindow
+    public partial class SguiDialog : SguiWindow1
     {
         protected Traductable trad_text;
         public Button button_no, button_yes;

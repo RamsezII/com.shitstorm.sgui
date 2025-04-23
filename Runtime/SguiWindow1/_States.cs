@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiWindow : IOnStateMachine
+    partial class SguiWindow1 : IOnStateMachine
     {
         public enum AnimLayers : byte { Base, _last_ }
 

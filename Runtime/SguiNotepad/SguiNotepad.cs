@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public partial class SguiNotepad : SguiWindow
+    public partial class SguiNotepad : SguiWindow1
     {
         internal HeaderDropdown dropdown_files;
         public TMP_InputField main_input_field;

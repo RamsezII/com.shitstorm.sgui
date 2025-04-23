@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiWindow
+    partial class SguiWindow1
     {
         enum DragModes : byte
         {
