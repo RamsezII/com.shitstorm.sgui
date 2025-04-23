@@ -67,7 +67,7 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
-            OnRebuildDropdowns();
+            OnPopulateDropdowns();
             AwakeToggle();
 
             if (open_on_awake)

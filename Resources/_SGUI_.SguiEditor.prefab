@@ -848,26 +848,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2403849138423183139, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2403849138423183139, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[2].m_Text
-      value: Open Folder
-      objectReference: {fileID: 0}
-    - target: {fileID: 2403849138423183139, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[3].m_Text
-      value: Save
-      objectReference: {fileID: 0}
-    - target: {fileID: 2403849138423183139, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[4].m_Text
-      value: Save As
-      objectReference: {fileID: 0}
     - target: {fileID: 3341388741070374263, guid: f0865236242ab6d439a0fed223ffa860,
         type: 3}
       propertyPath: m_Size
@@ -1213,14 +1193,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5359201178162972687, guid: f0865236242ab6d439a0fed223ffa860, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2774417815559815358, guid: f0865236242ab6d439a0fed223ffa860,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1308687532743711920}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6863042799129648363, guid: f0865236242ab6d439a0fed223ffa860,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1740854153315501886}
   m_SourcePrefab: {fileID: 100100000, guid: f0865236242ab6d439a0fed223ffa860, type: 3}
 --- !u!224 &1983538151537735915 stripped
 RectTransform:
@@ -1228,6 +1213,54 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4397280414736201813}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7077453187481789630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6863042799129648363, guid: f0865236242ab6d439a0fed223ffa860,
+    type: 3}
+  m_PrefabInstance: {fileID: 4397280414736201813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1740854153315501886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077453187481789630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fce97f7b0aa806439ae2c3a6994c9de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  animated_toggle: 1
+  animate_hue: 1
+  can_fullscreen: 0
+  open_on_awake: 1
+  oblivionized: 0
+  dragmode: 0
+  state_base: 0
+  canvas: {fileID: 0}
+  raycaster: {fileID: 0}
+  rT: {fileID: 0}
+  rT_parent: {fileID: 0}
+  trad_title: {fileID: 0}
+  body_background: {fileID: 0}
+  button_hide: {fileID: 0}
+  button_fullscreen: {fileID: 0}
+  button_close: {fileID: 0}
+  anim_alpha: 1
+  ui_hue_start: 0
+  ui_hue_current: 0
+  ui_alpha: 0
+  main_input_field: {fileID: 0}
+  footer_tmp: {fileID: 0}
+  content_parent_rT: {fileID: 0}
+  content_rT: {fileID: 0}
+  content_layout: {fileID: 0}
+  prefab_folder: {fileID: 0}
+  prefab_file: {fileID: 0}
+  root_folder: {fileID: 0}
+  hierarchy_width: 5
 --- !u!1001 &5070091044439186255
 PrefabInstance:
   m_ObjectHideFlags: 0

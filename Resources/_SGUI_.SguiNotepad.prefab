@@ -1389,7 +1389,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8602497956687100555, guid: 4919d5e9b2082144ba72c94703740d4b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8851972723525573487}
+      addedObject: {fileID: 5359201178162972687}
   m_SourcePrefab: {fileID: 100100000, guid: 4919d5e9b2082144ba72c94703740d4b, type: 3}
 --- !u!224 &1032112646951113344 stripped
 RectTransform:
@@ -1415,7 +1415,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2908299790099375712}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-8851972723525573487
+--- !u!114 &5359201178162972687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6863042799129648363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fce97f7b0aa806439ae2c3a6994c9de, type: 3}
+  m_Script: {fileID: 11500000, guid: 93c63965a5312d04e9d88def57e1e6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
@@ -1450,13 +1450,6 @@ MonoBehaviour:
   ui_alpha: 0
   main_input_field: {fileID: 0}
   footer_tmp: {fileID: 0}
-  content_parent_rT: {fileID: 0}
-  content_rT: {fileID: 0}
-  content_layout: {fileID: 0}
-  prefab_folder: {fileID: 0}
-  prefab_file: {fileID: 0}
-  root_folder: {fileID: 0}
-  hierarchy_width: 5
 --- !u!1001 &4053503631944538279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1465,36 +1458,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5212279063057678940}
     m_Modifications:
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: New File
-      objectReference: {fileID: 0}
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[1].m_Text
-      value: Open File
-      objectReference: {fileID: 0}
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[2].m_Text
-      value: Save
-      objectReference: {fileID: 0}
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[3].m_Text
-      value: Save As
-      objectReference: {fileID: 0}
-    - target: {fileID: 1809532383374405508, guid: 4475536219fa22f439e87f2843333f7f,
-        type: 3}
-      propertyPath: m_Options.m_Options.Array.data[4].m_Text
-      value: Save As
-      objectReference: {fileID: 0}
     - target: {fileID: 4275556880367524326, guid: 4475536219fa22f439e87f2843333f7f,
         type: 3}
       propertyPath: traductions.french

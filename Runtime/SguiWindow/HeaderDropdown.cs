@@ -10,7 +10,7 @@ namespace _SGUI_
         public SguiWindow window;
         public Button button;
         public TMP_Dropdown dropdown;
-        public Action onItemClick;
+        public Action<string> onItemClick;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -26,9 +26,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void OnItemClick(in HeaderDropdownItem item)
+        internal void OnItemClick(in HeaderDropdownItem item)
         {
-            onItemClick?.Invoke();
+            onItemClick?.Invoke(item.label.text);
         }
     }
 }
