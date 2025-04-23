@@ -21,6 +21,8 @@ namespace _SGUI_
 
         protected override void OnPopulateDropdowns()
         {
+            base.OnPopulateDropdowns();
+
             List<TMP_Dropdown.OptionData> options = new();
             OnPopulateDropdown_Files(options);
             dropdown_files.dropdown.AddOptions(options);

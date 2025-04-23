@@ -38,7 +38,7 @@ namespace _SGUI_
                 }));
         }
 
-        public virtual void OnClick_HelpDropdown(string item)
+        public virtual void OnClickDropdown_Help(string item)
         {
             if (Enum.TryParse(item, true, out HelpDropdowns code))
                 switch (code)

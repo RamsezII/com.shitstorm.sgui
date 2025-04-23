@@ -51,7 +51,7 @@ namespace _SGUI_
             dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
 
             if (dropdown_help != null)
-                dropdown_help.onItemClick += OnClick_HelpDropdown;
+                dropdown_help.onItemClick += OnClickDropdown_Help;
 
             zone_drag.onDragDelta += OnHeaderDrag;
             zone_size.onDragBegin += OnSizeDrag_begin;
