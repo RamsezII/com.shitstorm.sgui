@@ -28,7 +28,7 @@ namespace _SGUI_
 
         [SerializeField] protected bool oblivionized;
 
-        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SGUI_global.instance.rT);
+        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +39,6 @@ namespace _SGUI_
             animator.keepAnimatorStateOnDisable = true;
             animator.Update(0);
             AwakeUI();
-            AwakeToggle();
         }
 
         protected virtual void OnEnable()
@@ -68,6 +67,9 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
+            OnRebuildDropdowns();
+            AwakeToggle();
+
             if (open_on_awake)
             {
                 NUCLEOR.instance.subScheduler.AddRoutine(EOpen());

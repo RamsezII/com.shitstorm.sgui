@@ -27,7 +27,7 @@ namespace _SGUI_
         {
             base.Start();
             button.onClick.AddListener(Toggle);
-            Toggle(false);
+            Toggle(this == editor.root_folder);
         }
 
         //--------------------------------------------------------------------------------------------------------------

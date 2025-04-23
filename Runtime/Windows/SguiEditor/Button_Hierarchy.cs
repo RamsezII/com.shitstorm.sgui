@@ -38,7 +38,7 @@ namespace _SGUI_
             gameObject.SetActive(true);
             this.depth = depth;
             offset_rT.anchoredPosition += depth * editor.hierarchy_width * Vector2.right;
-            this.full_path = full_path;
+            this.full_path = full_path.ToLinuxPath();
             short_path = Path.GetFileName(full_path);
             text.text = short_path;
         }

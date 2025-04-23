@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 2117202745611878122}
   - component: {fileID: 8025074407694715176}
   m_Layer: 5
-  m_Name: _SGUI_.SGUI_global
+  m_Name: _SGUI_.SguiGlobal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

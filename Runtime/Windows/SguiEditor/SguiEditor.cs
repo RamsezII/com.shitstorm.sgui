@@ -72,8 +72,17 @@ namespace _SGUI_
 
         internal void OnFileSelection(in Button_File button_file)
         {
-            if (File.Exists(button_file.full_path))
-                main_input_field.text = File.ReadAllText(button_file.full_path);
+            FileInfo file = new(button_file.full_path);
+            if (file.Exists)
+                if (file.Length <= 1024)
+                    main_input_field.text = File.ReadAllText(button_file.full_path);
+                else
+                {
+                    SguiAlert alert = SguiDialog.ShowDialog<SguiAlert>(out var routine);
+                    alert.trad_title.SetTrad("[ALERT]");
+                    alert.SetText(new($"{GetType().FullName} : file to big ({file.Length.LogDataSize()})\n{button_file.full_path.ToSubLog()}"));
+                    NUCLEOR.instance.subScheduler.AddRoutine(routine);
+                }
             else
                 main_input_field.text = string.Empty;
         }

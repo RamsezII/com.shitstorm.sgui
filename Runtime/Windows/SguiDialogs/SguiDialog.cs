@@ -1,6 +1,8 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +10,28 @@ namespace _SGUI_
 {
     public partial class SguiDialog : SguiWindow
     {
-        public Traductable trad_text;
+        protected Traductable trad_text;
         public Button button_no, button_yes;
+
+        Vector2 initial_size;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public static SguiDialog ShowDialog(out IEnumerator<bool> routine)
+        public static void ShowDialog<T>(in Traductions text, in string title = null, in string ok_button = null, in string cancel_button = null) where T : SguiDialog
         {
-            SguiDialog clone = Util.Instantiate<SguiDialog>(SGUI_global.instance.rT);
+            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT);
+
+            clone.SetText(text);
+
+            if (!string.IsNullOrWhiteSpace(title))
+                clone.trad_title.SetTrad(title);
+
+            NUCLEOR.instance.subScheduler.AddRoutine(clone.ERoutine());
+        }
+
+        public static T ShowDialog<T>(out IEnumerator<bool> routine) where T : SguiDialog
+        {
+            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT);
             routine = clone.ERoutine();
             return clone;
         }
@@ -26,22 +42,29 @@ namespace _SGUI_
         {
             base.Awake();
 
-            trad_text = transform.Find("rT/body/text/tmp").GetComponent<Traductable>();
+            trad_text = transform.Find("rT/body/text").GetComponent<Traductable>();
 
-            button_no = transform.Find("rT/body/buttons/button_a/Button").GetComponent<Button>();
-            button_yes = transform.Find("rT/body/buttons/button_b/Button").GetComponent<Button>();
+            button_no = transform.Find("rT/body/buttons/button_a/Button")?.GetComponent<Button>();
+            button_yes = transform.Find("rT/body/buttons/button_b/Button")?.GetComponent<Button>();
 
-            button_hide.gameObject.SetActive(false);
-            button_fullscreen.gameObject.SetActive(false);
-            button_close.gameObject.SetActive(false);
-
-            Vector2 size = rT.rect.size;
-            Vector2 psize = rT_parent.rect.size;
-            rT.anchoredPosition = .5f * (psize - size);
+            initial_size = rT.rect.size;
+            rT.anchoredPosition = .5f * (rT_parent.rect.size - initial_size);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public void SetText(in Traductions trads)
+        {
+            trad_text.SetTrads(trads);
+            Util.AddAction(ref NUCLEOR.delegates.onEndOfFrame_once, FitText);
+        }
+
+        public void FitText()
+        {
+            TextMeshProUGUI tmp = trad_text.AllTmps().First();
+            float height = tmp.preferredHeight;
+            rT.sizeDelta = initial_size + new Vector2(0, height);
+        }
 
         IEnumerator<bool> ERoutine()
         {

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed partial class SGUI_global : MonoBehaviour
+    public sealed partial class SguiGlobal : MonoBehaviour
     {
-        public static SGUI_global instance;
+        public static SguiGlobal instance;
 
         public Canvas canvas;
         public RectTransform rT;
@@ -19,7 +19,7 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoad()
         {
-            Util.InstantiateOrCreateIfAbsent<SGUI_global>();
+            Util.InstantiateOrCreateIfAbsent<SguiGlobal>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

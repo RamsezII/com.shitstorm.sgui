@@ -15,6 +15,8 @@ namespace _SGUI_
         public Button button_hide, button_fullscreen, button_close;
         internal SguiZone zone_drag, zone_size;
 
+        internal HeaderDropdown dropdown_help;
+
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;
 
         [SerializeField, Range(0, 1)] float ui_hue_start, ui_hue_current;
@@ -44,37 +46,35 @@ namespace _SGUI_
             button_close = transform.Find("rT/header/buttons/close/button").GetComponent<Button>();
 
             zone_drag = transform.Find("rT/header/gradient").GetComponent<SguiZone>();
+            zone_size = transform.Find("rT/selected").GetComponent<SguiZone>();
+
+            dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
+
+            if (dropdown_help != null)
+                dropdown_help.onItemClick += OnClick_HelpDropdown;
+
             zone_drag.onDragDelta += OnHeaderDrag;
+            zone_size.onDragBegin += OnSizeDrag_begin;
+            zone_size.onDragDelta += OnSizeDrag;
 
-            Transform selected_rT = transform.Find("rT/selected");
-            if (selected_rT != null)
+            fullscreen.AddListener(toggle =>
             {
-                zone_size = selected_rT.GetComponent<SguiZone>();
-                zone_size.onDragBegin += OnSizeDrag_begin;
-                zone_size.onDragDelta += OnSizeDrag;
-            }
-
-            if (can_fullscreen)
-            {
-                fullscreen.AddListener(toggle =>
+                if (toggle)
                 {
-                    if (toggle)
-                    {
-                        rT.sizeDelta = Vector2.zero;
-                        rT.anchorMin = Vector2.zero;
-                        rT.anchorMax = Vector2.one;
-                        rT.anchoredPosition = Vector2.zero;
-                    }
-                    else
-                    {
-                        rT.sizeDelta = init_rect.size;
-                        rT.anchorMin = rT.anchorMax = Vector2.zero;
-                        rT.anchoredPosition = 50 * Vector2.one;
-                    }
-                });
+                    rT.sizeDelta = Vector2.zero;
+                    rT.anchorMin = Vector2.zero;
+                    rT.anchorMax = Vector2.one;
+                    rT.anchoredPosition = Vector2.zero;
+                }
+                else
+                {
+                    rT.sizeDelta = init_rect.size;
+                    rT.anchorMin = rT.anchorMax = Vector2.zero;
+                    rT.anchoredPosition = 50 * Vector2.one;
+                }
+            });
 
-                button_fullscreen.onClick.AddListener(fullscreen.Toggle);
-            }
+            button_fullscreen.onClick.AddListener(fullscreen.Toggle);
 
             button_close.onClick.AddListener(() => sgui_toggle_window.Update(false));
             button_hide.onClick.AddListener(() => sgui_toggle_window.Update(false));
