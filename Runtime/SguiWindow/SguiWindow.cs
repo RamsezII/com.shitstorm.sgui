@@ -23,7 +23,7 @@ namespace _SGUI_
         [SerializeField]
         bool
             animate_hue = true,
-            can_fullscreen,
+            hide_on_close,
             open_on_awake = true;
 
         [SerializeField] protected bool oblivionized;
@@ -66,6 +66,7 @@ namespace _SGUI_
         {
             StartUI();
             StartToggle();
+            sgui_toggle_window.Update(true);
 
             if (open_on_awake)
             {
@@ -99,13 +100,13 @@ namespace _SGUI_
             if (oblivionized)
                 return;
             oblivionized = true;
+
             sgui_toggle_window.Update(false);
             OnOblivion();
         }
 
         protected virtual void OnOblivion()
         {
-
         }
     }
 }

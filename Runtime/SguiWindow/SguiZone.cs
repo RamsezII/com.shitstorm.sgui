@@ -27,7 +27,7 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
-            window = GetComponentInParent<SguiWindow1>();
+            window = GetComponentInParent<SguiWindow>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

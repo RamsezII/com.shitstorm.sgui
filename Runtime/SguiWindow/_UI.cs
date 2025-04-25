@@ -45,27 +45,36 @@ namespace _SGUI_
                 ui_hue_start = huable_background.color.GetHue();
             }
 
-            fullscreen.AddListener(toggle =>
+            if (fullscreen != null)
             {
-                if (toggle)
+                fullscreen.AddListener(toggle =>
                 {
-                    rT.sizeDelta = Vector2.zero;
-                    rT.anchorMin = Vector2.zero;
-                    rT.anchorMax = Vector2.one;
-                    rT.anchoredPosition = Vector2.zero;
-                }
+                    if (toggle)
+                    {
+                        rT.sizeDelta = Vector2.zero;
+                        rT.anchorMin = Vector2.zero;
+                        rT.anchorMax = Vector2.one;
+                        rT.anchoredPosition = Vector2.zero;
+                    }
+                    else
+                    {
+                        rT.sizeDelta = init_rect.size;
+                        rT.anchorMin = rT.anchorMax = Vector2.zero;
+                        rT.anchoredPosition = 50 * Vector2.one;
+                    }
+                });
+
+                button_fullscreen.onClick.AddListener(fullscreen.Toggle);
+            }
+
+            button_hide?.onClick.AddListener(() => sgui_toggle_window.Update(false));
+            button_close?.onClick.AddListener(() =>
+            {
+                if (hide_on_close)
+                    sgui_toggle_window.Update(false);
                 else
-                {
-                    rT.sizeDelta = init_rect.size;
-                    rT.anchorMin = rT.anchorMax = Vector2.zero;
-                    rT.anchoredPosition = 50 * Vector2.one;
-                }
+                    Oblivionize();
             });
-
-            button_fullscreen.onClick.AddListener(fullscreen.Toggle);
-
-            button_close.onClick.AddListener(() => sgui_toggle_window.Update(false));
-            button_hide.onClick.AddListener(() => sgui_toggle_window.Update(false));
         }
 
         //--------------------------------------------------------------------------------------------------------------

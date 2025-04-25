@@ -5,7 +5,13 @@
         void StartToggle()
         {
             if (!animated_toggle)
-                sgui_toggle_window.AddListener(toggle => gameObject.SetActive(toggle));
+                sgui_toggle_window.AddListener(toggle =>
+                {
+                    if (oblivionized)
+                        Destroy(gameObject);
+                    else
+                        gameObject.SetActive(toggle);
+                });
             else
                 sgui_toggle_window.AddListener(toggle =>
                 {

@@ -35,10 +35,15 @@ namespace _SGUI_
                             switch (state)
                             {
                                 case BaseStates.Default:
-                                    animator.Update(0);
-                                    animator.enabled = false;
-                                    OnUpdateAlpha();
-                                    gameObject.SetActive(false);
+                                    if (oblivionized)
+                                        Destroy(gameObject);
+                                    else
+                                    {
+                                        animator.Update(0);
+                                        animator.enabled = false;
+                                        OnUpdateAlpha();
+                                        gameObject.SetActive(false);
+                                    }
                                     break;
 
                                 case BaseStates.toActive:
