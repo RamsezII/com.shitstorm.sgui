@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.IO;
+using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
@@ -8,6 +9,29 @@ namespace _SGUI_
         internal HeaderDropdown dropdown_files;
         public TMP_InputField main_input_field;
         [SerializeField] protected TextMeshProUGUI footer_tmp;
+        [SerializeField] protected string file_path;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public static string TryOpenNotepad(in string file_path, in bool create_if_none, out SguiNotepad instance)
+        {
+            if (!File.Exists(file_path))
+                if (create_if_none)
+                {
+                    DirectoryInfo parent = Directory.GetParent(file_path);
+                    if (!parent.Exists)
+                        Directory.CreateDirectory(parent.FullName);
+                    File.WriteAllText(file_path, string.Empty);
+                }
+                else
+                {
+                    instance = null;
+                    return $"can not find file '{file_path}'\n";
+                }
+            instance = Util.InstantiateOrCreate<SguiNotepad>(SguiGlobal.instance.rT);
+            instance.Init_file(file_path);
+            return null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -20,6 +44,14 @@ namespace _SGUI_
             dropdown_files.onItemClick += OnClick_FilesDropdown;
 
             base.Awake();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected void Init_file(in string file_path)
+        {
+            footer_tmp.text = file_path;
+            this.file_path = file_path;
         }
 
         //--------------------------------------------------------------------------------------------------------------

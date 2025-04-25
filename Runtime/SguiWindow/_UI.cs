@@ -13,7 +13,7 @@ namespace _SGUI_
         internal SguiZone zone_header, zone_outline;
 
         public Traductable trad_title;
-        public Graphic body_background;
+        public Graphic huable_background;
         public Button button_hide, button_fullscreen, button_close;
 
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;
@@ -34,13 +34,16 @@ namespace _SGUI_
 
             init_rect = rT.rect;
         }
-        
+
         //--------------------------------------------------------------------------------------------------------------
 
         void StartUI()
         {
-            ui_alpha = body_background.color.a;
-            ui_hue_start = body_background.color.GetHue();
+            if (animate_hue)
+            {
+                ui_alpha = huable_background.color.a;
+                ui_hue_start = huable_background.color.GetHue();
+            }
 
             fullscreen.AddListener(toggle =>
             {
@@ -64,14 +67,14 @@ namespace _SGUI_
             button_close.onClick.AddListener(() => sgui_toggle_window.Update(false));
             button_hide.onClick.AddListener(() => sgui_toggle_window.Update(false));
         }
-        
+
         //--------------------------------------------------------------------------------------------------------------
 
         void UpdateHue()
         {
             const float ui_hue_speed = .03f;
             ui_hue_current = (ui_hue_start + Time.unscaledTime * ui_hue_speed) % 1;
-            body_background.color = body_background.color.ModifyHsv(ui_hue_current, ui_alpha * anim_alpha);
+            huable_background.color = huable_background.color.ModifyHsv(ui_hue_current, ui_alpha * anim_alpha);
         }
 
         protected virtual void OnUpdateAlpha()

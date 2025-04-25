@@ -782,7 +782,7 @@ PrefabInstance:
     - target: {fileID: 4251428535570981072, guid: f81043a7c71a2c9379cdc56fc04ac694,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.00000013078962
       objectReference: {fileID: 0}
     - target: {fileID: 4307922669663671378, guid: f81043a7c71a2c9379cdc56fc04ac694,
         type: 3}
@@ -982,6 +982,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251428535570981072, guid: f81043a7c71a2c9379cdc56fc04ac694,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.6399999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251428535570981072, guid: f81043a7c71a2c9379cdc56fc04ac694,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.00000016954205
       objectReference: {fileID: 0}
     - target: {fileID: 4307922669663671378, guid: f81043a7c71a2c9379cdc56fc04ac694,
         type: 3}
@@ -1451,9 +1461,8 @@ PrefabInstance:
     - {fileID: 7435613044376935471, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
     - {fileID: 6463904649694620907, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
     m_RemovedGameObjects:
-    - {fileID: 5016030217172842192, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
+    - {fileID: 0}
     - {fileID: 381720214177621034, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
-    - {fileID: 8116622528491672573, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3669187911633306650, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
@@ -1502,8 +1511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  animated_toggle: 1
-  animate_hue: 1
+  animated_toggle: 0
+  animate_hue: 0
   can_fullscreen: 0
   open_on_awake: 1
   oblivionized: 0
@@ -1513,7 +1522,7 @@ MonoBehaviour:
   rT: {fileID: 0}
   rT_parent: {fileID: 0}
   trad_title: {fileID: 0}
-  body_background: {fileID: 0}
+  huable_background: {fileID: 0}
   button_hide: {fileID: 0}
   button_fullscreen: {fileID: 0}
   button_close: {fileID: 0}
@@ -1523,3 +1532,4 @@ MonoBehaviour:
   ui_alpha: 0
   drag_mode: 0
   cursor_mode: 0
+  mode: 0

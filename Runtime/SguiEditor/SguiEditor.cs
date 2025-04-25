@@ -58,7 +58,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected void Init(in string folder_path)
+        protected void Init_folder(in string folder_path)
         {
             footer_tmp.text = folder_path;
             root_folder = NewFolder();

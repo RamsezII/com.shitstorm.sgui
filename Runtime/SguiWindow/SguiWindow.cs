@@ -30,17 +30,18 @@ namespace _SGUI_
 
 
         public readonly OnValue<bool> fullscreen = new();
-        public static T InstantiateWindow<T>() where T : SguiWindow1 => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
+        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
-            animator.writeDefaultValuesOnDisable = true;
-            animator.keepAnimatorStateOnDisable = true;
-            animator.Update(0);
-
+            if (TryGetComponent(out animator))
+            {
+                animator.writeDefaultValuesOnDisable = true;
+                animator.keepAnimatorStateOnDisable = true;
+                animator.Update(0);
+            }
             AwakeUI();
         }
 
@@ -89,6 +90,22 @@ namespace _SGUI_
                     return true;
                 }
             return false;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public void Oblivionize()
+        {
+            if (oblivionized)
+                return;
+            oblivionized = true;
+            sgui_toggle_window.Update(false);
+            OnOblivion();
+        }
+
+        protected virtual void OnOblivion()
+        {
+
         }
     }
 }
