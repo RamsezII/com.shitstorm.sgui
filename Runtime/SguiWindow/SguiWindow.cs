@@ -28,7 +28,6 @@ namespace _SGUI_
 
         [SerializeField] protected bool oblivionized;
 
-
         public readonly OnValue<bool> fullscreen = new();
         public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
 
@@ -66,18 +65,20 @@ namespace _SGUI_
         {
             StartUI();
             StartToggle();
-            sgui_toggle_window.Update(true);
 
             if (open_on_awake)
-            {
-                NUCLEOR.instance.subScheduler.AddRoutine(EOpen());
-                IEnumerator<float> EOpen()
-                {
-                    while (state_base == 0)
-                        yield return 0;
+                if (!animated_toggle)
                     sgui_toggle_window.Update(true);
+                else
+                {
+                    NUCLEOR.instance.subScheduler.AddRoutine(EOpen());
+                    IEnumerator<float> EOpen()
+                    {
+                        while (state_base == 0)
+                            yield return 0;
+                        sgui_toggle_window.Update(true);
+                    }
                 }
-            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
