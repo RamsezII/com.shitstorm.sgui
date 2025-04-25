@@ -1,0 +1,216 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+namespace _SGUI_
+{
+    partial class SguiWindow
+    {
+        enum DragModes : byte
+        {
+            _none_,
+            top,
+            right,
+            bottom,
+            left,
+        }
+
+        [Flags]
+        public enum DRAG_MODES : byte
+        {
+            _none_,
+
+            TOP = 1 << DragModes.top,
+            RIGHT = 1 << DragModes.right,
+            BOTTOM = 1 << DragModes.bottom,
+            LEFT = 1 << DragModes.left,
+
+            TOP_RIGHT = TOP | RIGHT,
+            BOTTOM_RIGHT = BOTTOM | RIGHT,
+            BOTTOM_LEFT = BOTTOM | LEFT,
+            TOP_LEFT = TOP | LEFT,
+
+            ALL = TOP | RIGHT | BOTTOM | LEFT,
+        }
+
+        readonly Vector2 minimum_size = new(200, 150);
+        [SerializeField] DRAG_MODES drag_mode;
+        [SerializeField] CursorManager.Cursors cursor_mode;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        internal void OnZoneEvent(in SguiZone.Codes code, in SguiZone zone, in PointerEventData data)
+        {
+            switch (code)
+            {
+                case SguiZone.Codes.DoubleClick:
+                    if (zone == zone_header)
+                        fullscreen.Toggle();
+                    break;
+
+                case SguiZone.Codes.Exit:
+                    if (drag_mode == 0)
+                    {
+                        CursorManager.UnsetUser(this);
+                        cursor_mode = 0;
+                    }
+                    break;
+
+                case SguiZone.Codes.Move:
+                    if (drag_mode == 0)
+                    {
+                        if (zone == zone_header)
+                            cursor_mode = CursorManager.Cursors.Move;
+
+                        if (zone == zone_outline)
+                            cursor_mode = DragmodeToCursor(data.position, false);
+
+                        CursorManager.SetUser(this, cursor_mode);
+                    }
+                    break;
+
+                case SguiZone.Codes.BeginDrag:
+                    if (zone == zone_outline)
+                        cursor_mode = DragmodeToCursor(data.position, true);
+                    else if (zone == zone_header)
+                    {
+                        drag_mode = DRAG_MODES.ALL;
+                        cursor_mode = CursorManager.Cursors.Move;
+                        CursorManager.SetUser(this, cursor_mode);
+                    }
+                    break;
+
+                case SguiZone.Codes.Drag:
+                    if (zone == zone_header)
+                        OnHeaderDrag(data.delta);
+                    else if (zone == zone_outline)
+                        OnSizeDrag(data.delta);
+                    break;
+
+                case SguiZone.Codes.EndDrag:
+                    drag_mode = 0;
+                    cursor_mode = 0;
+                    CursorManager.UnsetUser(this);
+                    break;
+            }
+        }
+
+        public Vector2 ScreenPositionToLocal(Vector2 screen_pos)
+        {
+            Vector2 size_parent = rT_parent.rect.size;
+            Vector2 pos = rT.anchoredPosition;
+
+            screen_pos.x /= Screen.width;
+            screen_pos.y /= Screen.height;
+
+            screen_pos.x *= size_parent.x;
+            screen_pos.y *= size_parent.y;
+
+            screen_pos -= pos;
+
+            return screen_pos;
+        }
+
+        public Vector2 ScreenDeltaToLocal(Vector2 screen_delta)
+        {
+            Vector2 size_parent = rT_parent.rect.size;
+
+            screen_delta.x /= Screen.width;
+            screen_delta.y /= Screen.height;
+
+            screen_delta.x *= size_parent.x;
+            screen_delta.y *= size_parent.y;
+
+            return screen_delta;
+        }
+
+        void OnHeaderDrag(Vector2 delta)
+        {
+            rT.anchoredPosition += ScreenDeltaToLocal(delta);
+            CheckBounds();
+        }
+
+        public void CheckBounds()
+        {
+            Vector2 parent_size = rT_parent.rect.size;
+            Vector2 size = rT.rect.size;
+            Vector2 pos = rT.anchoredPosition;
+
+            Vector2 corner_sw = pos;
+            Vector2 corner_ne = pos + size;
+
+            corner_sw.x = Mathf.Clamp(corner_sw.x, 0, parent_size.x - minimum_size.x);
+            corner_sw.y = Mathf.Clamp(corner_sw.y, 0, parent_size.y - minimum_size.y);
+
+            corner_ne.x = Mathf.Clamp(corner_ne.x, minimum_size.x, parent_size.x);
+            corner_ne.y = Mathf.Clamp(corner_ne.y, minimum_size.y, parent_size.y);
+
+            rT.anchoredPosition = corner_sw;
+            rT.sizeDelta = corner_ne - corner_sw;
+
+            OnCheckBounds();
+        }
+
+        protected virtual void OnCheckBounds()
+        {
+        }
+
+        CursorManager.Cursors DragmodeToCursor(Vector2 mouse_pos, in bool refresh_dragmode)
+        {
+            Vector2 size = rT.rect.size;
+
+            mouse_pos = ScreenPositionToLocal(mouse_pos);
+
+            mouse_pos.x /= size.x;
+            mouse_pos.y /= size.y;
+
+            DRAG_MODES drag_mode = 0;
+
+            if (mouse_pos.x >= .9f)
+                drag_mode |= DRAG_MODES.RIGHT;
+            if (mouse_pos.x <= .1f)
+                drag_mode |= DRAG_MODES.LEFT;
+            if (mouse_pos.y >= .9f)
+                drag_mode |= DRAG_MODES.TOP;
+            if (mouse_pos.y <= .1f)
+                drag_mode |= DRAG_MODES.BOTTOM;
+
+            if (refresh_dragmode)
+                this.drag_mode = drag_mode;
+
+            return drag_mode switch
+            {
+                DRAG_MODES.TOP or DRAG_MODES.BOTTOM => CursorManager.Cursors.Sizable_n,
+                DRAG_MODES.RIGHT or DRAG_MODES.LEFT => CursorManager.Cursors.Sizable_e,
+                DRAG_MODES.TOP_RIGHT or DRAG_MODES.BOTTOM_LEFT => CursorManager.Cursors.Sizable_ne,
+                DRAG_MODES.BOTTOM_RIGHT or DRAG_MODES.TOP_LEFT => CursorManager.Cursors.Sizable_se,
+                _ => 0,
+            };
+        }
+
+        void OnSizeDrag(Vector2 delta)
+        {
+            delta = ScreenDeltaToLocal(delta);
+
+            if (drag_mode.HasFlag(DRAG_MODES.TOP))
+                rT.sizeDelta += delta * Vector2.up;
+
+            if (drag_mode.HasFlag(DRAG_MODES.RIGHT))
+                rT.sizeDelta += delta * Vector2.right;
+
+            if (drag_mode.HasFlag(DRAG_MODES.BOTTOM))
+            {
+                rT.anchoredPosition += delta * Vector2.up;
+                rT.sizeDelta += delta * Vector2.down;
+            }
+
+            if (drag_mode.HasFlag(DRAG_MODES.LEFT))
+            {
+                rT.anchoredPosition += delta * Vector2.right;
+                rT.sizeDelta += delta * Vector2.left;
+            }
+
+            CheckBounds();
+        }
+    }
+}

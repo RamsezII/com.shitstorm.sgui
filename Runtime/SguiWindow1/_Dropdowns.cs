@@ -40,31 +40,40 @@ namespace _SGUI_
 
         public virtual void OnClickDropdown_Help(string item)
         {
-            if (Enum.TryParse(item, true, out HelpDropdowns code))
-                switch (code)
-                {
-                    case HelpDropdowns.Documentation:
-                        SguiDialog.ShowDialog<SguiAlert>(new("no documentation yet"));
-                        break;
+            switch (item)
+            {
+                case "shitstorm.ovh":
+                    Application.OpenURL("https://shitstorm.ovh");
+                    break;
 
-                    case HelpDropdowns.Youtube:
-                        Application.OpenURL("https://www.youtube.com/@_SHITSTORM_");
-                        break;
+                default:
+                    if (Enum.TryParse(item, true, out HelpDropdowns code))
+                        switch (code)
+                        {
+                            case HelpDropdowns.Documentation:
+                                SguiDialog.ShowDialog<SguiAlert>(new("no documentation yet"));
+                                break;
 
-                    case HelpDropdowns.Discord:
-                        Application.OpenURL("https://discord.gg/MWhZSh2Pn8");
-                        break;
+                            case HelpDropdowns.Youtube:
+                                Application.OpenURL("https://www.youtube.com/@_SHITSTORM_");
+                                break;
 
-                    case HelpDropdowns.Shitstorm:
-                        Application.OpenURL("https://shitstorm.ovh");
-                        break;
+                            case HelpDropdowns.Discord:
+                                Application.OpenURL("https://discord.gg/MWhZSh2Pn8");
+                                break;
 
-                    default:
-                        Debug.LogWarning($"{GetType().FullName} : unused {nameof(code)}: '{code}'");
-                        break;
-                }
-            else
-                Debug.LogWarning($"{GetType().FullName} : unknown {nameof(code)}: '{item}'");
+                            case HelpDropdowns.Shitstorm:
+                                Application.OpenURL("https://shitstorm.ovh");
+                                break;
+
+                            default:
+                                Debug.LogWarning($"{GetType().FullName} : unused {nameof(code)}: '{code}'");
+                                break;
+                        }
+                    else
+                        Debug.LogWarning($"{GetType().FullName} : unknown {nameof(code)}: '{item}'");
+                    break;
+            }
         }
     }
 }

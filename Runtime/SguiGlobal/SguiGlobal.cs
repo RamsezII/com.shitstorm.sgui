@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed partial class SguiGlobal : MonoBehaviour
+    public sealed class SguiGlobal : MonoBehaviour
     {
         public static SguiGlobal instance;
 
