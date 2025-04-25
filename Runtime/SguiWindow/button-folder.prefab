@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb4c89fac6fd1241bc13980fc85cf52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editor: {fileID: 0}
+  window: {fileID: 0}
   button: {fileID: 0}
   offset_rT: {fileID: 0}
   text: {fileID: 0}

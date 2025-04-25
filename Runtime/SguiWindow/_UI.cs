@@ -21,6 +21,9 @@ namespace _SGUI_
         [SerializeField, Range(0, 1)] float ui_hue_start, ui_hue_current;
         [SerializeField] float ui_alpha;
 
+        [SerializeField] internal Button_Folder prefab_hierarchy_folder;
+        [SerializeField] internal Button_File prefab_hierarchy_file;
+
         Rect init_rect;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -39,6 +42,11 @@ namespace _SGUI_
 
         void StartUI()
         {
+            if (prefab_hierarchy_folder != null)
+                prefab_hierarchy_folder.gameObject.SetActive(false);
+            if (prefab_hierarchy_file != null)
+                prefab_hierarchy_file.gameObject.SetActive(false);
+
             if (animate_hue)
             {
                 ui_alpha = huable_background.color.a;

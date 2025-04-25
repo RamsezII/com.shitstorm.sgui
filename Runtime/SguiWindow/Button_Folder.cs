@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using _UTIL_;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace _SGUI_
         {
             base.Start();
             button.onClick.AddListener(Toggle);
-            Toggle(this == editor.root_folder);
+            Toggle(this == window.root_folder);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -49,21 +50,21 @@ namespace _SGUI_
             icon_opened.gameObject.SetActive(toggle);
             icon_closed.gameObject.SetActive(!toggle);
 
-            editor.SetDirty_HierarchySize();
+            window.SetDirty_HierarchySize();
 
             if (toggle)
             {
                 int depth = 1 + this.depth;
                 foreach (string folder in Directory.EnumerateDirectories(full_path))
                 {
-                    Button_Folder clone = editor.NewFolder();
+                    Button_Folder clone = window.NewFolder();
                     clone.Init(folder, depth);
                     hierarchy.Add(clone);
                 }
 
                 foreach (string file in Directory.EnumerateFiles(full_path))
                 {
-                    Button_File clone = editor.NewFile();
+                    Button_File clone = window.NewFile();
                     clone.Init(file, depth);
                     hierarchy.Add(clone);
                 }
@@ -71,6 +72,8 @@ namespace _SGUI_
                 int index = transform.GetSiblingIndex();
                 for (int i = 0; i < hierarchy.Count; ++i)
                     hierarchy[i].transform.SetSiblingIndex(index + i + 1);
+
+                window.OnFolder_click(this);
             }
         }
     }

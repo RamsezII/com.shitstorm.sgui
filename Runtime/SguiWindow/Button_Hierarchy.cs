@@ -7,7 +7,7 @@ namespace _SGUI_
 {
     internal class Button_Hierarchy : MonoBehaviour
     {
-        public SguiEditor editor;
+        public SguiWindow window;
         [HideInInspector] public Button button;
         [HideInInspector] public RectTransform offset_rT;
         [HideInInspector] public TextMeshProUGUI text;
@@ -18,7 +18,7 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
-            editor = GetComponentInParent<SguiEditor>();
+            window = GetComponentInParent<SguiWindow>();
             button = GetComponent<Button>();
             offset_rT = (RectTransform)transform.Find("offset");
             text = transform.Find("offset/name").GetComponent<TextMeshProUGUI>();
@@ -37,7 +37,7 @@ namespace _SGUI_
         {
             gameObject.SetActive(true);
             this.depth = depth;
-            offset_rT.anchoredPosition += depth * editor.hierarchy_width * Vector2.right;
+            offset_rT.anchoredPosition += depth * window.hierarchy_width * Vector2.right;
             this.full_path = full_path.ToLinuxPath();
             short_path = Path.GetFileName(full_path);
             text.text = short_path;
