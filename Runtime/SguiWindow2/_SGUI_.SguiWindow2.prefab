@@ -463,8 +463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoSize: 0
   traductions:
-    english: Game Settings
-    french: "R\xE9glages du Jeu"
+    english: SguiWindow2
+    french: SguiWindow2
   english: 
   francais: 
 --- !u!114 &7947730552455322017
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: SguiWindow2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
   m_sharedMaterial: {fileID: 4701849021605294625, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04,
