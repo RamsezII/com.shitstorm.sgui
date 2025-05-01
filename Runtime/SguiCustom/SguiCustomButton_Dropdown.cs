@@ -4,23 +4,31 @@ namespace _SGUI_
 {
     public class SguiCustomButton_Dropdown : SguiCustomButton
     {
+        public readonly struct Output
+        {
+            public readonly int index;
+            public readonly TMP_Dropdown.OptionData option_data;
+            public override string ToString() => $"{index} {option_data.text.QuoteStringSafely()}";
+
+            //--------------------------------------------------------------------------------------------------------------
+
+            public Output(in int index, in TMP_Dropdown.OptionData option_data)
+            {
+                this.index = index;
+                this.option_data = option_data;
+            }
+        }
+
         public TMP_Dropdown dropdown;
+        public override object GetResult() => new Output(dropdown.value, dropdown.options[dropdown.value]);
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        public override void Init(in Infos infos)
-        {
-            base.Init(infos);
             dropdown.options.Clear();
-            dropdown.AddOptions(infos.items);
+            base.Awake();
         }
     }
 }

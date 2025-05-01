@@ -3166,7 +3166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  animated_toggle: 1
+  animated_toggle: 0
   animate_hue: 1
   hide_on_close: 0
   open_on_awake: 1
@@ -3196,6 +3196,8 @@ MonoBehaviour:
   prefab_hierarchy_file: {fileID: 0}
   drag_mode: 0
   cursor_mode: 0
+  button_confirm: {fileID: 0}
+  button_cancel: {fileID: 0}
 --- !u!1001 &5299716565003382401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3346,6 +3348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 0}
+  dropdown: {fileID: 0}
 --- !u!224 &4808045423084287071 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,
@@ -3502,6 +3505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 0}
+  input_field: {fileID: 0}
 --- !u!224 &8572443831163766438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,

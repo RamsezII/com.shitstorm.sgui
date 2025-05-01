@@ -1,21 +1,12 @@
 using System;
-using System.Collections.Generic;
 using _UTIL_;
-using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public abstract class SguiCustomButton : MonoBehaviour, IDisposable
     {
-        public struct Infos
-        {
-            public Traductions label;
-            public Type type;
-            public List<TMP_Dropdown.OptionData> items;
-        }
-
-        [SerializeField] Traductable label;
+        public Traductable label;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -26,16 +17,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual void Init(in Infos infos)
+        protected virtual void Start()
         {
-            label.SetTrads(infos.label);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void Start()
-        {
-        }
+        public abstract object GetResult();
 
         //--------------------------------------------------------------------------------------------------------------
 

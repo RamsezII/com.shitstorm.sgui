@@ -7,6 +7,7 @@ namespace _SGUI_
     public class SguiCustomButton_Slider : SguiCustomButton
     {
         public Slider slider;
+        public override object GetResult() => slider.value;
         [SerializeField] TextMeshProUGUI tmp_value;
 
         //--------------------------------------------------------------------------------------------------------------

@@ -26,7 +26,7 @@ namespace _SGUI_
             hide_on_close,
             open_on_awake = true;
 
-        [SerializeField] protected bool oblivionized;
+        public bool oblivionized;
 
         public readonly OnValue<bool> fullscreen = new();
         public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);

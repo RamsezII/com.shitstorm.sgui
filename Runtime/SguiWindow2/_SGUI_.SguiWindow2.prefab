@@ -1328,7 +1328,17 @@ PrefabInstance:
     - target: {fileID: 1550477341103345789, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
       propertyPath: m_Name
-      value: button_b
+      value: button_confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: traductions.french
+      value: Valider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: traductions.english
+      value: Confirm
       objectReference: {fileID: 0}
     - target: {fileID: 3690129887729121433, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
@@ -1452,7 +1462,7 @@ PrefabInstance:
     - target: {fileID: 1550477341103345789, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
       propertyPath: m_Name
-      value: button_a
+      value: button_cancel
       objectReference: {fileID: 0}
     - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
