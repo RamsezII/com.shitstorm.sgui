@@ -9,7 +9,7 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, SguiCustomButton> prefabs = new();
 
-        readonly List<SguiCustomButton> clones = new();
+        public readonly List<SguiCustomButton> clones = new();
 
         public Action onButton_confirm, onButton_cancel;
 
@@ -70,14 +70,6 @@ namespace _SGUI_
             if (!oblivionized)
                 onButton_cancel?.Invoke();
             Oblivionize();
-        }
-
-        public List<object> GetResults()
-        {
-            List<object> results = new();
-            for (int i = 0; i < clones.Count; ++i)
-                results.Add(clones[i].GetResult());
-            return results;
         }
 
         //--------------------------------------------------------------------------------------------------------------

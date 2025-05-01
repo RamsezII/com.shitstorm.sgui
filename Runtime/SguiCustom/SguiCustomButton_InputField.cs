@@ -5,7 +5,6 @@ namespace _SGUI_
     public class SguiCustomButton_InputField : SguiCustomButton
     {
         public TMP_InputField input_field;
-        public override object GetResult() => input_field.text;
 
         //--------------------------------------------------------------------------------------------------------------
 

@@ -20,7 +20,6 @@ namespace _SGUI_
         }
 
         public TMP_Dropdown dropdown;
-        public override object GetResult() => new Output(dropdown.value, dropdown.options[dropdown.value]);
 
         //--------------------------------------------------------------------------------------------------------------
 
