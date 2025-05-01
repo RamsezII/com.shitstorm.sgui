@@ -1,43 +1,45 @@
+using System;
+using System.Collections.Generic;
+using _UTIL_;
+using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton : MonoBehaviour
+    public abstract class SguiCustomButton : MonoBehaviour, IDisposable
     {
-        public enum Codes : byte
-        {
-            Slider,
-            InputField,
-            Dropdown,
-            _last_,
-        }
-
         public struct Infos
         {
-            public Codes code;
+            public Traductions label;
+            public List<TMP_Dropdown.OptionData> items;
         }
 
-        public Codes code;
+        [SerializeField] Traductable label;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected virtual void Awake()
         {
-
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        public void Init(in Infos infos)
-        {
-            this.code = infos.code;
+            label = transform.Find("label").GetComponent<Traductable>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Start()
+        public virtual void Init(in Infos infos)
         {
+            label.SetTrads(infos.label);
+        }
 
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected virtual void Start()
+        {
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public virtual void Dispose()
+        {
         }
     }
 }

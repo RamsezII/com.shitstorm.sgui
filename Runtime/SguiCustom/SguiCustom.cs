@@ -1,11 +1,14 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public partial class SguiCustom : SguiWindow2
     {
-        readonly SguiCustomButton[] prefabs = new SguiCustomButton[(int)SguiCustomButton.Codes._last_];
-        SguiCustomButton this[in SguiCustomButton.Codes code] { get => prefabs[(int)code]; set => prefabs[(int)code] = value; }
+        readonly Dictionary<Type, SguiCustomButton> prefabs = new();
+
+        readonly List<SguiCustomButton> clones = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -15,9 +18,9 @@ namespace _SGUI_
 
             RectTransform rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
 
-            this[SguiCustomButton.Codes.Slider] = rT.Find("sgui2-slider").GetComponent<SguiCustomButton>();
-            this[SguiCustomButton.Codes.InputField] = rT.Find("sgui2-input").GetComponent<SguiCustomButton>();
-            this[SguiCustomButton.Codes.Dropdown] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton>();
+            prefabs[typeof(SguiCustomButton_Slider)] = rT.Find("sgui2-slider").GetComponent<SguiCustomButton_Slider>();
+            prefabs[typeof(SguiCustomButton_InputField)] = rT.Find("sgui2-input").GetComponent<SguiCustomButton_InputField>();
+            prefabs[typeof(SguiCustomButton_Dropdown)] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton_Dropdown>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -25,20 +28,30 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-
-            for (SguiCustomButton.Codes code = 0; code < SguiCustomButton.Codes._last_; ++code)
-                this[code].gameObject.SetActive(false);
+            foreach (var pair in prefabs)
+                pair.Value.gameObject.SetActive(false);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiCustomButton AddButton(in SguiCustomButton.Infos infos)
+        public T AddButton<T>() where T : SguiCustomButton => (T)AddButton(typeof(T));
+        public SguiCustomButton AddButton(in Type type)
         {
-            SguiCustomButton prefab = this[infos.code];
+            SguiCustomButton prefab = prefabs[type];
             SguiCustomButton clone = Instantiate(prefab, prefab.transform.parent);
+            clones.Add(clone);
             clone.gameObject.SetActive(true);
-            clone.Init(infos);
             return clone;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            for (int i = 0; i < clones.Count; ++i)
+                clones[i].Dispose();
+            clones.Clear();
         }
     }
 }

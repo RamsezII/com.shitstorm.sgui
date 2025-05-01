@@ -109,5 +109,10 @@ namespace _SGUI_
         protected virtual void OnOblivion()
         {
         }
+
+        protected virtual void OnDestroy()
+        {
+            Oblivionize();
+        }
     }
 }
