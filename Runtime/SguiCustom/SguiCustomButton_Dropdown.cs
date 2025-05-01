@@ -19,6 +19,7 @@ namespace _SGUI_
         public override void Init(in Infos infos)
         {
             base.Init(infos);
+            dropdown.options.Clear();
             dropdown.AddOptions(infos.items);
         }
     }

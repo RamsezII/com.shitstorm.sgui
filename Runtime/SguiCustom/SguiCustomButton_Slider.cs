@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,7 @@ namespace _SGUI_
         protected override void Awake()
         {
             slider = transform.Find("slider").GetComponent<Slider>();
+            tmp_value = transform.Find("value").GetComponent<TextMeshProUGUI>();
             base.Awake();
         }
 
@@ -30,7 +30,7 @@ namespace _SGUI_
 
         private void OnSliderValue(float value)
         {
-            tmp_value.text = Math.Round(value, 1).ToString();
+            tmp_value.text = value.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }

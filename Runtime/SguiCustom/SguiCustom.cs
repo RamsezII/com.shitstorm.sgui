@@ -34,13 +34,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public T AddButton<T>() where T : SguiCustomButton => (T)AddButton(typeof(T));
-        public SguiCustomButton AddButton(in Type type)
+        public SguiCustomButton AddButton(in SguiCustomButton.Infos infos)
         {
-            SguiCustomButton prefab = prefabs[type];
+            SguiCustomButton prefab = prefabs[infos.type];
             SguiCustomButton clone = Instantiate(prefab, prefab.transform.parent);
             clones.Add(clone);
             clone.gameObject.SetActive(true);
+            clone.Init(infos);
             return clone;
         }
 

@@ -11,6 +11,7 @@ namespace _SGUI_
         public struct Infos
         {
             public Traductions label;
+            public Type type;
             public List<TMP_Dropdown.OptionData> items;
         }
 
