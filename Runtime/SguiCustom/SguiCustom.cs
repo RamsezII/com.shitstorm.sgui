@@ -74,6 +74,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public T AddButton<T>() where T : SguiCustomButton => (T)AddButton(typeof(T));
         public SguiCustomButton AddButton(in Type type)
         {
             SguiCustomButton prefab = prefabs[type];
