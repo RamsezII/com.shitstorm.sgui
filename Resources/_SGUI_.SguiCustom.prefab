@@ -1607,7 +1607,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -5, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1944563832443749416
 CanvasRenderer:
@@ -2204,8 +2204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000019073486}
-  m_SizeDelta: {x: -10, y: 300}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1822730161620715801
 MonoBehaviour:
@@ -2966,7 +2966,7 @@ PrefabInstance:
     - target: {fileID: 3669187911633306650, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 400
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 3669187911633306650, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
@@ -3505,7 +3505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 0}
-  input_field: {fileID: 0}
+  inputfield: {fileID: 0}
 --- !u!224 &8572443831163766438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,

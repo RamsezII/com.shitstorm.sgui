@@ -1,3 +1,4 @@
+using _ARK_;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace _SGUI_
         public Action onButton_confirm, onButton_cancel;
 
         [SerializeField] Button button_confirm, button_cancel;
+
+        VerticalLayoutGroup content_layout;
+        RectTransform content_layout_rT;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -33,6 +37,9 @@ namespace _SGUI_
 
             rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
 
+            content_layout_rT = rT;
+            content_layout = rT.GetComponent<VerticalLayoutGroup>();
+
             prefabs[typeof(SguiCustomButton_Slider)] = rT.Find("sgui2-slider").GetComponent<SguiCustomButton_Slider>();
             prefabs[typeof(SguiCustomButton_InputField)] = rT.Find("sgui2-input").GetComponent<SguiCustomButton_InputField>();
             prefabs[typeof(SguiCustomButton_Dropdown)] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton_Dropdown>();
@@ -45,6 +52,24 @@ namespace _SGUI_
             base.Start();
             foreach (var pair in prefabs)
                 pair.Value.gameObject.SetActive(false);
+
+            clones[^1].transform.Find("line_bottom").gameObject.SetActive(false);
+
+            NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(1, () =>
+            {
+                Vector2 rt_size = rT.sizeDelta;
+
+                float layout_current_height = content_layout_rT.rect.height;
+                float layout_preferred_height = content_layout.preferredHeight;
+
+                rt_size = new Vector2(
+                    rt_size.x,
+                    layout_preferred_height + rt_size.y - layout_current_height
+                    );
+
+                content_layout_rT.sizeDelta = new(0, layout_preferred_height);
+                rT.sizeDelta = rt_size;
+            }));
         }
 
         //--------------------------------------------------------------------------------------------------------------
