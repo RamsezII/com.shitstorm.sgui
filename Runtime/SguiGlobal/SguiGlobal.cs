@@ -8,8 +8,8 @@ namespace _SGUI_
     {
         public static SguiGlobal instance;
 
-        public Canvas canvas;
-        public RectTransform rT;
+        public Canvas canvas2D, canvas3D;
+        public RectTransform rT_2D;
 
         [SerializeField] RectTransform rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
@@ -29,10 +29,10 @@ namespace _SGUI_
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            canvas = GetComponent<Canvas>();
-            rT = (RectTransform)transform.Find("rT");
+            canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
+            rT_2D = (RectTransform)canvas2D.transform.Find("rT");
 
-            rT_scheduler = (RectTransform)transform.Find("rT_scheduler");
+            rT_scheduler = (RectTransform)canvas2D.transform.Find("rT_scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
         }
 
@@ -65,7 +65,7 @@ namespace _SGUI_
             int count = (int)(Mathf.Clamp01(progress) * bar_count);
 
             txt_scheduler.text = $"{schedulable.description}\n({Util_ark.GetRotator()}) {new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
-            rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT.rect.width, float.PositiveInfinity).y);
+            rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT_2D.rect.width, float.PositiveInfinity).y);
         }
     }
 }

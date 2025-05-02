@@ -29,7 +29,7 @@ namespace _SGUI_
         public bool oblivionized;
 
         public readonly OnValue<bool> fullscreen = new();
-        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT);
+        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT_2D);
 
         //--------------------------------------------------------------------------------------------------------------
 

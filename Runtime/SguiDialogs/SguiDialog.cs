@@ -19,7 +19,7 @@ namespace _SGUI_
 
         public static void ShowDialog<T>(in Traductions text, in string title = null, in string ok_button = null, in string cancel_button = null) where T : SguiDialog
         {
-            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT);
+            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT_2D);
 
             clone.SetText(text);
 
@@ -31,7 +31,7 @@ namespace _SGUI_
 
         public static T ShowDialog<T>(out IEnumerator<bool> routine) where T : SguiDialog
         {
-            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT);
+            T clone = Util.Instantiate<T>(SguiGlobal.instance.rT_2D);
             routine = clone.ERoutine();
             return clone;
         }

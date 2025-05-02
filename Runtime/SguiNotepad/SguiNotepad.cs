@@ -28,7 +28,7 @@ namespace _SGUI_
                     instance = null;
                     return $"can not find file '{file_path}'\n";
                 }
-            instance = Util.InstantiateOrCreate<SguiNotepad>(SguiGlobal.instance.rT);
+            instance = Util.InstantiateOrCreate<SguiNotepad>(SguiGlobal.instance.rT_2D);
             instance.Init_file(file_path);
             return null;
         }
