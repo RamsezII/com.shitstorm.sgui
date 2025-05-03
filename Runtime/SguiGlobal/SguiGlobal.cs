@@ -40,7 +40,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            NUCLEOR.instance.scheduler.list.AddListener1(isNotEmpty =>
+            NUCLEOR.instance.scheduler.list.AddListener1(this, isNotEmpty =>
             {
                 NUCLEOR.delegates.onLateUpdate -= OnLateUpdateSchedulerInfos;
                 if (isNotEmpty)
