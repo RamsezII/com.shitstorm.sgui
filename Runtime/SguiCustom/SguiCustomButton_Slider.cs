@@ -32,5 +32,13 @@ namespace _SGUI_
         {
             tmp_value.text = value.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            slider.onValueChanged.RemoveAllListeners();
+        }
     }
 }

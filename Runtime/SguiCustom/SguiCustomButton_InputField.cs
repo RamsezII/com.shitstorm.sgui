@@ -13,5 +13,19 @@ namespace _SGUI_
             inputfield = transform.Find("input_field").GetComponent<TMP_InputField>();
             base.Awake();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            inputfield.onValueChanged.RemoveAllListeners();
+            inputfield.onEndEdit.RemoveAllListeners();
+            inputfield.onSubmit.RemoveAllListeners();
+            inputfield.onSelect.RemoveAllListeners();
+            inputfield.onDeselect.RemoveAllListeners();
+            inputfield.onTextSelection.RemoveAllListeners();
+            inputfield.onEndTextSelection.RemoveAllListeners();
+        }
     }
 }

@@ -43,6 +43,7 @@ namespace _SGUI_
             prefabs[typeof(SguiCustomButton_Slider)] = rT.Find("sgui2-slider").GetComponent<SguiCustomButton_Slider>();
             prefabs[typeof(SguiCustomButton_InputField)] = rT.Find("sgui2-input").GetComponent<SguiCustomButton_InputField>();
             prefabs[typeof(SguiCustomButton_Dropdown)] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton_Dropdown>();
+            prefabs[typeof(SguiCustomButton_Toggle)] = rT.Find("sgui2-toggle").GetComponent<SguiCustomButton_Toggle>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -53,7 +54,8 @@ namespace _SGUI_
             foreach (var pair in prefabs)
                 pair.Value.gameObject.SetActive(false);
 
-            clones[^1].transform.Find("line_bottom").gameObject.SetActive(false);
+            if (clones.Count > 0)
+                clones[^1].ToggleBottomLine(false);
 
             NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(1, () =>
             {
@@ -100,9 +102,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnDestroy()
+        protected override void OnOblivion()
         {
-            base.OnDestroy();
+            base.OnOblivion();
             for (int i = 0; i < clones.Count; ++i)
                 clones[i].Dispose();
             clones.Clear();

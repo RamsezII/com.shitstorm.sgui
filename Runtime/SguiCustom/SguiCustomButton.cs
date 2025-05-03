@@ -7,6 +7,7 @@ namespace _SGUI_
     public abstract class SguiCustomButton : MonoBehaviour, IDisposable
     {
         public Traductable label;
+        public bool disposed;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +24,24 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual void Dispose()
+        public void ToggleBottomLine(in bool value) => transform.Find("line_bottom").gameObject.SetActive(value);
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected virtual void OnDestroy()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            if (disposed)
+                return;
+            disposed = true;
+            OnDispose();
+        }
+
+        protected virtual void OnDispose()
         {
         }
     }

@@ -29,5 +29,13 @@ namespace _SGUI_
             dropdown.options.Clear();
             base.Awake();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            dropdown.onValueChanged.RemoveAllListeners();
+        }
     }
 }
