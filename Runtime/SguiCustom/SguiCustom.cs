@@ -44,6 +44,7 @@ namespace _SGUI_
             prefabs[typeof(SguiCustomButton_InputField)] = rT.Find("sgui2-input").GetComponent<SguiCustomButton_InputField>();
             prefabs[typeof(SguiCustomButton_Dropdown)] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton_Dropdown>();
             prefabs[typeof(SguiCustomButton_Toggle)] = rT.Find("sgui2-toggle").GetComponent<SguiCustomButton_Toggle>();
+            prefabs[typeof(SguiCustomButton_Button)] = rT.Find("sgui2-button").GetComponent<SguiCustomButton_Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
