@@ -9,7 +9,7 @@ namespace _SGUI_
         public static SguiGlobal instance;
 
         public Canvas canvas2D, canvas3D;
-        public RectTransform rT_2D;
+        public RectTransform rT_2D, rT_3D;
 
         [SerializeField] RectTransform rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
