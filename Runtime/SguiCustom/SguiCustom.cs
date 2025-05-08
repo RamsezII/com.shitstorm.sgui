@@ -8,9 +8,9 @@ namespace _SGUI_
 {
     public partial class SguiCustom : SguiWindow2
     {
-        readonly Dictionary<Type, SguiCustomButton> prefabs = new();
+        readonly Dictionary<Type, SguiCustomButton_Abstract> prefabs = new();
 
-        public readonly List<SguiCustomButton> clones = new();
+        public readonly List<SguiCustomButton_Abstract> clones = new();
 
         public Action onAction_confirm, onAction_cancel;
 
@@ -77,11 +77,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public T AddButton<T>() where T : SguiCustomButton => (T)AddButton(typeof(T));
-        public SguiCustomButton AddButton(in Type type)
+        public T AddButton<T>() where T : SguiCustomButton_Abstract => (T)AddButton(typeof(T));
+        public SguiCustomButton_Abstract AddButton(in Type type)
         {
-            SguiCustomButton prefab = prefabs[type];
-            SguiCustomButton clone = Instantiate(prefab, prefab.transform.parent);
+            SguiCustomButton_Abstract prefab = prefabs[type];
+            SguiCustomButton_Abstract clone = Instantiate(prefab, prefab.transform.parent);
             clones.Add(clone);
             clone.gameObject.SetActive(true);
             return clone;

@@ -2,7 +2,7 @@ using TMPro;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_Dropdown : SguiCustomButton
+    public class SguiCustomButton_Dropdown : SguiCustomButton_Abstract
     {
         public readonly struct Output
         {

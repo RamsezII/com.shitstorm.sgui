@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public abstract class SguiCustomButton : MonoBehaviour, IDisposable
+    public abstract class SguiCustomButton_Abstract : MonoBehaviour, IDisposable
     {
         public Traductable label;
         public bool disposed;
