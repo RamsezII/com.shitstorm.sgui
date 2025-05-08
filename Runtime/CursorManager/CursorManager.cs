@@ -1,5 +1,4 @@
-﻿using _ARK_;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _SGUI_
 {
@@ -69,7 +68,7 @@ namespace _SGUI_
         static void AutoCursor()
         {
             Sprite sprite = sprites[(int)current_cursor];
-            if (sprite == null)
+            if (true || sprite == null)
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             else
                 Cursor.SetCursor(sprite.texture, sprite.pivot, CursorMode.Auto);
