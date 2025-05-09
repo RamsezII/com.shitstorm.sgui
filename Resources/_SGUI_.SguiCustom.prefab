@@ -3529,6 +3529,7 @@ MonoBehaviour:
   animate_hue: 1
   hide_on_close: 0
   open_on_awake: 1
+  auto_layout: 1
   oblivionized: 0
   hierarchy_viewport_rT: {fileID: 0}
   hierarchy_content_rT: {fileID: 0}

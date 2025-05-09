@@ -1,4 +1,3 @@
-using _ARK_;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,27 +51,12 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
+
             foreach (var pair in prefabs)
                 pair.Value.gameObject.SetActive(false);
 
             if (clones.Count > 0)
                 clones[^1].ToggleBottomLine(false);
-
-            NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(1, () =>
-            {
-                Vector2 rt_size = rT.sizeDelta;
-
-                float layout_current_height = content_layout_rT.rect.height;
-                float layout_preferred_height = content_layout.preferredHeight;
-
-                rt_size = new Vector2(
-                    rt_size.x,
-                    layout_preferred_height + rt_size.y - layout_current_height
-                    );
-
-                content_layout_rT.sizeDelta = new(0, layout_preferred_height);
-                rT.sizeDelta = rt_size;
-            }));
         }
 
         //--------------------------------------------------------------------------------------------------------------

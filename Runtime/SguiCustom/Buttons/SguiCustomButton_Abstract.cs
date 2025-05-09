@@ -1,19 +1,25 @@
 using System;
 using _UTIL_;
+using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public abstract class SguiCustomButton_Abstract : MonoBehaviour, IDisposable
     {
-        public Traductable label;
+        [HideInInspector] public RectTransform rt, rt_label;
+        [HideInInspector] public TextMeshProUGUI tmp_label;
+        [HideInInspector] public Traductable trad_label;
         public bool disposed;
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Awake()
         {
-            label = transform.Find("label").GetComponent<Traductable>();
+            rt = (RectTransform)transform;
+            rt_label = (RectTransform)transform.Find("label");
+            tmp_label = rt_label.GetComponent<TextMeshProUGUI>();
+            trad_label = rt_label.GetComponent<Traductable>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

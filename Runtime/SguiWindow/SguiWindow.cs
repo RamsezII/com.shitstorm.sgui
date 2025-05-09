@@ -21,10 +21,12 @@ namespace _SGUI_
         public Action onDestroy;
 
         [SerializeField]
-        bool
+        protected bool
             animate_hue = true,
             hide_on_close,
-            open_on_awake = true;
+            open_on_awake = true,
+            auto_size = true,
+            auto_position = true;
 
         public bool oblivionized;
 
@@ -79,6 +81,11 @@ namespace _SGUI_
                         sgui_toggle_window.Update(true);
                     }
                 }
+
+            if (auto_size || auto_position)
+                NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(0, AutoLayout));
+
+            USAGES.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -92,6 +99,25 @@ namespace _SGUI_
                     return true;
                 }
             return false;
+        }
+
+        void AutoLayout()
+        {
+            if (auto_size)
+                OnAutoSize();
+            if (auto_position)
+                OnAutoPosition();
+        }
+
+        protected virtual void OnAutoSize()
+        {
+        }
+
+        protected virtual void OnAutoPosition()
+        {
+            Vector2 dims = .5f * SguiGlobal.instance.rT_2D.rect.size;
+            dims -= .5f * rT.rect.size;
+            rT.anchoredPosition = dims;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -113,6 +139,7 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             Oblivionize();
+            USAGES.RemoveUser(this);
         }
     }
 }
