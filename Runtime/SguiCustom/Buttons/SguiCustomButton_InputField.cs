@@ -4,13 +4,13 @@ namespace _SGUI_
 {
     public class SguiCustomButton_InputField : SguiCustomButton_Abstract
     {
-        public TMP_InputField inputfield;
+        public TMP_InputField input_field;
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
-            inputfield = transform.Find("input_field").GetComponent<TMP_InputField>();
+            input_field = transform.Find("input_field").GetComponent<TMP_InputField>();
             base.Awake();
         }
 
@@ -19,13 +19,13 @@ namespace _SGUI_
         protected override void OnDispose()
         {
             base.OnDispose();
-            inputfield.onValueChanged.RemoveAllListeners();
-            inputfield.onEndEdit.RemoveAllListeners();
-            inputfield.onSubmit.RemoveAllListeners();
-            inputfield.onSelect.RemoveAllListeners();
-            inputfield.onDeselect.RemoveAllListeners();
-            inputfield.onTextSelection.RemoveAllListeners();
-            inputfield.onEndTextSelection.RemoveAllListeners();
+            input_field.onValueChanged.RemoveAllListeners();
+            input_field.onEndEdit.RemoveAllListeners();
+            input_field.onSubmit.RemoveAllListeners();
+            input_field.onSelect.RemoveAllListeners();
+            input_field.onDeselect.RemoveAllListeners();
+            input_field.onTextSelection.RemoveAllListeners();
+            input_field.onEndTextSelection.RemoveAllListeners();
         }
     }
 }

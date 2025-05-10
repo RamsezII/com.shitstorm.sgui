@@ -14,6 +14,8 @@ namespace _SGUI_
 
         public Traductable trad_title;
         public Graphic huable_background;
+
+        public RectTransform buttons_rt;
         public Button button_hide, button_fullscreen, button_close;
 
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;

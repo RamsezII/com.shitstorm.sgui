@@ -14,7 +14,7 @@ namespace _SGUI_
 
         public Action onAction_confirm, onAction_cancel;
 
-        [SerializeField] Button button_confirm, button_cancel;
+        public Button button_confirm, button_cancel;
 
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
