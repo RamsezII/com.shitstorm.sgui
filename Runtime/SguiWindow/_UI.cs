@@ -24,7 +24,7 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder prefab_hierarchy_folder;
         [SerializeField] internal Button_File prefab_hierarchy_file;
 
-        Rect rect_current;
+        SguiRect rect_current;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ namespace _SGUI_
             rT = (RectTransform)transform.Find("rT");
             rT_parent = (RectTransform)rT.parent;
 
-            rect_current = new(rT.anchoredPosition, rT.sizeDelta);
+            rect_current = new(rT);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -59,18 +59,14 @@ namespace _SGUI_
                 {
                     if (toggle)
                     {
-                        rect_current = new(rT.anchoredPosition, rT.sizeDelta);
+                        rect_current = new(rT);
                         rT.sizeDelta = Vector2.zero;
                         rT.anchorMin = Vector2.zero;
                         rT.anchorMax = Vector2.one;
                         rT.anchoredPosition = Vector2.zero;
                     }
                     else
-                    {
-                        rT.sizeDelta = rect_current.size;
-                        rT.anchoredPosition = rect_current.position;
-                        rT.anchorMin = rT.anchorMax = .5f * Vector2.one;
-                    }
+                        rect_current.Apply(rT);
                 });
 
                 button_fullscreen.onClick.AddListener(fullscreen.Toggle);
