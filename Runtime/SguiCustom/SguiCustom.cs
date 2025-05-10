@@ -39,11 +39,9 @@ namespace _SGUI_
             content_layout_rT = rT;
             content_layout = rT.GetComponent<VerticalLayoutGroup>();
 
-            prefabs[typeof(SguiCustomButton_Slider)] = rT.Find("sgui2-slider").GetComponent<SguiCustomButton_Slider>();
-            prefabs[typeof(SguiCustomButton_InputField)] = rT.Find("sgui2-input").GetComponent<SguiCustomButton_InputField>();
-            prefabs[typeof(SguiCustomButton_Dropdown)] = rT.Find("sgui2-dropdown").GetComponent<SguiCustomButton_Dropdown>();
-            prefabs[typeof(SguiCustomButton_Toggle)] = rT.Find("sgui2-toggle").GetComponent<SguiCustomButton_Toggle>();
-            prefabs[typeof(SguiCustomButton_Button)] = rT.Find("sgui2-button").GetComponent<SguiCustomButton_Button>();
+            for (int i = 0; i < rT.childCount; ++i)
+                if (rT.GetChild(i).TryGetComponent<SguiCustomButton_Abstract>(out var prefab))
+                    prefabs[prefab.GetType()] = prefab;
         }
 
         //--------------------------------------------------------------------------------------------------------------
