@@ -198,9 +198,10 @@ namespace _SGUI_
             if (fullscreen.Value)
                 return;
 
-            return;
+            delta = 2 * ScreenDeltaToLocal(delta);
 
-            delta = ScreenDeltaToLocal(delta);
+            Vector2 parent_size = rT_parent.GetWorldSize();
+            (Vector2 min, Vector2 max) = rT.GetWorldCorners();
 
             if (drag_mode.HasFlag(DRAG_MODES.TOP))
                 rT.sizeDelta += delta * Vector2.up;
@@ -209,16 +210,10 @@ namespace _SGUI_
                 rT.sizeDelta += delta * Vector2.right;
 
             if (drag_mode.HasFlag(DRAG_MODES.BOTTOM))
-            {
-                rT.anchoredPosition += delta * Vector2.up;
                 rT.sizeDelta += delta * Vector2.down;
-            }
 
             if (drag_mode.HasFlag(DRAG_MODES.LEFT))
-            {
-                rT.anchoredPosition += delta * Vector2.right;
                 rT.sizeDelta += delta * Vector2.left;
-            }
 
             CheckBounds();
         }
