@@ -32,7 +32,7 @@ namespace _SGUI_
             button_confirm = rT.Find("button_confirm").GetComponent<Button>();
 
             button_confirm.onClick.AddListener(OnClick_Confirm);
-            button_cancel.onClick.AddListener(OnClick_cancel);
+            button_cancel.onClick.AddListener(OnClick_Cancel);
 
             rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
 
@@ -76,7 +76,7 @@ namespace _SGUI_
             Oblivionize();
         }
 
-        private void OnClick_cancel()
+        private void OnClick_Cancel()
         {
             if (!oblivionized)
                 onAction_cancel?.Invoke();
