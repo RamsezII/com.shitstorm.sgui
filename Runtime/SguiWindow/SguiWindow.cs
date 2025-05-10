@@ -1,7 +1,6 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace _SGUI_
@@ -13,8 +12,6 @@ namespace _SGUI_
 
         [HideInInspector] public Animator animator;
 
-        [SerializeField] bool animated_toggle = true;
-
         public readonly OnValue<bool> sgui_toggle_window = new();
 
         public Action<BaseStates, bool> onState, onState_once;
@@ -24,9 +21,7 @@ namespace _SGUI_
         protected bool
             animate_hue = true,
             hide_on_close,
-            open_on_awake = true,
-            auto_size = true,
-            auto_position = true;
+            open_on_awake = true;
 
         public bool oblivionized;
 
@@ -69,21 +64,7 @@ namespace _SGUI_
             StartToggle();
 
             if (open_on_awake)
-                if (!animated_toggle)
-                    sgui_toggle_window.Update(true);
-                else
-                {
-                    NUCLEOR.instance.subScheduler.AddRoutine(EOpen());
-                    IEnumerator<float> EOpen()
-                    {
-                        while (state_base == 0)
-                            yield return 0;
-                        sgui_toggle_window.Update(true);
-                    }
-                }
-
-            if (auto_size || auto_position)
-                NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(0, AutoLayout));
+                NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitUntil(() => state_base != 0, null, () => sgui_toggle_window.Update(true)));
 
             USAGES.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
         }
@@ -99,25 +80,6 @@ namespace _SGUI_
                     return true;
                 }
             return false;
-        }
-
-        void AutoLayout()
-        {
-            if (auto_size)
-                OnAutoSize();
-            if (auto_position)
-                OnAutoPosition();
-        }
-
-        protected virtual void OnAutoSize()
-        {
-        }
-
-        protected virtual void OnAutoPosition()
-        {
-            Vector2 dims = .5f * SguiGlobal.instance.rT_2D.rect.size;
-            dims -= .5f * rT.rect.size;
-            rT.anchoredPosition = dims;
         }
 
         //--------------------------------------------------------------------------------------------------------------

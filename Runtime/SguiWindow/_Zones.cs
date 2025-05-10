@@ -132,6 +132,8 @@ namespace _SGUI_
 
         public void CheckBounds()
         {
+            return;
+
             Vector2 parent_size = rT_parent.rect.size;
             Vector2 size = rT.rect.size;
             Vector2 pos = rT.anchoredPosition;
@@ -190,6 +192,8 @@ namespace _SGUI_
 
         void OnSizeDrag(Vector2 delta)
         {
+            return;
+
             delta = ScreenDeltaToLocal(delta);
 
             if (drag_mode.HasFlag(DRAG_MODES.TOP))

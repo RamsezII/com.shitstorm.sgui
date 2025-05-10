@@ -24,7 +24,7 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder prefab_hierarchy_folder;
         [SerializeField] internal Button_File prefab_hierarchy_file;
 
-        Rect init_rect;
+        Rect rect_current;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ namespace _SGUI_
             rT = (RectTransform)transform.Find("rT");
             rT_parent = (RectTransform)rT.parent;
 
-            init_rect = rT.rect;
+            rect_current = new(rT.anchoredPosition, rT.sizeDelta);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -59,6 +59,7 @@ namespace _SGUI_
                 {
                     if (toggle)
                     {
+                        rect_current = new(rT.anchoredPosition, rT.sizeDelta);
                         rT.sizeDelta = Vector2.zero;
                         rT.anchorMin = Vector2.zero;
                         rT.anchorMax = Vector2.one;
@@ -66,9 +67,9 @@ namespace _SGUI_
                     }
                     else
                     {
-                        rT.sizeDelta = init_rect.size;
-                        rT.anchorMin = rT.anchorMax = Vector2.zero;
-                        rT.anchoredPosition = 50 * Vector2.one;
+                        rT.sizeDelta = rect_current.size;
+                        rT.anchoredPosition = rect_current.position;
+                        rT.anchorMin = rT.anchorMax = .5f * Vector2.one;
                     }
                 });
 

@@ -4,10 +4,8 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        protected override void OnAutoSize()
+        void AutoSize()
         {
-            base.OnAutoSize();
-
             float width = 350;
             float height = content_layout.preferredHeight;
             content_layout_rT.sizeDelta = new Vector2(0, height);

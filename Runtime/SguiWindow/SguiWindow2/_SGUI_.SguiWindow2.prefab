@@ -218,7 +218,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3669187911633306650}
-  - component: {fileID: 9125527567120264568}
   m_Layer: 5
   m_Name: rT
   m_TagString: Untagged
@@ -244,23 +243,11 @@ RectTransform:
   - {fileID: 7156459396996341804}
   m_Father: {fileID: 3799867886474586449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 650, y: 450}
-  m_Pivot: {x: 0, y: 0}
---- !u!225 &9125527567120264568
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2507712263226908717}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2902176260075384853
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +404,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3799867886474586449}
-  - component: {fileID: 7435613044376935471}
+  - component: {fileID: 4056597884350148866}
+  - component: {fileID: 8769118627068472131}
   m_Layer: 5
   m_Name: _SGUI_.SguiWindow2
   m_TagString: Untagged
@@ -446,51 +434,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7435613044376935471
-MonoBehaviour:
+--- !u!95 &4056597884350148866
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5761368120172786459}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f42704fb4e709442b81302bc2ed410d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  animated_toggle: 1
-  animate_hue: 1
-  hide_on_close: 0
-  open_on_awake: 1
-  auto_size: 1
-  auto_position: 1
-  oblivionized: 0
-  hierarchy_viewport_rT: {fileID: 0}
-  hierarchy_content_rT: {fileID: 0}
-  hierarchy_layout: {fileID: 0}
-  root_folder: {fileID: 0}
-  hierarchy_width: 5
-  fs_mode: 255
-  hierarchy_last_select: {fileID: 0}
-  state_base: 0
-  canvas: {fileID: 0}
-  raycaster: {fileID: 0}
-  rT: {fileID: 0}
-  rT_parent: {fileID: 0}
-  trad_title: {fileID: 0}
-  huable_background: {fileID: 0}
-  button_hide: {fileID: 0}
-  button_fullscreen: {fileID: 0}
-  button_close: {fileID: 0}
-  anim_alpha: 1
-  ui_hue_start: 0
-  ui_hue_current: 0
-  ui_alpha: 0
-  prefab_hierarchy_folder: {fileID: 0}
-  prefab_hierarchy_file: {fileID: 0}
-  drag_mode: 0
-  cursor_mode: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c4de00906d5b63448a60449c3c71627, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &8769118627068472131
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761368120172786459}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5829125021407307607
 GameObject:
   m_ObjectHideFlags: 0
