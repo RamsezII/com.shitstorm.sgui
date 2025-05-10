@@ -126,29 +126,53 @@ namespace _SGUI_
 
         void OnHeaderDrag(Vector2 delta)
         {
+            if (fullscreen.Value)
+                return;
+
             rT.anchoredPosition += ScreenDeltaToLocal(delta);
             CheckBounds();
         }
 
         public void CheckBounds()
         {
-            return;
+            {
+                Vector2 move = Vector2.zero;
 
-            Vector2 parent_size = rT_parent.rect.size;
-            Vector2 size = rT.rect.size;
-            Vector2 pos = rT.anchoredPosition;
+                Vector2 parent_size = rT_parent.GetWorldSize();
+                (Vector2 min, Vector2 max) = rT.GetWorldCorners();
 
-            Vector2 corner_sw = pos;
-            Vector2 corner_ne = pos + size;
+                if (min.x < 0)
+                    move.x += -min.x;
+                if (max.x > parent_size.x)
+                    move.x -= max.x - parent_size.x;
 
-            corner_sw.x = Mathf.Clamp(corner_sw.x, 0, parent_size.x - minimum_size.x);
-            corner_sw.y = Mathf.Clamp(corner_sw.y, 0, parent_size.y - minimum_size.y);
+                if (min.y < 0)
+                    move.y += -min.y;
+                if (max.y > parent_size.y)
+                    move.y -= max.y - parent_size.y;
 
-            corner_ne.x = Mathf.Clamp(corner_ne.x, minimum_size.x, parent_size.x);
-            corner_ne.y = Mathf.Clamp(corner_ne.y, minimum_size.y, parent_size.y);
+                if (move != default)
+                    rT.anchoredPosition += .5f*move;
+            }
 
-            rT.anchoredPosition = corner_sw;
-            rT.sizeDelta = corner_ne - corner_sw;
+            if (false)
+            {
+                Vector2 parent_size = rT_parent.rect.size;
+                Vector2 size = rT.rect.size;
+                Vector2 pos = rT.anchoredPosition;
+
+                Vector2 corner_sw = pos;
+                Vector2 corner_ne = pos + size;
+
+                corner_sw.x = Mathf.Clamp(corner_sw.x, 0, parent_size.x - minimum_size.x);
+                corner_sw.y = Mathf.Clamp(corner_sw.y, 0, parent_size.y - minimum_size.y);
+
+                corner_ne.x = Mathf.Clamp(corner_ne.x, minimum_size.x, parent_size.x);
+                corner_ne.y = Mathf.Clamp(corner_ne.y, minimum_size.y, parent_size.y);
+
+                rT.anchoredPosition = corner_sw;
+                rT.sizeDelta = corner_ne - corner_sw;
+            }
 
             OnCheckBounds();
         }
@@ -192,6 +216,9 @@ namespace _SGUI_
 
         void OnSizeDrag(Vector2 delta)
         {
+            if (fullscreen.Value)
+                return;
+
             return;
 
             delta = ScreenDeltaToLocal(delta);
