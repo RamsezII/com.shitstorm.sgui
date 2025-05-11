@@ -3,7 +3,7 @@ using TMPro;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_Dropdown : SguiCustomButton_Abstract
+    public class SguiCustom_Dropdown : SguiCustom_Abstract
     {
         public readonly struct Output
         {
@@ -21,7 +21,7 @@ namespace _SGUI_
         }
 
         public TMP_Dropdown dropdown;
-        public Action<SguiCustomButton_Dropdown_Template> on_template_clone;
+        public Action<SguiCustom_Dropdown_Template> on_template_clone;
 
         //--------------------------------------------------------------------------------------------------------------
 

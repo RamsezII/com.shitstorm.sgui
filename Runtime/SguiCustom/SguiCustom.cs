@@ -8,9 +8,9 @@ namespace _SGUI_
 {
     public partial class SguiCustom : SguiWindow2
     {
-        readonly Dictionary<Type, SguiCustomButton_Abstract> prefabs = new();
+        readonly Dictionary<Type, SguiCustom_Abstract> prefabs = new();
 
-        public readonly List<SguiCustomButton_Abstract> clones = new();
+        public readonly List<SguiCustom_Abstract> clones = new();
 
         public Func<bool> onAction_confirm, onAction_cancel;
 
@@ -41,7 +41,7 @@ namespace _SGUI_
             content_layout = rT.GetComponent<VerticalLayoutGroup>();
 
             for (int i = 0; i < rT.childCount; ++i)
-                if (rT.GetChild(i).TryGetComponent<SguiCustomButton_Abstract>(out var prefab))
+                if (rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
                     prefabs[prefab.GetType()] = prefab;
         }
 
@@ -64,11 +64,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public T AddButton<T>() where T : SguiCustomButton_Abstract => (T)AddButton(typeof(T));
-        public SguiCustomButton_Abstract AddButton(in Type type)
+        public T AddButton<T>() where T : SguiCustom_Abstract => (T)AddButton(typeof(T));
+        public SguiCustom_Abstract AddButton(in Type type)
         {
-            SguiCustomButton_Abstract prefab = prefabs[type];
-            SguiCustomButton_Abstract clone = Instantiate(prefab, prefab.transform.parent);
+            SguiCustom_Abstract prefab = prefabs[type];
+            SguiCustom_Abstract clone = Instantiate(prefab, prefab.transform.parent);
             clones.Add(clone);
             clone.gameObject.SetActive(true);
             return clone;

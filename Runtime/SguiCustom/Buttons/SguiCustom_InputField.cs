@@ -2,7 +2,7 @@ using TMPro;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_InputField : SguiCustomButton_Abstract
+    public class SguiCustom_InputField : SguiCustom_Abstract
     {
         public TMP_InputField input_field;
 

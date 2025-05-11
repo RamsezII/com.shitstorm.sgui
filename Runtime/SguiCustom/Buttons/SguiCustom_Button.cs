@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_Button : SguiCustomButton_Abstract
+    public class SguiCustom_Button : SguiCustom_Abstract
     {
         public Button button;
 

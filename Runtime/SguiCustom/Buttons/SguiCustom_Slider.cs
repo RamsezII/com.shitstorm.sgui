@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_Slider : SguiCustomButton_Abstract
+    public class SguiCustom_Slider : SguiCustom_Abstract
     {
         public Slider slider;
         [SerializeField] TextMeshProUGUI tmp_value;

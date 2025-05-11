@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiCustomButton_Toggle : SguiCustomButton_Abstract
+    public class SguiCustom_Toggle : SguiCustom_Abstract
     {
         public Toggle toggle;
 

@@ -17,7 +17,7 @@ namespace _SGUI_
 
             for (int i = 0; i < clones.Count; i++)
             {
-                SguiCustomButton_Abstract clone = clones[i];
+                SguiCustom_Abstract clone = clones[i];
 
                 float pw = clone.tmp_label.preferredWidth;
                 float cw = clone.rt_label.rect.width;

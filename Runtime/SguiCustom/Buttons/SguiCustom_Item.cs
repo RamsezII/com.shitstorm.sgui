@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public abstract class SguiCustomButton_Abstract : MonoBehaviour, IDisposable
+    public abstract class SguiCustom_Abstract : MonoBehaviour, IDisposable
     {
         [HideInInspector] public RectTransform rt, rt_label;
         [HideInInspector] public TextMeshProUGUI tmp_label;
