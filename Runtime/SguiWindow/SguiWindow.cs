@@ -66,7 +66,7 @@ namespace _SGUI_
             if (open_on_awake)
                 NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitUntil(() => state_base != 0, null, () => sgui_toggle_window.Update(true)));
 
-            USAGES.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
+            UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             Oblivionize();
-            USAGES.RemoveUser(this);
+            UsageManager.RemoveUser(this);
         }
     }
 }

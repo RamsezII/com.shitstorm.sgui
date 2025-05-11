@@ -22,13 +22,13 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
-            USAGES.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.TrueMouse, UsageGroups.IMGUI, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
+            UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.TrueMouse, UsageGroups.IMGUI, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            USAGES.RemoveUser(this);
+            UsageManager.RemoveUser(this);
         }
 
         //--------------------------------------------------------------------------------------------------------------
