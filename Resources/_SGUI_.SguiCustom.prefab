@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1304147498422635418}
   - component: {fileID: 8384509561621974214}
+  - component: {fileID: 5773241576854149139}
   m_Layer: 5
   m_Name: template
   m_TagString: Untagged
@@ -296,6 +297,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5773241576854149139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693810501848072858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ee7be1040c7d24f8d60c557c017207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750388959889317813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1680,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.9019608}
     m_SelectedColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.9019608}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5, g: 0, b: 0, a: 0.8509804}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.05
   m_SpriteState:
@@ -3013,7 +3026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &798031679418703119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3617,6 +3630,7 @@ MonoBehaviour:
   rT_parent: {fileID: 0}
   trad_title: {fileID: 0}
   huable_background: {fileID: 0}
+  buttons_rt: {fileID: 0}
   button_hide: {fileID: 0}
   button_fullscreen: {fileID: 0}
   button_close: {fileID: 0}
@@ -4467,7 +4481,7 @@ MonoBehaviour:
   tmp_label: {fileID: 0}
   trad_label: {fileID: 0}
   disposed: 0
-  inputfield: {fileID: 0}
+  input_field: {fileID: 0}
 --- !u!224 &8572443831163766438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,

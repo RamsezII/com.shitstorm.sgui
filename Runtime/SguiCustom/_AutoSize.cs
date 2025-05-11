@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
@@ -6,6 +7,10 @@ namespace _SGUI_
     {
         void AutoSize()
         {
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(SguiGlobal.instance.rT_2D);
+            rT.ForceUpdateRectTransforms();
+
             float width = 350;
             float height = content_layout.preferredHeight;
             content_layout_rT.sizeDelta = new Vector2(0, height);

@@ -57,7 +57,9 @@ namespace _SGUI_
             if (clones.Count > 0)
                 clones[^1].ToggleBottomLine(false);
 
+            AutoSize();
             NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(1, AutoSize));
+            NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitForFrames(2, AutoSize));
         }
 
         //--------------------------------------------------------------------------------------------------------------

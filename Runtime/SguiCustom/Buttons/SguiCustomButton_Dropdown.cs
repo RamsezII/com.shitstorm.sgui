@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 
 namespace _SGUI_
@@ -20,6 +21,7 @@ namespace _SGUI_
         }
 
         public TMP_Dropdown dropdown;
+        public Action<SguiCustomButton_Dropdown_Template> on_template_clone;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -28,6 +30,13 @@ namespace _SGUI_
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
             dropdown.options.Clear();
             base.Awake();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public void ToggleCheckmarks(in bool value)
+        {
+            dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------

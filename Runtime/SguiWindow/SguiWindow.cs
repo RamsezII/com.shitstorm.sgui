@@ -26,7 +26,6 @@ namespace _SGUI_
         public bool oblivionized;
 
         public readonly OnValue<bool> fullscreen = new();
-        public static T InstantiateWindow<T>() where T : SguiWindow => Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT_2D);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -80,6 +79,19 @@ namespace _SGUI_
                     return true;
                 }
             return false;
+        }
+
+        public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_cancel = true) where T : SguiWindow
+        {
+            T winwow = Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT_2D);
+            winwow.button_hide.interactable = can_hide;
+            winwow.button_fullscreen.interactable = can_fullscreen;
+            winwow.button_close.interactable = can_cancel;
+
+            if (winwow is SguiCustom custom)
+                custom.button_cancel.interactable = can_cancel;
+
+            return winwow;
         }
 
         //--------------------------------------------------------------------------------------------------------------
