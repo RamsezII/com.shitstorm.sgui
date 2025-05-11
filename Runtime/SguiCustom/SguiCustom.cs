@@ -12,7 +12,7 @@ namespace _SGUI_
 
         public readonly List<SguiCustomButton_Abstract> clones = new();
 
-        public Action onAction_confirm, onAction_cancel;
+        public Func<bool> onAction_confirm, onAction_cancel;
 
         public Button button_confirm, button_cancel;
 
@@ -75,15 +75,15 @@ namespace _SGUI_
         private void OnClick_Confirm()
         {
             if (!oblivionized)
-                onAction_confirm?.Invoke();
-            Oblivionize();
+                if (onAction_confirm == null || onAction_confirm())
+                    Oblivionize();
         }
 
         private void OnClick_Cancel()
         {
             if (!oblivionized)
-                onAction_cancel?.Invoke();
-            Oblivionize();
+                if (onAction_cancel == null || onAction_cancel())
+                    Oblivionize();
         }
 
         //--------------------------------------------------------------------------------------------------------------

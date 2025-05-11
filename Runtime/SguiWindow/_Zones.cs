@@ -136,10 +136,10 @@ namespace _SGUI_
 
         public void CheckBounds()
         {
-            Vector2 move = Vector2.zero;
-
             Vector2 parent_size = rT_parent.GetWorldSize();
             (Vector2 min, Vector2 max) = rT.GetWorldCorners();
+
+            Vector2 move = Vector2.zero;
 
             if (min.x < 0)
                 move.x += -min.x;
