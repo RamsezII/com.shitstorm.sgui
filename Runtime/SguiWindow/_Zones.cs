@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _ARK_;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -151,7 +152,7 @@ namespace _SGUI_
                 move.y -= max.y - parent_size.y;
 
             if (move != default)
-                rT.anchoredPosition += .5f * move;
+                rT.position += (Vector3)move;
 
             OnCheckBounds();
         }
