@@ -24,6 +24,7 @@ namespace _SGUI_
         {
             base.Start();
             slider.onValueChanged.AddListener(OnSliderValue);
+            OnSliderValue(slider.value);
         }
 
         //--------------------------------------------------------------------------------------------------------------
