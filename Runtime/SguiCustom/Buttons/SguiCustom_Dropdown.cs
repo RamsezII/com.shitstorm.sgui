@@ -1,4 +1,3 @@
-using _ARK_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace _SGUI_
         public Dictionary<string, bool> toggles;
         float current_scrollheight = 1;
 
-        public IEnumerable<string> ESelectedItems() => toggles.Where(pair => pair.Value).Select(pair => pair.Key);
+        public IEnumerable<string> ESelectedItems() => toggles?.Where(pair => pair.Value).Select(pair => pair.Key);
 
         //--------------------------------------------------------------------------------------------------------------
 
