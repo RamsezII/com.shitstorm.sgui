@@ -8,10 +8,11 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public static void EditFile(in string file_path, in Type type)
+        public static SguiCustom EditFile(in string file_path, in Type type)
         {
             SguiCustom window = InstantiateWindow<SguiCustom>();
             window.EditJSon(JsonUtility.FromJson(File.ReadAllText(file_path), type));
+            return window;
         }
 
         internal void EditJSon(in object json)
