@@ -1,4 +1,7 @@
+using _ARK_;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine.UI;
 
@@ -9,7 +12,10 @@ namespace _SGUI_
         public TMP_Dropdown dropdown;
         public Action<SguiCustom_Dropdown_Template> on_template_clone;
 
-        float current_scrollheight;
+        public Dictionary<string, bool> toggles;
+        float current_scrollheight = 1;
+
+        public IEnumerable<string> ESelectedItems() => toggles.Where(pair => pair.Value).Select(pair => pair.Key);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -34,15 +40,36 @@ namespace _SGUI_
             if (dropdown.MultiSelect)
             {
                 Scrollbar scrollbar = template_clone.transform.Find("scrollbar").GetComponent<Scrollbar>();
-                if (current_scrollheight != 0)
-                    scrollbar.value = current_scrollheight;
 
-                foreach (var item in template_clone.GetComponentsInChildren<Toggle>(true))
+                scrollbar.value = 0;
+                scrollbar.value = 1;
+                scrollbar.value = current_scrollheight;
+                scrollbar.onValueChanged.AddListener(value => current_scrollheight = value);
+
+                toggles?.Clear();
+                toggles = new(StringComparer.OrdinalIgnoreCase);
+
+                Toggle[] items = template_clone.GetComponentsInChildren<Toggle>(true);
+                for (int i = 0; i < items.Length; i++)
+                {
+                    Toggle item = items[i];
+                    string toggle_name = null;
+
+                    if (i > 2)
+                    {
+                        toggle_name = item.GetValueName();
+                        toggles.Add(toggle_name, item.isOn);
+                    }
+
+                    int i_copy = i;
                     item.onValueChanged.AddListener(_ =>
                     {
-                        dropdown.Show();
+                        if (i_copy > 2)
+                            toggles[toggle_name] = item.isOn;
                         current_scrollheight = scrollbar.value;
+                        dropdown.Show();
                     });
+                }
             }
             on_template_clone?.Invoke(template_clone);
         }
