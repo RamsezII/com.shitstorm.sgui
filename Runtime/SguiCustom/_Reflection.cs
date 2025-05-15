@@ -23,9 +23,6 @@ namespace _SGUI_
             {
                 FieldInfo field = target_fields[i];
 
-                if (false && field.IsNotSerialized)
-                    continue;
-
                 string field_name = field.Name;
                 Type field_type = field.FieldType;
                 object field_value = field.GetValue(result);
