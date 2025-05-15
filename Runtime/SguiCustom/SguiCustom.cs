@@ -1,6 +1,7 @@
 using _ARK_;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,8 @@ namespace _SGUI_
 
         public readonly List<SguiCustom_Abstract> clones = new();
 
-        public Func<bool> onAction_confirm, onAction_cancel;
+        public Func<bool> onFunc_confirm, onFunc_cancel;
+        public Action onAction_confirm, onAction_cancel;
 
         public Button button_confirm, button_cancel;
 
@@ -77,15 +79,30 @@ namespace _SGUI_
         private void OnClick_Confirm()
         {
             if (!oblivionized)
-                if (onAction_confirm == null || onAction_confirm())
-                    Oblivionize();
+                if (onFunc_confirm != null && !onFunc_confirm())
+                    return;
+            onAction_confirm?.Invoke();
+            Oblivionize();
         }
 
         private void OnClick_Cancel()
         {
             if (!oblivionized)
-                if (onAction_cancel == null || onAction_cancel())
-                    Oblivionize();
+                if (onFunc_cancel != null && !onFunc_cancel())
+                    return;
+            onAction_cancel?.Invoke();
+            Oblivionize();
+        }
+
+        public void EditArkJSon(in string file_path, Type type)
+        {
+            ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(File.ReadAllText(file_path), type);
+            ReflectionEditor(arkjson, result =>
+            {
+                ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(JsonUtility.ToJson(result), type);
+                arkjson.SaveArkJSon(true);
+                NUCLEOR.delegates.onApplicationFocus?.Invoke();
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------

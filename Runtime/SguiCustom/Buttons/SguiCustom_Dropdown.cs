@@ -27,11 +27,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public void ToggleCheckmarks(in bool toggle) => dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(toggle);
+
         public void ActivateMultiSelect()
         {
             dropdown.MultiSelect = true;
             dropdown.alphaFadeSpeed = 0;
-            dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(true);
+            ToggleCheckmarks(true);
         }
 
         internal void OnTemplateClone(SguiCustom_Dropdown_Template template_clone)

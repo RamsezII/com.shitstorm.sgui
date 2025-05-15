@@ -6,19 +6,19 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public bool TryParseNumberField(in string field_name, in object field_value, out SguiCustom_Slider slider, out SguiCustom_InputField inputfield)
+        public bool TryParseNumberField(in string label, in object value, out SguiCustom_Slider slider, out SguiCustom_InputField inputfield)
         {
-            bool is_int = field_value is int;
-            bool is_float = field_value is float;
+            bool is_int = value is int;
+            bool is_float = value is float;
             bool is_number = is_int || is_float;
 
             slider = null;
             inputfield = null;
 
-            if (field_name.StartsWith('_'))
+            if (label.StartsWith('_'))
                 try
                 {
-                    string[] splits = field_name.Split('_', StringSplitOptions.None);
+                    string[] splits = label.Split('_', StringSplitOptions.None);
                     bool is_01 = splits[1].Equals("01", StringComparison.OrdinalIgnoreCase);
 
                     float min = is_01 ? 0 : splits[1].ToFloat();
@@ -26,7 +26,7 @@ namespace _SGUI_
 
                     slider = AddButton<SguiCustom_Slider>();
                     slider.trad_label.SetTrad(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
-                    slider.slider.value = is_int ? (int)field_value : (float)field_value;
+                    slider.slider.value = is_int ? (int)value : (float)value;
                     slider.slider.wholeNumbers = is_int;
 
                     slider.slider.minValue = min;
@@ -42,8 +42,8 @@ namespace _SGUI_
                 }
 
             inputfield = AddButton<SguiCustom_InputField>();
-            inputfield.trad_label.SetTrad(field_name + ":");
-            inputfield.input_field.text = field_value.ToString();
+            inputfield.trad_label.SetTrad(label + ":");
+            inputfield.input_field.text = value.ToString();
 
             if (is_int)
                 inputfield.input_field.contentType = TMP_InputField.ContentType.IntegerNumber;
