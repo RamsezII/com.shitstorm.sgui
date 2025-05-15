@@ -3,31 +3,31 @@ using System.IO;
 using System.Reflection;
 using System;
 using UnityEngine;
+using _UTIL_;
 
 namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public static SguiCustom EditFile(in string file_path, in Type type)
+        public void EditArkJSon(in string file_path, in Type type)
         {
-            SguiCustom window = InstantiateWindow<SguiCustom>();
-            window.EditJSon(JsonUtility.FromJson(File.ReadAllText(file_path), type));
-            return window;
+            ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(File.ReadAllText(file_path), type);
+            ReflectionEditor(arkjson, () => arkjson.SaveArkJSon(true));
         }
 
-        internal void EditJSon(in object json)
+        public void ReflectionEditor(in object target, Action on_save, Action<SguiCustom_Abstract, object> on_change = null, Traductions title = default)
         {
-            ArkJSon arkjson = json as ArkJSon;
-            string title = Path.GetFileName(arkjson.GetFilePath());
-            trad_title.SetTrad(title);
+            if (title.IsDefault)
+                title = new(target.GetType().FullName);
 
-            FieldInfo[] target_fields = arkjson.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            trad_title.SetTrads(title);
+            on_change += (_, _) => trad_title.SetTrad(title + "*");
 
-            Action on_save = null, on_change = () => trad_title.SetTrad(title + "*");
+            FieldInfo[] target_fields = target.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+
             onAction_confirm += () =>
             {
                 on_save?.Invoke();
-                arkjson.SaveArkJSon(true);
                 NUCLEOR.delegates.onApplicationFocus?.Invoke();
                 return true;
             };
@@ -40,15 +40,15 @@ namespace _SGUI_
                     continue;
 
                 Type type = field.FieldType;
-                object value = field.GetValue(arkjson);
+                object value = field.GetValue(target);
 
                 SguiCustom_Abstract button = value switch
                 {
-                    bool _bool => AddBool(field, arkjson, _bool, on_change, ref on_save),
-                    int _int => AddInt(field, arkjson, _int, on_change, ref on_save),
-                    float _float => AddFloat(field, arkjson, _float, on_change, ref on_save),
-                    Enum _enum => AddEnum(field, arkjson, _enum, on_change, ref on_save),
-                    string _str => AddString(field, arkjson, _str, on_change, ref on_save),
+                    bool _bool => AddBool(field, target, _bool, on_change, ref on_save),
+                    int _int => AddInt(field, target, _int, on_change, ref on_save),
+                    float _float => AddFloat(field, target, _float, on_change, ref on_save),
+                    Enum _enum => AddEnum(field, target, _enum, on_change, ref on_save),
+                    string _str => AddString(field, target, _str, on_change, ref on_save),
                     _ => null,
                 };
 
