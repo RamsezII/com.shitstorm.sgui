@@ -8,6 +8,7 @@ namespace _SGUI_
     {
         public static SguiGlobal instance;
 
+        public Camera cameraUI;
         public Canvas canvas2D, canvas3D;
         public RectTransform rT_2D, rT_3D;
 
@@ -28,6 +29,10 @@ namespace _SGUI_
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            cameraUI = transform.Find("CameraUI").GetComponent<Camera>();
+            canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
+            rT_3D = (RectTransform)canvas3D.transform.Find("rT");
 
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
