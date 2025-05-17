@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 6966818646779917524}
   - component: {fileID: 7947730552455322017}
   m_Layer: 5
-  m_Name: text
+  m_Name: title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,12 +526,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoSize: 0
   traductions:
     english: SguiWindow2
     french: SguiWindow2
-  english: 
-  francais: 
 --- !u!114 &7947730552455322017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,7 +1322,7 @@ PrefabInstance:
     - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
       propertyPath: traductions.french
-      value: Valider
+      value: Confirmer
       objectReference: {fileID: 0}
     - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}

@@ -58,7 +58,7 @@ namespace _SGUI_
 
                     if (i > 2)
                     {
-                        toggle_name = item.GetValueName();
+                        toggle_name = item.Get_ItemName_From_DropdownToggle();
                         toggles.Add(toggle_name, item.isOn);
                     }
 

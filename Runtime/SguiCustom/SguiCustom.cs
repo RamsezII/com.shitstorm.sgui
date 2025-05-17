@@ -1,4 +1,5 @@
 using _ARK_;
+using _UTIL_;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ namespace _SGUI_
 
         public Func<bool> onFunc_confirm, onFunc_cancel;
         public Action onAction_confirm, onAction_cancel;
+        public Traductable trad_cancel, trad_confirm;
 
         public Button button_confirm, button_cancel;
 
@@ -34,8 +36,26 @@ namespace _SGUI_
             button_cancel = rT.Find("button_cancel").GetComponent<Button>();
             button_confirm = rT.Find("button_confirm").GetComponent<Button>();
 
-            button_confirm.onClick.AddListener(OnClick_Confirm);
-            button_cancel.onClick.AddListener(OnClick_Cancel);
+            trad_cancel = button_cancel.transform.Find("label").GetComponent<Traductable>();
+            trad_confirm = button_confirm.transform.Find("label").GetComponent<Traductable>();
+
+            button_confirm.onClick.AddListener(() =>
+            {
+                if (!oblivionized)
+                    if (onFunc_confirm != null && !onFunc_confirm())
+                        return;
+                onAction_confirm?.Invoke();
+                Oblivionize();
+            });
+
+            button_cancel.onClick.AddListener(() =>
+            {
+                if (!oblivionized)
+                    if (onFunc_cancel != null && !onFunc_cancel())
+                        return;
+                onAction_cancel?.Invoke();
+                Oblivionize();
+            });
 
             rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
 
@@ -76,24 +96,6 @@ namespace _SGUI_
             return clone;
         }
 
-        private void OnClick_Confirm()
-        {
-            if (!oblivionized)
-                if (onFunc_confirm != null && !onFunc_confirm())
-                    return;
-            onAction_confirm?.Invoke();
-            Oblivionize();
-        }
-
-        private void OnClick_Cancel()
-        {
-            if (!oblivionized)
-                if (onFunc_cancel != null && !onFunc_cancel())
-                    return;
-            onAction_cancel?.Invoke();
-            Oblivionize();
-        }
-
         public void EditArkJSon(in string file_path, Type type)
         {
             ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(File.ReadAllText(file_path), type);
@@ -103,6 +105,24 @@ namespace _SGUI_
                 arkjson.SaveArkJSon(true);
                 NUCLEOR.delegates.onApplicationFocus?.Invoke();
             });
+        }
+
+        public static SguiCustom ShowAlert(in SguiCustom_Alert.DialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
+        {
+            SguiCustom sgui = InstantiateWindow<SguiCustom>();
+            alert = sgui.AddButton<SguiCustom_Alert>();
+
+            alert.SetType(type);
+            alert.SetText(traductions);
+            sgui.trad_title.SetTrad(type.ToString());
+
+            if (type != SguiCustom_Alert.DialogTypes.Dialog)
+            {
+                sgui.button_cancel.gameObject.SetActive(false);
+                sgui.trad_confirm.SetTrad("OK");
+            }
+
+            return sgui;
         }
 
         //--------------------------------------------------------------------------------------------------------------

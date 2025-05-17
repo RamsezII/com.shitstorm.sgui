@@ -51,7 +51,7 @@ namespace _SGUI_
                         switch (code)
                         {
                             case HelpDropdowns.Documentation:
-                                SguiDialog.ShowDialog<SguiAlert>(new("no documentation yet"));
+                                Debug.Log("SHOW DIALOG", this);
                                 break;
 
                             case HelpDropdowns.Youtube:

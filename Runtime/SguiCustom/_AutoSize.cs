@@ -20,8 +20,8 @@ namespace _SGUI_
                 SguiCustom_Abstract clone = clones[i];
 
                 float pw = clone.tmp_label.preferredWidth;
-                float cw = clone.rt_label.rect.width;
-                float tw = clone.rt.rect.width;
+                float cw = clone.rT_label.rect.width;
+                float tw = clone.rT.rect.width;
 
                 width = Mathf.Max(width, tw * ((25 + pw) / cw));
             }

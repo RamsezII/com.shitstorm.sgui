@@ -10,7 +10,7 @@ namespace _SGUI_
         {
             base.Awake();
 
-            trad_title = transform.Find("rT/header/text").GetComponent<Traductable>();
+            trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
             huable_background = transform.Find("rT/background").GetComponent<Graphic>();
 
             buttons_rt = (RectTransform)transform.Find("rT/header/buttons");

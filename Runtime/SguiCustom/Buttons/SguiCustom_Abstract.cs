@@ -7,7 +7,7 @@ namespace _SGUI_
 {
     public abstract class SguiCustom_Abstract : MonoBehaviour, IDisposable
     {
-        [HideInInspector] public RectTransform rt, rt_label;
+        [HideInInspector] public RectTransform rT, rT_parent, rT_label;
         [HideInInspector] public TextMeshProUGUI tmp_label;
         [HideInInspector] public Traductable trad_label;
         public bool disposed;
@@ -16,10 +16,11 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
-            rt = (RectTransform)transform;
-            rt_label = (RectTransform)transform.Find("label");
-            tmp_label = rt_label.GetComponent<TextMeshProUGUI>();
-            trad_label = rt_label.GetComponent<Traductable>();
+            rT = (RectTransform)transform;
+            rT_parent = (RectTransform)transform.parent;
+            rT_label = (RectTransform)transform.Find("label");
+            tmp_label = rT_label.GetComponent<TextMeshProUGUI>();
+            trad_label = rT_label.GetComponent<Traductable>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

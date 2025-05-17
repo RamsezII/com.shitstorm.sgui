@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 2911556402883010996}
   - component: {fileID: 4085194155953789105}
   m_Layer: 5
-  m_Name: text
+  m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,12 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoSize: 0
   traductions:
     english: Button
     french: Bouton
-  english: 
-  francais: 
 --- !u!114 &4085194155953789105
 MonoBehaviour:
   m_ObjectHideFlags: 0
