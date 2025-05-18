@@ -1,10 +1,11 @@
 ﻿using _ARK_;
+using _UTIL_;
 using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed class SguiGlobal : MonoBehaviour
+    public sealed partial class SguiGlobal : MonoBehaviour
     {
         public static SguiGlobal instance;
 
@@ -12,8 +13,10 @@ namespace _SGUI_
         public Canvas canvas2D, canvas3D;
         public RectTransform rT_2D, rT_3D;
 
-        [SerializeField] RectTransform rT_scheduler;
+        [SerializeField] RectTransform rT_header, rT_footer, rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
+
+        public readonly ListListener osview_users = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -37,14 +40,27 @@ namespace _SGUI_
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
 
-            rT_scheduler = (RectTransform)canvas2D.transform.Find("rT_scheduler");
+            rT_header = (RectTransform)canvas2D.transform.Find("header");
+            rT_footer = (RectTransform)canvas2D.transform.Find("task-bar");
+
+            rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
+
+            AwakeButtons();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Start()
         {
+            StartButtons();
+
+            osview_users.AddListener1(this, not_empty =>
+            {
+                rT_header.gameObject.SetActive(not_empty);
+                rT_footer.gameObject.SetActive(not_empty);
+            });
+
             NUCLEOR.instance.scheduler.list.AddListener1(this, isNotEmpty =>
             {
                 NUCLEOR.delegates.onLateUpdate -= OnLateUpdateSchedulerInfos;
@@ -71,6 +87,14 @@ namespace _SGUI_
 
             txt_scheduler.text = $"{schedulable.description}\n({Util_ark.GetRotator()}) {new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
             rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT_2D.rect.width, float.PositiveInfinity).y);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        void OnDestroy()
+        {
+            if (this == instance)
+                instance = null;
         }
     }
 }
