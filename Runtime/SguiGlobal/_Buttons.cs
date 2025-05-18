@@ -16,6 +16,8 @@ namespace _SGUI_
         void AwakeButtons()
         {
             RectTransform buttons_rT = (RectTransform)canvas2D.transform.Find("header/buttons-left");
+            //RectTransform buttons_rT = (RectTransform)canvas2D.transform.Find("main-menu/buttons/layout");
+
             for (int i = 0; i < buttons_rT.childCount; ++i)
                 if (buttons_rT.GetChild(i).TryGetComponent<OSButton>(out var button))
                     osbuttons_prefabs.Add(button.GetType(), button);

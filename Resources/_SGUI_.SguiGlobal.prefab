@@ -260,7 +260,6 @@ MonoBehaviour:
   rT_mainmenu: {fileID: 0}
   rT_scheduler: {fileID: 0}
   txt_scheduler: {fileID: 0}
-  button_footer_main: {fileID: 0}
   button_header_play: {fileID: 0}
   button_bottom_audio: {fileID: 0}
 --- !u!1 &516469259389218739

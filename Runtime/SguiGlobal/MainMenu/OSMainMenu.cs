@@ -1,5 +1,5 @@
-using _UTIL_;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
@@ -7,7 +7,7 @@ namespace _SGUI_
     {
         internal static OSMainMenu instance;
         [HideInInspector] public Animator animator;
-        public readonly OnValue<bool> toggle = new(true);
+        public bool IsActive => state_base == BaseStates.Enable;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -23,40 +23,46 @@ namespace _SGUI_
 
         private void Start()
         {
-            toggle.AddListener(value =>
-            {
-                switch (state_base)
-                {
-                    case BaseStates.Off:
-                        if (value)
-                        {
-                            gameObject.SetActive(true);
-                            animator.CrossFadeInFixedTime((int)BaseStates.Enable, 0, 0);
-                        }
-                        break;
-
-                    case BaseStates.Enable:
-                        if (!value)
-                            animator.CrossFade((int)BaseStates.Enable_, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
-                        break;
-
-                    case BaseStates.Enable_:
-                        if (value)
-                            animator.CrossFade((int)BaseStates.Enable, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
-                        break;
-
-                    default:
-                        gameObject.SetActive(value);
-                        animator.PlayInFixedTime((int)(value ? BaseStates.Enable : BaseStates.Off));
-                        break;
-                }
-            });
-            toggle.Update(false);
+            RectTransform rt_layout = (RectTransform)transform.Find("buttons/layout");
+            VerticalLayoutGroup layout = rt_layout.GetComponent<VerticalLayoutGroup>();
+            rt_layout.sizeDelta = new Vector2(rt_layout.sizeDelta.x, layout.preferredHeight);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void OnDestroy()
+        public void Toggle() => Toggle(!IsActive);
+        public void Toggle(in bool value)
+        {
+            switch (state_base)
+            {
+                case BaseStates.Off:
+                    if (value)
+                    {
+                        gameObject.SetActive(true);
+                        animator.CrossFadeInFixedTime((int)BaseStates.Enable, 0, 0);
+                    }
+                    break;
+
+                case BaseStates.Enable:
+                    if (!value)
+                        animator.CrossFade((int)BaseStates.Enable_, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
+                    break;
+
+                case BaseStates.Enable_:
+                    if (value)
+                        animator.CrossFade((int)BaseStates.Enable, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
+                    break;
+
+                default:
+                    gameObject.SetActive(value);
+                    animator.PlayInFixedTime((int)(value ? BaseStates.Enable : BaseStates.Off));
+                    break;
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnDestroy()
         {
             if (this == instance)
                 instance = null;

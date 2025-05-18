@@ -30,6 +30,9 @@ namespace _SGUI_
                             BaseStates state = (BaseStates)stateInfo.fullPathHash;
                             switch (state)
                             {
+                                case BaseStates.Init:
+                                    animator.CrossFadeInFixedTime((int)BaseStates.Off, 0, 0);
+                                    break;
                                 case BaseStates.Off:
                                     gameObject.SetActive(false);
                                     break;
