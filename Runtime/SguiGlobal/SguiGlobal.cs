@@ -2,6 +2,7 @@
 using _UTIL_;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
@@ -13,7 +14,7 @@ namespace _SGUI_
         public Canvas canvas2D, canvas3D;
         public RectTransform rT_2D, rT_3D;
 
-        [SerializeField] RectTransform rT_header, rT_footer, rT_scheduler;
+        [SerializeField] RectTransform rT_header, rT_footer, rT_mainmenu, rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
 
         public readonly ListListener osview_users = new();
@@ -42,6 +43,7 @@ namespace _SGUI_
 
             rT_header = (RectTransform)canvas2D.transform.Find("header");
             rT_footer = (RectTransform)canvas2D.transform.Find("task-bar");
+            rT_mainmenu = (RectTransform)canvas2D.transform.Find("main-menu");
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
@@ -53,12 +55,15 @@ namespace _SGUI_
 
         private void Start()
         {
+            rT_footer.Find("main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.toggle.Toggle);
+
             StartButtons();
 
             osview_users.AddListener1(this, not_empty =>
             {
                 rT_header.gameObject.SetActive(not_empty);
                 rT_footer.gameObject.SetActive(not_empty);
+                rT_mainmenu.gameObject.SetActive(not_empty);
             });
 
             NUCLEOR.instance.scheduler.list.AddListener1(this, isNotEmpty =>

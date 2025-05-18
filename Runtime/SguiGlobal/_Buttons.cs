@@ -9,7 +9,7 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
-        public Button button_footer_main, button_header_play, button_bottom_audio;
+        public Button button_header_play, button_bottom_audio;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -22,7 +22,6 @@ namespace _SGUI_
 
             button_header_play = canvas2D.transform.Find("button-play").GetComponent<Button>();
             button_bottom_audio = canvas2D.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
-            button_footer_main = canvas2D.transform.Find("task-bar/main-button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
