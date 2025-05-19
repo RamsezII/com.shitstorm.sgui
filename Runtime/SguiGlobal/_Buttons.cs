@@ -26,7 +26,7 @@ namespace _SGUI_
         {
             foreach (OSButton button in canvas2D.GetComponentsInChildren<OSButton>(true))
                 osbuttons_prefabs[button.GetType()] = button;
-            osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("task-bar/buttons-left/taskbar-button-left").GetComponent<SoftwareButton>();
+            osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
             button_terminal = canvas2D.transform.Find("task-bar/buttons-left/terminal").GetComponent<SoftwareButton>();
             button_explorer = canvas2D.transform.Find("task-bar/buttons-left/explorer").GetComponent<SoftwareButton>();
