@@ -83,9 +83,10 @@ namespace _SGUI_
             return false;
         }
 
-        public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_cancel = true) where T : SguiWindow
+        public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_cancel = true) where T : SguiWindow => (T)(SguiWindow)InstantiateWindow(typeof(T), can_hide, can_fullscreen, can_cancel);
+        public static SguiWindow InstantiateWindow(in Type type, in bool can_hide = false, in bool can_fullscreen = true, in bool can_cancel = true)
         {
-            T winwow = Util.InstantiateOrCreate<T>(SguiGlobal.instance.rT_2D);
+            SguiWindow winwow = (SguiWindow)Util.InstantiateOrCreate(type, SguiGlobal.instance.rT_2D);
             winwow.button_hide.interactable = can_hide;
             winwow.button_fullscreen.interactable = can_fullscreen;
             winwow.button_close.interactable = can_cancel;
