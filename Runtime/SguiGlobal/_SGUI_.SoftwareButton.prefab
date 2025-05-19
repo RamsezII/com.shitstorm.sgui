@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 2742743955864154169}
   - component: {fileID: 6513133494922375646}
   m_Layer: 5
-  m_Name: taskbar-button-left
+  m_Name: _SGUI_.SoftwareButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

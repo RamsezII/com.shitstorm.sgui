@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class TaskbarButton_left : OSButton
+    public class SoftwareButton : OSButton
     {
         [SerializeField] RawImage[] img_instances;
         readonly HashSet<SguiWindow1> instances = new();

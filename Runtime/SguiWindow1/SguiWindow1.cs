@@ -7,7 +7,7 @@ namespace _SGUI_
     public abstract partial class SguiWindow1 : SguiWindow
     {
         internal HeaderDropdown dropdown_help;
-        public virtual TaskbarButton_left taskbar_button { get; }
+        public virtual SoftwareButton taskbar_button { get; }
 
         //--------------------------------------------------------------------------------------------------------------
 
