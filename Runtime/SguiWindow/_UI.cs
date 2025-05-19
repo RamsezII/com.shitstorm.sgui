@@ -74,14 +74,8 @@ namespace _SGUI_
                 button_fullscreen.onClick.AddListener(fullscreen.Toggle);
             }
 
-            button_hide?.onClick.AddListener(() => sgui_toggle_window.Update(false));
-            button_close?.onClick.AddListener(() =>
-            {
-                if (hide_on_close)
-                    sgui_toggle_window.Update(false);
-                else
-                    Oblivionize();
-            });
+            button_hide?.onClick.AddListener(() => ToggleWindow(false));
+            button_close?.onClick.AddListener(Oblivionize);
         }
 
         //--------------------------------------------------------------------------------------------------------------

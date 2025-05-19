@@ -48,8 +48,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             onDestroy?.Invoke();
             instances.RemoveElement(this);
             Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());

@@ -12,16 +12,12 @@ namespace _SGUI_
 
         [HideInInspector] public Animator animator;
 
-        public readonly OnValue<bool> sgui_toggle_window = new();
-
         public Action<BaseStates, bool> onState, onState_once;
         public Action onDestroy;
 
         [SerializeField]
         protected bool
-            animate_hue = true,
-            hide_on_close,
-            open_on_awake = true;
+            animate_hue = true;
 
         public bool oblivionized;
 
@@ -62,12 +58,8 @@ namespace _SGUI_
         protected virtual void Start()
         {
             StartUI();
-            StartToggle();
-
-            if (open_on_awake)
-                NUCLEOR.instance.subScheduler.AddRoutine(Util.EWaitUntil(() => state_base != 0, null, () => sgui_toggle_window.Update(true)));
-
             UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
+            ToggleWindow(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -105,7 +97,7 @@ namespace _SGUI_
                 return;
             oblivionized = true;
 
-            sgui_toggle_window.Update(false);
+            ToggleWindow(false);
             OnOblivion();
         }
 
