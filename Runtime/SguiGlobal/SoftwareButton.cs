@@ -1,5 +1,5 @@
+using _UTIL_;
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +13,14 @@ namespace _SGUI_
         TMP_Dropdown dropdown;
         [SerializeField] RawImage[] img_instances;
 
-        readonly HashSet<SguiWindow1> instances = new();
+        public readonly ListListener<SguiWindow1> instances = new();
 
         public Type software_type;
+
+        public Action<PointerEventData>
+            onClickAction,
+            onPointerDown,
+            onPointerUp;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -32,43 +37,28 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-            button.onClick.AddListener(OnClick);
+            instances.AddListener2(this, list =>
+            {
+                for (int i = 0; i < img_instances.Length; i++)
+                    img_instances[i].gameObject.SetActive(list.Count > i);
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void OnClick()
-        {
-        }
-
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("click: " + eventData.button, this);
-
-            switch (eventData.button)
-            {
-                case PointerEventData.InputButton.Right:
-                    dropdown.Show();
-                    break;
-
-                case PointerEventData.InputButton.Left:
-                    {
-                        SguiWindow1 instance = (SguiWindow1)SguiWindow.InstantiateWindow(software_type);
-                        instance.gameObject.SetActive(true);
-                        instances.Add(instance);
-                    }
-                    break;
-            }
+            onClickAction?.Invoke(eventData);
         }
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log("up: " + eventData.button, this);
+            onPointerUp?.Invoke(eventData);
         }
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log("down: " + eventData.button, this);
+            onPointerDown?.Invoke(eventData);
         }
     }
 }
