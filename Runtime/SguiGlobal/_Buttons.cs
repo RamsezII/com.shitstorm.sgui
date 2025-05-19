@@ -11,7 +11,14 @@ namespace _SGUI_
 
         public Button button_header_play, button_bottom_audio;
 
-        [HideInInspector] public TaskbarButton_left button_terminal;
+        [HideInInspector]
+        public TaskbarButton_left
+            button_terminal,
+            button_explorer,
+            button_codium,
+            button_gallery,
+            button_music,
+            button_video;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +29,11 @@ namespace _SGUI_
             osbuttons_prefabs[typeof(TaskbarButton_left)] = canvas2D.transform.Find("task-bar/buttons-left/taskbar-button-left").GetComponent<TaskbarButton_left>();
 
             button_terminal = canvas2D.transform.Find("task-bar/buttons-left/terminal").GetComponent<TaskbarButton_left>();
+            button_explorer = canvas2D.transform.Find("task-bar/buttons-left/explorer").GetComponent<TaskbarButton_left>();
+            button_codium = canvas2D.transform.Find("task-bar/buttons-left/codium").GetComponent<TaskbarButton_left>();
+            button_gallery = canvas2D.transform.Find("task-bar/buttons-left/gallery").GetComponent<TaskbarButton_left>();
+            button_music = canvas2D.transform.Find("task-bar/buttons-left/music").GetComponent<TaskbarButton_left>();
+            button_video = canvas2D.transform.Find("task-bar/buttons-left/video").GetComponent<TaskbarButton_left>();
 
             button_header_play = canvas2D.transform.Find("button-play").GetComponent<Button>();
             button_bottom_audio = canvas2D.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
