@@ -9,8 +9,8 @@ namespace _SGUI_
 {
     public class SoftwareButton : OSButton, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {
-        Button button;
-        TMP_Dropdown dropdown;
+        public Button button;
+        public TMP_Dropdown dropdown;
         [SerializeField] RawImage[] img_instances;
 
         public readonly ListListener<SguiWindow1> instances = new();
