@@ -10,7 +10,6 @@
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void ToggleWindow() => ToggleWindow(!IsWindowOpened);
         public void ToggleWindow(bool toggle)
         {
             BaseStates state = state_base;

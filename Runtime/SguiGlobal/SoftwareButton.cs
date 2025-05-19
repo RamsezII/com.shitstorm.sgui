@@ -9,9 +9,10 @@ namespace _SGUI_
 {
     public class SoftwareButton : OSButton, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {
-        public Button button;
-        public TMP_Dropdown dropdown;
-        [SerializeField] RawImage[] img_instances;
+        [HideInInspector] public RectTransform rt;
+        [HideInInspector] public Button button;
+        [HideInInspector] public TMP_Dropdown dropdown;
+        RawImage[] img_instances;
 
         public readonly ListListener<SguiWindow1> instances = new();
 
@@ -26,6 +27,7 @@ namespace _SGUI_
 
         protected override void Awake()
         {
+            rt = (RectTransform)transform;
             button = GetComponent<Button>();
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
             img_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
