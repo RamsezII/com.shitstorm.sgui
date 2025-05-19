@@ -11,16 +11,17 @@ namespace _SGUI_
 
         public Button button_header_play, button_bottom_audio;
 
+        [HideInInspector] public TaskbarButton_left button_terminal;
+
         //--------------------------------------------------------------------------------------------------------------
 
         void AwakeButtons()
         {
-            RectTransform buttons_rT = (RectTransform)canvas2D.transform.Find("header/buttons-left");
-            //RectTransform buttons_rT = (RectTransform)canvas2D.transform.Find("main-menu/buttons/layout");
+            foreach (OSButton button in canvas2D.GetComponentsInChildren<OSButton>(true))
+                osbuttons_prefabs[button.GetType()] = button;
+            osbuttons_prefabs[typeof(TaskbarButton_left)] = canvas2D.transform.Find("task-bar/buttons-left/taskbar-button-left").GetComponent<TaskbarButton_left>();
 
-            for (int i = 0; i < buttons_rT.childCount; ++i)
-                if (buttons_rT.GetChild(i).TryGetComponent<OSButton>(out var button))
-                    osbuttons_prefabs.Add(button.GetType(), button);
+            button_terminal = canvas2D.transform.Find("task-bar/buttons-left/terminal").GetComponent<TaskbarButton_left>();
 
             button_header_play = canvas2D.transform.Find("button-play").GetComponent<Button>();
             button_bottom_audio = canvas2D.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();

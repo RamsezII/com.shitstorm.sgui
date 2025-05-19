@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ namespace _SGUI_
     public class TaskbarButton_left : OSButton
     {
         [SerializeField] RawImage[] img_instances;
+        readonly HashSet<SguiWindow1> instances = new();
+        public SguiWindow1 instance_prefab;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -14,5 +17,9 @@ namespace _SGUI_
             img_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
             base.Awake();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+
     }
 }
