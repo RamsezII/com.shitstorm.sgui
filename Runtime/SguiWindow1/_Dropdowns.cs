@@ -12,6 +12,7 @@ namespace _SGUI_
             Documentation,
             Youtube,
             Discord,
+            GitHub,
             Shitstorm,
             _last_,
         }
@@ -60,6 +61,10 @@ namespace _SGUI_
 
                             case HelpDropdowns.Discord:
                                 Application.OpenURL("https://discord.gg/MWhZSh2Pn8");
+                                break;
+
+                            case HelpDropdowns.GitHub:
+                                Application.OpenURL("https://github.com/RamsezII");
                                 break;
 
                             case HelpDropdowns.Shitstorm:
