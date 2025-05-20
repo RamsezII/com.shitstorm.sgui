@@ -22,7 +22,6 @@
                     if (toggle)
                     {
                         gameObject.SetActive(true);
-                        animator.enabled = true;
                         animator.Update(0);
                         state = BaseStates.toActive;
                     }
@@ -31,7 +30,6 @@
                 case BaseStates.Active:
                     if (!toggle)
                     {
-                        animator.enabled = true;
                         animator.Update(0);
                         state = BaseStates.fromActive_;
                     }
@@ -55,7 +53,17 @@
             }
 
             if (state != state_base)
+            {
+                animator.enabled = true;
                 animator.CrossFade((int)state, 0, (int)AnimLayers.Base, offset);
+            }
+
+            OnToggleWindow(toggle);
+        }
+
+        protected virtual void OnToggleWindow(in bool toggle)
+        {
+
         }
     }
 }
