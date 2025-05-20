@@ -98,6 +98,8 @@ namespace _SGUI_
             oblivionized = true;
 
             ToggleWindow(false);
+            instances.RemoveElement(this);
+
             OnOblivion();
         }
 
@@ -108,7 +110,9 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             Oblivionize();
+            onDestroy?.Invoke();
             UsageManager.RemoveUser(this);
+            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());
         }
     }
 }

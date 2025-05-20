@@ -61,20 +61,5 @@ namespace _SGUI_
                 rT_parent.pivot = new(x, 0);
             }
         }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void OnOblivion()
-        {
-            base.OnOblivion();
-            instances.RemoveElement(this);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            onDestroy?.Invoke();
-            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());
-        }
     }
 }
