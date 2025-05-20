@@ -26,17 +26,17 @@ namespace _SGUI_
         {
             foreach (OSButton button in canvas2D.GetComponentsInChildren<OSButton>(true))
                 osbuttons_prefabs[button.GetType()] = button;
-            osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
+            osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
-            button_terminal = canvas2D.transform.Find("task-bar/buttons-left/terminal").GetComponent<SoftwareButton>();
-            button_explorer = canvas2D.transform.Find("task-bar/buttons-left/explorer").GetComponent<SoftwareButton>();
-            button_codium = canvas2D.transform.Find("task-bar/buttons-left/codium").GetComponent<SoftwareButton>();
-            button_gallery = canvas2D.transform.Find("task-bar/buttons-left/gallery").GetComponent<SoftwareButton>();
-            button_music = canvas2D.transform.Find("task-bar/buttons-left/music").GetComponent<SoftwareButton>();
-            button_video = canvas2D.transform.Find("task-bar/buttons-left/video").GetComponent<SoftwareButton>();
+            button_terminal = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/terminal").GetComponent<SoftwareButton>();
+            button_explorer = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/explorer").GetComponent<SoftwareButton>();
+            button_codium = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/codium").GetComponent<SoftwareButton>();
+            button_gallery = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/gallery").GetComponent<SoftwareButton>();
+            button_music = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/music").GetComponent<SoftwareButton>();
+            button_video = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/video").GetComponent<SoftwareButton>();
 
             button_header_play = canvas2D.transform.Find("button-play").GetComponent<Button>();
-            button_bottom_audio = canvas2D.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
+            button_bottom_audio = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/audio/button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

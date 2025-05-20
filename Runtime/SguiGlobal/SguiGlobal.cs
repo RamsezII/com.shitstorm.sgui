@@ -41,8 +41,8 @@ namespace _SGUI_
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
 
-            rT_header = (RectTransform)canvas2D.transform.Find("header");
-            rT_footer = (RectTransform)canvas2D.transform.Find("task-bar");
+            rT_header = (RectTransform)canvas2D.transform.Find("_SGUI_.OSView/header");
+            rT_footer = (RectTransform)canvas2D.transform.Find("_SGUI_.OSView/task-bar");
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
