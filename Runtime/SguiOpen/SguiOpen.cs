@@ -16,6 +16,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void OnAfterSceneLoad()
+        {
+            SguiGlobal.instance.button_explorer.software_type = typeof(SguiOpen);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         public static SguiOpen InstantiatePrompt(in FS_TYPES mode, in Action<string> on_done)
         {
             SguiOpen clone = InstantiateWindow<SguiOpen>();
