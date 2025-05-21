@@ -61,6 +61,47 @@ namespace _SGUI_
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
             onPointerDown?.Invoke(eventData);
+            OnButtonClick(eventData);
+        }
+
+        void OnButtonClick(PointerEventData eventData)
+        {
+            if (software_type == null)
+            {
+                Debug.LogWarning($"{nameof(software_type)} is null ({software_type})");
+                return;
+            }
+
+            switch (eventData.button)
+            {
+                case PointerEventData.InputButton.Left:
+                    if (instances.IsEmpty)
+                    {
+                        SguiWindow instance = SguiWindow.InstantiateWindow(software_type, true, true, true);
+
+                        switch (instance)
+                        {
+                            case SguiWindow1 w1:
+                                w1.SetScalePivot(this);
+                                break;
+                        }
+                    }
+                    else
+                        for (int i = 0; i < instances._list.Count; i++)
+                        {
+                            SguiWindow1 instance = instances._list[i];
+                            instance.SetScalePivot(this);
+                            instance.ToggleWindow(true);
+                        }
+                    break;
+
+                case PointerEventData.InputButton.Middle:
+                    break;
+
+                case PointerEventData.InputButton.Right:
+                    dropdown.Show();
+                    break;
+            }
         }
     }
 }
