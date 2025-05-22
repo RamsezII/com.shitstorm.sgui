@@ -7,21 +7,16 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SoftwareButton : OSButton, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+    public class SoftwareButton : OSButton, IPointerDownHandler
     {
         [HideInInspector] public RectTransform rt;
         [HideInInspector] public Button button;
         [HideInInspector] public TMP_Dropdown dropdown;
         RawImage[] img_instances;
 
-        public readonly ListListener<SguiWindow1> instances = new();
+        public readonly ListListener<SguiWindow> instances = new();
 
         public Type software_type;
-
-        public Action<PointerEventData>
-            onClickAction,
-            onPointerDown,
-            onPointerUp;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -48,23 +43,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-        {
-            onClickAction?.Invoke(eventData);
-        }
-
-        void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
-        {
-            onPointerUp?.Invoke(eventData);
-        }
-
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-        {
-            onPointerDown?.Invoke(eventData);
-            OnButtonClick(eventData);
-        }
-
-        void OnButtonClick(PointerEventData eventData)
         {
             if (software_type == null)
             {
@@ -89,7 +68,7 @@ namespace _SGUI_
                     else
                         for (int i = 0; i < instances._list.Count; i++)
                         {
-                            SguiWindow1 instance = instances._list[i];
+                            SguiWindow instance = instances._list[i];
                             instance.SetScalePivot(this);
                             instance.ToggleWindow(true);
                         }

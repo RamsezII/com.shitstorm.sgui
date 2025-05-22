@@ -33,6 +33,8 @@ namespace _SGUI_
 
         protected override void Awake()
         {
+            sgui_softwarebutton = SguiGlobal.instance.button_explorer;
+            
             hierarchy_viewport_rT = (RectTransform)transform.Find("rT/left-window/scroll-view/viewport");
             hierarchy_content_rT = (RectTransform)hierarchy_viewport_rT.Find("content_layout");
             hierarchy_layout = hierarchy_content_rT.GetComponent<VerticalLayoutGroup>();

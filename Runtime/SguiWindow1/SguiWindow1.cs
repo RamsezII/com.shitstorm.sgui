@@ -37,9 +37,6 @@ namespace _SGUI_
         {
             base.Start();
             OnPopulateDropdowns();
-
-            button_hide?.onClick.AddListener(() => SetScalePivot(SguiGlobal.instance.button_terminal));
-            button_close?.onClick.AddListener(() => SetScalePivot(null));
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -48,18 +45,6 @@ namespace _SGUI_
         {
             if (focus)
                 CheckBounds();
-        }
-
-        public void SetScalePivot(in SoftwareButton button)
-        {
-            if (button == null)
-                rT_parent.pivot = .5f * Vector2.one;
-            else
-            {
-                float x = RectTransformUtility.WorldToScreenPoint(null, SguiGlobal.instance.button_terminal.rt.position).x;
-                x /= Screen.width;
-                rT_parent.pivot = new(x, 0);
-            }
         }
     }
 }

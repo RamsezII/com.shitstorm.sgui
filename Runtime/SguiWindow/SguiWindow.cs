@@ -23,6 +23,8 @@ namespace _SGUI_
 
         public readonly OnValue<bool> fullscreen = new();
 
+        public SoftwareButton sgui_softwarebutton;
+
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Awake()
@@ -34,6 +36,8 @@ namespace _SGUI_
                 animator.Update(0);
             }
             AwakeUI();
+
+            sgui_softwarebutton?.instances.AddElement(this);
         }
 
         protected virtual void OnEnable()
@@ -62,6 +66,12 @@ namespace _SGUI_
             StartUI();
             UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
             ToggleWindow(true);
+
+            if (sgui_softwarebutton != null)
+            {
+                button_hide?.onClick.AddListener(() => SetScalePivot(sgui_softwarebutton));
+                button_close?.onClick.AddListener(() => SetScalePivot(null));
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -75,6 +85,18 @@ namespace _SGUI_
                     return true;
                 }
             return false;
+        }
+
+        public void SetScalePivot(in SoftwareButton button)
+        {
+            if (button == null)
+                rT_parent.pivot = .5f * Vector2.one;
+            else
+            {
+                float x = RectTransformUtility.WorldToScreenPoint(null, SguiGlobal.instance.button_terminal.rt.position).x;
+                x /= Screen.width;
+                rT_parent.pivot = new(x, 0);
+            }
         }
 
         public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_cancel = true) where T : SguiWindow => (T)(SguiWindow)InstantiateWindow(typeof(T), can_hide, can_fullscreen, can_cancel);
@@ -101,6 +123,9 @@ namespace _SGUI_
 
             ToggleWindow(false);
             instances.RemoveElement(this);
+
+            if (sgui_softwarebutton != null)
+                sgui_softwarebutton.instances.RemoveElement(this);
 
             OnOblivion();
         }

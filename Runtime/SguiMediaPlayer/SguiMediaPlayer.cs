@@ -20,9 +20,12 @@ namespace _SGUI_
 
         protected override void Awake()
         {
+            sgui_softwarebutton = SguiGlobal.instance.button_video;
+
             Transform video_rt = transform.Find("rT/body/video_player");
             video_player = video_rt.GetComponent<VideoPlayer>();
             audio_source = video_rt.GetComponent<AudioSource>();
+            
             base.Awake();
         }
     }
