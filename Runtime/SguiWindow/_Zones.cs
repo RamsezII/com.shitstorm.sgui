@@ -136,6 +136,29 @@ namespace _SGUI_
 
         public void CheckBounds()
         {
+            (Vector2 pmin, Vector2 pmax) = rT_parent.GetWorldCorners();
+            (Vector2 min, Vector2 max) = rT.GetWorldCorners();
+
+            Vector2 move = Vector2.zero;
+
+            if (min.x < pmin.x)
+                move.x += pmin.x - min.x;
+            if (max.x > pmax.x)
+                move.x -= max.x - pmax.x;
+
+            if (min.y < pmin.y)
+                move.y += pmin.y - min.y;
+            if (max.y > pmax.y)
+                move.y -= max.y - pmax.y;
+
+            if (move != default)
+                rT.position += (Vector3)move;
+
+            OnCheckBounds();
+        }
+
+        public void CheckBounds_OLD()
+        {
             Vector2 parent_size = rT_parent.GetWorldSize();
             (Vector2 min, Vector2 max) = rT.GetWorldCorners();
 
