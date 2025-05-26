@@ -98,11 +98,11 @@ namespace _SGUI_
 
         public void EditArkJSon(in string file_path, Type type)
         {
-            ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(File.ReadAllText(file_path), type);
+            StaticJSon arkjson = (StaticJSon)JsonUtility.FromJson(File.ReadAllText(file_path), type);
             ReflectionEditor(arkjson, result =>
             {
-                ArkJSon arkjson = (ArkJSon)JsonUtility.FromJson(JsonUtility.ToJson(result), type);
-                arkjson.SaveArkJSon(true);
+                StaticJSon arkjson = (StaticJSon)JsonUtility.FromJson(JsonUtility.ToJson(result), type);
+                arkjson.SaveStaticJSon(true);
                 NUCLEOR.delegates.onApplicationFocus?.Invoke();
             });
         }
