@@ -1,5 +1,6 @@
-using System.IO;
 using _ARK_;
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,15 @@ namespace _SGUI_
 {
     public partial class SguiEditor : SguiNotepad
     {
+        [SerializeField] protected TextMeshProUGUI lint_tmp;
+        float lint_last;
+        bool lint_flag;
+        const float lint_timer = .2f;
+        const int MAX_FILE_SIZE = 1024;
+        string current_file_path;
+
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Awake()
         {
             base.Awake();
@@ -17,6 +27,8 @@ namespace _SGUI_
 
             prefab_hierarchy_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
             prefab_hierarchy_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
+
+            lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
         }
 
         protected override void OnEnable()
@@ -43,6 +55,8 @@ namespace _SGUI_
             prefab_hierarchy_file.gameObject.SetActive(false);
 
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
+
+            NUCLEOR.delegates.shell_tick += UpdateLintTimer;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -57,17 +71,21 @@ namespace _SGUI_
 
         internal override void OnFile_click(in Button_File button_file)
         {
-            FileInfo file = new(button_file.full_path);
+            current_file_path = button_file.full_path;
+            FileInfo file = new(current_file_path);
             if (file.Exists)
             {
                 footer_tmp.text = file.FullName;
-                if (file.Length <= 1024)
-                    main_input_field.text = File.ReadAllText(button_file.full_path);
+                if (file.Length <= MAX_FILE_SIZE)
+                {
+                    main_input_field.text = File.ReadAllText(current_file_path);
+                    lint_flag = true;
+                }
                 else
                 {
                     SguiCustom sgui = InstantiateWindow<SguiCustom>();
                     var alert = sgui.AddButton<SguiCustom_Alert>();
-                    alert.SetText(new($"{GetType().FullName} : file to big ({file.Length.LogDataSize()})\n{button_file.full_path.ToSubLog()}"));
+                    alert.SetText(new($"{GetType().FullName} : file to big ({file.Length.LogDataSize()})\n{current_file_path.ToSubLog()}"));
                 }
             }
             else
@@ -83,13 +101,36 @@ namespace _SGUI_
                 if (e.alt || e.control || e.command)
                     if (e.keyCode == KeyCode.S)
                     {
-                        Debug.Log("SAVE");
+                        Debug.Log($"Saved file: \"{current_file_path}\"", this);
+                        File.WriteAllText(current_file_path, main_input_field.text);
                         return true;
                     }
             return false;
         }
 
         protected virtual void OnValueChange(string text)
+        {
+            lint_flag = true;
+            ResetLintTimer();
+        }
+
+        void ResetLintTimer()
+        {
+            lint_last = Time.unscaledTime;
+        }
+
+        void UpdateLintTimer()
+        {
+            if (lint_flag)
+                if (Time.unscaledTime - lint_timer > lint_last)
+                {
+                    ResetLintTimer();
+                    lint_flag = false;
+                    OnLint();
+                }
+        }
+
+        protected virtual void OnLint()
         {
 
         }
@@ -100,6 +141,7 @@ namespace _SGUI_
         {
             base.OnDestroy();
             IMGUI_global.instance.users_inputs.RemoveElement(this);
+            NUCLEOR.delegates.shell_tick -= UpdateLintTimer;
         }
     }
 }

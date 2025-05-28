@@ -6,7 +6,7 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public void ReflectionEditor<T>(T target, Action<object> on_result, Traductions title = default)
+        public void ReflectionEditor<T>(T target, Action<object> on_confirm, Traductions title = default)
         {
             object result = target;
 
@@ -64,9 +64,13 @@ namespace _SGUI_
                             break;
 
                         case SguiCustom_Dropdown dropdown:
-                            int index = dropdown.dropdown.value;
-                            string enum_name = dropdown.dropdown.GetSelectedValue();
-                            onAction_confirm += () => field.SetValue(result, Enum.Parse(field_type, enum_name));
+                            onAction_confirm += () =>
+                            {
+                                int index = dropdown.dropdown.value;
+                                string enum_name = dropdown.dropdown.GetSelectedValue();
+                                field.SetValue(result, Enum.Parse(field_type, enum_name));
+                                ;
+                            };
                             break;
                     }
                 }
@@ -94,20 +98,20 @@ namespace _SGUI_
                     switch (button)
                     {
                         case SguiCustom_Toggle toggle:
-                            onAction_confirm += () => result = target.ModifyAnonymous(property_name, toggle.toggle.isOn);
+                            onAction_confirm += () => result = result.ModifyAnonymous(property_name, toggle.toggle.isOn);
                             break;
 
                         case SguiCustom_InputField inputfield:
                             switch (property_value)
                             {
                                 case int _int:
-                                    onAction_confirm += () => result = target.ModifyAnonymous(property_name, Convert.ToInt32(inputfield.input_field.text));
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Convert.ToInt32(inputfield.input_field.text));
                                     break;
                                 case float _float:
-                                    onAction_confirm += () => result = target.ModifyAnonymous(property_name, Util.ToFloat(inputfield.input_field.text));
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Util.ToFloat(inputfield.input_field.text));
                                     break;
                                 default:
-                                    onAction_confirm += () => result = target.ModifyAnonymous(property_name, inputfield.input_field.text);
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, inputfield.input_field.text);
                                     break;
                             }
                             break;
@@ -116,18 +120,21 @@ namespace _SGUI_
                             switch (property_value)
                             {
                                 case int _int:
-                                    onAction_confirm += () => result = target.ModifyAnonymous(property_name, Convert.ToInt32(slider.slider.value));
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Convert.ToInt32(slider.slider.value));
                                     break;
                                 case float _float:
-                                    onAction_confirm += () => result = target.ModifyAnonymous(property_name, slider.slider.value);
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, slider.slider.value);
                                     break;
                             }
                             break;
 
                         case SguiCustom_Dropdown dropdown:
-                            int index = dropdown.dropdown.value;
-                            string enum_name = dropdown.dropdown.GetSelectedValue();
-                            onAction_confirm += () => result = target.ModifyAnonymous(property_name, Enum.Parse(property_type, enum_name));
+                            onAction_confirm += () =>
+                            {
+                                int index = dropdown.dropdown.value;
+                                string enum_name = dropdown.dropdown.GetSelectedValue();
+                                result = result.ModifyAnonymous(property_name, Enum.Parse(property_type, enum_name));
+                            };
                             break;
                     }
                 }
@@ -142,7 +149,7 @@ namespace _SGUI_
                 }
             }
 
-            onAction_confirm += () => on_result?.Invoke(result);
+            onAction_confirm += () => on_confirm?.Invoke(result);
 
             bool TryGenerateButton(in string name, in object value, out SguiCustom_Abstract button)
             {

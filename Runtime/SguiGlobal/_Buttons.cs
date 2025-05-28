@@ -16,6 +16,7 @@ namespace _SGUI_
             button_terminal,
             button_explorer,
             button_codium,
+            button_notepad,
             button_gallery,
             button_music,
             button_video;
@@ -31,6 +32,7 @@ namespace _SGUI_
             button_terminal = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/terminal").GetComponent<SoftwareButton>();
             button_explorer = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/explorer").GetComponent<SoftwareButton>();
             button_codium = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/codium").GetComponent<SoftwareButton>();
+            button_notepad = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/notepad").GetComponent<SoftwareButton>();
             button_gallery = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/gallery").GetComponent<SoftwareButton>();
             button_music = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/music").GetComponent<SoftwareButton>();
             button_video = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/video").GetComponent<SoftwareButton>();

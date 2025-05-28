@@ -13,6 +13,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void OnAfterSceneLoad()
+        {
+            SguiGlobal.instance.button_notepad.software_type = typeof(SguiNotepad);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         public static string TryOpenNotepad(in string file_path, in bool create_if_none, out SguiNotepad instance)
         {
             if (!File.Exists(file_path))
@@ -37,6 +45,8 @@ namespace _SGUI_
 
         protected override void Awake()
         {
+            sgui_softwarebutton ??= SguiGlobal.instance.button_notepad;
+
             main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
             footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
 
