@@ -1,5 +1,4 @@
 using _ARK_;
-using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class SguiEditor : SguiNotepad
+    public partial class SguiCodium : SguiNotepad
     {
         [SerializeField] protected TextMeshProUGUI lint_tmp;
         float lint_last;
@@ -30,6 +29,8 @@ namespace _SGUI_
             prefab_hierarchy_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
 
             lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
+
+            AwakeIntellisense();
         }
 
         protected override void OnEnable()
@@ -59,6 +60,8 @@ namespace _SGUI_
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
 
             NUCLEOR.delegates.shell_tick += UpdateLintTimer;
+
+            StartIntellisense();
         }
 
         //--------------------------------------------------------------------------------------------------------------

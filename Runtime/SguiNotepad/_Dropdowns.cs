@@ -31,7 +31,7 @@ namespace _SGUI_
         protected virtual void OnPopulateDropdown_Files(List<TMP_Dropdown.OptionData> options)
         {
             for (Files_Dropdowns code = 0; code < Files_Dropdowns._last_; ++code)
-                if (code != Files_Dropdowns.OpenFolder || this is SguiEditor)
+                if (code != Files_Dropdowns.OpenFolder || this is SguiCodium)
                     options.Add(new(code switch
                     {
                         Files_Dropdowns.NewFile => "New File",
