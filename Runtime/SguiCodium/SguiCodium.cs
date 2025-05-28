@@ -1,4 +1,5 @@
 using _ARK_;
+using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -48,6 +49,7 @@ namespace _SGUI_
         protected override void Start()
         {
             main_input_field.onValueChanged.AddListener(OnValueChange);
+            main_input_field.onValidateInput = OnValidateStdin;
 
             base.Start();
 
@@ -110,8 +112,14 @@ namespace _SGUI_
 
         protected virtual void OnValueChange(string text)
         {
+            lint_tmp.text = text;
             lint_flag = true;
             ResetLintTimer();
+        }
+
+        protected virtual char OnValidateStdin(string text, int charIndex, char addedChar)
+        {
+            return addedChar;
         }
 
         void ResetLintTimer()
