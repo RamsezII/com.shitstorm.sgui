@@ -12,8 +12,8 @@ namespace _SGUI_
 
         void AwakeIntellisense()
         {
-            rT_intel = (RectTransform)transform.Find("rT/completor/rT");
-            compl_prefab = rT_intel.transform.Find("scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
+            rT_intel = (RectTransform)transform.Find("rT/completor");
+            compl_prefab = rT_intel.transform.Find("rT/scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
