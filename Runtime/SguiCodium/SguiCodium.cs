@@ -8,6 +8,7 @@ namespace _SGUI_
 {
     public partial class SguiCodium : SguiNotepad
     {
+        [SerializeField] protected SguiCompletor completor;
         [SerializeField] protected TextMeshProUGUI lint_tmp;
         float lint_last;
         bool lint_flag;
@@ -19,7 +20,7 @@ namespace _SGUI_
 
         protected override void Awake()
         {
-            base.Awake();
+            completor = transform.Find("rT/completor").GetComponent<SguiCompletor>();
 
             hierarchy_viewport_rT = (RectTransform)transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport");
             hierarchy_content_rT = (RectTransform)hierarchy_viewport_rT.Find("content_layout");
@@ -28,9 +29,9 @@ namespace _SGUI_
             prefab_hierarchy_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
             prefab_hierarchy_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
 
-            lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
+            base.Awake();
 
-            AwakeIntellisense();
+            lint_tmp = main_input_field.transform.Find("text_area/text/lint").GetComponent<TextMeshProUGUI>();
         }
 
         protected override void OnEnable()
@@ -60,8 +61,6 @@ namespace _SGUI_
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
 
             NUCLEOR.delegates.shell_tick += UpdateLintTimer;
-
-            StartIntellisense();
         }
 
         //--------------------------------------------------------------------------------------------------------------

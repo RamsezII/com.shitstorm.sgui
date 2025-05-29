@@ -3,35 +3,40 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiCodium
+    public class SguiCompletor : MonoBehaviour
     {
+        SguiCodium codium;
         RectTransform rT_intel;
         CompletorItem compl_prefab;
+        readonly List<CompletorItem> completions = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void AwakeIntellisense()
+        private void Awake()
         {
-            rT_intel = (RectTransform)transform.Find("rT/completor");
+            codium = GetComponentInParent<SguiCodium>();
+            rT_intel = (RectTransform)transform;
+
             compl_prefab = rT_intel.transform.Find("rT/scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void StartIntellisense()
+        private void Start()
         {
             compl_prefab.gameObject.SetActive(false);
+            SelectItem(-1);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected void ResetIntellisense()
+        public void ResetIntellisense()
         {
             ClearIntellisense();
             rT_intel.gameObject.SetActive(false);
         }
 
-        protected void UpdateIntellisense(in Vector3 position, in IEnumerable<string> completions)
+        public void UpdateIntellisense(in Vector3 position, in IEnumerable<string> completions)
         {
             ClearIntellisense();
 
@@ -41,6 +46,7 @@ namespace _SGUI_
             foreach (string completion in completions)
             {
                 CompletorItem clone = Instantiate(compl_prefab, compl_prefab.transform.parent);
+                this.completions.Add(clone);
                 clone.gameObject.SetActive(true);
                 clone.label.text = completion;
             }
@@ -48,8 +54,26 @@ namespace _SGUI_
 
         void ClearIntellisense()
         {
-            foreach (CompletorItem item in compl_prefab.transform.parent.GetComponentsInChildren<CompletorItem>())
-                Destroy(item.gameObject);
+            for (int i = 0; i < completions.Count; i++)
+                Destroy(completions[i].gameObject);
+            completions.Clear();
+        }
+
+        internal void OnClickItem(in CompletorItem item)
+        {
+
+        }
+
+        internal void OnEnterItem(in CompletorItem item)
+        {
+            int index = completions.IndexOf(item);
+            SelectItem(index);
+        }
+
+        void SelectItem(in int index)
+        {
+            for (int i = 0; i < completions.Count; i++)
+                completions[i].ToggleSelect(i == index);
         }
     }
 }
