@@ -6,7 +6,8 @@ namespace _SGUI_
 {
     public class SguiCompletor : MonoBehaviour
     {
-        SguiCodium codium;
+        public static SguiCompletor instance;
+
         RectTransform rT_intel;
         CompletorItem compl_prefab;
         readonly List<CompletorItem> completions = new();
@@ -16,7 +17,8 @@ namespace _SGUI_
 
         private void Awake()
         {
-            codium = GetComponentInParent<SguiCodium>();
+            instance = this;
+
             rT_intel = (RectTransform)transform;
 
             compl_prefab = rT_intel.transform.Find("rT/scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
@@ -26,11 +28,13 @@ namespace _SGUI_
 
         private void OnEnable()
         {
+            UsageManager.AddUser(this, UsageGroups.Keyboard, UsageGroups.Typing, UsageGroups.IngameMouse, UsageGroups.TrueMouse);
             IMGUI_global.instance.users_inputs.AddElement(OnIMGUIInputs, this);
         }
 
         private void OnDisable()
         {
+            UsageManager.RemoveUser(this);
             IMGUI_global.instance.users_inputs.RemoveElement(this);
         }
 
@@ -49,6 +53,10 @@ namespace _SGUI_
             if (e.isKey)
                 switch (e.keyCode)
                 {
+                    case KeyCode.Escape:
+                        Debug.Log("ESCAPE", this);
+                        return true;
+
                     case KeyCode.UpArrow:
                     case KeyCode.DownArrow:
                         if (e.keyCode == KeyCode.UpArrow)
@@ -112,6 +120,14 @@ namespace _SGUI_
             current_index = index;
             for (int i = 0; i < completions.Count; i++)
                 completions[i].ToggleSelect(i == index);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnDestroy()
+        {
+            if (this == instance)
+                instance = null;
         }
     }
 }
