@@ -1,4 +1,5 @@
 ﻿using _ARK_;
+using _UTIL_;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ namespace _SGUI_
         CompletorItem compl_prefab;
         readonly List<CompletorItem> completions = new();
         [SerializeField] int current_index;
+        public int compl_start, compl_end;
+        [SerializeField] Vector2 offset;
+
+        public readonly OnValue<bool> toggle = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -19,9 +24,10 @@ namespace _SGUI_
         {
             instance = this;
 
-            rT_intel = (RectTransform)transform;
+            rT_intel = (RectTransform)transform.Find("rT");
+            offset = rT_intel.localPosition;
 
-            compl_prefab = rT_intel.transform.Find("rT/scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
+            compl_prefab = rT_intel.transform.Find("scroll-view/viewport/content-layout").Find("button").GetComponent<CompletorItem>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -43,43 +49,57 @@ namespace _SGUI_
         private void Start()
         {
             compl_prefab.gameObject.SetActive(false);
-            SelectItem(-1);
+            ResetIntellisense();
+            toggle.AddListener(gameObject.SetActive);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         bool OnIMGUIInputs(Event e)
         {
-            if (e.isKey)
-                switch (e.keyCode)
-                {
-                    case KeyCode.Escape:
-                        Debug.Log("ESCAPE", this);
-                        return true;
+            switch (e.keyCode)
+            {
+                case KeyCode.Mouse0:
+                case KeyCode.Mouse1:
+                case KeyCode.Mouse2:
+                case KeyCode.Mouse3:
+                case KeyCode.Mouse4:
+                case KeyCode.Mouse5:
+                case KeyCode.Mouse6:
+                    if (!RectTransformUtility.RectangleContainsScreenPoint(rT_intel, Input.mousePosition))
+                        toggle.Update(false);
+                    return true;
 
-                    case KeyCode.UpArrow:
-                    case KeyCode.DownArrow:
-                        if (e.keyCode == KeyCode.UpArrow)
-                            SelectItem(current_index - 1);
-                        if (e.keyCode == KeyCode.DownArrow)
-                            SelectItem(current_index + 1);
-                        return true;
-                }
+                case KeyCode.Escape:
+                    toggle.Update(false);
+                    return true;
+
+                case KeyCode.UpArrow:
+                case KeyCode.DownArrow:
+                    if (e.keyCode == KeyCode.UpArrow)
+                        SelectItem(current_index - 1);
+                    if (e.keyCode == KeyCode.DownArrow)
+                        SelectItem(current_index + 1);
+                    return true;
+            }
             return false;
         }
 
         public void ResetIntellisense()
         {
             ClearIntellisense();
-            rT_intel.gameObject.SetActive(false);
+            toggle.Update(false);
         }
 
-        public void UpdateIntellisense(in Vector3 position, in IEnumerable<string> completions)
+        public void PopulateCompletions(in int compl_start, in int compl_end, in Vector3 position, in IEnumerable<string> completions)
         {
+            this.compl_start = compl_start;
+            this.compl_end = compl_end;
+
             ClearIntellisense();
 
-            rT_intel.gameObject.SetActive(completions != null);
-            rT_intel.position = position;
+            toggle.Update(completions != null);
+            rT_intel.position = position + (Vector3)offset;
 
             foreach (string completion in completions)
             {
@@ -120,6 +140,13 @@ namespace _SGUI_
             current_index = index;
             for (int i = 0; i < completions.Count; i++)
                 completions[i].ToggleSelect(i == index);
+        }
+
+        public string GetSelectedValue()
+        {
+            if (current_index >= 0 && current_index < completions.Count)
+                return completions[current_index].label.text;
+            return string.Empty;
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -8,20 +8,26 @@ namespace _SGUI_
 {
     public partial class SguiCodium : SguiNotepad
     {
-        [SerializeField] protected SguiCompletor completor;
         [SerializeField] protected TextMeshProUGUI lint_tmp;
-        float lint_last;
-        bool lint_flag;
-        const float lint_timer = .2f;
         const int MAX_FILE_SIZE = 1024;
         string current_file_path;
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void OnAfterSceneLoad()
+        {
+            ArkMachine.AddListener(() =>
+            {
+                NUCLEOR.delegates.onApplicationFocus += () => LoadSettings(false);
+                NUCLEOR.delegates.onApplicationUnfocus += () => SaveSettings(false);
+            });
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Awake()
         {
-            completor = transform.Find("rT/completor").GetComponent<SguiCompletor>();
-
             hierarchy_viewport_rT = (RectTransform)transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport");
             hierarchy_content_rT = (RectTransform)hierarchy_viewport_rT.Find("content_layout");
             hierarchy_layout = hierarchy_content_rT.GetComponent<VerticalLayoutGroup>();
@@ -59,8 +65,6 @@ namespace _SGUI_
             prefab_hierarchy_file.gameObject.SetActive(false);
 
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInput, this);
-
-            NUCLEOR.delegates.shell_tick += UpdateLintTimer;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -81,10 +85,7 @@ namespace _SGUI_
             {
                 footer_tmp.text = file.FullName;
                 if (file.Length <= MAX_FILE_SIZE)
-                {
                     main_input_field.text = File.ReadAllText(current_file_path);
-                    lint_flag = true;
-                }
                 else
                 {
                     SguiCustom sgui = InstantiateWindow<SguiCustom>();
@@ -115,31 +116,31 @@ namespace _SGUI_
         protected virtual void OnValueChange(string text)
         {
             lint_tmp.text = text;
-            lint_flag = true;
-            ResetLintTimer();
+            Lint();
         }
 
-        protected virtual char OnValidateStdin(string text, int charIndex, char addedChar)
+        char OnValidateStdin(string text, int charIndex, char addedChar)
         {
+            if (SguiCompletor.instance.toggle.Value)
+                switch (addedChar)
+                {
+                    case ' ' when settings != null && settings.space_confirms_completion:
+                    case '\n':
+                    case '\t':
+                        {
+                            int index = main_input_field.caretPosition;
+                            string completion = SguiCompletor.instance.GetSelectedValue();
+                            text = text[..SguiCompletor.instance.compl_start] + completion + " " + text[SguiCompletor.instance.compl_end..];
+                            main_input_field.text = text;
+                            main_input_field.caretPosition = index + completion.Length;
+                            SguiCompletor.instance.ResetIntellisense();
+                        }
+                        return '\0';
+                }
             return addedChar;
         }
 
-        void ResetLintTimer()
-        {
-            lint_last = Time.unscaledTime;
-        }
-
-        void UpdateLintTimer()
-        {
-            if (lint_flag)
-                if (Time.unscaledTime - lint_timer > lint_last)
-                {
-                    ResetLintTimer();
-                    lint_flag = false;
-                    OnLint();
-                }
-        }
-
+        void Lint() => Util.AddAction(ref NUCLEOR.delegates.onEndOfFrame_once, OnLint);
         protected virtual void OnLint()
         {
 
@@ -151,7 +152,6 @@ namespace _SGUI_
         {
             base.OnDestroy();
             IMGUI_global.instance.users_inputs.RemoveElement(this);
-            NUCLEOR.delegates.shell_tick -= UpdateLintTimer;
         }
     }
 }
