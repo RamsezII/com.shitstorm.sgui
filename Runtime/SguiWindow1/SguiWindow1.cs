@@ -6,7 +6,7 @@ namespace _SGUI_
 {
     public abstract partial class SguiWindow1 : SguiWindow
     {
-        internal HeaderDropdown dropdown_help;
+        internal HeaderDropdown dropdown_settings, dropdown_help;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -25,8 +25,11 @@ namespace _SGUI_
             zone_header = transform.Find("rT/header/header_mask/padding/gradient").GetComponent<SguiZone>();
             zone_outline = transform.Find("rT/selected").GetComponent<SguiZone>();
 
-            dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
+            dropdown_settings = transform.Find("rT/buttons/layout/button_Settings")?.GetComponent<HeaderDropdown>();
+            if (dropdown_settings != null)
+                dropdown_settings.onItemClick += OnClickDropdown_Settings;
 
+            dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
             if (dropdown_help != null)
                 dropdown_help.onItemClick += OnClickDropdown_Help;
         }

@@ -80,5 +80,9 @@ namespace _SGUI_
                     break;
             }
         }
+
+        public virtual void OnClickDropdown_Settings(string item)
+        {
+        }
     }
 }
