@@ -151,7 +151,7 @@ namespace _SGUI_
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            IMGUI_global.instance.users_inputs.RemoveElement(this);
+            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace _SGUI_
 
         public Camera cameraUI;
         public Canvas canvas2D, canvas3D;
+        public CanvasGroup canvasGroup2D, canvasGroup3D;
         public RectTransform rT_2D, rT_3D;
 
         [SerializeField] RectTransform rT_header, rT_footer, rT_scheduler;
@@ -34,11 +35,8 @@ namespace _SGUI_
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            cameraUI = transform.Find("CameraUI").GetComponent<Camera>();
-            canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
-            rT_3D = (RectTransform)canvas3D.transform.Find("rT");
-
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
+            canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
 
             rT_header = (RectTransform)canvas2D.transform.Find("_SGUI_.OSView/header");
@@ -46,6 +44,11 @@ namespace _SGUI_
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
+
+            cameraUI = transform.Find("CameraUI").GetComponent<Camera>();
+            canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
+            canvasGroup3D = canvas3D.GetComponent<CanvasGroup>();
+            rT_3D = (RectTransform)canvas3D.transform.Find("rT");
 
             AwakeButtons();
         }
@@ -72,13 +75,18 @@ namespace _SGUI_
                     NUCLEOR.delegates.onLateUpdate += OnLateUpdateSchedulerInfos;
                 rT_scheduler.gameObject.SetActive(isNotEmpty);
             });
+
+            IMGUI_global.instance.users_ongui.AddListener1(this, isNotEmpty =>
+            {
+                canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         void OnLateUpdateSchedulerInfos()
         {
-            Schedulable schedulable = NUCLEOR.instance.scheduler.list._list[0];
+            Schedulable schedulable = NUCLEOR.instance.scheduler.list._collection[0];
 
             float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
 

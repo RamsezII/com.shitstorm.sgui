@@ -66,9 +66,9 @@ namespace _SGUI_
                         }
                     }
                     else
-                        for (int i = 0; i < instances._list.Count; i++)
+                        for (int i = 0; i < instances._collection.Count; i++)
                         {
-                            SguiWindow instance = instances._list[i];
+                            SguiWindow instance = instances._collection[i];
                             instance.SetScalePivot(this);
                             instance.ToggleWindow(true);
                         }

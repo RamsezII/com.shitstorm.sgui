@@ -17,6 +17,8 @@ namespace _SGUI_
             _last_,
         }
 
+        internal HeaderDropdown dropdown_settings, dropdown_help;
+
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void OnPopulateDropdowns()

@@ -41,7 +41,7 @@ namespace _SGUI_
         private void OnDisable()
         {
             UsageManager.RemoveUser(this);
-            IMGUI_global.instance.users_inputs.RemoveElement(this);
+            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
         }
 
         //--------------------------------------------------------------------------------------------------------------

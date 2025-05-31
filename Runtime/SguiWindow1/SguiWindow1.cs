@@ -6,10 +6,6 @@ namespace _SGUI_
 {
     public abstract partial class SguiWindow1 : SguiWindow
     {
-        internal HeaderDropdown dropdown_settings, dropdown_help;
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void Awake()
         {
             base.Awake();
