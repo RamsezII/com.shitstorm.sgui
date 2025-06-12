@@ -43,7 +43,7 @@ namespace _SGUI_
                                     onAction_confirm += () => field.SetValue(result, Convert.ToInt32(inputfield.input_field.text));
                                     break;
                                 case float _float:
-                                    onAction_confirm += () => field.SetValue(result, Util.ToFloat(inputfield.input_field.text));
+                                    onAction_confirm += () => field.SetValue(result, Util.ParseFloat(inputfield.input_field.text));
                                     break;
                                 default:
                                     onAction_confirm += () => field.SetValue(result, inputfield.input_field.text);
@@ -108,7 +108,7 @@ namespace _SGUI_
                                     onAction_confirm += () => result = result.ModifyAnonymous(property_name, Convert.ToInt32(inputfield.input_field.text));
                                     break;
                                 case float _float:
-                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Util.ToFloat(inputfield.input_field.text));
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Util.ParseFloat(inputfield.input_field.text));
                                     break;
                                 default:
                                     onAction_confirm += () => result = result.ModifyAnonymous(property_name, inputfield.input_field.text);

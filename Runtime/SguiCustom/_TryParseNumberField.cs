@@ -21,8 +21,8 @@ namespace _SGUI_
                     string[] splits = label.Split('_', StringSplitOptions.None);
                     bool is_01 = splits[1].Equals("01", StringComparison.OrdinalIgnoreCase);
 
-                    float min = is_01 ? 0 : splits[1].ToFloat();
-                    float max = is_01 ? 1 : splits[2].ToFloat();
+                    float min = is_01 ? 0 : splits[1].ParseFloat();
+                    float max = is_01 ? 1 : splits[2].ParseFloat();
 
                     slider = AddButton<SguiCustom_Slider>();
                     slider.trad_label.SetTrad(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
