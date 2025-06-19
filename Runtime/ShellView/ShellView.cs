@@ -13,18 +13,16 @@ namespace _SGUI_
         protected virtual void Awake()
         {
             std_out = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
-            std_in = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
+            std_in = transform.Find("scrollview/viewport/content_layout/std_in").GetComponent<ShellField>();
             tmp_progress = transform.Find("progress/text").GetComponent<TextMeshProUGUI>();
-
-            std_in.inputfield.onValidateInput += OnValidateInput;
-            std_in.inputfield.onValueChanged.AddListener(OnValueChanged);
         }
 
         //----------------------------------------------------------------------------------------------------------
 
         protected virtual void Start()
         {
-
+            std_in.inputfield.onValidateInput += OnValidateInput;
+            std_in.inputfield.onValueChanged.AddListener(OnValueChanged);
         }
 
         //----------------------------------------------------------------------------------------------------------
