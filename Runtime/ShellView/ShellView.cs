@@ -3,30 +3,45 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    internal sealed partial class ShellView : MonoBehaviour
+    public abstract partial class ShellView : MonoBehaviour
     {
-        public ShellText std_out, std_in;
+        public ShellField std_out, std_in;
         public TextMeshProUGUI tmp_progress;
 
         //----------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            std_out = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellText>();
-            std_in = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellText>();
+            std_out = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
+            std_in = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
             tmp_progress = transform.Find("progress/text").GetComponent<TextMeshProUGUI>();
+
+            std_in.inputfield.onValidateInput += OnValidateInput;
+            std_in.inputfield.onValueChanged.AddListener(OnValueChanged);
         }
 
         //----------------------------------------------------------------------------------------------------------
 
-        private void Start()
+        protected virtual void Start()
         {
 
         }
 
         //----------------------------------------------------------------------------------------------------------
 
-        private void OnDestroy()
+        protected virtual char OnValidateInput(string text, int charIndex, char addedChar)
+        {
+            return addedChar;
+        }
+
+        protected virtual void OnValueChanged(string value)
+        {
+
+        }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        protected virtual void OnDestroy()
         {
 
         }

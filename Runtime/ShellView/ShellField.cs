@@ -3,15 +3,17 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    internal class ShellText : MonoBehaviour
+    public sealed class ShellField : MonoBehaviour
     {
         public TMP_InputField inputfield;
+        public TextMeshProUGUI lint;
 
         //----------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
-            inputfield = transform.Find("inputfield").GetComponent<TMP_InputField>();
+            inputfield = GetComponent<TMP_InputField>();
+            lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
         }
     }
 }
