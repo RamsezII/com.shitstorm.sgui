@@ -6,7 +6,7 @@ namespace _SGUI_
 {
     public abstract partial class ShellView : MonoBehaviour
     {
-        public ShellField std_out, std_in;
+        public ShellField stdout_field, stdin_field;
         public TextMeshProUGUI tmp_progress;
         public ScrollRect scrollview;
         public Scrollbar scrollbar;
@@ -15,8 +15,8 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
-            std_out = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
-            std_in = transform.Find("scrollview/viewport/content_layout/std_in").GetComponent<ShellField>();
+            stdout_field = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
+            stdin_field = transform.Find("scrollview/viewport/content_layout/std_in").GetComponent<ShellField>();
             tmp_progress = transform.Find("progress/text").GetComponent<TextMeshProUGUI>();
             scrollview = transform.Find("scrollview").GetComponent<ScrollRect>();
             scrollbar = transform.Find("scrollview/scrollbar").GetComponent<Scrollbar>();
@@ -26,8 +26,8 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
-            std_in.inputfield.onValidateInput += OnValidateInput;
-            std_in.inputfield.onValueChanged.AddListener(OnValueChanged);
+            stdin_field.inputfield.onValidateInput += OnValidateInput;
+            stdin_field.inputfield.onValueChanged.AddListener(OnValueChanged);
         }
 
         //----------------------------------------------------------------------------------------------------------
