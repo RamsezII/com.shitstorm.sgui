@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
@@ -7,6 +8,8 @@ namespace _SGUI_
     {
         public ShellField std_out, std_in;
         public TextMeshProUGUI tmp_progress;
+        public ScrollRect scrollview;
+        public Scrollbar scrollbar;
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -15,6 +18,8 @@ namespace _SGUI_
             std_out = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
             std_in = transform.Find("scrollview/viewport/content_layout/std_in").GetComponent<ShellField>();
             tmp_progress = transform.Find("progress/text").GetComponent<TextMeshProUGUI>();
+            scrollview = transform.Find("scrollview").GetComponent<ScrollRect>();
+            scrollbar = transform.Find("scrollview/scrollbar").GetComponent<Scrollbar>();
         }
 
         //----------------------------------------------------------------------------------------------------------
