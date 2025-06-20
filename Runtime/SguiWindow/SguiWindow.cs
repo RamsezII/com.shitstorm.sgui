@@ -93,7 +93,7 @@ namespace _SGUI_
                 rT_parent.pivot = .5f * Vector2.one;
             else
             {
-                float x = RectTransformUtility.WorldToScreenPoint(null, SguiGlobal.instance.button_terminal.rt.position).x;
+                float x = RectTransformUtility.WorldToScreenPoint(null, sgui_softwarebutton.rt.position).x;
                 x /= Screen.width;
                 rT_parent.pivot = new(x, 0);
             }

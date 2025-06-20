@@ -13,7 +13,8 @@ namespace _SGUI_
 
         [HideInInspector]
         public SoftwareButton
-            button_terminal,
+            button_terminal_1,
+            button_terminal_2,
             button_explorer,
             button_codium,
             button_notepad,
@@ -29,7 +30,8 @@ namespace _SGUI_
                 osbuttons_prefabs[button.GetType()] = button;
             osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
-            button_terminal = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/terminal").GetComponent<SoftwareButton>();
+            button_terminal_1 = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/cobra_terminal").GetComponent<SoftwareButton>();
+            button_terminal_2 = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/harbinger_terminal").GetComponent<SoftwareButton>();
             button_explorer = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/explorer").GetComponent<SoftwareButton>();
             button_codium = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/codium").GetComponent<SoftwareButton>();
             button_notepad = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/notepad").GetComponent<SoftwareButton>();
