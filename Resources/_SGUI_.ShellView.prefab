@@ -231,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -177.5, y: 30340}
+  m_AnchoredPosition: {x: -8210, y: 1350950}
   m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4050873924203198052
@@ -809,6 +809,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: std_out
       objectReference: {fileID: 0}
+    - target: {fileID: 4920628502021513813, guid: adc1f4da1f973fc45a53a39532e88d0d,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 2155905152
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -942,6 +947,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "stdin\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920628502021513813, guid: adc1f4da1f973fc45a53a39532e88d0d,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 2155905152
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

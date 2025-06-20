@@ -177,6 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40f3e1e66c6dd646b98ee372d5a1695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rT: {fileID: 0}
+  parent_rT: {fileID: 0}
   inputfield: {fileID: 0}
   lint: {fileID: 0}
 --- !u!1 &8403641909734539466
@@ -247,6 +249,26 @@ PrefabInstance:
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_isRichText
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_fontColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
@@ -378,11 +400,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 237379336041191353}
     m_Modifications:
-    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
-        type: 3}
-      propertyPath: m_fontColor.a
-      value: 0.011764706
-      objectReference: {fileID: 0}
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_fontColor32.rgba
