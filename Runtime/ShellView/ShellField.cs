@@ -15,5 +15,14 @@ namespace _SGUI_
             inputfield = GetComponent<TMP_InputField>();
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
         }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        public void ResetText()
+        {
+            if (!string.IsNullOrEmpty(inputfield.text))
+                inputfield.text = string.Empty;
+            lint.text = string.Empty;
+        }
     }
 }

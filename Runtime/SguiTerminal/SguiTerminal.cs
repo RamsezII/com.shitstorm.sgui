@@ -1,14 +1,14 @@
 ﻿namespace _SGUI_
 {
-    public sealed partial class SguiTerminal : SguiWindow1
+    public partial class SguiTerminal : SguiWindow1
     {
-        internal ShellView shell_view;
+        protected ShellView shell_view;
 
         //----------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
-            shell_view = transform.Find("").GetComponent<ShellView>();
+            shell_view = GetComponentInChildren<ShellView>();
             base.Awake();
         }
     }
