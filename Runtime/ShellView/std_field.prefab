@@ -149,7 +149,7 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 1, g: 1, b: 1, a: 1}
   m_CustomCaretColor: 1
-  m_SelectionColor: {r: 0.55, g: 0.55, b: 0.55, a: 0.7529412}
+  m_SelectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
   m_Text: stdout
   m_CaretBlinkRate: 1
   m_CaretWidth: 5
@@ -210,8 +210,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7230629362238528282}
   - {fileID: 3476089502640491855}
+  - {fileID: 7230629362238528282}
   m_Father: {fileID: 2746018605632969437}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 67108863
+      value: 58753152
       objectReference: {fileID: 0}
     - target: {fileID: 2651048763851923652, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
