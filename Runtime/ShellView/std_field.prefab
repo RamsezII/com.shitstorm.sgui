@@ -151,7 +151,7 @@ MonoBehaviour:
   m_CaretColor: {r: 1, g: 1, b: 1, a: 1}
   m_CustomCaretColor: 1
   m_SelectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
-  m_Text: stdout
+  m_Text: std_field
   m_CaretBlinkRate: 1
   m_CaretWidth: 5
   m_ReadOnly: 0
@@ -319,11 +319,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
-      propertyPath: m_text
-      value: "<color=\"red\">stdout\u200B"
-      objectReference: {fileID: 0}
-    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
-        type: 3}
       propertyPath: m_isRichText
       value: 1
       objectReference: {fileID: 0}
@@ -476,6 +471,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 237379336041191353}
     m_Modifications:
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_text
+      value: "std_field\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_fontColor32.rgba
