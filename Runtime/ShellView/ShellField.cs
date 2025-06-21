@@ -18,24 +18,5 @@ namespace _SGUI_
             inputfield = GetComponent<TMP_InputField>();
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
         }
-
-        //----------------------------------------------------------------------------------------------------------
-
-        public void ResetTexts()
-        {
-            if (!string.IsNullOrEmpty(inputfield.text))
-                inputfield.text = string.Empty;
-            lint.text = string.Empty;
-        }
-
-        public void AudoResize()
-        {
-            Vector2 size = new(0, 0);
-
-            if (!string.IsNullOrWhiteSpace(inputfield.text))
-                size.y = inputfield.preferredHeight;
-
-            rT.sizeDelta = size;
-        }
     }
 }
