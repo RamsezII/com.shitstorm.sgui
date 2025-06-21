@@ -68,7 +68,8 @@ MonoBehaviour:
   m_text: lint
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b84d875640e3164ea87984542f97f4d, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 860eefe3b4f78a74db263d1b0d529910, type: 2}
+  m_sharedMaterial: {fileID: -7212626210877754923, guid: 4b84d875640e3164ea87984542f97f4d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 11
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0

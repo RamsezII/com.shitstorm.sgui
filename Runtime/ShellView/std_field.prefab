@@ -152,7 +152,7 @@ MonoBehaviour:
   m_CustomCaretColor: 1
   m_SelectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
   m_Text: std_field
-  m_CaretBlinkRate: 1
+  m_CaretBlinkRate: 1.5
   m_CaretWidth: 5
   m_ReadOnly: 0
   m_RichText: 0
@@ -179,7 +179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rT: {fileID: 0}
-  parent_rT: {fileID: 0}
   inputfield: {fileID: 0}
   lint: {fileID: 0}
 --- !u!1 &8403641909734539466
@@ -344,9 +343,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
+      propertyPath: m_fontSizeBase
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 860eefe3b4f78a74db263d1b0d529910, type: 2}
     - target: {fileID: 2651048763851923652, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_Pivot.x
