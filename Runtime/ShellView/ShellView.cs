@@ -9,6 +9,7 @@ namespace _SGUI_
         public ShellField stdout_field, stdin_field;
         public TextMeshProUGUI tmp_progress;
         public ScrollRect scrollview;
+        public RectTransform scrollview_rT;
         public Scrollbar scrollbar;
 
         //----------------------------------------------------------------------------------------------------------
@@ -17,8 +18,12 @@ namespace _SGUI_
         {
             stdout_field = transform.Find("scrollview/viewport/content_layout/std_out").GetComponent<ShellField>();
             stdin_field = transform.Find("scrollview/viewport/content_layout/std_in").GetComponent<ShellField>();
+
             tmp_progress = transform.Find("progress/text").GetComponent<TextMeshProUGUI>();
+
             scrollview = transform.Find("scrollview").GetComponent<ScrollRect>();
+            scrollview_rT = (RectTransform)scrollview.transform;
+
             scrollbar = transform.Find("scrollview/scrollbar").GetComponent<Scrollbar>();
         }
 
