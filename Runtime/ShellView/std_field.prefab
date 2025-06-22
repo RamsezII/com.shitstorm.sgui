@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2746018605632969437}
   - component: {fileID: 6543194980321185378}
   - component: {fileID: 3044552446124413174}
-  - component: {fileID: 137232230742298492}
   - component: {fileID: 8254824117242486895}
   m_Layer: 5
   m_Name: std_field
@@ -65,7 +64,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &137232230742298492
+--- !u!114 &8254824117242486895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +73,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4567011713118286642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Script: {fileID: 11500000, guid: c40f3e1e66c6dd646b98ee372d5a1695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -150,13 +149,13 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 1, g: 1, b: 1, a: 1}
   m_CustomCaretColor: 1
-  m_SelectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
+  m_SelectionColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.5019608}
   m_Text: std_field
   m_CaretBlinkRate: 1.5
   m_CaretWidth: 5
   m_ReadOnly: 0
   m_RichText: 0
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
@@ -166,21 +165,8 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
---- !u!114 &8254824117242486895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4567011713118286642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40f3e1e66c6dd646b98ee372d5a1695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rT: {fileID: 0}
-  inputfield: {fileID: 0}
-  lint: {fileID: 0}
+  rT: {fileID: 2746018605632969437}
+  lint: {fileID: 1165379424137442304}
 --- !u!1 &8403641909734539466
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +452,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec39179769c5e3940ae407fb10407100, type: 3}
+--- !u!114 &1165379424137442304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+    type: 3}
+  m_PrefabInstance: {fileID: 1510929303636290955}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3476089502640491855 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2651048763851923652, guid: ec39179769c5e3940ae407fb10407100,

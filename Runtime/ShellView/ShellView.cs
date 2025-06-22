@@ -36,10 +36,10 @@ namespace _SGUI_
         protected virtual void Start()
         {
             stdout_field.rT.anchoredPosition = new Vector2(0, -offset_top_h);
-            stdin_field.inputfield.onValidateInput += OnValidateStdin_char;
-            stdin_field.inputfield.onValueChanged.AddListener(OnStdinChanged);
-            stdin_field.inputfield.onSelect.AddListener(OnSelectStdin);
-            stdin_field.inputfield.onDeselect.AddListener(OnDeselectStdin);
+            stdin_field.onValidateInput += OnValidateStdin_char;
+            stdin_field.onValueChanged.AddListener(OnStdinChanged);
+            stdin_field.onSelect.AddListener(OnSelectStdin);
+            stdin_field.onDeselect.AddListener(OnDeselectStdin);
         }
 
         //----------------------------------------------------------------------------------------------------------

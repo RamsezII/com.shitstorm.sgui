@@ -4,27 +4,28 @@ using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    public sealed class ShellField : MonoBehaviour, IScrollHandler
+    public sealed class ShellField : TMP_InputField
     {
         ShellView shellview;
         public RectTransform rT;
-        public TMP_InputField inputfield;
         public TextMeshProUGUI lint;
 
         //----------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected override void Awake()
         {
             shellview = GetComponentInParent<ShellView>();
             rT = (RectTransform)transform;
-            inputfield = GetComponent<TMP_InputField>();
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
+
+            base.Awake();
         }
 
         //----------------------------------------------------------------------------------------------------------
 
-        void IScrollHandler.OnScroll(PointerEventData eventData)
+        public override void OnScroll(PointerEventData eventData)
         {
+            base.OnScroll(eventData);
             shellview.scrollview.OnScroll(eventData);
         }
     }
