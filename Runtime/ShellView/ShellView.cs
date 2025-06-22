@@ -11,7 +11,7 @@ namespace _SGUI_
         public ScrollRect scrollview;
         public RectTransform content_rT;
         public Scrollbar scrollbar;
-        protected float offset_h = 2;
+        protected float offset_top_h = 2, offset_bottom_h = 5;
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
-            stdout_field.rT.anchoredPosition = new Vector2(0, -offset_h);
+            stdout_field.rT.anchoredPosition = new Vector2(0, -offset_top_h);
             stdin_field.inputfield.onValidateInput += OnValidateStdin_char;
             stdin_field.inputfield.onValueChanged.AddListener(OnStdinChanged);
             stdin_field.inputfield.onSelect.AddListener(OnSelectStdin);
