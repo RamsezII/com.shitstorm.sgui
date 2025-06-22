@@ -1,3 +1,5 @@
+using _ARK_;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +39,7 @@ namespace _SGUI_
             stdin_field.inputfield.onValidateInput += OnValidateStdin_char;
             stdin_field.inputfield.onValueChanged.AddListener(OnStdinChanged);
             stdin_field.inputfield.onSelect.AddListener(OnSelectStdin);
+            stdin_field.inputfield.onDeselect.AddListener(OnDeselectStdin);
         }
 
         //----------------------------------------------------------------------------------------------------------
@@ -52,6 +55,17 @@ namespace _SGUI_
 
         protected virtual void OnSelectStdin(string text)
         {
+            IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
+        }
+
+        protected virtual void OnDeselectStdin(string arg0)
+        {
+            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
+        }
+
+        protected virtual bool OnImguiInputs(Event e)
+        {
+            return false;
         }
 
         //----------------------------------------------------------------------------------------------------------
