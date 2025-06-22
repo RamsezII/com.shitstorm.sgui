@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +11,7 @@ namespace _SGUI_
         public ScrollRect scrollview;
         public RectTransform content_rT;
         public Scrollbar scrollbar;
+        protected float offset_h = 2;
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -33,6 +33,7 @@ namespace _SGUI_
 
         protected virtual void Start()
         {
+            stdout_field.rT.anchoredPosition = new Vector2(0, -offset_h);
             stdin_field.inputfield.onValidateInput += OnValidateStdin_char;
             stdin_field.inputfield.onValueChanged.AddListener(OnStdinChanged);
             stdin_field.inputfield.onSelect.AddListener(OnSelectStdin);
