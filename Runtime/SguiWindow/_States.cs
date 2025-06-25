@@ -39,8 +39,6 @@ namespace _SGUI_
                                         Destroy(gameObject);
                                     else
                                     {
-                                        animator.Update(0);
-                                        animator.enabled = false;
                                         OnUpdateAlpha();
                                         gameObject.SetActive(false);
                                     }
@@ -52,9 +50,6 @@ namespace _SGUI_
                                     break;
 
                                 case BaseStates.Active:
-                                    animator.enabled = true;
-                                    animator.Update(0);
-                                    animator.enabled = false;
                                     OnUpdateAlpha();
                                     break;
                             }
