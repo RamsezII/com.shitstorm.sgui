@@ -474,7 +474,7 @@ MonoBehaviour:
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_CaretColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_CustomCaretColor: 1
   m_SelectionColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_Text: "\nfrom cobra import *\n\n\nfunc --export test a b c\n\tlog --sublog a\n\tlog
@@ -699,7 +699,7 @@ MonoBehaviour:
     --warning b\n\tlog --error c\n\n\n@test tiz taz toz\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
-  m_sharedMaterial: {fileID: 4701849021605294625, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04,
+  m_sharedMaterial: {fileID: 4564553257581488406, guid: ad54ce0f4b202444e85c73b86a204657,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

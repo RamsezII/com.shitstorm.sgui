@@ -141,14 +141,15 @@ MonoBehaviour:
     --warning b\n\tlog --error c\n\n\n@test tiz taz toz\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad54ce0f4b202444e85c73b86a204657, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f1d71105240a68d4995ce705c437c74f, type: 2}
+  m_sharedMaterial: {fileID: 4564553257581488406, guid: ad54ce0f4b202444e85c73b86a204657,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 3654932953
-  m_fontColor: {r: 0.85, g: 0.85, b: 0.85, a: 0.8509804}
+  m_fontColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1018,11 +1019,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2196830695820588476, guid: f0865236242ab6d439a0fed223ffa860,
         type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: f1d71105240a68d4995ce705c437c74f, type: 2}
-    - target: {fileID: 2196830695820588476, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
       propertyPath: m_fontColor32.rgba
       value: 67108863
       objectReference: {fileID: 0}
@@ -1030,21 +1026,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273352490938739759, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_CaretColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273352490938739759, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_CaretColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273352490938739759, guid: f0865236242ab6d439a0fed223ffa860,
-        type: 3}
-      propertyPath: m_CaretColor.r
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3341388741070374263, guid: f0865236242ab6d439a0fed223ffa860,
         type: 3}
@@ -1477,7 +1458,6 @@ MonoBehaviour:
   main_input_field: {fileID: 0}
   footer_tmp: {fileID: 0}
   file_path: 
-  completor: {fileID: 0}
   lint_tmp: {fileID: 0}
 --- !u!1001 &5070091044439186255
 PrefabInstance:

@@ -13,12 +13,6 @@ namespace _SGUI_
 
         public readonly List<SguiCustom_Abstract> clones = new();
 
-        public Func<bool> onFunc_confirm, onFunc_cancel;
-        public Action onAction_confirm, onAction_cancel;
-        public Traductable trad_cancel, trad_confirm;
-
-        public Button button_confirm, button_cancel;
-
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
 
@@ -31,30 +25,6 @@ namespace _SGUI_
             RectTransform rT;
 
             rT = (RectTransform)transform.Find("rT/footer");
-
-            button_cancel = rT.Find("button_cancel").GetComponent<Button>();
-            button_confirm = rT.Find("button_confirm").GetComponent<Button>();
-
-            trad_cancel = button_cancel.transform.Find("label").GetComponent<Traductable>();
-            trad_confirm = button_confirm.transform.Find("label").GetComponent<Traductable>();
-
-            button_confirm.onClick.AddListener(() =>
-            {
-                if (!oblivionized)
-                    if (onFunc_confirm != null && !onFunc_confirm())
-                        return;
-                onAction_confirm?.Invoke();
-                Oblivionize();
-            });
-
-            button_cancel.onClick.AddListener(() =>
-            {
-                if (!oblivionized)
-                    if (onFunc_cancel != null && !onFunc_cancel())
-                        return;
-                onAction_cancel?.Invoke();
-                Oblivionize();
-            });
 
             rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
 

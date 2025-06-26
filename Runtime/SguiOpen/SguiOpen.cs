@@ -9,7 +9,6 @@ namespace _SGUI_
 {
     public partial class SguiOpen : SguiWindow2
     {
-        Button button_submit;
         Action<string> on_done;
 
         TMP_InputField header_input;
@@ -42,8 +41,6 @@ namespace _SGUI_
             prefab_hierarchy_folder = transform.Find("rT/left-window/scroll-view/viewport/content_layout/button-folder").GetComponent<Button_Folder>();
             prefab_hierarchy_file = transform.Find("rT/left-window/scroll-view/viewport/content_layout/button-file").GetComponent<Button_File>();
 
-            button_submit = transform.Find("rT/footer/button-ok/button").GetComponent<Button>();
-
             header_input = transform.Find("rT/input_path/input_text").GetComponent<TMP_InputField>();
 
             base.Awake();
@@ -71,7 +68,7 @@ namespace _SGUI_
                     folder_clone.text.text = folder_clone.short_path = drive_info.VolumeLabel;
                 }
 
-            button_submit.onClick.AddListener(OnSubmitButton);
+            onAction_confirm += OnSubmitButton;
         }
 
         //--------------------------------------------------------------------------------------------------------------
