@@ -128,11 +128,13 @@ namespace _SGUI_
                     case '\n':
                     case '\t':
                         {
-                            int index = main_input_field.caretPosition;
                             string completion = SguiCompletor.instance.GetSelectedValue();
-                            text = text[..SguiCompletor.instance.compl_start] + completion + " " + text[SguiCompletor.instance.compl_end..];
-                            main_input_field.text = text;
-                            main_input_field.caretPosition = index + completion.Length;
+                            if (!string.IsNullOrWhiteSpace(completion))
+                            {
+                                text = text[..SguiCompletor.instance.compl_start] + completion + " " + text[SguiCompletor.instance.compl_end..];
+                                main_input_field.text = text;
+                                main_input_field.caretPosition = SguiCompletor.instance.compl_start + completion.Length;
+                            }
                             SguiCompletor.instance.ResetIntellisense();
                         }
                         return '\0';
