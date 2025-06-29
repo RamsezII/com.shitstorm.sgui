@@ -8,7 +8,9 @@ namespace _SGUI_
         [Serializable]
         public class Settings : UserJSon
         {
-            public bool space_confirms_completion;
+            public bool
+                use_intellisense = true,
+                space_confirms_completion = false;
         }
 
         public static Settings settings = new();
