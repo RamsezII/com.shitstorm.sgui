@@ -131,7 +131,7 @@ namespace _SGUI_
                             string completion = SguiCompletor.instance.GetSelectedValue();
                             if (!string.IsNullOrWhiteSpace(completion))
                             {
-                                text = text[..SguiCompletor.instance.compl_start] + completion + " " + text[SguiCompletor.instance.compl_end..];
+                                text = text[..SguiCompletor.instance.compl_start] + completion + text[SguiCompletor.instance.compl_end..];
                                 main_input_field.text = text;
                                 main_input_field.caretPosition = SguiCompletor.instance.compl_start + completion.Length;
                             }

@@ -67,11 +67,11 @@ namespace _SGUI_
                 case KeyCode.Mouse5:
                 case KeyCode.Mouse6:
                     if (!RectTransformUtility.RectangleContainsScreenPoint(rT_intel, Input.mousePosition))
-                        toggle.Update(false);
+                        ResetIntellisense();
                     return true;
 
                 case KeyCode.Escape:
-                    toggle.Update(false);
+                    ResetIntellisense();
                     return true;
 
                 case KeyCode.UpArrow:
