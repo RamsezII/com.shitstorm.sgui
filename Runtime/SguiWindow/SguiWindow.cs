@@ -47,7 +47,7 @@ namespace _SGUI_
                 NUCLEOR.delegates.onLateUpdate += UpdateHue;
 
             IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
-            SguiGlobal.instance.osview_users.AddElement(this);
+            OSView.instance.users.AddElement(this);
             UsageManager.AddUser(this, UsageGroups.IngameMouse, UsageGroups.Typing, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
         }
 
@@ -55,7 +55,7 @@ namespace _SGUI_
         {
             NUCLEOR.delegates.onLateUpdate -= UpdateHue;
             IMGUI_global.instance.users_inputs.RemoveKey(OnIMGui_toggle_fullscreen);
-            SguiGlobal.instance?.osview_users.RemoveElement(this);
+            OSView.instance?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
         }
 

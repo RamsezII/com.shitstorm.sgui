@@ -1,5 +1,4 @@
 ﻿using _ARK_;
-using _UTIL_;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,10 +15,8 @@ namespace _SGUI_
         public GraphicRaycaster raycaster_3D, raycaster_2D;
         public RectTransform rT_2D, rT_3D;
 
-        [SerializeField] RectTransform rT_header, rT_footer, rT_scheduler;
+        [SerializeField] RectTransform rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
-
-        public readonly ListListener osview_users = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -43,9 +40,6 @@ namespace _SGUI_
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
 
-            rT_header = (RectTransform)canvas2D.transform.Find("_SGUI_.OSView/header");
-            rT_footer = (RectTransform)canvas2D.transform.Find("_SGUI_.OSView/task-bar");
-
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
 
@@ -61,14 +55,10 @@ namespace _SGUI_
 
         private void Start()
         {
-            rT_footer.Find("main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
-
             StartButtons();
 
-            osview_users.AddListener1(this, not_empty =>
+            OSView.instance.users.AddListener1(this, not_empty =>
             {
-                rT_header.gameObject.SetActive(not_empty);
-                rT_footer.gameObject.SetActive(not_empty);
                 canvas2D.transform.Find("button-play").gameObject.SetActive(not_empty);
             });
 

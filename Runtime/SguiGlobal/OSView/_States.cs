@@ -25,7 +25,16 @@ namespace _SGUI_
                 switch ((AnimLayers)layerIndex)
                 {
                     case AnimLayers.Base:
-                        state_base = (BaseStates)stateInfo.fullPathHash;
+                        {
+                            BaseStates state = (BaseStates)stateInfo.fullPathHash;
+                            switch (state)
+                            {
+                                case BaseStates.Default:
+                                    gameObject.SetActive(false);
+                                    break;
+                            }
+                            state_base = state;
+                        }
                         break;
                 }
         }
