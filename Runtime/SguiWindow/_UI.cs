@@ -38,22 +38,19 @@ namespace _SGUI_
             rT_parent = (RectTransform)rT.parent;
 
             rect_current = new(rT);
+
+            ui_hue_start = Random.Range(0f, 1f);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         void StartUI()
         {
-            if (prefab_hierarchy_folder != null)
-                prefab_hierarchy_folder.gameObject.SetActive(false);
-            if (prefab_hierarchy_file != null)
-                prefab_hierarchy_file.gameObject.SetActive(false);
+            prefab_hierarchy_folder?.gameObject.SetActive(false);
+            prefab_hierarchy_file?.gameObject.SetActive(false);
 
             if (animate_hue)
-            {
                 ui_alpha = huable_background.color.a;
-                ui_hue_start = huable_background.color.GetHue();
-            }
 
             if (fullscreen != null)
             {

@@ -13,6 +13,7 @@ namespace _SGUI_
         public Camera cameraUI;
         public Canvas canvas2D, canvas3D;
         public CanvasGroup canvasGroup2D, canvasGroup3D;
+        public GraphicRaycaster raycaster_3D, raycaster_2D;
         public RectTransform rT_2D, rT_3D;
 
         [SerializeField] RectTransform rT_header, rT_footer, rT_scheduler;
@@ -34,6 +35,9 @@ namespace _SGUI_
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            raycaster_2D = transform.Find("Canvas2D").GetComponent<GraphicRaycaster>();
+            raycaster_3D = transform.Find("CameraUI/Canvas3D").GetComponent<GraphicRaycaster>();
 
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
@@ -76,6 +80,8 @@ namespace _SGUI_
                 rT_scheduler.gameObject.SetActive(isNotEmpty);
             });
 
+            IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
+
             IMGUI_global.instance.users_ongui.AddListener1(this, isNotEmpty =>
             {
                 canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
@@ -105,6 +111,7 @@ namespace _SGUI_
 
         void OnDestroy()
         {
+            IMGUI_global.instance?.users_inputs.RemoveKey(OnImguiInputs);
             if (this == instance)
                 instance = null;
         }
