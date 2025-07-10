@@ -203,15 +203,16 @@ MonoBehaviour:
   canvas3D: {fileID: 0}
   canvasGroup2D: {fileID: 0}
   canvasGroup3D: {fileID: 0}
+  raycaster_3D: {fileID: 0}
+  raycaster_2D: {fileID: 0}
   rT_2D: {fileID: 0}
   rT_3D: {fileID: 0}
-  rT_header: {fileID: 0}
-  rT_footer: {fileID: 0}
   rT_scheduler: {fileID: 0}
   txt_scheduler: {fileID: 0}
   button_header_play: {fileID: 0}
   button_bottom_audio: {fileID: 0}
-  button_terminal: {fileID: 0}
+  button_terminal_1: {fileID: 0}
+  button_terminal_2: {fileID: 0}
   button_explorer: {fileID: 0}
   button_codium: {fileID: 0}
   button_notepad: {fileID: 0}
