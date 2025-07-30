@@ -67,7 +67,7 @@ namespace _SGUI_
                             onAction_confirm += () =>
                             {
                                 int index = dropdown.dropdown.value;
-                                string enum_name = dropdown.dropdown.GetSelectedValue();
+                                string enum_name = dropdown.dropdown.GetSelectedName();
                                 field.SetValue(result, Enum.Parse(field_type, enum_name));
                                 ;
                             };
@@ -132,7 +132,7 @@ namespace _SGUI_
                             onAction_confirm += () =>
                             {
                                 int index = dropdown.dropdown.value;
-                                string enum_name = dropdown.dropdown.GetSelectedValue();
+                                string enum_name = dropdown.dropdown.GetSelectedName();
                                 result = result.ModifyAnonymous(property_name, Enum.Parse(property_type, enum_name));
                             };
                             break;
