@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -13,6 +14,7 @@ namespace _SGUI_
 
         public Dictionary<string, bool> toggles;
         float current_scrollheight = 1;
+        [SerializeField] bool stay_open;
 
         public IEnumerable<string> ESelectedItems() => toggles?.Where(pair => pair.Value).Select(pair => pair.Key);
 
@@ -29,16 +31,22 @@ namespace _SGUI_
 
         public void ToggleCheckmarks(in bool toggle) => dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(toggle);
 
+        public void StayOpen()
+        {
+            stay_open = true;
+            dropdown.alphaFadeSpeed = 0;
+        }
+
         public void ActivateMultiSelect()
         {
+            StayOpen();
             dropdown.MultiSelect = true;
-            dropdown.alphaFadeSpeed = 0;
             ToggleCheckmarks(true);
         }
 
         internal void OnTemplateClone(SguiCustom_Dropdown_Template template_clone)
         {
-            if (dropdown.MultiSelect)
+            if (stay_open)
             {
                 Scrollbar scrollbar = template_clone.transform.Find("scrollbar").GetComponent<Scrollbar>();
 

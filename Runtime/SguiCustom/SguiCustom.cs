@@ -22,17 +22,11 @@ namespace _SGUI_
         {
             base.Awake();
 
-            RectTransform rT;
+            content_layout_rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
+            content_layout = content_layout_rT.GetComponent<VerticalLayoutGroup>();
 
-            rT = (RectTransform)transform.Find("rT/footer");
-
-            rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
-
-            content_layout_rT = rT;
-            content_layout = rT.GetComponent<VerticalLayoutGroup>();
-
-            for (int i = 0; i < rT.childCount; ++i)
-                if (rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
+            for (int i = 0; i < content_layout_rT.childCount; ++i)
+                if (content_layout_rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
                     prefabs[prefab.GetType()] = prefab;
         }
 
