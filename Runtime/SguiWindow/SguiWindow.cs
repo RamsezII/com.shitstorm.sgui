@@ -42,9 +42,9 @@ namespace _SGUI_
 
         protected virtual void OnEnable()
         {
-            NUCLEOR.delegates.onLateUpdate -= UpdateHue;
+            NUCLEOR.delegates.LateUpdate -= UpdateHue;
             if (animate_hue)
-                NUCLEOR.delegates.onLateUpdate += UpdateHue;
+                NUCLEOR.delegates.LateUpdate += UpdateHue;
 
             IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
             OSView.instance.users.AddElement(this);
@@ -53,7 +53,7 @@ namespace _SGUI_
 
         protected virtual void OnDisable()
         {
-            NUCLEOR.delegates.onLateUpdate -= UpdateHue;
+            NUCLEOR.delegates.LateUpdate -= UpdateHue;
             IMGUI_global.instance.users_inputs.RemoveKey(OnIMGui_toggle_fullscreen);
             OSView.instance?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);

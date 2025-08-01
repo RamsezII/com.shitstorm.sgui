@@ -33,7 +33,7 @@ namespace _SGUI_
 
         public void SetDirty_HierarchySize()
         {
-            Util.AddAction(ref NUCLEOR.delegates.onLateUpdate, ResizeHierarchy);
+            Util.AddAction(ref NUCLEOR.delegates.LateUpdate, ResizeHierarchy);
         }
 
         public void ResizeHierarchy()

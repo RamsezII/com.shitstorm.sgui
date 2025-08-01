@@ -19,8 +19,8 @@ namespace _SGUI_
         {
             ArkMachine.AddListener(() =>
             {
-                NUCLEOR.delegates.onApplicationFocus += () => LoadSettings(false);
-                NUCLEOR.delegates.onApplicationUnfocus += () => SaveSettings(false);
+                NUCLEOR.delegates.OnApplicationFocus += () => LoadSettings(false);
+                NUCLEOR.delegates.OnApplicationUnfocus += () => SaveSettings(false);
             });
         }
 
@@ -142,7 +142,7 @@ namespace _SGUI_
             return addedChar;
         }
 
-        void Lint() => Util.AddAction(ref NUCLEOR.delegates.onEndOfFrame_once, OnLint);
+        void Lint() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnLint);
         protected virtual void OnLint()
         {
 

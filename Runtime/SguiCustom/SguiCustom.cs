@@ -67,7 +67,7 @@ namespace _SGUI_
                 obj = JsonUtility.FromJson(JsonUtility.ToJson(result), type);
                 json = (JSon)obj;
                 json.Save(file_path, true);
-                NUCLEOR.delegates.onApplicationFocus?.Invoke();
+                NUCLEOR.delegates.OnApplicationFocus?.Invoke();
             });
         }
 

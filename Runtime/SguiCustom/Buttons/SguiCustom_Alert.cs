@@ -44,7 +44,7 @@ namespace _SGUI_
         public void SetText(in Traductions trads)
         {
             trad_text.SetTrads(trads);
-            Util.AddAction(ref NUCLEOR.delegates.onEndOfFrame_once, FitText);
+            Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, FitText);
         }
 
         public void FitText()

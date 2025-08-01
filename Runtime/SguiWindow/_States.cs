@@ -28,7 +28,7 @@ namespace _SGUI_
                 {
                     case AnimLayers.Base:
                         {
-                            NUCLEOR.delegates.onLateUpdate -= OnUpdateAlpha;
+                            NUCLEOR.delegates.LateUpdate -= OnUpdateAlpha;
 
                             BaseStates state = (BaseStates)stateInfo.fullPathHash;
 
@@ -46,7 +46,7 @@ namespace _SGUI_
 
                                 case BaseStates.toActive:
                                 case BaseStates.fromActive_:
-                                    NUCLEOR.delegates.onLateUpdate += OnUpdateAlpha;
+                                    NUCLEOR.delegates.LateUpdate += OnUpdateAlpha;
                                     break;
 
                                 case BaseStates.Active:

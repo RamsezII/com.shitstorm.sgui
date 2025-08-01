@@ -64,9 +64,9 @@ namespace _SGUI_
 
             NUCLEOR.instance.scheduler.list.AddListener1(this, isNotEmpty =>
             {
-                NUCLEOR.delegates.onLateUpdate -= OnLateUpdateSchedulerInfos;
+                NUCLEOR.delegates.LateUpdate -= OnLateUpdateSchedulerInfos;
                 if (isNotEmpty)
-                    NUCLEOR.delegates.onLateUpdate += OnLateUpdateSchedulerInfos;
+                    NUCLEOR.delegates.LateUpdate += OnLateUpdateSchedulerInfos;
                 rT_scheduler.gameObject.SetActive(isNotEmpty);
             });
 
