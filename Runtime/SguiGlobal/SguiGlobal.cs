@@ -62,7 +62,7 @@ namespace _SGUI_
                 canvas2D.transform.Find("button-play").gameObject.SetActive(not_empty);
             });
 
-            NUCLEOR.instance.scheduler.list.AddListener1(this, isNotEmpty =>
+            NUCLEOR.instance.sequencer.list.AddListener1(this, isNotEmpty =>
             {
                 NUCLEOR.delegates.LateUpdate -= OnLateUpdateSchedulerInfos;
                 if (isNotEmpty)
@@ -82,7 +82,7 @@ namespace _SGUI_
 
         void OnLateUpdateSchedulerInfos()
         {
-            Schedulable schedulable = NUCLEOR.instance.scheduler.list._collection[0];
+            Schedulable schedulable = NUCLEOR.instance.sequencer.list._collection[0];
 
             float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
 
