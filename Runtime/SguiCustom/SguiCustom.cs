@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -28,6 +29,8 @@ namespace _SGUI_
             for (int i = 0; i < content_layout_rT.childCount; ++i)
                 if (content_layout_rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
                     prefabs[prefab.GetType()] = prefab;
+
+            EventSystem.current.SetSelectedGameObject(button_confirm.gameObject);
         }
 
         //--------------------------------------------------------------------------------------------------------------
