@@ -18,6 +18,8 @@ namespace _SGUI_
         [SerializeField] RectTransform rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
 
+        public RectTransform vchat_icon_rT, vchat_bar_rT;
+
         //--------------------------------------------------------------------------------------------------------------
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -47,6 +49,9 @@ namespace _SGUI_
             canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
             canvasGroup3D = canvas3D.GetComponent<CanvasGroup>();
             rT_3D = (RectTransform)canvas3D.transform.Find("rT");
+
+            vchat_icon_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat");
+            vchat_bar_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat/icon/bar");
 
             AwakeButtons();
         }
