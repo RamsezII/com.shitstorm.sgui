@@ -26,11 +26,15 @@ namespace _SGUI_
 
                     slider = AddButton<SguiCustom_Slider>();
                     slider.trad_label.SetTrad(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
-                    slider.slider.value = is_int ? (int)value : (float)value;
-                    slider.slider.wholeNumbers = is_int;
 
+                    slider.slider.wholeNumbers = is_int;
                     slider.slider.minValue = min;
                     slider.slider.maxValue = max;
+
+                    if (is_int)
+                        slider.slider.value = (int)value;
+                    else
+                        slider.slider.value = (float)value;
 
                     return true;
                 }
