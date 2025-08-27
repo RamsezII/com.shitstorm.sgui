@@ -1,4 +1,8 @@
+using _ARK_;
 using _UTIL_;
+using System;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +15,9 @@ namespace _SGUI_
         [HideInInspector] public Animator animator;
         public readonly ListListener users = new();
 
+        TextMeshProUGUI text_computer_time;
+        HeartBeat.Operation refresh_computer_time_operation;
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
@@ -19,6 +26,14 @@ namespace _SGUI_
             animator = GetComponent<Animator>();
             animator.keepAnimatorStateOnDisable = true;
             animator.writeDefaultValuesOnDisable = true;
+            text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnEnable()
+        {
+            RefreshDatetime();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -27,9 +42,28 @@ namespace _SGUI_
         {
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
             users.AddListener1(this, ToggleView);
+
+            refresh_computer_time_operation = new(4, false, delay =>
+            {
+                if (text_computer_time.gameObject.activeInHierarchy)
+                    RefreshDatetime();
+            })
+            {
+                timer = 15,
+            };
+
+            NUCLEOR.instance.heartbeat_unscaled.operations.Add(refresh_computer_time_operation);
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        void RefreshDatetime()
+        {
+            DateTime now = DateTime.Now;
+            string time = now.ToString("HH:mm", CultureInfo.CurrentCulture);
+            string date = now.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
+            text_computer_time.text = $"{time}\n{date}";
+        }
 
         public void ToggleView(bool toggle)
         {
@@ -71,6 +105,7 @@ namespace _SGUI_
 
         private void OnDestroy()
         {
+            refresh_computer_time_operation.Dispose();
             if (this == instance)
                 instance = null;
         }
