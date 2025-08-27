@@ -1,6 +1,9 @@
 ﻿using _ARK_;
+using _UTIL_;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -81,9 +84,57 @@ namespace _SGUI_
             {
                 canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
             });
+
+            NUCLEOR.delegates.LateUpdate += CheckClick;
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        void CheckClick()
+        {
+            if (!UsageManager.AreEmpty(UsageGroups.IngameMouse, UsageGroups.TrueMouse))
+                if (Input.GetMouseButtonDown(0))
+                {
+                    PointerEventData e = new(EventSystem.current)
+                    {
+                        position = Input.mousePosition,
+                    };
+
+                    List<RaycastResult> results = new();
+
+                    if (Raycast(raycaster_2D))
+                        return;
+
+                    results.Clear();
+                    if (Raycast(raycaster_3D))
+                        return;
+
+                    foreach (var raycaster in FindObjectsByType<GraphicRaycaster>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+                        if (raycaster != raycaster_2D && raycaster != raycaster_3D)
+                        {
+                            results.Clear();
+                            if (Raycast(raycaster))
+                                return;
+                        }
+
+                    bool Raycast(in GraphicRaycaster raycaster)
+                    {
+                        raycaster.Raycast(e, results);
+
+                        for (int i = 0; i < results.Count; i++)
+                        {
+                            IClickable clickable = results[i].gameObject.GetComponentInParent<IClickable>();
+                            if (clickable != null)
+                            {
+                                clickable.OnPointerClick(e);
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
+                }
+        }
 
         void OnLateUpdateSchedulerInfos()
         {
@@ -106,6 +157,7 @@ namespace _SGUI_
 
         void OnDestroy()
         {
+            NUCLEOR.delegates.LateUpdate -= CheckClick;
             IMGUI_global.instance?.users_inputs.RemoveKey(OnImguiInputs);
             if (this == instance)
                 instance = null;
