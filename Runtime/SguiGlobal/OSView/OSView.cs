@@ -18,14 +18,21 @@ namespace _SGUI_
         TextMeshProUGUI text_computer_time;
         HeartBeat.Operation refresh_computer_time_operation;
 
+        RectTransform header_rT, taskbar_rT;
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
             instance = this;
+
             animator = GetComponent<Animator>();
             animator.keepAnimatorStateOnDisable = true;
             animator.writeDefaultValuesOnDisable = true;
+
+            header_rT = (RectTransform)transform.Find("header");
+            taskbar_rT = (RectTransform)transform.Find("task-bar");
+
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
         }
 
@@ -63,6 +70,25 @@ namespace _SGUI_
             string time = now.ToString("HH:mm", CultureInfo.CurrentCulture);
             string date = now.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
             text_computer_time.text = $"{time}\n{date}";
+        }
+
+        void ResizeSguiGlobal2DrT()
+        {
+            RectTransform rT = SguiGlobal.instance.rT_2D;
+
+            if (state_base == BaseStates.Default)
+            {
+                rT.anchoredPosition = new(.5f, 0);
+                rT.sizeDelta = new(0, 0);
+            }
+            else
+            {
+                float top_h = header_rT.rect.height;
+                float bottom_h = taskbar_rT.rect.height;
+
+                rT.anchoredPosition = new(.5f, bottom_h);
+                rT.sizeDelta = new(0, 1 - top_h - bottom_h);
+            }
         }
 
         public void ToggleView(bool toggle)

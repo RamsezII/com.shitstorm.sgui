@@ -21,22 +21,28 @@ namespace _SGUI_
 
         void IOnStateMachine.OnStateMachine(in AnimatorStateInfo stateInfo, in int layerIndex, in bool onEnter)
         {
-            if (onEnter)
-                switch ((AnimLayers)layerIndex)
-                {
-                    case AnimLayers.Base:
+            switch ((AnimLayers)layerIndex)
+            {
+                case AnimLayers.Base:
+                    {
+                        BaseStates state = (BaseStates)stateInfo.fullPathHash;
+
+                        switch (state)
                         {
-                            BaseStates state = (BaseStates)stateInfo.fullPathHash;
-                            switch (state)
-                            {
-                                case BaseStates.Default:
+                            case BaseStates.Default:
+                                if (onEnter)
                                     gameObject.SetActive(false);
-                                    break;
-                            }
-                            state_base = state;
+                                break;
                         }
-                        break;
-                }
+
+                        if (onEnter)
+                        {
+                            state_base = state;
+                            ResizeSguiGlobal2DrT();
+                        }
+                    }
+                    break;
+            }
         }
     }
 }
