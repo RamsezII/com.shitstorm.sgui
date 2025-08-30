@@ -77,8 +77,27 @@ namespace _SGUI_
         public static SguiCustom ShowAlert(in SguiCustom_Alert.DialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
         {
             SguiCustom sgui = InstantiateWindow<SguiCustom>();
-            alert = sgui.AddButton<SguiCustom_Alert>();
 
+            switch (type)
+            {
+                case SguiCustom_Alert.DialogTypes.Info:
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                case SguiCustom_Alert.DialogTypes.Dialog:
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                case SguiCustom_Alert.DialogTypes.Error:
+                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                default:
+                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+            }
+
+            alert = sgui.AddButton<SguiCustom_Alert>();
             alert.SetType(type);
             alert.SetText(traductions);
             sgui.trad_title.SetTrad(type.ToString());
