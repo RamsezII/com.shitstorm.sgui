@@ -5,7 +5,7 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        void AutoSize()
+        public void AutoSize()
         {
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate(SguiGlobal.instance.rT_2D);
