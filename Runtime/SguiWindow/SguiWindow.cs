@@ -48,7 +48,7 @@ namespace _SGUI_
 
             IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
             OSView.instance.users.AddElement(this);
-            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
+            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.IngameMouse, UsageGroups.Typing, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
         }
 
         protected virtual void OnDisable()
@@ -64,7 +64,6 @@ namespace _SGUI_
         protected virtual void Start()
         {
             StartUI();
-            UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.Keyboard, UsageGroups.TrueMouse, UsageGroups.BlockPlayers);
             ToggleWindow(true);
 
             if (sgui_softwarebutton != null)
