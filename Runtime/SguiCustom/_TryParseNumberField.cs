@@ -47,12 +47,20 @@ namespace _SGUI_
 
             inputfield = AddButton<SguiCustom_InputField>();
             inputfield.trad_label.SetTrad(label + ":");
-            inputfield.input_field.text = value.ToString();
+            inputfield.input_field.text = value.ToString().Replace(',', '.');
 
             if (is_int)
                 inputfield.input_field.contentType = TMP_InputField.ContentType.IntegerNumber;
             else if (is_float)
+            {
+                inputfield.input_field.onValidateInput += (text, charIndex, addedChar) => addedChar switch
+                {
+                    ',' or '.' when !text.Contains('.', StringComparison.OrdinalIgnoreCase) => '.',
+                    char c when c >= '0' && c <= '9' => addedChar,
+                    _ => '\0',
+                };
                 inputfield.input_field.contentType = TMP_InputField.ContentType.DecimalNumber;
+            }
 
             return false;
         }

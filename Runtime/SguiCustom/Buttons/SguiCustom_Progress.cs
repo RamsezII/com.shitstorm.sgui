@@ -13,5 +13,9 @@ namespace _SGUI_
             rT_fill = (RectTransform)transform.Find("progress-bar/fill");
             base.Awake();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public void SetProgress(in float progress) => rT_fill.anchorMax = new(progress, 1);
     }
 }
