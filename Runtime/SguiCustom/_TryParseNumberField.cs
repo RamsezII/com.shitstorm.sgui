@@ -42,7 +42,7 @@ namespace _SGUI_
                 {
                     if (slider != null)
                         Destroy(slider.gameObject);
-                    Debug.LogWarning(e.TrimmedMessage());
+                    Debug.LogWarning(e.TrimmedExceptionMessage());
                 }
 
             inputfield = AddButton<SguiCustom_InputField>();
