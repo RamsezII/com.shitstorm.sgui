@@ -74,21 +74,21 @@ namespace _SGUI_
             });
         }
 
-        public static SguiCustom ShowAlert(in SguiCustom_Alert.DialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
+        public static SguiCustom ShowAlert(in SguiDialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
         {
             SguiCustom sgui = InstantiateWindow<SguiCustom>();
 
             switch (type)
             {
-                case SguiCustom_Alert.DialogTypes.Info:
+                case SguiDialogTypes.Info:
                     Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
-                case SguiCustom_Alert.DialogTypes.Dialog:
+                case SguiDialogTypes.Dialog:
                     Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
-                case SguiCustom_Alert.DialogTypes.Error:
+                case SguiDialogTypes.Error:
                     Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
@@ -102,7 +102,7 @@ namespace _SGUI_
             alert.SetText(traductions);
             sgui.trad_title.SetTrad(type.ToString());
 
-            if (type != SguiCustom_Alert.DialogTypes.Dialog)
+            if (type != SguiDialogTypes.Dialog)
             {
                 sgui.button_cancel.gameObject.SetActive(false);
                 sgui.trad_confirm.SetTrad("OK");

@@ -1,5 +1,4 @@
 using _ARK_;
-using _UTIL_;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -7,15 +6,15 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
+    public enum SguiDialogTypes : byte
+    {
+        Info = 1,
+        Dialog = 2,
+        Error = 3,
+    }
+
     public class SguiCustom_Alert : SguiCustom_Abstract
     {
-        public enum DialogTypes : byte
-        {
-            Info = 1,
-            Dialog = 2,
-            Error = 3,
-        }
-
         public Traductable trad_text;
 
         Vector2 initial_size;
@@ -34,11 +33,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void SetType(in DialogTypes type)
+        public void SetType(in SguiDialogTypes type)
         {
-            transform.Find("icon-info").GetComponent<RawImage>().gameObject.SetActive(type == DialogTypes.Info);
-            transform.Find("icon-question").GetComponent<RawImage>().gameObject.SetActive(type == DialogTypes.Dialog);
-            transform.Find("icon-error").GetComponent<RawImage>().gameObject.SetActive(type == DialogTypes.Error);
+            transform.Find("icon-info").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Info);
+            transform.Find("icon-question").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Dialog);
+            transform.Find("icon-error").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Error);
         }
 
         public void SetText(in Traductions trads)
