@@ -3993,6 +3993,21 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 5584451477036342062, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584451477036342062, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584451477036342062, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5761368120172786459, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
       propertyPath: m_Name
