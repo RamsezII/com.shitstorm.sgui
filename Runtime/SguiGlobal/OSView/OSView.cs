@@ -56,7 +56,7 @@ namespace _SGUI_
                     RefreshDatetime();
             })
             {
-                timer = 15,
+                timeStep = 15,
             };
 
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(refresh_computer_time_operation);
