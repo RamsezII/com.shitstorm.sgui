@@ -88,7 +88,7 @@ namespace _SGUI_
         public void ResetIntellisense()
         {
             ClearIntellisense();
-            toggle.Update(false);
+            toggle.Value = false;
         }
 
         public void PopulateCompletions(in int compl_start, in int compl_end, in Vector3 position, in IEnumerable<string> completions)
@@ -98,7 +98,7 @@ namespace _SGUI_
 
             ClearIntellisense();
 
-            toggle.Update(completions != null);
+            toggle.Value = completions != null;
             rT_intel.position = position + (Vector3)offset;
 
             foreach (string completion in completions)
