@@ -50,7 +50,7 @@ namespace _SGUI_
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
             users.AddListener1(this, ToggleView);
 
-            refresh_computer_time_operation = new(4, false, delay =>
+            refresh_computer_time_operation = new(4, false, () =>
             {
                 if (text_computer_time.gameObject.activeInHierarchy)
                     RefreshDatetime();
