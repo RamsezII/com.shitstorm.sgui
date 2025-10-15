@@ -49,7 +49,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AddLog(in string text) => AddLog(new Log(text));
+        public void AddLog(in object text) => AddLog(new Log(text.ToString()));
         public void AddLog(in Log log)
         {
             while (logs.Count > 50)
@@ -61,11 +61,13 @@ namespace _SGUI_
         void RefreshTexts()
         {
             StringBuilder sb = new();
-            for (int i = 0; i < logs.Count; i++)
+
+            for (int i = logs.Count - 1; i >= 0; i--)
                 if (Time.unscaledTime >= logs[i].deadline)
-                    logs.RemoveAt(i--);
+                    logs.RemoveAt(i);
                 else
                     sb.AppendLine(logs[i].text);
+
             text.text = sb.ToString();
             gameObject.SetActive(sb.Length > 0);
         }
