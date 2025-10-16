@@ -1547,15 +1547,16 @@ MonoBehaviour:
 
     New Text'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4b84d875640e3164ea87984542f97f4d, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 7bcc828656e4f6148892aa496546816a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
+  m_sharedMaterial: {fileID: 4701849021605294625, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

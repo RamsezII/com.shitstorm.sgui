@@ -49,6 +49,7 @@ namespace _SGUI_
         private void OnDisable()
         {
             NUCLEOR.instance.heartbeat_unscaled.operations.Remove(operation);
+            rt.sizeDelta = Vector2.zero;
         }
 
         //--------------------------------------------------------------------------------------------------------------
