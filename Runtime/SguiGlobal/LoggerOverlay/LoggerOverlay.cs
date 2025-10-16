@@ -26,6 +26,7 @@ namespace _SGUI_
 
         readonly List<Log> logs = new();
 
+        RectTransform rt;
         TextMeshProUGUI text;
 
         HeartBeat.Operation operation;
@@ -37,6 +38,7 @@ namespace _SGUI_
             instance = this;
 
             text = GetComponentInChildren<TextMeshProUGUI>();
+            rt = (RectTransform)text.transform.parent;
         }
 
         private void OnEnable()
@@ -54,7 +56,7 @@ namespace _SGUI_
         public void AddLog(in object text) => AddLog(new Log(text.ToString()));
         public void AddLog(in Log log)
         {
-            while (logs.Count >= 20)
+            while (logs.Count >= 50)
                 logs.RemoveAt(0);
             logs.Add(log);
             gameObject.SetActive(true);
@@ -78,7 +80,7 @@ namespace _SGUI_
                     sb.AppendLine(logs[i].text);
 
             text.SetText(sb);
-            text.SetAllDirty();
+            rt.sizeDelta = text.GetPreferredValues();
         }
     }
 }
