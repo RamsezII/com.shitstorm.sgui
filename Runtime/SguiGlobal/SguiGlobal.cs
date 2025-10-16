@@ -1,5 +1,4 @@
 ﻿using _ARK_;
-using _UTIL_;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,7 +15,10 @@ namespace _SGUI_
         public Canvas canvas2D, canvas3D;
         public CanvasGroup canvasGroup2D, canvasGroup3D;
         public GraphicRaycaster raycaster_3D, raycaster_2D;
-        public RectTransform rT_2D, rT_3D;
+
+        public RectTransform 
+            rT_2D, rt_windows,
+            rT_3D;
 
         [SerializeField] RectTransform rT_scheduler;
         [SerializeField] TextMeshProUGUI txt_scheduler;
@@ -44,6 +46,7 @@ namespace _SGUI_
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
+            rt_windows = (RectTransform)rT_2D.Find("windows");
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();

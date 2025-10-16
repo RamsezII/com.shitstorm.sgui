@@ -39,12 +39,14 @@ namespace _SGUI_
             text = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void Start()
+        private void OnEnable()
         {
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(operation = new(.065f, false, RefreshTexts));
-            RefreshTexts();
+        }
+
+        private void OnDisable()
+        {
+            NUCLEOR.instance.heartbeat_unscaled.operations.Remove(operation);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -52,14 +54,21 @@ namespace _SGUI_
         public void AddLog(in object text) => AddLog(new Log(text.ToString()));
         public void AddLog(in Log log)
         {
-            while (logs.Count > 50)
+            while (logs.Count >= 20)
                 logs.RemoveAt(0);
             logs.Add(log);
-            RefreshTexts();
+            gameObject.SetActive(true);
         }
 
         void RefreshTexts()
         {
+            if (logs.Count == 0)
+            {
+                text.text = string.Empty;
+                gameObject.SetActive(false);
+                return;
+            }
+
             StringBuilder sb = new();
 
             for (int i = logs.Count - 1; i >= 0; i--)
@@ -68,16 +77,8 @@ namespace _SGUI_
                 else
                     sb.AppendLine(logs[i].text);
 
-            text.text = sb.ToString();
-            gameObject.SetActive(sb.Length > 0);
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void OnDestroy()
-        {
-            if (NUCLEOR.instance != null)
-                NUCLEOR.instance.heartbeat_unscaled.operations.Remove(operation);
+            text.SetText(sb);
+            text.SetAllDirty();
         }
     }
 }

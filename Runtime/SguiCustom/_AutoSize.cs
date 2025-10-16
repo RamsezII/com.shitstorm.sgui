@@ -8,7 +8,7 @@ namespace _SGUI_
         public void AutoSize()
         {
             Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(SguiGlobal.instance.rT_2D);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(SguiGlobal.instance.rt_windows);
             rT.ForceUpdateRectTransforms();
 
             float width = 350;
