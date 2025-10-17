@@ -39,6 +39,8 @@ namespace _SGUI_
 
             rect_current = new(rT);
 
+            trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
+
             ui_hue_start = Random.Range(0f, 1f);
         }
 

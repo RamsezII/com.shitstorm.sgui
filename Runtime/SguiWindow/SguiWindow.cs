@@ -15,15 +15,26 @@ namespace _SGUI_
         public Action<BaseStates, bool> onState, onState_once;
         public Action onDestroy;
 
-        [SerializeField]
-        protected bool
-            animate_hue = true;
+        [SerializeField] protected bool animate_hue = true;
 
         public bool oblivionized;
 
         public readonly OnValue_bool fullscreen = new();
 
         public SoftwareButton sgui_softwarebutton;
+
+        static uint _id;
+        public uint id = _id++;
+
+        public override string ToString() => $"{GetType()}[{id}] \"{trad_title.traductions.Automatic}\"";
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoad()
+        {
+            _id = 0;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 

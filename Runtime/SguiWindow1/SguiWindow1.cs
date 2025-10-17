@@ -1,4 +1,3 @@
-using _ARK_;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,6 @@ namespace _SGUI_
         {
             base.Awake();
 
-            trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
             huable_background = transform.Find("rT/body/background").GetComponent<Graphic>();
 
             buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
