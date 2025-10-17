@@ -1,7 +1,5 @@
 ﻿using _ARK_;
 using _UTIL_;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -12,24 +10,20 @@ namespace _SGUI_
     {
         public static LoggerOverlay instance;
 
-        [Serializable]
-        public class Log
-        {
-            public readonly string text;
-            public readonly float deadline;
-            public Log(in string text, in float timer = 2)
-            {
-                this.text = text;
-                deadline = Time.unscaledTime + timer;
-            }
-        }
-
-        readonly List<Log> logs = new();
-
         RectTransform rt;
         TextMeshProUGUI text;
 
         HeartBeat.Operation operation;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoad()
+        {
+            logs.Clear();
+            Application.logMessageReceivedThreaded -= OnLogMessageReceived;
+            Application.logMessageReceivedThreaded += OnLogMessageReceived;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -53,15 +47,6 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
-
-        public void AddLog(in object text, in float timer = 2) => AddLog(new Log(text.ToString(), timer));
-        public void AddLog(in Log log)
-        {
-            while (logs.Count >= 50)
-                logs.RemoveAt(0);
-            logs.Add(log);
-            gameObject.SetActive(true);
-        }
 
         void RefreshTexts()
         {
