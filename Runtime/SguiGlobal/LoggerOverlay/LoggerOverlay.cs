@@ -54,7 +54,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AddLog(in object text) => AddLog(new Log(text.ToString()));
+        public void AddLog(in object text, in float timer = 2) => AddLog(new Log(text.ToString(), timer));
         public void AddLog(in Log log)
         {
             while (logs.Count >= 50)
@@ -75,7 +75,7 @@ namespace _SGUI_
             StringBuilder sb = new();
 
             for (int i = logs.Count - 1; i >= 0; i--)
-                if (Time.unscaledTime >= logs[i].deadline)
+                if (Time.unscaledTime > logs[i].deadline)
                     logs.RemoveAt(i);
                 else
                     sb.AppendLine(logs[i].text);
