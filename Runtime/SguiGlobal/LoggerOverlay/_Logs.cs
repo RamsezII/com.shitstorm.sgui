@@ -49,14 +49,17 @@ namespace _SGUI_
             while (logs.Count >= 20)
                 logs.RemoveAt(0);
 
-            string text = $"[{DateTime.Now:HH:mm:ss tt}] " + logLevel switch
-            {
-                LogLevel.Sublog => o.ToSubLog(),
-                LogLevel.Warn => o.ToString().SetColor(Colors.yellow),
-                LogLevel.Error => o.ToString().SetColor(Colors.orange),
-                LogLevel.Fatal => o.ToString().SetColor(Colors.red),
-                _ => o.ToString(),
-            };
+            string text = $"[{DateTime.Now:HH:mm:ss tt}] ";
+
+            if (o != null)
+                text += logLevel switch
+                {
+                    LogLevel.Sublog => o.ToSubLog(),
+                    LogLevel.Warn => o.ToString().SetColor(Colors.yellow),
+                    LogLevel.Error => o.ToString().SetColor(Colors.orange),
+                    LogLevel.Fatal => o.ToString().SetColor(Colors.red),
+                    _ => o.ToString(),
+                };
 
             logs.Add((text, timer + Time.unscaledTime));
 
