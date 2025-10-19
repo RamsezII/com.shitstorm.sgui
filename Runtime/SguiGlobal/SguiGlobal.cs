@@ -95,7 +95,7 @@ namespace _SGUI_
 
         void CheckClick()
         {
-            if (!UsageManager.AreEmpty(UsageGroups.IngameMouse, UsageGroups.TrueMouse))
+            if (!UsageManager.AreEmpty(UsageGroups.GameMouse, UsageGroups.TrueMouse))
                 if (Input.GetMouseButtonDown(0))
                 {
                     PointerEventData e = new(EventSystem.current)

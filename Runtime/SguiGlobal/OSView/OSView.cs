@@ -132,8 +132,6 @@ namespace _SGUI_
         private void OnDestroy()
         {
             refresh_computer_time_operation.Dispose();
-            if (this == instance)
-                instance = null;
         }
     }
 }
