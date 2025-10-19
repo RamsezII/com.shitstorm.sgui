@@ -9,8 +9,8 @@ namespace _SGUI_
     {
         public enum LogLevel
         {
+            Sublog = -1,
             Info,
-            Sublog,
             Warn,
             Error,
             Fatal
@@ -53,14 +53,21 @@ namespace _SGUI_
             string text = $"[{DateTime.Now:HH:mm:ss}, {(Time.inFixedTimeStep ? $"ff{NUCLEOR.instance.fixedFrameCount}" : $"f{Time.frameCount}")}] ".SetSize_percent(75);
 
             if (o != null)
+            {
+                string s = o.ToString();
+
                 text += logLevel switch
                 {
-                    LogLevel.Sublog => o.ToSubLog(),
-                    LogLevel.Warn => o.ToString().SetColor(Colors.yellow),
-                    LogLevel.Error => o.ToString().SetColor(Colors.orange),
-                    LogLevel.Fatal => o.ToString().SetColor(Colors.red),
-                    _ => o.ToString(),
+                    LogLevel.Sublog => s.ToSubLog(),
+                    LogLevel.Warn => s.SetColor(Colors.yellow),
+                    LogLevel.Error => s.SetColor(Colors.orange),
+                    LogLevel.Fatal => s.SetColor(Colors.red),
+                    _ => s,
                 };
+
+                if (logLevel <= 0)
+                    Debug.Log(text);
+            }
 
             logs.Add((text, timer + Time.unscaledTime));
 
