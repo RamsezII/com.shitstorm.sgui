@@ -50,7 +50,7 @@ namespace _SGUI_
             while (logs.Count >= 20)
                 logs.RemoveAt(0);
 
-            string text = $"[{DateTime.Now:HH:mm:ss}, f{(Time.inFixedTimeStep ? NUCLEOR.instance.fixedFrameCount : Time.frameCount)}] ".SetSize_percent(75);
+            string text = $"[{DateTime.Now:HH:mm:ss}, {(Time.inFixedTimeStep ? $"ff{NUCLEOR.instance.fixedFrameCount}" : $"f{Time.frameCount}")}] ".SetSize_percent(75);
 
             if (o != null)
                 text += logLevel switch
