@@ -2,7 +2,7 @@
 
 namespace _SGUI_
 {
-    public static class CursorManager
+    public static class CursorManager_OLD
     {
         public enum Cursors : byte
         {

@@ -1,0 +1,57 @@
+{
+    "version": 1,
+    "name": "IA_SguiCursor",
+    "maps": [
+        {
+            "name": "Cursor",
+            "id": "17ab09fa-ab05-4d8a-9376-bedb354c2a0f",
+            "actions": [
+                {
+                    "name": "Delta",
+                    "type": "Value",
+                    "id": "42de2875-7c8e-44f3-840c-5e2c0ce3664b",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8d4e5ab7-dfcf-46fa-8fc5-566c2e555fb5",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec0ac9bd-e4d1-4ae1-9c51-b28960bfe3cb",
+                    "path": "<Pen>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fac6c95f-1027-44ad-9f3c-438735569099",
+                    "path": "<Touchscreen>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

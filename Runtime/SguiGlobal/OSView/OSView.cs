@@ -50,13 +50,13 @@ namespace _SGUI_
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
             users.AddListener1(this, ToggleView);
 
-            refresh_computer_time_operation = new(4, false, () =>
+            refresh_computer_time_operation = new(4, true, () =>
             {
                 if (text_computer_time.gameObject.activeInHierarchy)
                     RefreshDatetime();
             })
             {
-                timeStep = 15,
+                delay = 15,
             };
 
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(refresh_computer_time_operation);
@@ -91,7 +91,7 @@ namespace _SGUI_
             }
         }
 
-        public void ToggleView(bool toggle)
+        void ToggleView(bool toggle)
         {
             BaseStates state = state_base;
             float fade = 0, offset = 0;

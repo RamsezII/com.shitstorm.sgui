@@ -34,7 +34,7 @@ namespace _SGUI_
 
         private void OnEnable()
         {
-            UsageManager.AddUser(this, UsageGroups.Keyboard, UsageGroups.Typing, UsageGroups.GameMouse, UsageGroups.TrueMouse);
+            UsageManager.AddUser(this, UsageGroups.Keyboard, UsageGroups.Typing, UsageGroups.GameMouse);
             IMGUI_global.instance.users_inputs.AddElement(OnIMGUIInputs, this);
         }
 

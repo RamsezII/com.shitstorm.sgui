@@ -9,7 +9,7 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
-        public Button button_header_play, button_bottom_audio;
+        public Button button_bottom_audio;
 
         [HideInInspector]
         public SoftwareButton
@@ -41,7 +41,6 @@ namespace _SGUI_
             button_music = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/music").GetComponent<SoftwareButton>();
             button_video = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/video").GetComponent<SoftwareButton>();
 
-            button_header_play = canvas2D.transform.Find("button-play").GetComponent<Button>();
             button_bottom_audio = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/audio/button").GetComponent<Button>();
         }
 

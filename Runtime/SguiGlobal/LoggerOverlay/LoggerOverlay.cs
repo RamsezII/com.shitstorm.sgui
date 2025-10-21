@@ -37,7 +37,7 @@ namespace _SGUI_
 
         private void OnEnable()
         {
-            NUCLEOR.instance.heartbeat_unscaled.operations.Add(operation = new(.065f, false, RefreshTexts));
+            NUCLEOR.instance.heartbeat_unscaled.operations.Add(operation = new(.065f, true, RefreshTexts));
         }
 
         private void OnDisable()
@@ -50,6 +50,8 @@ namespace _SGUI_
 
         void RefreshTexts()
         {
+            operation.timer = 0;
+
             if (logs.Count == 0)
             {
                 text.text = string.Empty;

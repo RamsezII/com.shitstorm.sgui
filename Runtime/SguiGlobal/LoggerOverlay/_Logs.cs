@@ -64,11 +64,15 @@ namespace _SGUI_
                     _ => s,
                 };
 
-                if (logLevel != LogLevel._ConsolRedirect)
-                    Debug.Log(text, context);
+                if (timer > 0)
+                    if (logLevel != LogLevel._ConsolRedirect)
+                        Debug.Log(text, context);
             }
 
             logs.Add((text, timer + Time.unscaledTime));
+
+            if (timer == 0)
+                instance.RefreshTexts();
 
             if (instance != null)
                 instance.gameObject.SetActive(true);

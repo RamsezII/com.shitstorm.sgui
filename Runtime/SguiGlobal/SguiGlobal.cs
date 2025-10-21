@@ -68,11 +68,6 @@ namespace _SGUI_
         {
             StartButtons();
 
-            OSView.instance.users.AddListener1(this, not_empty =>
-            {
-                canvas2D.transform.Find("button-play").gameObject.SetActive(not_empty);
-            });
-
             NUCLEOR.instance.sequencer.list.AddListener1(this, isNotEmpty =>
             {
                 NUCLEOR.delegates.LateUpdate -= OnLateUpdateSchedulerInfos;
@@ -95,7 +90,7 @@ namespace _SGUI_
 
         void CheckClick()
         {
-            if (!UsageManager.AreEmpty(UsageGroups.GameMouse, UsageGroups.TrueMouse))
+            if (!UsageManager.AllAreEmpty(UsageGroups.GameMouse))
                 if (Input.GetMouseButtonDown(0))
                 {
                     PointerEventData e = new(EventSystem.current)
