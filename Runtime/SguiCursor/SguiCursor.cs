@@ -44,7 +44,7 @@ namespace _SGUI_
 
         void MoveCursor()
         {
-            rt_mouse.position = NUCLEOR.instance.cursor_pos;
+            rt_mouse.position = Input.mousePosition;
         }
     }
 }
