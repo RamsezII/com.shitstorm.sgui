@@ -41,10 +41,10 @@ namespace _SGUI_
                 _ => message,
             };
 
-            NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, null, logLevel: LogLevel._ConsolRedirect);
+            NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, logLevel: LogLevel._ConsolRedirect);
         }
 
-        public static void Log(in object o, in UnityEngine.Object context, in float timer = 2, in LogLevel logLevel = LogLevel.Info)
+        public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in LogLevel logLevel = LogLevel.Info)
         {
             while (logs.Count >= 20)
                 logs.RemoveAt(0);
