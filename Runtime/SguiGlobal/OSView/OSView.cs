@@ -18,7 +18,8 @@ namespace _SGUI_
         TextMeshProUGUI text_computer_time;
         HeartBeat.Operation refresh_computer_time_operation;
 
-        RectTransform header_rT, taskbar_rT;
+        RectTransform header_rt, taskbar_rt;
+        [HideInInspector] public RectTransform windows_rt;
 
         public Button button_play, button_pause, button_close;
 
@@ -32,8 +33,9 @@ namespace _SGUI_
             animator.keepAnimatorStateOnDisable = true;
             animator.writeDefaultValuesOnDisable = true;
 
-            header_rT = (RectTransform)transform.Find("header");
-            taskbar_rT = (RectTransform)transform.Find("task-bar");
+            header_rt = (RectTransform)transform.Find("header");
+            taskbar_rt = (RectTransform)transform.Find("task-bar");
+            windows_rt = (RectTransform)transform.Find("windows");
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
@@ -134,8 +136,8 @@ namespace _SGUI_
             }
             else
             {
-                float top_h = header_rT.rect.height;
-                float bottom_h = taskbar_rT.rect.height;
+                float top_h = header_rt.rect.height;
+                float bottom_h = taskbar_rt.rect.height;
 
                 rT.anchoredPosition = new(.5f, bottom_h);
                 rT.sizeDelta = new(0, 1 - top_h - bottom_h);

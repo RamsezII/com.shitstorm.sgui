@@ -41,7 +41,7 @@ namespace _SGUI_
                 _ => message,
             };
 
-            NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, logLevel: LogLevel._ConsolRedirect);
+            NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, timer: type < LogType.Log ? 3 : 2, logLevel: LogLevel._ConsolRedirect);
         }
 
         public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in LogLevel logLevel = LogLevel.Info)
@@ -54,6 +54,9 @@ namespace _SGUI_
             if (o != null)
             {
                 string s = o.ToString();
+
+                if (s.Contains('\n', StringComparison.OrdinalIgnoreCase))
+                    text += "\n";
 
                 text += logLevel switch
                 {
