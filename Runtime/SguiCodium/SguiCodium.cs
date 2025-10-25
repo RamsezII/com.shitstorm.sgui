@@ -43,7 +43,7 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
-            UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.IMGUI, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
+            UsageManager.ToggleUser(this, true, UsageGroups.Typing, UsageGroups.IMGUI, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
         }
 
         protected override void OnDisable()

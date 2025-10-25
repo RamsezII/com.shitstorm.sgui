@@ -59,7 +59,7 @@ namespace _SGUI_
 
             IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
             OSView.instance.users.AddElement(this);
-            UsageManager.AddUser(this, UsageGroups.GameMouse, UsageGroups.Typing, UsageGroups.BlockPlayers, UsageGroups.Keyboard);
+            UsageManager.AddUser(this, UsageGroups.GameMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
         }
 
         protected virtual void OnDisable()

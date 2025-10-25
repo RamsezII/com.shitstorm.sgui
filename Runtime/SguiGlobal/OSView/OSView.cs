@@ -13,12 +13,14 @@ namespace _SGUI_
         public static OSView instance;
 
         [HideInInspector] public Animator animator;
-        public readonly ListListener users = new();
+        public readonly HashSetListener users = new();
 
         TextMeshProUGUI text_computer_time;
         HeartBeat.Operation refresh_computer_time_operation;
 
         RectTransform header_rT, taskbar_rT;
+
+        public Button button_play, button_pause, button_close;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -34,6 +36,11 @@ namespace _SGUI_
             taskbar_rT = (RectTransform)transform.Find("task-bar");
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
+
+            RectTransform rt = (RectTransform)transform.Find("header/buttons-central/layout");
+            button_play = rt.Find("play").GetComponent<Button>();
+            button_pause = rt.Find("pause").GetComponent<Button>();
+            button_close = rt.Find("close").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -41,6 +48,12 @@ namespace _SGUI_
         private void OnEnable()
         {
             RefreshDatetime();
+            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
+        }
+
+        private void OnDisable()
+        {
+            UsageManager.RemoveUser(this);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -48,18 +61,56 @@ namespace _SGUI_
         private void Start()
         {
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
-            users.AddListener1(this, ToggleView);
 
-            refresh_computer_time_operation = new(4, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.operations.Add(new(4, true, () =>
             {
                 if (text_computer_time.gameObject.activeInHierarchy)
                     RefreshDatetime();
             })
             {
                 delay = 15,
-            };
+            });
 
-            NUCLEOR.instance.heartbeat_unscaled.operations.Add(refresh_computer_time_operation);
+            button_close.onClick.AddListener(() =>
+            {
+                users.RemoveElement(this);
+            });
+
+            users.AddListener1(this, toggle =>
+            {
+                BaseStates state = state_base;
+                float fade = 0, offset = 0;
+
+                switch (state_base)
+                {
+                    case BaseStates.Default:
+                        if (toggle)
+                        {
+                            gameObject.SetActive(true);
+                            state = BaseStates.Enable;
+                        }
+                        break;
+
+                    case BaseStates.Enable:
+                        if (!toggle)
+                        {
+                            state = BaseStates.Enable_;
+                            offset = 1 - animator.GetNormlizedTimeClamped();
+                        }
+                        break;
+
+                    case BaseStates.Enable_:
+                        if (toggle)
+                        {
+                            state = BaseStates.Enable;
+                            offset = 1 - animator.GetNormlizedTimeClamped();
+                        }
+                        break;
+                }
+
+                if (state != state_base)
+                    animator.CrossFade((int)state, fade, (int)AnimLayers.Base, offset);
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -89,49 +140,6 @@ namespace _SGUI_
                 rT.anchoredPosition = new(.5f, bottom_h);
                 rT.sizeDelta = new(0, 1 - top_h - bottom_h);
             }
-        }
-
-        void ToggleView(bool toggle)
-        {
-            BaseStates state = state_base;
-            float fade = 0, offset = 0;
-
-            switch (state_base)
-            {
-                case BaseStates.Default:
-                    if (toggle)
-                    {
-                        gameObject.SetActive(true);
-                        state = BaseStates.Enable;
-                    }
-                    break;
-
-                case BaseStates.Enable:
-                    if (!toggle)
-                    {
-                        state = BaseStates.Enable_;
-                        offset = 1 - animator.GetNormlizedTimeClamped();
-                    }
-                    break;
-
-                case BaseStates.Enable_:
-                    if (toggle)
-                    {
-                        state = BaseStates.Enable;
-                        offset = 1 - animator.GetNormlizedTimeClamped();
-                    }
-                    break;
-            }
-
-            if (state != state_base)
-                animator.CrossFade((int)state, fade, (int)AnimLayers.Base, offset);
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void OnDestroy()
-        {
-            refresh_computer_time_operation.Dispose();
         }
     }
 }
