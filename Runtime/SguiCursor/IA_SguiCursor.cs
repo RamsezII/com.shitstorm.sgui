@@ -91,14 +91,14 @@ namespace _SGUI_
     ""name"": ""IA_SguiCursor"",
     ""maps"": [
         {
-            ""name"": ""Cursor"",
+            ""name"": ""Movement"",
             ""id"": ""17ab09fa-ab05-4d8a-9376-bedb354c2a0f"",
             ""actions"": [
                 {
-                    ""name"": ""Delta"",
+                    ""name"": ""Position"",
                     ""type"": ""Value"",
-                    ""id"": ""42de2875-7c8e-44f3-840c-5e2c0ce3664b"",
-                    ""expectedControlType"": ""Delta"",
+                    ""id"": ""e9bab32c-5414-448e-80e8-689f84104e3c"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -107,34 +107,12 @@ namespace _SGUI_
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""8d4e5ab7-dfcf-46fa-8fc5-566c2e555fb5"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""23ce1eb7-3e4d-4f8e-85d3-500174d260b6"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Delta"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ec0ac9bd-e4d1-4ae1-9c51-b28960bfe3cb"",
-                    ""path"": ""<Pen>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Delta"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fac6c95f-1027-44ad-9f3c-438735569099"",
-                    ""path"": ""<Touchscreen>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Delta"",
+                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -143,14 +121,14 @@ namespace _SGUI_
     ],
     ""controlSchemes"": []
 }");
-            // Cursor
-            m_Cursor = asset.FindActionMap("Cursor", throwIfNotFound: true);
-            m_Cursor_Delta = m_Cursor.FindAction("Delta", throwIfNotFound: true);
+            // Movement
+            m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+            m_Movement_Position = m_Movement.FindAction("Position", throwIfNotFound: true);
         }
 
         ~@IA_SguiCursor()
         {
-            UnityEngine.Debug.Assert(!m_Cursor.enabled, "This will cause a leak and performance issues, IA_SguiCursor.Cursor.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, IA_SguiCursor.Movement.Disable() has not been called.");
         }
 
         /// <summary>
@@ -223,29 +201,29 @@ namespace _SGUI_
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Cursor
-        private readonly InputActionMap m_Cursor;
-        private List<ICursorActions> m_CursorActionsCallbackInterfaces = new List<ICursorActions>();
-        private readonly InputAction m_Cursor_Delta;
+        // Movement
+        private readonly InputActionMap m_Movement;
+        private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
+        private readonly InputAction m_Movement_Position;
         /// <summary>
-        /// Provides access to input actions defined in input action map "Cursor".
+        /// Provides access to input actions defined in input action map "Movement".
         /// </summary>
-        public struct CursorActions
+        public struct MovementActions
         {
             private @IA_SguiCursor m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public CursorActions(@IA_SguiCursor wrapper) { m_Wrapper = wrapper; }
+            public MovementActions(@IA_SguiCursor wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Cursor/Delta".
+            /// Provides access to the underlying input action "Movement/Position".
             /// </summary>
-            public InputAction @Delta => m_Wrapper.m_Cursor_Delta;
+            public InputAction @Position => m_Wrapper.m_Movement_Position;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_Cursor; }
+            public InputActionMap Get() { return m_Wrapper.m_Movement; }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
             public void Enable() { Get().Enable(); }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -253,9 +231,9 @@ namespace _SGUI_
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
             public bool enabled => Get().enabled;
             /// <summary>
-            /// Implicitly converts an <see ref="CursorActions" /> to an <see ref="InputActionMap" /> instance.
+            /// Implicitly converts an <see ref="MovementActions" /> to an <see ref="InputActionMap" /> instance.
             /// </summary>
-            public static implicit operator InputActionMap(CursorActions set) { return set.Get(); }
+            public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
             /// <summary>
             /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
             /// </summary>
@@ -263,14 +241,14 @@ namespace _SGUI_
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
             /// </remarks>
-            /// <seealso cref="CursorActions" />
-            public void AddCallbacks(ICursorActions instance)
+            /// <seealso cref="MovementActions" />
+            public void AddCallbacks(IMovementActions instance)
             {
-                if (instance == null || m_Wrapper.m_CursorActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_CursorActionsCallbackInterfaces.Add(instance);
-                @Delta.started += instance.OnDelta;
-                @Delta.performed += instance.OnDelta;
-                @Delta.canceled += instance.OnDelta;
+                if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
+                @Position.started += instance.OnPosition;
+                @Position.performed += instance.OnPosition;
+                @Position.canceled += instance.OnPosition;
             }
 
             /// <summary>
@@ -279,21 +257,21 @@ namespace _SGUI_
             /// <remarks>
             /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
             /// </remarks>
-            /// <seealso cref="CursorActions" />
-            private void UnregisterCallbacks(ICursorActions instance)
+            /// <seealso cref="MovementActions" />
+            private void UnregisterCallbacks(IMovementActions instance)
             {
-                @Delta.started -= instance.OnDelta;
-                @Delta.performed -= instance.OnDelta;
-                @Delta.canceled -= instance.OnDelta;
+                @Position.started -= instance.OnPosition;
+                @Position.performed -= instance.OnPosition;
+                @Position.canceled -= instance.OnPosition;
             }
 
             /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CursorActions.UnregisterCallbacks(ICursorActions)" />.
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MovementActions.UnregisterCallbacks(IMovementActions)" />.
             /// </summary>
-            /// <seealso cref="CursorActions.UnregisterCallbacks(ICursorActions)" />
-            public void RemoveCallbacks(ICursorActions instance)
+            /// <seealso cref="MovementActions.UnregisterCallbacks(IMovementActions)" />
+            public void RemoveCallbacks(IMovementActions instance)
             {
-                if (m_Wrapper.m_CursorActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_MovementActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
@@ -303,35 +281,35 @@ namespace _SGUI_
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
             /// </remarks>
-            /// <seealso cref="CursorActions.AddCallbacks(ICursorActions)" />
-            /// <seealso cref="CursorActions.RemoveCallbacks(ICursorActions)" />
-            /// <seealso cref="CursorActions.UnregisterCallbacks(ICursorActions)" />
-            public void SetCallbacks(ICursorActions instance)
+            /// <seealso cref="MovementActions.AddCallbacks(IMovementActions)" />
+            /// <seealso cref="MovementActions.RemoveCallbacks(IMovementActions)" />
+            /// <seealso cref="MovementActions.UnregisterCallbacks(IMovementActions)" />
+            public void SetCallbacks(IMovementActions instance)
             {
-                foreach (var item in m_Wrapper.m_CursorActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_MovementActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_CursorActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_MovementActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
         /// <summary>
-        /// Provides a new <see cref="CursorActions" /> instance referencing this action map.
+        /// Provides a new <see cref="MovementActions" /> instance referencing this action map.
         /// </summary>
-        public CursorActions @Cursor => new CursorActions(this);
+        public MovementActions @Movement => new MovementActions(this);
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Cursor" which allows adding and removing callbacks.
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Movement" which allows adding and removing callbacks.
         /// </summary>
-        /// <seealso cref="CursorActions.AddCallbacks(ICursorActions)" />
-        /// <seealso cref="CursorActions.RemoveCallbacks(ICursorActions)" />
-        public interface ICursorActions
+        /// <seealso cref="MovementActions.AddCallbacks(IMovementActions)" />
+        /// <seealso cref="MovementActions.RemoveCallbacks(IMovementActions)" />
+        public interface IMovementActions
         {
             /// <summary>
-            /// Method invoked when associated input action "Delta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnDelta(InputAction.CallbackContext context);
+            void OnPosition(InputAction.CallbackContext context);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace _SGUI_
         private void OnEnable()
         {
             RefreshDatetime();
-            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
+            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.GameMouse);
         }
 
         private void OnDisable()
