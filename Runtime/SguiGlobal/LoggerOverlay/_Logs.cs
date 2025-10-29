@@ -12,7 +12,7 @@ namespace _SGUI_
             _ConsolRedirect = -1,
             Info,
             Sublog,
-            Warn,
+            Warning,
             Error,
             Fatal
         }
@@ -61,7 +61,7 @@ namespace _SGUI_
                 text += logLevel switch
                 {
                     LogLevel.Sublog => s.ToSubLog(),
-                    LogLevel.Warn => s.SetColor(Colors.yellow),
+                    LogLevel.Warning => s.SetColor(Colors.yellow),
                     LogLevel.Error => s.SetColor(Colors.orange),
                     LogLevel.Fatal => s.SetColor(Colors.red),
                     _ => s,
