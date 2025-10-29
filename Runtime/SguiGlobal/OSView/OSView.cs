@@ -13,7 +13,7 @@ namespace _SGUI_
         public static OSView instance;
 
         [HideInInspector] public Animator animator;
-        public readonly HashSetListener users = new();
+        public readonly ListListener users = new();
 
         TextMeshProUGUI text_computer_time;
         HeartBeat.Operation refresh_computer_time_operation;
@@ -21,7 +21,8 @@ namespace _SGUI_
         RectTransform header_rt, taskbar_rt;
         [HideInInspector] public RectTransform windows_rt;
 
-        public Button button_play, button_pause, button_close;
+        public RectTransform rt_editor_buttons;
+        public Button eb_play, eb_pause, eb_close;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -39,10 +40,10 @@ namespace _SGUI_
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
-            RectTransform rt = (RectTransform)transform.Find("header/buttons-central/layout");
-            button_play = rt.Find("play").GetComponent<Button>();
-            button_pause = rt.Find("pause").GetComponent<Button>();
-            button_close = rt.Find("close").GetComponent<Button>();
+            rt_editor_buttons = (RectTransform)transform.Find("header/buttons-central");
+            eb_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
+            eb_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
+            eb_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -72,8 +73,6 @@ namespace _SGUI_
             {
                 delay = 15,
             });
-
-            button_close.onClick.AddListener(() => users.RemoveElement(this));
 
             users.AddListener1(this, toggle =>
             {

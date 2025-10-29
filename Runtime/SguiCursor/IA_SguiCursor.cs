@@ -98,7 +98,16 @@ namespace _SGUI_
                     ""name"": ""Position"",
                     ""type"": ""Value"",
                     ""id"": ""e9bab32c-5414-448e-80e8-689f84104e3c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Delta"",
+                    ""type"": ""Value"",
+                    ""id"": ""abf57a2e-0b44-4ce1-b96d-2c79da501b7a"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -115,6 +124,17 @@ namespace _SGUI_
                     ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc2ecbd4-7fda-45a5-8b19-e0b038f7e04f"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Delta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace _SGUI_
             // Movement
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Position = m_Movement.FindAction("Position", throwIfNotFound: true);
+            m_Movement_Delta = m_Movement.FindAction("Delta", throwIfNotFound: true);
         }
 
         ~@IA_SguiCursor()
@@ -205,6 +226,7 @@ namespace _SGUI_
         private readonly InputActionMap m_Movement;
         private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
         private readonly InputAction m_Movement_Position;
+        private readonly InputAction m_Movement_Delta;
         /// <summary>
         /// Provides access to input actions defined in input action map "Movement".
         /// </summary>
@@ -220,6 +242,10 @@ namespace _SGUI_
             /// Provides access to the underlying input action "Movement/Position".
             /// </summary>
             public InputAction @Position => m_Wrapper.m_Movement_Position;
+            /// <summary>
+            /// Provides access to the underlying input action "Movement/Delta".
+            /// </summary>
+            public InputAction @Delta => m_Wrapper.m_Movement_Delta;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -249,6 +275,9 @@ namespace _SGUI_
                 @Position.started += instance.OnPosition;
                 @Position.performed += instance.OnPosition;
                 @Position.canceled += instance.OnPosition;
+                @Delta.started += instance.OnDelta;
+                @Delta.performed += instance.OnDelta;
+                @Delta.canceled += instance.OnDelta;
             }
 
             /// <summary>
@@ -263,6 +292,9 @@ namespace _SGUI_
                 @Position.started -= instance.OnPosition;
                 @Position.performed -= instance.OnPosition;
                 @Position.canceled -= instance.OnPosition;
+                @Delta.started -= instance.OnDelta;
+                @Delta.performed -= instance.OnDelta;
+                @Delta.canceled -= instance.OnDelta;
             }
 
             /// <summary>
@@ -310,6 +342,13 @@ namespace _SGUI_
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPosition(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Delta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnDelta(InputAction.CallbackContext context);
         }
     }
 }
