@@ -73,10 +73,7 @@ namespace _SGUI_
                 delay = 15,
             });
 
-            button_close.onClick.AddListener(() =>
-            {
-                users.RemoveElement(this);
-            });
+            button_close.onClick.AddListener(() => users.RemoveElement(this));
 
             users.AddListener1(this, toggle =>
             {
