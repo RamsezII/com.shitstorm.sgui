@@ -19,7 +19,7 @@ namespace _SGUI_
 
         public bool oblivionized;
 
-        public readonly OnValue_bool fullscreen = new();
+        public readonly ValueHandler<bool> fullscreen = new();
 
         public SoftwareButton sgui_softwarebutton;
 
