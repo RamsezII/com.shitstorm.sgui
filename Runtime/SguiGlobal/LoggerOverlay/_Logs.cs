@@ -49,7 +49,7 @@ namespace _SGUI_
             while (logs.Count >= 20)
                 logs.RemoveAt(0);
 
-            string text = $"[{DateTime.Now:HH:mm:ss}, {(Time.inFixedTimeStep ? $"ff{NUCLEOR.instance.fixedFrameCount}" : $"f{Time.frameCount}")}] ".SetSize_percent(75);
+            string text = $"[{DateTime.Now:HH:mm:ss}, {(Time.inFixedTimeStep ? $"fupd{NUCLEOR.instance.fixedFrameCount}" : $"upd{Time.frameCount}")}] ".SetSize_percent(75);
 
             if (o != null)
             {
