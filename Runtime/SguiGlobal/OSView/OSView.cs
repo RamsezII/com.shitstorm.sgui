@@ -1,6 +1,7 @@
 using _ARK_;
 using _UTIL_;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace _SGUI_
         public RectTransform rt_editor_buttons;
         public Button eb_play, eb_pause, eb_close;
 
+        [SerializeField] SoftwareButton prefab_softwarebutton;
+        readonly Dictionary<Type, SoftwareButton> softwares = new();
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
@@ -44,6 +48,8 @@ namespace _SGUI_
             eb_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
             eb_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
             eb_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
+
+            prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -64,6 +70,8 @@ namespace _SGUI_
         private void Start()
         {
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
+
+            prefab_softwarebutton.gameObject.SetActive(false);
 
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(new(4, true, () =>
             {
@@ -112,6 +120,23 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public SoftwareButton AddOrGetSoftwareButton<T>() where T : SguiWindow => AddOrGetSoftwareButton(typeof(T));
+        public SoftwareButton AddOrGetSoftwareButton(in Type type)
+        {
+            if (!softwares.TryGetValue(type, out SoftwareButton button))
+            {
+                SguiWindow prefab = (SguiWindow)Util.LoadResourceByType(type);
+                if (prefab != null)
+                {
+                    softwares[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+                    button.rimg_icon.texture = prefab.window_icon;
+                    button.software_prefab = prefab;
+                    button.gameObject.SetActive(true);
+                }
+            }
+            return button;
+        }
 
         void RefreshDatetime()
         {

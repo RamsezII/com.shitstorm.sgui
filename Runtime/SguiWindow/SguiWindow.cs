@@ -21,7 +21,8 @@ namespace _SGUI_
 
         public readonly ValueHandler<bool> fullscreen = new();
 
-        public SoftwareButton sgui_softwarebutton;
+        public Texture window_icon;
+        protected SoftwareButton os_button;
 
         static uint _id;
         public uint id = _id++;
@@ -48,7 +49,11 @@ namespace _SGUI_
             }
             AwakeUI();
 
-            sgui_softwarebutton?.instances.AddElement(this);
+            if (window_icon != null)
+            {
+                os_button = OSView.instance.AddOrGetSoftwareButton(GetType());
+                os_button.software_instances.AddElement(this);
+            }
         }
 
         protected virtual void OnEnable()
@@ -77,11 +82,8 @@ namespace _SGUI_
             StartUI();
             ToggleWindow(true);
 
-            if (sgui_softwarebutton != null)
-            {
-                button_hide?.onClick.AddListener(() => SetScalePivot(sgui_softwarebutton));
-                button_close?.onClick.AddListener(() => SetScalePivot(null));
-            }
+            button_hide?.onClick.AddListener(() => SetScalePivot(os_button));
+            button_close?.onClick.AddListener(() => SetScalePivot(null));
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -103,16 +105,18 @@ namespace _SGUI_
                 rT_parent.pivot = .5f * Vector2.one;
             else
             {
-                float x = RectTransformUtility.WorldToScreenPoint(null, sgui_softwarebutton.rt.position).x;
+                float x = RectTransformUtility.WorldToScreenPoint(null, os_button.rt.position).x;
                 x /= Screen.width;
                 rT_parent.pivot = new(x, 0);
             }
         }
 
         public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true) where T : SguiWindow => (T)InstantiateWindow(typeof(T), can_hide, can_fullscreen, can_close);
-        public static SguiWindow InstantiateWindow(in Type type, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true)
+        public static SguiWindow InstantiateWindow(in Type type, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type), can_hide, can_fullscreen, can_close);
+        public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true)
         {
-            SguiWindow winwow = (SguiWindow)Util.InstantiateOrCreate(type, SguiGlobal.instance.rt_windows);
+            SguiWindow winwow = Instantiate(prefab, SguiGlobal.instance.rt_windows);
+
             winwow.button_hide.interactable = can_hide;
             winwow.button_fullscreen.interactable = can_fullscreen;
             winwow.button_close.interactable = can_close;
@@ -121,6 +125,43 @@ namespace _SGUI_
                 custom.button_cancel.interactable = can_close;
 
             return winwow;
+        }
+
+        public static SguiCustom ShowAlert(in SguiDialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
+        {
+            SguiCustom sgui = InstantiateWindow<SguiCustom>();
+
+            switch (type)
+            {
+                case SguiDialogTypes.Info:
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                case SguiDialogTypes.Dialog:
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                case SguiDialogTypes.Error:
+                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+
+                default:
+                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    break;
+            }
+
+            alert = sgui.AddButton<SguiCustom_Alert>();
+            alert.SetType(type);
+            alert.SetText(traductions);
+            sgui.trad_title.SetTrad(type.ToString());
+
+            if (type != SguiDialogTypes.Dialog)
+            {
+                sgui.button_cancel.gameObject.SetActive(false);
+                sgui.trad_confirm.SetTrad("OK");
+            }
+
+            return sgui;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -134,8 +175,8 @@ namespace _SGUI_
             ToggleWindow(false);
             instances.RemoveElement(this);
 
-            if (sgui_softwarebutton != null)
-                sgui_softwarebutton.instances.RemoveElement(this);
+            if (os_button != null)
+                os_button.software_instances.RemoveElement(this);
 
             OnOblivion();
         }
@@ -149,7 +190,6 @@ namespace _SGUI_
             Oblivionize();
             onDestroy?.Invoke();
             UsageManager.RemoveUser(this);
-            Debug.Log($"destroyed {GetType().FullName} ({transform.GetPath(true)})".ToSubLog());
         }
     }
 }

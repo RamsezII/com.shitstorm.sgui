@@ -7,16 +7,20 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SoftwareButton : OSButton, IPointerDownHandler
+    public class SoftwareButton : OSButton, IPointerClickHandler
     {
         [HideInInspector] public RectTransform rt;
         [HideInInspector] public Button button;
         [HideInInspector] public TMP_Dropdown dropdown;
+        [HideInInspector] public Image img_icon;
+        [HideInInspector] public RawImage rimg_icon;
         RawImage[] img_instances;
 
-        public readonly ListListener<SguiWindow> instances = new();
+        internal SguiWindow software_prefab;
+        public readonly ListListener<SguiWindow> software_instances = new();
 
-        public Type software_type;
+        public Action<PointerEventData> onClick_left_empty, onClick_middle;
+        public Func<PointerEventData, bool> onClick_left_notEmpty, onClick_right;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +30,9 @@ namespace _SGUI_
             button = GetComponent<Button>();
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
             img_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
+            img_icon = transform.Find("img_icon")?.GetComponent<Image>();
+            rimg_icon = transform.Find("rimg_icon").GetComponent<RawImage>();
+
             base.Awake();
         }
 
@@ -34,53 +41,67 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-            instances.AddListener2(this, list =>
-            {
-                for (int i = 0; i < img_instances.Length; i++)
-                    img_instances[i].gameObject.SetActive(list.Count > i);
-            });
+
+            rt.sizeDelta = 25 * Vector2.one;
+
+            if (software_prefab != null)
+                software_instances.AddListener2(this, list =>
+                {
+                    for (int i = 0; i < img_instances.Length; i++)
+                        img_instances[i].gameObject.SetActive(list.Count > i);
+                });
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (software_type == null)
+            if (software_prefab == null)
             {
-                Debug.LogWarning($"{nameof(software_type)} is null ({software_type})");
+                LoggerOverlay.Log($"{nameof(software_prefab)} is null ({software_prefab})", this, logLevel: LoggerOverlay.LogLevel.Warning);
                 return;
             }
 
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    if (instances.IsEmpty)
+                    if (software_instances.IsEmpty)
+                        if (onClick_left_empty != null)
+                            onClick_left_empty(eventData);
+                        else
+                            InstantiateWindow();
+                    else if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
                     {
-                        SguiWindow instance = SguiWindow.InstantiateWindow(software_type, true, true, true);
-
-                        switch (instance)
+                        for (int i = 0; i < software_instances._collection.Count; i++)
                         {
-                            case SguiWindow1 w1:
-                                w1.SetScalePivot(this);
-                                break;
-                        }
-                    }
-                    else
-                        for (int i = 0; i < instances._collection.Count; i++)
-                        {
-                            SguiWindow instance = instances._collection[i];
+                            SguiWindow instance = software_instances._collection[i];
                             instance.SetScalePivot(this);
                             instance.ToggleWindow(true);
                         }
+                    }
                     break;
 
                 case PointerEventData.InputButton.Middle:
+                    onClick_middle?.Invoke(eventData);
                     break;
 
                 case PointerEventData.InputButton.Right:
-                    dropdown.Show();
+                    if (onClick_right == null || onClick_right(eventData))
+                        dropdown.Show();
                     break;
             }
+        }
+
+        public SguiWindow InstantiateWindow()
+        {
+            SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab, true, true, true);
+            switch (instance)
+            {
+                case SguiWindow1 w1:
+                    w1.SetScalePivot(this);
+                    break;
+            }
+            return instance;
         }
     }
 }

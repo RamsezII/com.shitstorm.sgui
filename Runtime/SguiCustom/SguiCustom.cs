@@ -74,43 +74,6 @@ namespace _SGUI_
             });
         }
 
-        public static SguiCustom ShowAlert(in SguiDialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
-        {
-            SguiCustom sgui = InstantiateWindow<SguiCustom>();
-
-            switch (type)
-            {
-                case SguiDialogTypes.Info:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
-                    break;
-
-                case SguiDialogTypes.Dialog:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
-                    break;
-
-                case SguiDialogTypes.Error:
-                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
-                    break;
-
-                default:
-                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
-                    break;
-            }
-
-            alert = sgui.AddButton<SguiCustom_Alert>();
-            alert.SetType(type);
-            alert.SetText(traductions);
-            sgui.trad_title.SetTrad(type.ToString());
-
-            if (type != SguiDialogTypes.Dialog)
-            {
-                sgui.button_cancel.gameObject.SetActive(false);
-                sgui.trad_confirm.SetTrad("OK");
-            }
-
-            return sgui;
-        }
-
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnOblivion()
