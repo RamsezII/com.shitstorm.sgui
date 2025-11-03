@@ -176,15 +176,6 @@ MonoBehaviour:
   vchat_icon_rT: {fileID: 0}
   vchat_bar_rT: {fileID: 0}
   button_bottom_audio: {fileID: 0}
-  button_terminal_1: {fileID: 0}
-  button_terminal_2: {fileID: 0}
-  button_explorer: {fileID: 0}
-  button_microship: {fileID: 0}
-  button_codium: {fileID: 0}
-  button_notepad: {fileID: 0}
-  button_gallery: {fileID: 0}
-  button_music: {fileID: 0}
-  button_video: {fileID: 0}
 --- !u!1 &478417470535090273
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -100}
+  m_AnchoredPosition: {x: 15, y: -35}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1947729899727066729
@@ -2474,7 +2465,7 @@ PrefabInstance:
     - target: {fileID: 8774403530031674134, guid: cac0b8b2ca1bbbb4cb64a6c2ca0e0d7f,
         type: 3}
       propertyPath: m_Value
-      value: 1.0000001
+      value: 0.99999994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
