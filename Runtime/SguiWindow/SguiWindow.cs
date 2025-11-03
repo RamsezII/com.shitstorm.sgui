@@ -13,7 +13,9 @@ namespace _SGUI_
         [HideInInspector] public Animator animator;
 
         public Action<BaseStates, bool> onState, onState_once;
-        public Action onDestroy;
+
+        public Func<bool> onFunc_close;
+        public Action onAction_close, onDestroy;
 
         [SerializeField] protected bool animate_hue = true;
 

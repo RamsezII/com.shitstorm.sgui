@@ -10,8 +10,8 @@ namespace _SGUI_
         public Button button_confirm, button_cancel;
         public Traductable trad_cancel, trad_confirm;
 
-        public Func<bool> onFunc_confirm, onFunc_cancel;
-        public Action onAction_confirm, onAction_cancel;
+        public Func<bool> onFunc_confirm;
+        public Action onAction_confirm;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -51,14 +51,7 @@ namespace _SGUI_
                 Oblivionize();
             });
 
-            button_cancel.onClick.AddListener(() =>
-            {
-                if (!oblivionized)
-                    if (onFunc_cancel != null && !onFunc_cancel())
-                        return;
-                onAction_cancel?.Invoke();
-                Oblivionize();
-            });
+            button_cancel.onClick.AddListener(OnClickClose);
         }
     }
 }

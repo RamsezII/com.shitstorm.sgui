@@ -74,7 +74,16 @@ namespace _SGUI_
             }
 
             button_hide?.onClick.AddListener(() => ToggleWindow(false));
-            button_close?.onClick.AddListener(Oblivionize);
+            button_close?.onClick.AddListener(OnClickClose);
+        }
+
+        protected void OnClickClose()
+        {
+            if (!oblivionized)
+                if (onFunc_close != null && !onFunc_close())
+                    return;
+            onAction_close?.Invoke();
+            Oblivionize();
         }
 
         //--------------------------------------------------------------------------------------------------------------
