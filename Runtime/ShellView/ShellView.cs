@@ -12,7 +12,10 @@ namespace _SGUI_
         public ScrollRect scrollview;
         public RectTransform content_rT;
         public Scrollbar scrollbar;
-        protected float offset_top_h = 2, offset_bottom_h = 5;
+
+        protected float
+            offset_top_h = 2,
+            offset_bottom_h = 5;
 
         //----------------------------------------------------------------------------------------------------------
 

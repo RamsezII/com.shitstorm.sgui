@@ -35,7 +35,6 @@ namespace _SGUI_
 
         readonly Vector2 minimum_size = new(200, 150);
         [SerializeField] DRAG_MODES drag_mode;
-        [SerializeField] CursorManager_OLD.Cursors cursor_mode;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -48,36 +47,10 @@ namespace _SGUI_
                         fullscreen.Toggle();
                     break;
 
-                case SguiZone.Codes.Exit:
-                    if (drag_mode == 0)
-                    {
-                        CursorManager_OLD.UnsetUser(this);
-                        cursor_mode = 0;
-                    }
-                    break;
-
-                case SguiZone.Codes.Move:
-                    if (drag_mode == 0)
-                    {
-                        if (zone == zone_header)
-                            cursor_mode = CursorManager_OLD.Cursors.Move;
-
-                        if (zone == zone_outline)
-                            cursor_mode = DragmodeToCursor(data.position, false);
-
-                        CursorManager_OLD.SetUser(this, cursor_mode);
-                    }
-                    break;
-
                 case SguiZone.Codes.BeginDrag:
-                    if (zone == zone_outline)
-                        cursor_mode = DragmodeToCursor(data.position, true);
-                    else if (zone == zone_header)
-                    {
-                        drag_mode = DRAG_MODES.ALL;
-                        cursor_mode = CursorManager_OLD.Cursors.Move;
-                        CursorManager_OLD.SetUser(this, cursor_mode);
-                    }
+                    if (zone != zone_outline)
+                        if (zone == zone_header)
+                            drag_mode = DRAG_MODES.ALL;
                     break;
 
                 case SguiZone.Codes.Drag:
@@ -89,8 +62,6 @@ namespace _SGUI_
 
                 case SguiZone.Codes.EndDrag:
                     drag_mode = 0;
-                    cursor_mode = 0;
-                    CursorManager_OLD.UnsetUser(this);
                     break;
             }
         }
@@ -158,39 +129,6 @@ namespace _SGUI_
 
         protected virtual void OnCheckBounds()
         {
-        }
-
-        CursorManager_OLD.Cursors DragmodeToCursor(Vector2 mouse_pos, in bool refresh_dragmode)
-        {
-            Vector2 size = rT.rect.size;
-
-            mouse_pos = ScreenPositionToLocal(mouse_pos);
-
-            mouse_pos.x /= size.x;
-            mouse_pos.y /= size.y;
-
-            DRAG_MODES drag_mode = 0;
-
-            if (mouse_pos.x >= .9f)
-                drag_mode |= DRAG_MODES.RIGHT;
-            if (mouse_pos.x <= .1f)
-                drag_mode |= DRAG_MODES.LEFT;
-            if (mouse_pos.y >= .9f)
-                drag_mode |= DRAG_MODES.TOP;
-            if (mouse_pos.y <= .1f)
-                drag_mode |= DRAG_MODES.BOTTOM;
-
-            if (refresh_dragmode)
-                this.drag_mode = drag_mode;
-
-            return drag_mode switch
-            {
-                DRAG_MODES.TOP or DRAG_MODES.BOTTOM => CursorManager_OLD.Cursors.Sizable_n,
-                DRAG_MODES.RIGHT or DRAG_MODES.LEFT => CursorManager_OLD.Cursors.Sizable_e,
-                DRAG_MODES.TOP_RIGHT or DRAG_MODES.BOTTOM_LEFT => CursorManager_OLD.Cursors.Sizable_ne,
-                DRAG_MODES.BOTTOM_RIGHT or DRAG_MODES.TOP_LEFT => CursorManager_OLD.Cursors.Sizable_se,
-                _ => 0,
-            };
         }
 
         void OnSizeDrag(Vector2 delta)
