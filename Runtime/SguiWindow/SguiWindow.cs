@@ -14,12 +14,11 @@ namespace _SGUI_
 
         public Action<BaseStates, bool> onState, onState_once;
 
+        public bool oblivionized;
         public Func<bool> onFunc_close;
-        public Action onAction_close, onDestroy;
+        public Action onAction_close, onOblivion, onDestroy;
 
         [SerializeField] protected bool animate_hue = true;
-
-        public bool oblivionized;
 
         public readonly ValueHandler<bool> fullscreen = new();
 
@@ -181,6 +180,7 @@ namespace _SGUI_
                 os_button.software_instances.RemoveElement(this);
 
             OnOblivion();
+            onOblivion?.Invoke();
         }
 
         protected virtual void OnOblivion()
