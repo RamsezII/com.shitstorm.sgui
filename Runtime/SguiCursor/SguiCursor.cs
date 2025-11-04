@@ -36,22 +36,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Start()
-        {
-            UsageManager.usages[(int)UsageGroups.GameMouse].AddListener1(this, gameObject.SetActive);
-
-            inputActions.Movement.Position.performed += context =>
-            {
-                if (blocking_users.IsEmpty)
-                    last_position = context.ReadValue<Vector2>();
-                else
-                    ((Mouse)context.control.device).WarpCursorPosition(last_position);
-                rt_mouse.position = last_position;
-            };
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         private void OnEnable()
         {
             inputActions.Enable();
@@ -64,8 +48,54 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        private void Start()
+        {
+            UsageManager.usages[(int)UsageGroups.GameMouse].AddListener1(this, gameObject.SetActive);
+
+            inputActions.Movement.Position.performed += context =>
+            {
+                if (blocking_users.IsEmpty)
+                    last_position = context.ReadValue<Vector2>();
+                else
+                    ((Mouse)context.control.device).WarpCursorPosition(last_position);
+                rt_mouse.position = last_position;
+            };
+
+            inputActions.Movement.Joystick.performed += context =>
+            {
+            };
+
+            inputActions.Movement.Joystick.started += context => NUCLEOR.delegates.Update_OnStartOfFrame += EvaluateJoystick;
+            inputActions.Movement.Joystick.canceled += context => NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        void EvaluateJoystick()
+        {
+            if (blocking_users.IsEmpty)
+            {
+                Vector2 value = inputActions.Movement.Joystick.ReadValue<Vector2>();
+
+                if (value.sqrMagnitude > 0)
+                {
+                    last_position += Mathf.Max(Screen.width, Screen.height) * Time.unscaledDeltaTime * value;
+                    last_position.x = Mathf.Clamp(last_position.x, 2, Screen.width - 2);
+                    last_position.y = Mathf.Clamp(last_position.y, 2, Screen.height - 2);
+
+                    Mouse.current?.WarpCursorPosition(last_position);
+
+                    rt_mouse.position = last_position;
+                }
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         private void OnDestroy()
         {
+            NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
+
             inputActions.Dispose();
             blocking_users.Reset();
         }

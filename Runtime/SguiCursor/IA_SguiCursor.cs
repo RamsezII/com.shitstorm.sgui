@@ -104,9 +104,9 @@ namespace _SGUI_
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Delta"",
+                    ""name"": ""Joystick"",
                     ""type"": ""Value"",
-                    ""id"": ""abf57a2e-0b44-4ce1-b96d-2c79da501b7a"",
+                    ""id"": ""991ddc12-821a-4521-b15d-78e0ea8eaae5"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -127,12 +127,12 @@ namespace _SGUI_
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cc2ecbd4-7fda-45a5-8b19-e0b038f7e04f"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""54350044-c313-4706-95a9-2eda1f9bded4"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Delta"",
+                    ""action"": ""Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -144,7 +144,7 @@ namespace _SGUI_
             // Movement
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Position = m_Movement.FindAction("Position", throwIfNotFound: true);
-            m_Movement_Delta = m_Movement.FindAction("Delta", throwIfNotFound: true);
+            m_Movement_Joystick = m_Movement.FindAction("Joystick", throwIfNotFound: true);
         }
 
         ~@IA_SguiCursor()
@@ -226,7 +226,7 @@ namespace _SGUI_
         private readonly InputActionMap m_Movement;
         private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
         private readonly InputAction m_Movement_Position;
-        private readonly InputAction m_Movement_Delta;
+        private readonly InputAction m_Movement_Joystick;
         /// <summary>
         /// Provides access to input actions defined in input action map "Movement".
         /// </summary>
@@ -243,9 +243,9 @@ namespace _SGUI_
             /// </summary>
             public InputAction @Position => m_Wrapper.m_Movement_Position;
             /// <summary>
-            /// Provides access to the underlying input action "Movement/Delta".
+            /// Provides access to the underlying input action "Movement/Joystick".
             /// </summary>
-            public InputAction @Delta => m_Wrapper.m_Movement_Delta;
+            public InputAction @Joystick => m_Wrapper.m_Movement_Joystick;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -275,9 +275,9 @@ namespace _SGUI_
                 @Position.started += instance.OnPosition;
                 @Position.performed += instance.OnPosition;
                 @Position.canceled += instance.OnPosition;
-                @Delta.started += instance.OnDelta;
-                @Delta.performed += instance.OnDelta;
-                @Delta.canceled += instance.OnDelta;
+                @Joystick.started += instance.OnJoystick;
+                @Joystick.performed += instance.OnJoystick;
+                @Joystick.canceled += instance.OnJoystick;
             }
 
             /// <summary>
@@ -292,9 +292,9 @@ namespace _SGUI_
                 @Position.started -= instance.OnPosition;
                 @Position.performed -= instance.OnPosition;
                 @Position.canceled -= instance.OnPosition;
-                @Delta.started -= instance.OnDelta;
-                @Delta.performed -= instance.OnDelta;
-                @Delta.canceled -= instance.OnDelta;
+                @Joystick.started -= instance.OnJoystick;
+                @Joystick.performed -= instance.OnJoystick;
+                @Joystick.canceled -= instance.OnJoystick;
             }
 
             /// <summary>
@@ -343,12 +343,12 @@ namespace _SGUI_
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPosition(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Delta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Joystick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnDelta(InputAction.CallbackContext context);
+            void OnJoystick(InputAction.CallbackContext context);
         }
     }
 }

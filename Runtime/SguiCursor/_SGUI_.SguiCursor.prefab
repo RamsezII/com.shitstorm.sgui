@@ -529,4 +529,6 @@ MonoBehaviour:
   rt_mouse: {fileID: 0}
   rt_hover: {fileID: 0}
   rt_mouse2: {fileID: 0}
+  last_position: {x: 0, y: 0}
+  joystickSpeed: 10
   state_base: 0

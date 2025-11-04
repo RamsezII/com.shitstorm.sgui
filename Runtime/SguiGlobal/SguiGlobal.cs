@@ -1,4 +1,5 @@
 ﻿using _ARK_;
+using _UTIL_;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,14 +17,16 @@ namespace _SGUI_
         public CanvasGroup canvasGroup2D, canvasGroup3D;
         public GraphicRaycaster raycaster_3D, raycaster_2D;
 
-        public RectTransform 
+        public RectTransform
             rT_2D, rt_windows,
             rT_3D;
 
         [SerializeField] RectTransform rT_scheduler;
-        [SerializeField] TextMeshProUGUI txt_scheduler;
+        [SerializeField] TextMeshProUGUI txt_scheduler, text_framerate;
 
         public RectTransform vchat_icon_rT, vchat_bar_rT;
+
+        HeartBeat.Operation op_framerate;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -50,6 +53,8 @@ namespace _SGUI_
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
+
+            text_framerate = transform.Find("Canvas2D/rT/Framerate/text").GetComponent<TextMeshProUGUI>();
 
             cameraUI = transform.Find("CameraUI").GetComponent<Camera>();
             canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
@@ -84,6 +89,19 @@ namespace _SGUI_
             });
 
             NUCLEOR.delegates.LateUpdate += CheckClick;
+
+            NUCLEOR.instance.heartbeat_unscaled.operations.Add(op_framerate = new HeartBeat.Operation(1, true, () =>
+            {
+                float framerate = 1 / NUCLEOR.instance.averageUnscaledDeltatime;
+                text_framerate.text = $"{Mathf.RoundToInt(framerate)}";
+
+                if (framerate >= 28)
+                    text_framerate.color = Color.white;
+                else if (framerate >= 18)
+                    text_framerate.color = Color.orange;
+                else
+                    text_framerate.color = Color.red;
+            }));
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -157,8 +175,7 @@ namespace _SGUI_
         {
             NUCLEOR.delegates.LateUpdate -= CheckClick;
             IMGUI_global.instance?.users_inputs.RemoveKey(OnImguiInputs);
-            if (this == instance)
-                instance = null;
+            op_framerate.Dispose();
         }
     }
 }

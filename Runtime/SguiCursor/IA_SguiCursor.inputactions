@@ -16,9 +16,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Delta",
+                    "name": "Joystick",
                     "type": "Value",
-                    "id": "abf57a2e-0b44-4ce1-b96d-2c79da501b7a",
+                    "id": "991ddc12-821a-4521-b15d-78e0ea8eaae5",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -39,12 +39,12 @@
                 },
                 {
                     "name": "",
-                    "id": "cc2ecbd4-7fda-45a5-8b19-e0b038f7e04f",
-                    "path": "<Mouse>/delta",
+                    "id": "54350044-c313-4706-95a9-2eda1f9bded4",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Delta",
+                    "action": "Joystick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
