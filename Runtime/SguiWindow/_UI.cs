@@ -42,6 +42,9 @@ namespace _SGUI_
             trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
 
             ui_hue_start = Random.Range(0f, 1f);
+
+            if (button_hide == null || button_fullscreen == null || button_close == null)
+                Debug.LogWarning($"{nameof(button_hide)}: {button_hide}, {nameof(button_fullscreen)}: {button_fullscreen}, {nameof(button_close)}: {button_close}", this);
         }
 
         //--------------------------------------------------------------------------------------------------------------
