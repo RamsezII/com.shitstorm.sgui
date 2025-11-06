@@ -12,10 +12,10 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, SguiCustom_Abstract> prefabs = new();
 
-        public readonly List<SguiCustom_Abstract> clones = new();
-
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
+
+        public SguiCustom_Abstract[] GetButtons(in bool includeInactive = false) => GetComponentsInChildren<SguiCustom_Abstract>(includeInactive);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -42,8 +42,12 @@ namespace _SGUI_
             foreach (var pair in prefabs)
                 pair.Value.gameObject.SetActive(false);
 
-            if (clones.Count > 0)
-                clones[^1].ToggleBottomLine(false);
+            if (false)
+            {
+                var buttons = GetButtons();
+                if (buttons.Length > 0)
+                    buttons[^1].ToggleBottomLine(false);
+            }
 
             AutoSize();
         }
@@ -55,7 +59,6 @@ namespace _SGUI_
         {
             SguiCustom_Abstract prefab = prefabs[type];
             SguiCustom_Abstract clone = Instantiate(prefab, prefab.transform.parent);
-            clones.Add(clone);
             clone.gameObject.SetActive(true);
             return clone;
         }
@@ -79,9 +82,10 @@ namespace _SGUI_
         protected override void OnOblivion()
         {
             base.OnOblivion();
-            for (int i = 0; i < clones.Count; ++i)
-                clones[i].Dispose();
-            clones.Clear();
+
+            var buttons = GetButtons(true);
+            for (int i = 0; i < buttons.Length; ++i)
+                buttons[i].Dispose();
         }
     }
 }

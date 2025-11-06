@@ -120,7 +120,7 @@ namespace _SGUI_
 
             winwow.button_hide.interactable = can_hide;
             winwow.button_fullscreen.interactable = can_fullscreen;
-            winwow.button_close.interactable = can_close;
+            winwow.button_close.interactable = can_close; // if is sgui_window2
 
             if (winwow is SguiCustom custom)
                 custom.button_cancel.interactable = can_close;

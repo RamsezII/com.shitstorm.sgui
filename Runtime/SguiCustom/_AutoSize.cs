@@ -15,7 +15,9 @@ namespace _SGUI_
             float height = content_layout.preferredHeight;
             content_layout_rT.sizeDelta = new Vector2(0, height);
 
-            for (int i = 0; i < clones.Count; i++)
+            SguiCustom_Abstract[] clones = GetComponentsInChildren<SguiCustom_Abstract>(false);
+
+            for (int i = 0; i < clones.Length; i++)
             {
                 SguiCustom_Abstract clone = clones[i];
 
