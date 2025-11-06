@@ -1245,8 +1245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  animate_hue: 1
   oblivionized: 0
+  animate_hue: 1
   window_icon: {fileID: 2800000, guid: 4db40f814f1468d458331c2362ff3da6, type: 3}
   id: 9
   hierarchy_viewport_rT: {fileID: 0}
@@ -1274,7 +1274,6 @@ MonoBehaviour:
   prefab_hierarchy_folder: {fileID: 0}
   prefab_hierarchy_file: {fileID: 0}
   drag_mode: 0
-  cursor_mode: 0
   video_player: {fileID: 0}
   audio_source: {fileID: 0}
 --- !u!224 &5783439754374110488 stripped
