@@ -73,7 +73,7 @@ namespace _SGUI_
         {
             StartButtons();
 
-            NUCLEOR.instance.sequencer.list.AddListener1(this, isNotEmpty =>
+            NUCLEOR.instance.sequencer.schedulables.AddListener1(this, isNotEmpty =>
             {
                 NUCLEOR.delegates.LateUpdate -= OnLateUpdateSchedulerInfos;
                 if (isNotEmpty)
@@ -154,7 +154,7 @@ namespace _SGUI_
 
         void OnLateUpdateSchedulerInfos()
         {
-            Schedulable schedulable = NUCLEOR.instance.sequencer.list._collection[0];
+            Schedulable schedulable = NUCLEOR.instance.sequencer.schedulables._collection[0];
 
             float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
 
