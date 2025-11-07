@@ -84,9 +84,10 @@ namespace _SGUI_
 
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
 
-            IMGUI_global.instance.users_ongui.AddListener1(this, isNotEmpty =>
+            UsageManager.usages[(int)UsageGroups.IMGUI].AddListener1(this, isNotEmpty =>
             {
                 canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
+                canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;
             });
 
             NUCLEOR.delegates.LateUpdate += CheckClick;

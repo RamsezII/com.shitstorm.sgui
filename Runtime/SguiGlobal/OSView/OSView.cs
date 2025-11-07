@@ -16,6 +16,9 @@ namespace _SGUI_
         [HideInInspector] public Animator animator;
         public readonly ListListener users = new();
 
+        [HideInInspector] public CanvasGroup canvasGroup;
+        [HideInInspector] public GraphicRaycaster graphicRaycaster;
+
         TextMeshProUGUI text_computer_time;
         HeartBeat.Operation refresh_computer_time_operation;
 
@@ -37,6 +40,9 @@ namespace _SGUI_
             animator = GetComponent<Animator>();
             animator.keepAnimatorStateOnDisable = true;
             animator.writeDefaultValuesOnDisable = true;
+
+            canvasGroup = GetComponent<CanvasGroup>();
+            graphicRaycaster = GetComponent<GraphicRaycaster>();
 
             header_rt = (RectTransform)transform.Find("header");
             taskbar_rt = (RectTransform)transform.Find("task-bar");
