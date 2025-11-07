@@ -18,7 +18,7 @@ namespace _SGUI_
         public GraphicRaycaster raycaster_3D, raycaster_2D;
 
         public RectTransform
-            rT_2D, rt_windows,
+            rT_2D, rt_windows1, rt_windows2,
             rT_3D;
 
         [SerializeField] RectTransform rT_scheduler;
@@ -49,7 +49,8 @@ namespace _SGUI_
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
-            rt_windows = (RectTransform)rT_2D.Find("windows");
+            rt_windows1 = (RectTransform)rT_2D.Find("windows1");
+            rt_windows2 = (RectTransform)rT_2D.Find("windows2");
 
             rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();

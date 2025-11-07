@@ -116,7 +116,11 @@ namespace _SGUI_
         public static SguiWindow InstantiateWindow(in Type type, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type), can_hide, can_fullscreen, can_close);
         public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true)
         {
-            SguiWindow winwow = Instantiate(prefab, SguiGlobal.instance.rt_windows);
+            RectTransform parent_rt = prefab is SguiWindow1
+                ? SguiGlobal.instance.rt_windows1
+                : SguiGlobal.instance.rt_windows2;
+
+            SguiWindow winwow = Instantiate(prefab, parent_rt);
 
             winwow.button_hide.interactable = can_hide;
             winwow.button_fullscreen.interactable = can_fullscreen;

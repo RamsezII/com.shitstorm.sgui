@@ -4076,9 +4076,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  animate_hue: 1
   oblivionized: 0
-  sgui_softwarebutton: {fileID: 0}
+  animate_hue: 1
+  window_icon: {fileID: 0}
+  id: 12
   hierarchy_viewport_rT: {fileID: 0}
   hierarchy_content_rT: {fileID: 0}
   hierarchy_layout: {fileID: 0}
@@ -4104,7 +4105,6 @@ MonoBehaviour:
   prefab_hierarchy_folder: {fileID: 0}
   prefab_hierarchy_file: {fileID: 0}
   drag_mode: 0
-  cursor_mode: 0
   button_confirm: {fileID: 0}
   button_cancel: {fileID: 0}
   trad_cancel: {fileID: 0}
