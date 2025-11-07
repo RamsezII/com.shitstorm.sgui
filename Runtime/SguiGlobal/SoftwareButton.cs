@@ -69,7 +69,7 @@ namespace _SGUI_
                         if (onClick_left_empty != null)
                             onClick_left_empty(eventData);
                         else
-                            InstantiateWindow();
+                            InstantiateSoftware();
                     else if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
                     {
                         for (int i = 0; i < software_instances._collection.Count; i++)
@@ -92,7 +92,7 @@ namespace _SGUI_
             }
         }
 
-        public SguiWindow InstantiateWindow()
+        public SguiWindow InstantiateSoftware()
         {
             SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab, true, true, true);
             switch (instance)
