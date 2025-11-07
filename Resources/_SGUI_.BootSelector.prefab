@@ -414,8 +414,7 @@ MonoBehaviour:
   m_text: GRUB-like boot selector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b84d875640e3164ea87984542f97f4d, type: 2}
-  m_sharedMaterial: {fileID: -7212626210877754923, guid: 4b84d875640e3164ea87984542f97f4d,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 860eefe3b4f78a74db263d1b0d529910, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -439,13 +438,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 26.8
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
   m_fontSizeMax: 50
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 8192
   m_textAlignment: 65535
@@ -568,6 +567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7920946107783773281}
   - component: {fileID: 4551406909695547868}
+  - component: {fileID: 4027151218597784692}
   - component: {fileID: 6600748420961925969}
   m_Layer: 5
   m_Name: controls
@@ -603,6 +603,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5872184012866726184}
   m_CullTransparentMesh: 1
+--- !u!114 &4027151218597784692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872184012866726184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
+  traductions:
+    english: Use <color=white>Up</color> and <color=white>Down</white> to choose
+      a build, press <color=white>Enter</color> to boot
+    french: "Utilisez <color=white>Haut</color> et <color=white>Bas</color> pour
+      choisir une build, appuyez sur <color=white>Entr\xE9e</color> pour lancer"
 --- !u!114 &6600748420961925969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,7 +1202,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   oblivionized: 0
   animate_hue: 1
-  window_icon: {fileID: 0}
+  window_icon: {fileID: 2800000, guid: e384955938587594dbe7e51f943feb74, type: 3}
   id: 7
   hierarchy_viewport_rT: {fileID: 0}
   hierarchy_content_rT: {fileID: 0}
