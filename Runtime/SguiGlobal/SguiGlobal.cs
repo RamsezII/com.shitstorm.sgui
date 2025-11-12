@@ -52,7 +52,7 @@ namespace _SGUI_
             rt_windows1 = (RectTransform)rT_2D.Find("windows1");
             rt_windows2 = (RectTransform)rT_2D.Find("windows2");
 
-            rT_scheduler = (RectTransform)canvas2D.transform.Find("scheduler");
+            rT_scheduler = (RectTransform)canvas2D.transform.Find("rT/scheduler");
             txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
 
             text_framerate = transform.Find("Canvas2D/rT/Framerate/text").GetComponent<TextMeshProUGUI>();

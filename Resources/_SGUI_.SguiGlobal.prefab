@@ -985,6 +985,7 @@ RectTransform:
   - {fileID: 5705663990835415747}
   - {fileID: 4037308033583317367}
   - {fileID: 8608637181416488217}
+  - {fileID: 6670048094879287842}
   - {fileID: 712615245575990010}
   m_Father: {fileID: 688457171423843188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1456,8 +1457,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 13
+  m_fontSize: 8.5
+  m_fontSizeBase: 8.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1609,7 +1610,6 @@ RectTransform:
   m_Children:
   - {fileID: 8212150512083527037}
   - {fileID: 2593228922784626528}
-  - {fileID: 6670048094879287842}
   - {fileID: 1695426296260309510}
   - {fileID: 3317169585481919934}
   - {fileID: 8223063421348704817}
@@ -1765,7 +1765,7 @@ RectTransform:
   m_Children:
   - {fileID: 6314701995591866574}
   - {fileID: 2974785861050325978}
-  m_Father: {fileID: 688457171423843188}
+  m_Father: {fileID: 2593228922784626528}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
