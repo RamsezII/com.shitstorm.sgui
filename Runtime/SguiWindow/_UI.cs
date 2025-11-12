@@ -26,7 +26,7 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder prefab_hierarchy_folder;
         [SerializeField] internal Button_File prefab_hierarchy_file;
 
-        SguiRect rect_current;
+        protected SguiRect rect_current;
 
         //--------------------------------------------------------------------------------------------------------------
 

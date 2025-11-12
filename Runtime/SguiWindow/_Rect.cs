@@ -4,7 +4,7 @@ namespace _SGUI_
 {
     partial class SguiWindow
     {
-        internal readonly struct SguiRect
+        protected readonly struct SguiRect
         {
             public readonly Vector2 pivot_and_anchor, position, size;
 

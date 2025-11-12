@@ -65,7 +65,7 @@ namespace _SGUI_
 
             IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
             OSView.instance.users.AddElement(this);
-            UsageManager.AddUser(this, UsageGroups.GameMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
+            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
         }
 
         protected virtual void OnDisable()
@@ -132,21 +132,21 @@ namespace _SGUI_
             return winwow;
         }
 
-        public static SguiCustom ShowAlert(in SguiDialogTypes type, out SguiCustom_Alert alert, in Traductions traductions)
+        public static SguiCustom ShowAlert(in SguiDialogs type, out SguiCustom_Alert alert, in Traductions traductions)
         {
             SguiCustom sgui = InstantiateWindow<SguiCustom>();
 
             switch (type)
             {
-                case SguiDialogTypes.Info:
+                case SguiDialogs.Info:
                     Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
-                case SguiDialogTypes.Dialog:
+                case SguiDialogs.Dialog:
                     Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
-                case SguiDialogTypes.Error:
+                case SguiDialogs.Error:
                     Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
                     break;
 
@@ -160,13 +160,50 @@ namespace _SGUI_
             alert.SetText(traductions);
             sgui.trad_title.SetTrad(type.ToString());
 
-            if (type != SguiDialogTypes.Dialog)
+            if (type == SguiDialogs.Dialog)
+            {
+                sgui.trad_confirm.SetTrads(new() { french = "Oui", english = "Yes", });
+                sgui.trad_cancel.SetTrads(new() { french = "Non", english = "No", });
+            }
+            else
             {
                 sgui.button_cancel.gameObject.SetActive(false);
                 sgui.trad_confirm.SetTrad("OK");
             }
 
             return sgui;
+        }
+
+        public static SguiProgressBar InstantiateProgressBar_NEW()
+        {
+            SguiProgressBar window = InstantiateWindow<SguiProgressBar>();
+
+            var tmpro_title = window.trad_title.FirstTmp();
+            tmpro_title.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
+
+            return window;
+        }
+
+        public static SguiCustom_Progress InstantiateProgressBar_OLD(in bool no_label)
+        {
+            SguiCustom window = InstantiateWindow<SguiCustom>();
+
+            SguiCustom_Progress progress = window.AddButton<SguiCustom_Progress>();
+
+            window.button_confirm.transform.gameObject.SetActive(false);
+            window.button_close.transform.parent.parent.gameObject.SetActive(false);
+
+            var tmpro_title = window.trad_title.FirstTmp();
+            tmpro_title.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
+
+            if (no_label)
+            {
+                progress.rT_label.gameObject.SetActive(false);
+                RectTransform rt = (RectTransform)progress.rT_fill.parent.parent;
+                rt.anchorMin = new(0, .5f);
+            }
+
+            return progress;
         }
 
         //--------------------------------------------------------------------------------------------------------------

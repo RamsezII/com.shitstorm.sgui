@@ -5,6 +5,10 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
+        public float autosize_offset_height = 60;
+
+        //--------------------------------------------------------------------------------------------------------------
+
         public void AutoSize()
         {
             Canvas.ForceUpdateCanvases();
@@ -28,7 +32,7 @@ namespace _SGUI_
                 width = Mathf.Max(width, tw * ((25 + pw) / cw));
             }
 
-            height += 60;
+            height += autosize_offset_height;
             rT.sizeDelta = new Vector2(width, height);
         }
     }

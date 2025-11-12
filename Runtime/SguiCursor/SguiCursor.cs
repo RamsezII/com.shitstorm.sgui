@@ -50,7 +50,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            UsageManager.usages[(int)UsageGroups.GameMouse].AddListener1(this, gameObject.SetActive);
+            UsageManager.mouse_status.AddListener(this, value => gameObject.SetActive(value == MouseStatus.GameMouse));
 
             inputActions.Movement.Position.performed += context =>
             {

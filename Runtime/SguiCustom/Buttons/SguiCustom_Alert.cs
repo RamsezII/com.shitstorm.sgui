@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public enum SguiDialogTypes : byte
+    public enum SguiDialogs : byte
     {
         Info = 1,
         Dialog = 2,
@@ -33,11 +33,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void SetType(in SguiDialogTypes type)
+        public void SetType(in SguiDialogs type)
         {
-            transform.Find("icon-info").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Info);
-            transform.Find("icon-question").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Dialog);
-            transform.Find("icon-error").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogTypes.Error);
+            transform.Find("icon-info").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogs.Info);
+            transform.Find("icon-question").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogs.Dialog);
+            transform.Find("icon-error").GetComponent<RawImage>().gameObject.SetActive(type == SguiDialogs.Error);
         }
 
         public void SetText(in Traductions trads)

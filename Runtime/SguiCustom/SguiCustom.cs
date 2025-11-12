@@ -42,13 +42,6 @@ namespace _SGUI_
             foreach (var pair in prefabs)
                 pair.Value.gameObject.SetActive(false);
 
-            if (false)
-            {
-                var buttons = GetButtons();
-                if (buttons.Length > 0)
-                    buttons[^1].ToggleBottomLine(false);
-            }
-
             AutoSize();
         }
 
