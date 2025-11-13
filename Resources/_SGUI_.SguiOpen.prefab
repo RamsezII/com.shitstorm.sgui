@@ -1326,8 +1326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  animate_hue: 0
   oblivionized: 0
+  animate_hue: 0
   window_icon: {fileID: 2800000, guid: b6c50aef0ff4f064eb958b410d269417, type: 3}
   id: 3
   hierarchy_viewport_rT: {fileID: 0}
@@ -1355,7 +1355,6 @@ MonoBehaviour:
   prefab_hierarchy_folder: {fileID: 0}
   prefab_hierarchy_file: {fileID: 0}
   drag_mode: 0
-  cursor_mode: 0
   button_confirm: {fileID: 0}
   button_cancel: {fileID: 0}
   trad_cancel: {fileID: 0}

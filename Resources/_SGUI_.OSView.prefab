@@ -518,6 +518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  canvasGroup: {fileID: 0}
+  graphicRaycaster: {fileID: 0}
   windows_rt: {fileID: 0}
   rt_editor_buttons: {fileID: 0}
   eb_play: {fileID: 0}
@@ -874,7 +876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: da06e12d789dd304a826664739d67c71, type: 3}
+  m_Texture: {fileID: 2800000, guid: 2c0c130b2defa6249b85c90dcba5919d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
