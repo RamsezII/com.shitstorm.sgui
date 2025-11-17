@@ -1,6 +1,7 @@
-﻿using _ARK_;
-using _UTIL_;
+﻿using _UTIL_;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -8,6 +9,7 @@ namespace _SGUI_
     public sealed class SguiContextClick_List : MonoBehaviour
     {
         public RectTransform list_rt, content_rt;
+        public SguiContextClick_List sublist;
         public ScrollRect scrollview;
         public VerticalLayoutGroup layout;
         [SerializeField] SguiContextClick_List_Button prefab_button;
@@ -22,7 +24,26 @@ namespace _SGUI_
             content_rt = (RectTransform)layout.transform.parent;
             prefab_button = GetComponentInChildren<SguiContextClick_List_Button>();
 
-            GetComponentInChildren<OnPointerClick>().onClick += eventData => Destroy(gameObject);
+            GetComponentInChildren<OnPointerClick>().onClick += eventData =>
+            {
+                var raycaster = GetComponentInParent<GraphicRaycaster>();
+                List<RaycastResult> rc_results = new();
+                raycaster.Raycast(eventData, rc_results);
+
+                if (rc_results.Count > 0)
+                    for (int i = 0; i < rc_results.Count; i++)
+                    {
+                        SguiContextClick_List_Button button = rc_results[i].gameObject.GetComponentInParent<SguiContextClick_List_Button>();
+                        if (button != null)
+                            if (button.plist.sublist != null)
+                            {
+                                Destroy(button.plist.sublist.gameObject);
+                                return;
+                            }
+                    }
+
+                Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject);
+            };
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -40,7 +61,7 @@ namespace _SGUI_
             var clone = Instantiate(prefab_button, prefab_button.transform.parent);
 
             clone.gameObject.SetActive(true);
-            clone.button.onClick.AddListener(() => Destroy(gameObject));
+            clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));
 
             if (didStart)
                 AutoSizeAndMove();

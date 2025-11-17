@@ -1,4 +1,5 @@
 ﻿using _ARK_;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,15 +7,46 @@ namespace _SGUI_
 {
     public sealed class SguiContextClick_List_Button : MonoBehaviour
     {
+        public SguiContextClick_List plist;
+        public RectTransform rt;
         public Button button;
         public Traductable trad;
+        [SerializeField] RawImage arrow;
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
+            plist = GetComponentInParent<SguiContextClick_List>();
+            rt = (RectTransform)transform;
             button = GetComponentInChildren<Button>();
             trad = GetComponentInChildren<Traductable>();
+            arrow = GetComponentInChildren<RawImage>();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public void SetupSublist(Action<SguiContextClick_List> onSublist)
+        {
+            button.onClick.RemoveAllListeners();
+            arrow.gameObject.SetActive(true);
+
+            button.onClick.AddListener(() =>
+            {
+                if (plist.sublist != null)
+                    Destroy(plist.sublist.gameObject);
+
+                var sublist = plist.sublist = Instantiate(SguiContextClick.instance.prefab_scrollview, plist.transform);
+
+                sublist.gameObject.SetActive(true);
+
+                Util.GetWorldCorners(rt, out _, out Vector2 max);
+                sublist.list_rt.position = max;
+
+                sublist.list_rt.anchoredPosition += new Vector2(0, plist.layout.padding.top);
+
+                onSublist(sublist);
+            });
         }
     }
 }

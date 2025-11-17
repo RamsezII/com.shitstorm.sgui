@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick_List
   list_rt: {fileID: 0}
   content_rt: {fileID: 0}
+  sublist: {fileID: 0}
   scrollview: {fileID: 0}
   layout: {fileID: 0}
   prefab_button: {fileID: 0}
@@ -93,7 +94,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4606893525717230817
 CanvasRenderer:
@@ -610,7 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6168357433272771704}
   - component: {fileID: 1888997942105897616}
-  - component: {fileID: 4536783655730412016}
+  - component: {fileID: 2940549141995602592}
   - component: {fileID: 865454586399761334}
   m_Layer: 5
   m_Name: background
@@ -646,7 +647,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5842932257102479247}
   m_CullTransparentMesh: 1
---- !u!114 &4536783655730412016
+--- !u!114 &2940549141995602592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -725,7 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick
   prefab_scrollview: {fileID: 0}
-  scrollview_lastInstance: {fileID: 0}
+  scrollview_lastRootList: {fileID: 0}
 --- !u!1 &6738415389804533516
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8821432855126390315
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1021,8 +1022,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3c4ab945c983140b7e0732d9db6ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick_List_Button
+  plist: {fileID: 0}
+  rt: {fileID: 0}
   button: {fileID: 0}
   trad: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!1 &9124273440004233208
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ namespace _SGUI_
     {
         public static SguiContextClick instance;
 
-        [SerializeField] SguiContextClick_List prefab_scrollview;
-        [SerializeField] SguiContextClick_List scrollview_lastInstance;
+        [SerializeField] internal SguiContextClick_List prefab_scrollview;
+        [SerializeField] internal SguiContextClick_List scrollview_lastRootList;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -26,18 +26,17 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiContextClick_List RightClickHere(in Vector2 mousePosition, in bool replace)
+        public SguiContextClick_List RightClickHere(in Vector2 mousePosition)
         {
-            if (replace)
-                if (scrollview_lastInstance != null)
-                    Destroy(scrollview_lastInstance.gameObject);
+            if (scrollview_lastRootList != null)
+                Destroy(scrollview_lastRootList.gameObject);
 
-            var clone = scrollview_lastInstance = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
+            scrollview_lastRootList = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
 
-            clone.gameObject.SetActive(true);
-            clone.list_rt.position = mousePosition;
+            scrollview_lastRootList.gameObject.SetActive(true);
+            scrollview_lastRootList.list_rt.position = mousePosition;
 
-            return clone;
+            return scrollview_lastRootList;
         }
     }
 }
