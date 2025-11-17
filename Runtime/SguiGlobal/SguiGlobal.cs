@@ -1,9 +1,7 @@
 ﻿using _ARK_;
 using _UTIL_;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -90,8 +88,6 @@ namespace _SGUI_
                 canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;
             });
 
-            NUCLEOR.delegates.LateUpdate += CheckClick;
-
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(op_framerate = new HeartBeat.Operation(1, true, () =>
             {
                 float framerate = 1 / NUCLEOR.instance.averageUnscaledDeltatime;
@@ -107,52 +103,6 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
-
-        void CheckClick()
-        {
-            if (!UsageManager.AllAreEmpty(UsageGroups.GameMouse))
-                if (Input.GetMouseButtonDown(0))
-                {
-                    PointerEventData e = new(EventSystem.current)
-                    {
-                        position = Input.mousePosition,
-                    };
-
-                    List<RaycastResult> results = new();
-
-                    if (Raycast(raycaster_2D))
-                        return;
-
-                    results.Clear();
-                    if (Raycast(raycaster_3D))
-                        return;
-
-                    foreach (var raycaster in FindObjectsByType<GraphicRaycaster>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
-                        if (raycaster != raycaster_2D && raycaster != raycaster_3D)
-                        {
-                            results.Clear();
-                            if (Raycast(raycaster))
-                                return;
-                        }
-
-                    bool Raycast(in GraphicRaycaster raycaster)
-                    {
-                        raycaster.Raycast(e, results);
-
-                        for (int i = 0; i < results.Count; i++)
-                        {
-                            IClickable clickable = results[i].gameObject.GetComponentInParent<IClickable>();
-                            if (clickable != null)
-                            {
-                                clickable.OnPointerClick(e);
-                                return true;
-                            }
-                        }
-
-                        return false;
-                    }
-                }
-        }
 
         void OnLateUpdateSchedulerInfos()
         {
@@ -175,7 +125,6 @@ namespace _SGUI_
 
         void OnDestroy()
         {
-            NUCLEOR.delegates.LateUpdate -= CheckClick;
             IMGUI_global.instance?.users_inputs.RemoveKey(OnImguiInputs);
             op_framerate.Dispose();
         }

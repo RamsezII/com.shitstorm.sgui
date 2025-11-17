@@ -12,34 +12,45 @@ namespace _SGUI_
 
         bool OnImguiInputs(Event e)
         {
+            bool consumed = false;
+
             if (e.type == EventType.MouseDown)
-                if (e.keyCode == KeyCode.Mouse0)
+                switch (e.keyCode)
                 {
-                    raycast_results.Clear();
+                    case KeyCode.Mouse1:
+                        SguiContextClick.instance.RightClickHere(Input.mousePosition);
+                        consumed = true;
+                        break;
 
-                    PointerEventData data = new(EventSystem.current)
-                    {
-                        position = Input.mousePosition
-                    };
-
-                    raycaster_2D.Raycast(data, raycast_results);
-
-                    if (raycast_results.Count > 0)
-                    {
-                        for (int i = 0; i < raycast_results.Count; ++i)
-                        {
-                            SguiWindow window = raycast_results[i].gameObject.GetComponentInParent<SguiWindow>();
-                            if (window != null)
-                            {
-                                window.transform.SetAsLastSibling();
-                                break;
-                            }
-                        }
-
+                    case KeyCode.Mouse0:
                         raycast_results.Clear();
-                    }
+
+                        PointerEventData data = new(EventSystem.current)
+                        {
+                            position = Input.mousePosition
+                        };
+
+                        raycaster_2D.Raycast(data, raycast_results);
+
+                        if (raycast_results.Count > 0)
+                        {
+                            for (int i = 0; i < raycast_results.Count; ++i)
+                            {
+                                SguiWindow window = raycast_results[i].gameObject.GetComponentInParent<SguiWindow>();
+                                if (window != null)
+                                {
+                                    window.transform.SetAsLastSibling();
+                                    consumed = true;
+                                    break;
+                                }
+                            }
+
+                            raycast_results.Clear();
+                        }
+                        break;
                 }
-            return false;
+
+            return consumed;
         }
     }
 }

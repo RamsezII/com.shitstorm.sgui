@@ -1783,7 +1783,7 @@ PrefabInstance:
     - target: {fileID: 695396318259138143, guid: a359f6d7bc189264eae686a5fb9a3d48,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000019073486
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2495990313596930423, guid: a359f6d7bc189264eae686a5fb9a3d48,
         type: 3}
@@ -1889,11 +1889,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: _SGUI_.ContextClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 6264707785615070241, guid: a359f6d7bc189264eae686a5fb9a3d48,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7113605527404507757, guid: a359f6d7bc189264eae686a5fb9a3d48,
         type: 3}

@@ -133,7 +133,9 @@ namespace _SGUI_
             if (!softwares.TryGetValue(type, out SoftwareButton button))
             {
                 SguiWindow prefab = (SguiWindow)Util.LoadResourceByType(type);
-                if (prefab != null)
+                if (prefab == null)
+                    Debug.LogError($"{this}: Failed to load software prefab of type '{type}'.", this);
+                else
                 {
                     softwares[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
                     button.rimg_icon.texture = prefab.window_icon;
