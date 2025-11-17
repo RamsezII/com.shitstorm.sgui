@@ -50,7 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281aa21d1bab2074bbf456bed6ceccbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick_List
-  rt: {fileID: 0}
+  list_rt: {fileID: 0}
+  content_rt: {fileID: 0}
   scrollview: {fileID: 0}
   layout: {fileID: 0}
   prefab_button: {fileID: 0}
@@ -282,8 +283,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 731294332556421820}
   m_HandleRect: {fileID: 5676819628092347719}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.8333333
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -334,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8114668856603750332}
   - component: {fileID: 4120313231265817334}
+  - component: {fileID: 5381285096893562491}
   - component: {fileID: 2933834590537580257}
   m_Layer: 5
   m_Name: text
@@ -369,6 +371,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2706372037669994791}
   m_CullTransparentMesh: 1
+--- !u!114 &5381285096893562491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2706372037669994791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
+  traductions:
+    english: Button
+    french: Bouton
 --- !u!114 &2933834590537580257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,7 +598,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 250}
+  m_SizeDelta: {x: 200, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &5842932257102479247
 GameObject:
@@ -975,7 +992,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 0, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0
+    m_FadeDuration: 0.05
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1058,8 +1075,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 2
-    m_Bottom: 2
+    m_Top: 3
+    m_Bottom: 3
   m_ChildAlignment: 1
   m_Spacing: 1
   m_ChildForceExpandWidth: 1

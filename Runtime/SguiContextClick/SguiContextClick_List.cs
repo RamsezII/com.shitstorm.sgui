@@ -7,24 +7,22 @@ namespace _SGUI_
 {
     public sealed class SguiContextClick_List : MonoBehaviour
     {
-        public RectTransform rt;
+        public RectTransform list_rt, content_rt;
         public ScrollRect scrollview;
         public VerticalLayoutGroup layout;
         [SerializeField] SguiContextClick_List_Button prefab_button;
-        Vector2 init_size;
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
             scrollview = GetComponentInChildren<ScrollRect>();
-            rt = (RectTransform)scrollview.transform.parent;
+            list_rt = (RectTransform)scrollview.transform.parent;
             layout = GetComponentInChildren<VerticalLayoutGroup>();
+            content_rt = (RectTransform)layout.transform.parent;
             prefab_button = GetComponentInChildren<SguiContextClick_List_Button>();
 
             GetComponentInChildren<OnPointerClick>().onClick += eventData => Destroy(gameObject);
-
-            init_size = rt.sizeDelta;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -45,18 +43,20 @@ namespace _SGUI_
             clone.button.onClick.AddListener(() => Destroy(gameObject));
 
             if (didStart)
-                AutoSizeAndMove_delayed();
+                AutoSizeAndMove();
 
             return clone;
         }
 
-        public void AutoSizeAndMove_delayed() => Util.AddAction(ref NUCLEOR.delegates.Update_OnStartOfFrame_once, AutoSizeAndMove);
         public void AutoSizeAndMove()
         {
             if (gameObject == null)
                 return;
 
-            rt.sizeDelta = new Vector2(init_size.x, layout.preferredHeight + layout.padding.top + layout.padding.bottom);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout.transform);
+
+            content_rt.sizeDelta = new(0, layout.preferredHeight);
+            list_rt.sizeDelta = new Vector2(list_rt.sizeDelta.x, Mathf.Min(300, layout.preferredHeight));
         }
     }
 }

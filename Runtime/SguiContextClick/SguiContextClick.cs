@@ -26,15 +26,16 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiContextClick_List RightClickHere(in Vector2 mousePosition)
+        public SguiContextClick_List RightClickHere(in Vector2 mousePosition, in bool replace)
         {
-            if (scrollview_lastInstance != null)
-                Destroy(scrollview_lastInstance.gameObject);
+            if (replace)
+                if (scrollview_lastInstance != null)
+                    Destroy(scrollview_lastInstance.gameObject);
 
             var clone = scrollview_lastInstance = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
 
             clone.gameObject.SetActive(true);
-            clone.rt.position = mousePosition;
+            clone.list_rt.position = mousePosition;
 
             return clone;
         }
