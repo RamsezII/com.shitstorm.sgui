@@ -17,11 +17,6 @@ namespace _SGUI_
             if (e.type == EventType.MouseDown)
                 switch (e.keyCode)
                 {
-                    case KeyCode.Mouse1:
-                        SguiContextClick.instance.RightClickHere(Input.mousePosition);
-                        consumed = true;
-                        break;
-
                     case KeyCode.Mouse0:
                         raycast_results.Clear();
 

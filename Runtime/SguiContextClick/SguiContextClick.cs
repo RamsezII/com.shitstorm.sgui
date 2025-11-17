@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 namespace _SGUI_
@@ -7,25 +6,37 @@ namespace _SGUI_
     {
         public static SguiContextClick instance;
 
-        RectTransform pos_rt;
-        TMP_Dropdown dropdown;
+        [SerializeField] SguiContextClick_List prefab_scrollview;
+        [SerializeField] SguiContextClick_List scrollview_lastInstance;
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
             instance = this;
-
-            pos_rt = (RectTransform)transform.Find("position");
-            dropdown = transform.Find("position/dropdown").GetComponent<TMP_Dropdown>();
+            prefab_scrollview = GetComponentInChildren<SguiContextClick_List>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void RightClickHere(in Vector2 mousePosition)
+        private void Start()
         {
-            pos_rt.position = mousePosition;
-            dropdown.Show();
+            prefab_scrollview.gameObject.SetActive(false);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public SguiContextClick_List RightClickHere(in Vector2 mousePosition)
+        {
+            if (scrollview_lastInstance != null)
+                Destroy(scrollview_lastInstance.gameObject);
+
+            var clone = scrollview_lastInstance = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
+
+            clone.gameObject.SetActive(true);
+            clone.rt.position = mousePosition;
+
+            return clone;
         }
     }
 }
