@@ -14,15 +14,7 @@ namespace _SGUI_
             return toggle;
         }
 
-        SguiCustom_Abstract AddInt(in string label, in int value)
-        {
-            if (TryParseNumberField(label, value, out var slider, out var inputfield))
-                return slider;
-            else
-                return inputfield;
-        }
-
-        SguiCustom_Abstract AddFloat(in string label, in float value)
+        SguiCustom_Abstract AddNumber(in string label, in object value)
         {
             if (TryParseNumberField(label, value, out var slider, out var inputfield))
                 return slider;

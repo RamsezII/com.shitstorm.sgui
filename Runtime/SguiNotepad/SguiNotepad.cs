@@ -16,7 +16,7 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
         {
-            OSView.instance.AddOrGetSoftwareButton<SguiNotepad>();
+            OSView.instance.GetSoftwareButton<SguiNotepad>(force: true);
         }
 
         //--------------------------------------------------------------------------------------------------------------

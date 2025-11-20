@@ -103,5 +103,15 @@ namespace _SGUI_
             }
             return instance;
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnDestroy()
+        {
+            if (software_prefab != null)
+                foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include, FindObjectsSortMode.None))
+                    if (instance != null)
+                        Destroy(instance.gameObject);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
         {
-            OSView.instance.AddOrGetSoftwareButton<SguiOpen>();
+            OSView.instance.GetSoftwareButton<SguiOpen>(force: true);
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -36,33 +36,6 @@ namespace _SGUI_
                             onAction_confirm += () => field.SetValue(result, toggle.toggle.isOn);
                             break;
 
-                        case SguiCustom_InputField inputfield:
-                            switch (field_value)
-                            {
-                                case int _int:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt32(inputfield.input_field.text));
-                                    break;
-                                case float _float:
-                                    onAction_confirm += () => field.SetValue(result, Util.ParseFloat(inputfield.input_field.text));
-                                    break;
-                                default:
-                                    onAction_confirm += () => field.SetValue(result, inputfield.input_field.text);
-                                    break;
-                            }
-                            break;
-
-                        case SguiCustom_Slider slider:
-                            switch (field_value)
-                            {
-                                case int _int:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt32(slider.slider.value));
-                                    break;
-                                case float _float:
-                                    onAction_confirm += () => field.SetValue(result, slider.slider.value);
-                                    break;
-                            }
-                            break;
-
                         case SguiCustom_Dropdown dropdown:
                             onAction_confirm += () =>
                             {
@@ -71,6 +44,55 @@ namespace _SGUI_
                                 field.SetValue(result, Enum.Parse(field_type, enum_name));
                                 ;
                             };
+                            break;
+
+                        case SguiCustom_InputField inputfield:
+                            onAction_confirm += field_value switch
+                            {
+                                sbyte => () => field.SetValue(result, Convert.ToSByte(inputfield.input_field.text)),
+                                byte => () => field.SetValue(result, Convert.ToByte(inputfield.input_field.text)),
+                                short => () => field.SetValue(result, Convert.ToInt16(inputfield.input_field.text)),
+                                ushort => () => field.SetValue(result, Convert.ToUInt16(inputfield.input_field.text)),
+                                uint => () => field.SetValue(result, Convert.ToUInt32(inputfield.input_field.text)),
+                                int => () => field.SetValue(result, Convert.ToInt32(inputfield.input_field.text)),
+                                ulong => () => field.SetValue(result, Convert.ToUInt64(inputfield.input_field.text)),
+                                long => () => field.SetValue(result, Convert.ToInt64(inputfield.input_field.text)),
+                                float => () => field.SetValue(result, Util.ParseFloat(inputfield.input_field.text)),
+                                _ => () => field.SetValue(result, inputfield.input_field.text),
+                            };
+                            break;
+
+                        case SguiCustom_Slider slider:
+                            switch (field_value)
+                            {
+                                case sbyte:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToSByte(slider.slider.value));
+                                    break;
+                                case byte:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToByte(slider.slider.value));
+                                    break;
+                                case short:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt16(slider.slider.value));
+                                    break;
+                                case ushort:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt16(slider.slider.value));
+                                    break;
+                                case int:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt32(slider.slider.value));
+                                    break;
+                                case uint:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt32(slider.slider.value));
+                                    break;
+                                case long:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt64(slider.slider.value));
+                                    break;
+                                case ulong:
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt64(slider.slider.value));
+                                    break;
+                                case float:
+                                    onAction_confirm += () => field.SetValue(result, slider.slider.value);
+                                    break;
+                            }
                             break;
                     }
                 }
@@ -163,27 +185,17 @@ namespace _SGUI_
                         }
                         break;
 
+                    case sbyte _sbyte:
+                    case byte _byte:
+                    case short _short:
+                    case ushort _ushort:
+                    case uint _uint:
                     case int _int:
-                        {
-                            button = AddInt(name, _int);
-
-                            switch (button)
-                            {
-                                case SguiCustom_InputField inputfield:
-                                    inputfield.input_field.onValueChanged.AddListener(value => OnChange());
-                                    break;
-
-                                case SguiCustom_Slider slider:
-                                    slider.slider.onValueChanged.AddListener(value => OnChange());
-                                    break;
-                            }
-                        }
-                        break;
-
+                    case ulong _ulong:
+                    case long _long:
                     case float _float:
                         {
-                            button = AddFloat(name, _float);
-
+                            button = AddNumber(name, value);
                             switch (button)
                             {
                                 case SguiCustom_InputField inputfield:

@@ -63,7 +63,7 @@ namespace _SGUI_
         private void OnEnable()
         {
             RefreshDatetime();
-            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.GameMouse);
+            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
         }
 
         private void OnDisable()
@@ -127,10 +127,10 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SoftwareButton AddOrGetSoftwareButton<T>() where T : SguiWindow => AddOrGetSoftwareButton(typeof(T));
-        public SoftwareButton AddOrGetSoftwareButton(in Type type)
+        public SoftwareButton GetSoftwareButton<T>(in bool force) where T : SguiWindow => GetSoftwareButton(typeof(T), force);
+        public SoftwareButton GetSoftwareButton(in Type type, in bool force)
         {
-            if (!softwares.TryGetValue(type, out SoftwareButton button))
+            if (!softwares.TryGetValue(type, out SoftwareButton button) || button == null)
             {
                 SguiWindow prefab = (SguiWindow)Util.LoadResourceByType(type);
                 if (prefab == null)

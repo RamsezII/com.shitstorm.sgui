@@ -52,7 +52,7 @@ namespace _SGUI_
 
             if (window_icon != null)
             {
-                os_button = OSView.instance.AddOrGetSoftwareButton(GetType());
+                os_button = OSView.instance.GetSoftwareButton(GetType(), force: true);
                 os_button.software_instances.AddElement(this);
             }
         }
