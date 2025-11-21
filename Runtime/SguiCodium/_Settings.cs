@@ -19,7 +19,7 @@ namespace _SGUI_
 
         static void LoadSettings(in bool log)
         {
-            StaticJSon.ReadStaticJSon(ref settings, true, log);
+            StaticJSon.ReadStaticJSon(out settings, true, log);
         }
 
         static void SaveSettings(in bool log)
