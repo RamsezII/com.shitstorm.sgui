@@ -55,6 +55,8 @@ namespace _SGUI_
                 os_button = OSView.instance.GetSoftwareButton(GetType(), force: true);
                 os_button.software_instances.AddElement(this);
             }
+
+            trad_title.SetTrad(GetType().Name);
         }
 
         protected virtual void OnEnable()

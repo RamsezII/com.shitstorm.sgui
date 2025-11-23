@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[===> ] 73% jaJ'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88a9dbd84f0ca7c488932cc45935e967, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 9741e6fd755e9af4196d63491b773606, type: 2}
