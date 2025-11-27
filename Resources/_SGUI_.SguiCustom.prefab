@@ -4186,6 +4186,12 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 5397606627700757301, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     - target: {fileID: 5761368120172786459, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
       propertyPath: m_Name
@@ -4225,6 +4231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSizeBase
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716775549244420967, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7947730552455322017, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
