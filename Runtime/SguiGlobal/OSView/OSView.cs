@@ -26,7 +26,7 @@ namespace _SGUI_
         [HideInInspector] public RectTransform windows_rt;
 
         public RectTransform rt_editor_buttons;
-        public Button eb_play, eb_pause, eb_close;
+        public Button edit_play, edit_pause, edit_close;
 
         [SerializeField] SoftwareButton prefab_softwarebutton;
         readonly Dictionary<Type, SoftwareButton> softwares = new();
@@ -51,9 +51,9 @@ namespace _SGUI_
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
             rt_editor_buttons = (RectTransform)transform.Find("header/buttons-central");
-            eb_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
-            eb_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
-            eb_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
+            edit_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
+            edit_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
+            edit_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
 
             prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
         }
