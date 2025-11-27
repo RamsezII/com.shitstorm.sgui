@@ -551,8 +551,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SguiWindow2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4b84d875640e3164ea87984542f97f4d, type: 2}
-  m_sharedMaterial: {fileID: -7212626210877754923, guid: 4b84d875640e3164ea87984542f97f4d,
+  m_fontAsset: {fileID: 11400000, guid: d6357e47a32784847988f7bfa8d3102e, type: 2}
+  m_sharedMaterial: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

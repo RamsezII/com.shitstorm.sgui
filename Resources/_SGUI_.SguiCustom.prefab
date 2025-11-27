@@ -3952,6 +3952,12 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Slider:'
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4220,6 +4226,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7947730552455322017, guid: e1ca649690ba2ce47970c55b27e07add,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4405,6 +4416,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: sgui2-progress
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4569,6 +4586,12 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Dropdown:'
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4733,6 +4756,12 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Toggle:'
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4901,6 +4930,12 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
       propertyPath: m_HorizontalAlignment
@@ -5087,6 +5122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5529,6 +5569,12 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Input field:'
       objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
