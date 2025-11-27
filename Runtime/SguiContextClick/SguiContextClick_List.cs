@@ -24,7 +24,7 @@ namespace _SGUI_
             content_rt = (RectTransform)layout.transform.parent;
             prefab_button = GetComponentInChildren<SguiContextClick_List_Button>();
 
-            GetComponentInChildren<OnPointerClick>().onClick += eventData =>
+            GetComponentInChildren<PointerClickHandler>().onClick += eventData =>
             {
                 var raycaster = GetComponentInParent<GraphicRaycaster>();
                 List<RaycastResult> rc_results = new();
