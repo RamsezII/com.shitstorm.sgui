@@ -32,8 +32,9 @@ namespace _SGUI_
 
         void AwakeUI()
         {
-            canvas = GetComponent<Canvas>();
-            raycaster = GetComponent<GraphicRaycaster>();
+            canvas = GetComponentInParent<Canvas>();
+            raycaster = GetComponentInParent<GraphicRaycaster>();
+
             rT = (RectTransform)transform.Find("rT");
             rT_parent = (RectTransform)rT.parent;
 
