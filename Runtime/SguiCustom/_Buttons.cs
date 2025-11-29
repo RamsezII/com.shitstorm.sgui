@@ -36,10 +36,10 @@ namespace _SGUI_
                 _ => true,
             }).ToList();
 
-            dropdown.dropdown.ClearOptions();
-            dropdown.dropdown.AddOptions(options);
-            dropdown.dropdown.value = Array.IndexOf(values, value);
-            dropdown.dropdown.RefreshShownValue();
+            dropdown._dropdown.ClearOptions();
+            dropdown._dropdown.AddOptions(options);
+            dropdown._dropdown.value = Array.IndexOf(values, value);
+            dropdown._dropdown.RefreshShownValue();
 
             return dropdown;
         }

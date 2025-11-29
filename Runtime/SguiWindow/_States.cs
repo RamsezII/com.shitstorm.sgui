@@ -40,7 +40,8 @@ namespace _SGUI_
                                     else
                                     {
                                         OnUpdateAlpha();
-                                        gameObject.SetActive(false);
+                                        if (state_base == BaseStates.fromActive_)
+                                            gameObject.SetActive(false);
                                     }
                                     break;
 

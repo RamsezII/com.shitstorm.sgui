@@ -39,8 +39,8 @@ namespace _SGUI_
                         case SguiCustom_Dropdown dropdown:
                             onAction_confirm += () =>
                             {
-                                int index = dropdown.dropdown.value;
-                                string enum_name = dropdown.dropdown.GetSelectedName();
+                                int index = dropdown._dropdown.value;
+                                string enum_name = dropdown._dropdown.GetSelectedName();
                                 field.SetValue(result, Enum.Parse(field_type, enum_name));
                                 ;
                             };
@@ -153,8 +153,8 @@ namespace _SGUI_
                         case SguiCustom_Dropdown dropdown:
                             onAction_confirm += () =>
                             {
-                                int index = dropdown.dropdown.value;
-                                string enum_name = dropdown.dropdown.GetSelectedName();
+                                int index = dropdown._dropdown.value;
+                                string enum_name = dropdown._dropdown.GetSelectedName();
                                 result = result.ModifyAnonymous(property_name, Enum.Parse(property_type, enum_name));
                             };
                             break;
@@ -213,7 +213,7 @@ namespace _SGUI_
                         {
                             SguiCustom_Dropdown dropdown = AddEnum(_enum);
                             button = dropdown;
-                            dropdown.dropdown.onValueChanged.AddListener(value => OnChange());
+                            dropdown._dropdown.onValueChanged.AddListener(value => OnChange());
                         }
                         break;
 

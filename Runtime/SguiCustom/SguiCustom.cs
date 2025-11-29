@@ -10,7 +10,7 @@ namespace _SGUI_
 {
     public partial class SguiCustom : SguiWindow2
     {
-        readonly Dictionary<Type, SguiCustom_Abstract> prefabs = new();
+        readonly Dictionary<Type, SguiCustom_Abstract> button_prefabs = new();
 
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
@@ -28,7 +28,7 @@ namespace _SGUI_
 
             for (int i = 0; i < content_layout_rT.childCount; ++i)
                 if (content_layout_rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
-                    prefabs[prefab.GetType()] = prefab;
+                    button_prefabs[prefab.GetType()] = prefab;
 
             EventSystem.current.SetSelectedGameObject(button_confirm.gameObject);
         }
@@ -39,7 +39,7 @@ namespace _SGUI_
         {
             base.Start();
 
-            foreach (var pair in prefabs)
+            foreach (var pair in button_prefabs)
                 pair.Value.gameObject.SetActive(false);
 
             AutoSize();
@@ -50,7 +50,7 @@ namespace _SGUI_
         public T AddButton<T>() where T : SguiCustom_Abstract => (T)AddButton(typeof(T));
         public SguiCustom_Abstract AddButton(in Type type)
         {
-            SguiCustom_Abstract prefab = prefabs[type];
+            SguiCustom_Abstract prefab = button_prefabs[type];
             SguiCustom_Abstract clone = Instantiate(prefab, prefab.transform.parent);
             clone.gameObject.SetActive(true);
             return clone;

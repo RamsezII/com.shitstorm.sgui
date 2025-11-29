@@ -7,8 +7,6 @@ namespace _SGUI_
     {
         protected override void Awake()
         {
-            base.Awake();
-
             huable_background = transform.Find("rT/body/background").GetComponent<Graphic>();
 
             buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
@@ -26,6 +24,8 @@ namespace _SGUI_
             dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
             if (dropdown_help != null)
                 dropdown_help.onItemClick += OnClickDropdown_Help;
+
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------

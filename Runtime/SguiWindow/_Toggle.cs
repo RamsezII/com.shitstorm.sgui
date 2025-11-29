@@ -12,6 +12,9 @@
 
         public void ToggleWindow(bool toggle)
         {
+            if (toggle)
+                gameObject.SetActive(true);
+
             BaseStates state = state_base;
             float offset = 0;
 

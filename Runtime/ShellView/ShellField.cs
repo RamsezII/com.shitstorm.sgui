@@ -7,7 +7,6 @@ namespace _SGUI_
 {
     public sealed class ShellField : TMP_InputField
     {
-        ShellView shellview;
         ScrollRect scrollview;
         public RectTransform rT;
         public TextMeshProUGUI lint;
@@ -17,7 +16,6 @@ namespace _SGUI_
         protected override void Awake()
         {
             scrollview = GetComponentInParent<ScrollRect>();
-            shellview = GetComponentInParent<ShellView>();
             rT = (RectTransform)transform;
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
 

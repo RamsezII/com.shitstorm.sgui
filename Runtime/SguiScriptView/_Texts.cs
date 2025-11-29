@@ -3,7 +3,7 @@ using System;
 
 namespace _SGUI_
 {
-    partial class SguiCodium
+    partial class ScriptView
     {
         [Serializable]
         public class Settings : UserJSon

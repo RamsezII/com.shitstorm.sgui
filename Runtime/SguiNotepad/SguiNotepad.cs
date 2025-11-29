@@ -7,7 +7,7 @@ namespace _SGUI_
     public partial class SguiNotepad : SguiWindow1
     {
         internal HeaderDropdown dropdown_files;
-        public TMP_InputField main_input_field;
+        public ScriptView script_view;
         [SerializeField] protected TextMeshProUGUI footer_tmp;
         [SerializeField] protected string file_path;
 
@@ -45,7 +45,7 @@ namespace _SGUI_
 
         protected override void Awake()
         {
-            main_input_field = transform.Find("rT/body/file_body/scroll_view/viewport/content/input_field").GetComponent<TMP_InputField>();
+            script_view = GetComponentInChildren<ScriptView>();
             footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
 
             dropdown_files = transform.Find("rT/buttons/layout/button_Files").GetComponent<HeaderDropdown>();
@@ -60,14 +60,6 @@ namespace _SGUI_
         {
             footer_tmp.text = file_path;
             this.file_path = file_path;
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void Start()
-        {
-            main_input_field.text = string.Empty;
-            base.Start();
         }
     }
 }

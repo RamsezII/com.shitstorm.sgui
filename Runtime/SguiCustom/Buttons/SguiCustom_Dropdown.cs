@@ -9,7 +9,7 @@ namespace _SGUI_
 {
     public class SguiCustom_Dropdown : SguiCustom_Abstract
     {
-        public TMP_Dropdown dropdown;
+        public TMP_Dropdown _dropdown;
         public Action<SguiCustom_Dropdown_Template> on_template_clone;
 
         public Dictionary<string, bool> toggles;
@@ -22,25 +22,25 @@ namespace _SGUI_
 
         protected override void Awake()
         {
-            dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
-            dropdown.options.Clear();
+            _dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
+            _dropdown.options.Clear();
             base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void ToggleCheckmarks(in bool toggle) => dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(toggle);
+        public void ToggleCheckmarks(in bool toggle) => _dropdown.template.transform.Find("viewport/content/item/checkmark").gameObject.SetActive(toggle);
 
         public void StayOpen()
         {
             stay_open = true;
-            dropdown.alphaFadeSpeed = 0;
+            _dropdown.alphaFadeSpeed = 0;
         }
 
         public void ActivateMultiSelect()
         {
             StayOpen();
-            dropdown.MultiSelect = true;
+            _dropdown.MultiSelect = true;
             ToggleCheckmarks(true);
         }
 
@@ -76,7 +76,7 @@ namespace _SGUI_
                         if (i_copy > 2)
                             toggles[toggle_name] = item.isOn;
                         current_scrollheight = scrollbar.value;
-                        dropdown.Show();
+                        _dropdown.Show();
                     });
                 }
             }
@@ -88,7 +88,7 @@ namespace _SGUI_
         protected override void OnDispose()
         {
             base.OnDispose();
-            dropdown.onValueChanged.RemoveAllListeners();
+            _dropdown.onValueChanged.RemoveAllListeners();
         }
     }
 }
