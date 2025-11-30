@@ -72,6 +72,7 @@ namespace _SGUI_
                     }
                     else
                         rect_current.Apply(rT);
+                    OnResized();
                 });
 
                 button_fullscreen.onClick.AddListener(fullscreen.Toggle);
@@ -101,6 +102,11 @@ namespace _SGUI_
 
         protected virtual void OnUpdateAlpha()
         {
+        }
+
+        public virtual void OnResized()
+        {
+
         }
     }
 }
