@@ -22,16 +22,21 @@ namespace _SGUI_
             Vector2 delta = eventData.delta;
             rT.position += (Vector3)delta;
 
-            rT.GetWorldCorners(out Vector2 min, out Vector2 max);
-            rT_parent.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
-
-            if (Util.BoundsClamp(min, max, p_min, p_max, out Vector3 correction))
-                rT.position += correction;
+            CheckPosition();
         }
 
         protected virtual void OnHeaderEndDrag(PointerEventData eventData)
         {
 
+        }
+
+        public void CheckPosition()
+        {
+            rT.GetWorldCorners(out Vector2 min, out Vector2 max);
+            rT_parent.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
+
+            if (Util.BoundsClamp(min, max, p_min, p_max, out Vector3 correction))
+                rT.position += correction;
         }
     }
 }
