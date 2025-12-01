@@ -1,4 +1,5 @@
 using _ARK_;
+using _UTIL_;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,12 +21,7 @@ namespace _SGUI_
             huable_background = transform.Find("rT/background").GetComponent<Graphic>();
 
             buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
-            button_hide = buttons_rt.Find("button-hide/Button").GetComponent<Button>();
-            button_fullscreen = buttons_rt.Find("button-fullscreen/Button").GetComponent<Button>();
             button_close = buttons_rt.Find("button-close/Button").GetComponent<Button>();
-
-            zone_header = transform.Find("rT/header/drag_zone").GetComponent<SguiZone>();
-            zone_outline = transform.Find("rT/zone_size").GetComponent<SguiZone>();
 
             button_cancel = transform.Find("rT/footer/button_cancel").GetComponent<Button>();
             button_confirm = transform.Find("rT/footer/button_confirm").GetComponent<Button>();
@@ -52,6 +48,11 @@ namespace _SGUI_
             });
 
             button_cancel.onClick.AddListener(OnClickClose);
+
+            DragHandler drag_handler = transform.Find("rT/header/drag_zone").GetComponent<DragHandler>();
+            drag_handler.onBeginDrag += OnHeaderBeginDrag;
+            drag_handler.onDrag += OnHeaderDrag;
+            drag_handler.onEndDrag += OnHeaderEndDrag;
         }
     }
 }

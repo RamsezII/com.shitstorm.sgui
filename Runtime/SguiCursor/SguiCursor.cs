@@ -9,12 +9,33 @@ namespace _SGUI_
     {
         public static SguiCursor instance;
 
+        public enum Usages : byte
+        {
+            _none_,
+            Grab,
+            Up,
+            UpRight,
+            Right,
+            DownRight,
+            Down,
+            DownLeft,
+            Left,
+            LeftUp,
+        }
+
+        public interface MouseHoverUser
+        {
+            Usages OnCursorUsage();
+        }
+
         [HideInInspector] public Animator animator;
         [SerializeField] RectTransform rt_mouse, rt_hover, rt_mouse2;
         public IA_SguiCursor inputActions;
 
-        public readonly ListListener blocking_users = new();
+        public readonly ListListener block_users = new();
         public Vector2 last_position;
+
+        public readonly ValueHandler<MouseHoverUser> cursor_users = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -54,15 +75,11 @@ namespace _SGUI_
 
             inputActions.Movement.Position.performed += context =>
             {
-                if (blocking_users.IsEmpty)
+                if (block_users.IsEmpty)
                     last_position = context.ReadValue<Vector2>();
                 else
                     ((Mouse)context.control.device).WarpCursorPosition(last_position);
                 rt_mouse.position = last_position;
-            };
-
-            inputActions.Movement.Joystick.performed += context =>
-            {
             };
 
             inputActions.Movement.Joystick.started += context => NUCLEOR.delegates.Update_OnStartOfFrame += EvaluateJoystick;
@@ -73,7 +90,7 @@ namespace _SGUI_
 
         void EvaluateJoystick()
         {
-            if (blocking_users.IsEmpty)
+            if (block_users.IsEmpty)
             {
                 Vector2 value = inputActions.Movement.Joystick.ReadValue<Vector2>();
 
@@ -97,7 +114,7 @@ namespace _SGUI_
             NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
 
             inputActions.Dispose();
-            blocking_users.Reset();
+            block_users.Reset();
         }
     }
 }

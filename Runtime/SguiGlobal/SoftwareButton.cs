@@ -94,7 +94,7 @@ namespace _SGUI_
 
         public SguiWindow InstantiateSoftware()
         {
-            SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab, true, true, true);
+            SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab);
             switch (instance)
             {
                 case SguiWindow1 w1:

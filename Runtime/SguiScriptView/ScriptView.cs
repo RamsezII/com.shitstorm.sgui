@@ -70,7 +70,7 @@ namespace _SGUI_
 
             if (on_stdin_linter == null)
             {
-                var custom = SguiWindow.InstantiateWindow<SguiCustom>(can_hide: false, can_fullscreen: false, can_close: false);
+                var custom = SguiWindow.InstantiateWindow<SguiCustom>();
                 custom.trad_title.SetTrads(new()
                 {
                     french = "Choisir linter",

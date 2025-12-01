@@ -20,8 +20,6 @@ namespace _SGUI_
 
         [SerializeField] protected bool animate_hue = true;
 
-        public readonly ValueHandler<bool> fullscreen = new();
-
         public Texture window_icon;
         protected SoftwareButton os_button;
 
@@ -65,7 +63,6 @@ namespace _SGUI_
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
 
-            IMGUI_global.instance.users_inputs.AddElement(OnIMGui_toggle_fullscreen, this);
             OSView.instance.users.AddElement(this);
             UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
         }
@@ -73,7 +70,6 @@ namespace _SGUI_
         protected virtual void OnDisable()
         {
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
-            IMGUI_global.instance.users_inputs.RemoveKey(OnIMGui_toggle_fullscreen);
             OSView.instance?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
         }
@@ -84,23 +80,10 @@ namespace _SGUI_
         {
             StartUI();
             ToggleWindow(true);
-
-            button_hide?.onClick.AddListener(() => SetScalePivot(os_button));
-            button_close?.onClick.AddListener(() => SetScalePivot(null));
+            button_close.onClick.AddListener(() => SetScalePivot(null));
         }
 
         //--------------------------------------------------------------------------------------------------------------
-
-        bool OnIMGui_toggle_fullscreen(Event e)
-        {
-            if (e.type == EventType.KeyDown)
-                if (e.keyCode == KeyCode.F11)
-                {
-                    fullscreen.Toggle();
-                    return true;
-                }
-            return false;
-        }
 
         public void SetScalePivot(in SoftwareButton button)
         {
@@ -114,22 +97,15 @@ namespace _SGUI_
             }
         }
 
-        public static T InstantiateWindow<T>(in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true) where T : SguiWindow => (T)InstantiateWindow(typeof(T), can_hide, can_fullscreen, can_close);
-        public static SguiWindow InstantiateWindow(in Type type, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type), can_hide, can_fullscreen, can_close);
-        public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool can_hide = false, in bool can_fullscreen = true, in bool can_close = true)
+        public static T InstantiateWindow<T>() where T : SguiWindow => (T)InstantiateWindow(typeof(T));
+        public static SguiWindow InstantiateWindow(in Type type) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type));
+        public static SguiWindow InstantiateWindow(in SguiWindow prefab)
         {
             RectTransform parent_rt = prefab is SguiWindow1
                 ? SguiGlobal.instance.rt_windows1
                 : SguiGlobal.instance.rt_windows2;
 
             SguiWindow winwow = Instantiate(prefab, parent_rt);
-
-            winwow.button_hide.interactable = can_hide;
-            winwow.button_fullscreen.interactable = can_fullscreen;
-            winwow.button_close.interactable = can_close; // if is sgui_window2
-
-            if (winwow is SguiCustom custom)
-                custom.button_cancel.interactable = can_close;
 
             return winwow;
         }

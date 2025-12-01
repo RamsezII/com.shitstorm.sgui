@@ -10,13 +10,11 @@ namespace _SGUI_
         [HideInInspector] public GraphicRaycaster raycaster;
         [HideInInspector] public RectTransform rT, rT_parent;
 
-        internal SguiZone zone_header, zone_outline;
-
         public Traductable trad_title;
         public Graphic huable_background;
 
         public RectTransform buttons_rt;
-        public Button button_hide, button_fullscreen, button_close;
+        public Button button_close;
 
         [SerializeField, Range(0, 1)] protected float anim_alpha = 1;
 
@@ -49,36 +47,12 @@ namespace _SGUI_
 
         void StartUI()
         {
-            if (button_hide == null || button_fullscreen == null || button_close == null)
-                Debug.LogWarning($"{nameof(button_hide)}: {button_hide}, {nameof(button_fullscreen)}: {button_fullscreen}, {nameof(button_close)}: {button_close}", this);
-
             prefab_hierarchy_folder?.gameObject.SetActive(false);
             prefab_hierarchy_file?.gameObject.SetActive(false);
 
             if (animate_hue)
                 ui_alpha = huable_background.color.a;
 
-            if (fullscreen != null)
-            {
-                fullscreen.AddListener(toggle =>
-                {
-                    if (toggle)
-                    {
-                        rect_current = new(rT);
-                        rT.sizeDelta = Vector2.zero;
-                        rT.anchorMin = Vector2.zero;
-                        rT.anchorMax = Vector2.one;
-                        rT.anchoredPosition = Vector2.zero;
-                    }
-                    else
-                        rect_current.Apply(rT);
-                    OnResized();
-                });
-
-                button_fullscreen.onClick.AddListener(fullscreen.Toggle);
-            }
-
-            button_hide?.onClick.AddListener(() => ToggleWindow(false));
             button_close?.onClick.AddListener(OnClickClose);
         }
 
@@ -102,11 +76,6 @@ namespace _SGUI_
 
         protected virtual void OnUpdateAlpha()
         {
-        }
-
-        public virtual void OnResized()
-        {
-
         }
     }
 }
