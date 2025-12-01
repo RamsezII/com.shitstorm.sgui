@@ -13,7 +13,7 @@ namespace _SGUI_
         {
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform.parent);
-            rT.ForceUpdateRectTransforms();
+            rt.ForceUpdateRectTransforms();
 
             float width = 350;
             float height = content_layout.preferredHeight;
@@ -33,7 +33,7 @@ namespace _SGUI_
             }
 
             height += autosize_offset_height;
-            rT.sizeDelta = new Vector2(width, height);
+            rt.sizeDelta = new Vector2(width, height);
         }
     }
 }

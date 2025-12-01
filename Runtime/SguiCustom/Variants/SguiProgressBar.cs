@@ -61,12 +61,12 @@ namespace _SGUI_
         {
             if (!tmp_percentage.gameObject.activeInHierarchy || string.IsNullOrWhiteSpace(tmp_infos.text))
             {
-                rT.sizeDelta = rect_current.size;
+                rt.sizeDelta = rect_current.size;
                 return;
             }
 
             float preferred_height = tmp_infos.preferredHeight;
-            rT.sizeDelta = new(rect_current.size.x, rect_current.size.y + preferred_height - initsize_tmp);
+            rt.sizeDelta = new(rect_current.size.x, rect_current.size.y + preferred_height - initsize_tmp);
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ namespace _SGUI_
     {
         [HideInInspector] public Canvas canvas;
         [HideInInspector] public GraphicRaycaster raycaster;
-        [HideInInspector] public RectTransform rT, rT_parent;
+        [HideInInspector] public RectTransform rt, rt_parent;
 
         public Traductable trad_title;
         public Graphic huable_background;
@@ -33,10 +33,10 @@ namespace _SGUI_
             canvas = GetComponentInParent<Canvas>();
             raycaster = GetComponentInParent<GraphicRaycaster>();
 
-            rT = (RectTransform)transform.Find("rT");
-            rT_parent = (RectTransform)rT.parent;
+            rt = (RectTransform)transform.Find("rT");
+            rt_parent = (RectTransform)rt.parent;
 
-            rect_current = new(rT);
+            rect_current = new(rt);
 
             trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
 

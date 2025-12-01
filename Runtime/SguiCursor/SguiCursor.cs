@@ -5,29 +5,28 @@ using UnityEngine.InputSystem;
 
 namespace _SGUI_
 {
+    public enum SguiCursorTypes : byte
+    {
+        Default,
+        Grab,
+        Search,
+        Eye,
+        Move,
+        Vertical,
+        Horizontal,
+        Diagonal1,
+        Diagonal2,
+        _last_,
+    }
+
     public sealed partial class SguiCursor : MonoBehaviour
     {
         public static SguiCursor instance;
-
-        public enum Cursors : byte
-        {
-            Default,
-            Grab,
-            Search,
-            Eye,
-            Move,
-            Vertical,
-            Horizontal,
-            Diagonal1,
-            Diagonal2,
-            _last_,
-        }
 
         public interface IMouseHoverUser
         {
             bool IsStillUsingCursor();
         }
-
         [HideInInspector] public Animator animator;
         [SerializeField] RectTransform rt_cursor, rt_label, rt_icon_default;
         public IA_SguiCursor inputActions;
@@ -35,10 +34,9 @@ namespace _SGUI_
         readonly ListListener block_users = new();
         public Vector2 last_position;
 
-        readonly ValueHandler<(Cursors usage, IMouseHoverUser user)> cursor_user = new();
-        readonly ValueHandler<Cursors> current_usage = new();
+        readonly ValueHandler<(SguiCursorTypes cursor, IMouseHoverUser user)> cursor_user = new();
 
-        readonly RectTransform[] rimgs = new RectTransform[(int)Cursors._last_];
+        readonly RectTransform[] rimgs = new RectTransform[(int)SguiCursorTypes._last_];
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -66,14 +64,12 @@ namespace _SGUI_
         private void OnEnable()
         {
             NUCLEOR.delegates.Update_OnStartOfFrame += EvaluateJoystick;
-            NUCLEOR.delegates.LateUpdate += EvaluateCursorUser;
             inputActions.Enable();
         }
 
         private void OnDisable()
         {
             NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
-            NUCLEOR.delegates.LateUpdate -= EvaluateCursorUser;
             inputActions.Disable();
         }
 
@@ -92,10 +88,10 @@ namespace _SGUI_
                 MoveMouse(last_position);
             };
 
-            current_usage.AddListener(value =>
+            cursor_user.AddListener(value =>
             {
-                for (int i = 0; i < (int)Cursors._last_; ++i)
-                    rimgs[i].gameObject.SetActive(i == (int)value);
+                for (int i = 0; i < (int)SguiCursorTypes._last_; ++i)
+                    rimgs[i].gameObject.SetActive(i == (int)value.cursor);
             });
         }
 
@@ -145,16 +141,18 @@ namespace _SGUI_
         {
             if (cursor_user._value.user != null)
                 UsageManager.ToggleUser(cursor_user._value.user, false, UsageGroups.GameMouse);
-            current_usage.Value = 0;
+            cursor_user.Value = (0, null);
+            NUCLEOR.delegates.LateUpdate -= EvaluateCursorUser;
         }
 
-        public void SetUser(in Cursors usage, in IMouseHoverUser user)
+        public void SetUser(in SguiCursorTypes cursor, in IMouseHoverUser user)
         {
             UnsetUser();
             UsageManager.ToggleUser(user, true, UsageGroups.GameMouse);
-            current_usage.Value = usage;
-            cursor_user.Value = (usage, user);
+            cursor_user.Value = (cursor, user);
+            NUCLEOR.delegates.LateUpdate += EvaluateCursorUser;
         }
+
 
         void EvaluateCursorUser()
         {

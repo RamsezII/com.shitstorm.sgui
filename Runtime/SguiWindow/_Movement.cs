@@ -20,7 +20,7 @@ namespace _SGUI_
                 return;
 
             Vector2 delta = eventData.delta;
-            rT.position += (Vector3)delta;
+            rt.position += (Vector3)delta;
 
             CheckPosition();
         }
@@ -32,11 +32,11 @@ namespace _SGUI_
 
         public void CheckPosition()
         {
-            rT.GetWorldCorners(out Vector2 min, out Vector2 max);
-            rT_parent.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
+            rt.GetWorldCorners(out Vector2 min, out Vector2 max);
+            rt_parent.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
 
             if (Util.BoundsClamp(min, max, p_min, p_max, out Vector3 correction))
-                rT.position += correction;
+                rt.position += correction;
         }
     }
 }
