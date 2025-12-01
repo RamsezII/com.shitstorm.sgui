@@ -9,33 +9,36 @@ namespace _SGUI_
     {
         public static SguiCursor instance;
 
-        public enum Usages : byte
+        public enum Cursors : byte
         {
-            _none_,
+            Default,
             Grab,
-            Up,
-            UpRight,
-            Right,
-            DownRight,
-            Down,
-            DownLeft,
-            Left,
-            LeftUp,
+            Search,
+            Eye,
+            Move,
+            Vertical,
+            Horizontal,
+            Diagonal1,
+            Diagonal2,
+            _last_,
         }
 
-        public interface MouseHoverUser
+        public interface IMouseHoverUser
         {
-            Usages OnCursorUsage();
+            bool IsStillUsingCursor();
         }
 
         [HideInInspector] public Animator animator;
-        [SerializeField] RectTransform rt_mouse, rt_hover, rt_mouse2;
+        [SerializeField] RectTransform rt_cursor, rt_label, rt_icon_default;
         public IA_SguiCursor inputActions;
 
-        public readonly ListListener block_users = new();
+        readonly ListListener block_users = new();
         public Vector2 last_position;
 
-        public readonly ValueHandler<MouseHoverUser> cursor_users = new();
+        readonly ValueHandler<(Cursors usage, IMouseHoverUser user)> cursor_user = new();
+        readonly ValueHandler<Cursors> current_usage = new();
+
+        readonly RectTransform[] rimgs = new RectTransform[(int)Cursors._last_];
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -47,23 +50,30 @@ namespace _SGUI_
             animator.keepAnimatorStateOnDisable = true;
             animator.writeDefaultValuesOnDisable = true;
 
-            rt_mouse = (RectTransform)transform.Find("rt_cursor");
-            rt_hover = (RectTransform)transform.Find("rt_label");
-            rt_mouse2 = (RectTransform)rt_mouse.Find("cursor_1");
+            rt_cursor = (RectTransform)transform.Find("rt_cursor");
+            rt_label = (RectTransform)transform.Find("rt_label");
+            rt_icon_default = (RectTransform)rt_cursor.Find("default");
 
             inputActions?.Dispose();
             inputActions = new();
+
+            for (int i = 0; i < rimgs.Length; i++)
+                rimgs[i] = (RectTransform)rt_cursor.GetChild(i);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void OnEnable()
         {
+            NUCLEOR.delegates.Update_OnStartOfFrame += EvaluateJoystick;
+            NUCLEOR.delegates.LateUpdate += EvaluateCursorUser;
             inputActions.Enable();
         }
 
         private void OnDisable()
         {
+            NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
+            NUCLEOR.delegates.LateUpdate -= EvaluateCursorUser;
             inputActions.Disable();
         }
 
@@ -79,11 +89,14 @@ namespace _SGUI_
                     last_position = context.ReadValue<Vector2>();
                 else
                     ((Mouse)context.control.device).WarpCursorPosition(last_position);
-                rt_mouse.position = last_position;
+                MoveMouse(last_position);
             };
 
-            inputActions.Movement.Joystick.started += context => NUCLEOR.delegates.Update_OnStartOfFrame += EvaluateJoystick;
-            inputActions.Movement.Joystick.canceled += context => NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
+            current_usage.AddListener(value =>
+            {
+                for (int i = 0; i < (int)Cursors._last_; ++i)
+                    rimgs[i].gameObject.SetActive(i == (int)value);
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -94,17 +107,60 @@ namespace _SGUI_
             {
                 Vector2 value = inputActions.Movement.Joystick.ReadValue<Vector2>();
 
-                if (value.sqrMagnitude > 0)
+                if (value.sqrMagnitude > .01f)
                 {
                     last_position += Mathf.Max(Screen.width, Screen.height) * Time.unscaledDeltaTime * value;
-                    last_position.x = Mathf.Clamp(last_position.x, 2, Screen.width - 2);
-                    last_position.y = Mathf.Clamp(last_position.y, 2, Screen.height - 2);
 
                     Mouse.current?.WarpCursorPosition(last_position);
 
-                    rt_mouse.position = last_position;
+                    rt_cursor.position = last_position;
                 }
             }
+        }
+
+        public void MoveMouse(in Vector2 position)
+        {
+            rt_cursor.position = last_position = position;
+            Mouse.current?.WarpCursorPosition(last_position);
+        }
+
+        public void BlockMouse(in object user, in Vector2 mousePos)
+        {
+            last_position = mousePos;
+            block_users.AddElement(user);
+        }
+
+        public void UnblockMouse(in object user)
+        {
+            block_users.RemoveElement(user);
+        }
+
+        public void UnsetSpecificUser(in IMouseHoverUser user)
+        {
+            if (user == cursor_user._value.user)
+                UnsetUser();
+        }
+
+        public void UnsetUser()
+        {
+            if (cursor_user._value.user != null)
+                UsageManager.ToggleUser(cursor_user._value.user, false, UsageGroups.GameMouse);
+            current_usage.Value = 0;
+        }
+
+        public void SetUser(in Cursors usage, in IMouseHoverUser user)
+        {
+            UnsetUser();
+            UsageManager.ToggleUser(user, true, UsageGroups.GameMouse);
+            current_usage.Value = usage;
+            cursor_user.Value = (usage, user);
+        }
+
+        void EvaluateCursorUser()
+        {
+            if (cursor_user._value.user != null)
+                if (!cursor_user._value.user.IsStillUsingCursor())
+                    UnsetUser();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -112,9 +168,9 @@ namespace _SGUI_
         private void OnDestroy()
         {
             NUCLEOR.delegates.Update_OnStartOfFrame -= EvaluateJoystick;
+            NUCLEOR.delegates.LateUpdate -= EvaluateCursorUser;
 
             inputActions.Dispose();
-            block_users.Reset();
         }
     }
 }
