@@ -15,8 +15,10 @@ namespace _SGUI_
         {
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
             label = dropdown.transform.Find("label").GetComponent<Traductable>();
-            base.Awake();
+
             dropdown.ClearOptions();
+
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------

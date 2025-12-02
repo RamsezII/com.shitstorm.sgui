@@ -22,8 +22,10 @@ namespace _SGUI_
         public Texture window_icon;
         protected SoftwareButton os_button;
 
+        public readonly ValueHandler<Traductions> sgui_description = new();
+
         static uint _id;
-        public uint id = _id++;
+        public uint id;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -38,6 +40,8 @@ namespace _SGUI_
 
         protected virtual void Awake()
         {
+            id = _id++;
+
             if (TryGetComponent(out animator))
             {
                 animator.writeDefaultValuesOnDisable = true;
@@ -49,7 +53,8 @@ namespace _SGUI_
             if (window_icon != null)
                 os_button = OSView.instance.GetSoftwareButton(GetType(), force: true);
 
-            trad_title.SetTrad(GetType().Name);
+            trad_title.SetTrad($"[{id}] {GetType().Name}");
+            sgui_description.Value = new($"[{id}] {GetType().FullName}");
 
             instances.AddElement(this);
         }

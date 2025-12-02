@@ -4247,7 +4247,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3669187911633306650, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
-      insertIndex: 3
+      insertIndex: -1
       addedObject: {fileID: 365527954232220455}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5761368120172786459, guid: e1ca649690ba2ce47970c55b27e07add,
@@ -4294,13 +4294,11 @@ MonoBehaviour:
   state_base: 0
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
-  rT: {fileID: 0}
-  rT_parent: {fileID: 0}
+  rt: {fileID: 0}
+  rt_parent: {fileID: 0}
   trad_title: {fileID: 0}
   huable_background: {fileID: 0}
   buttons_rt: {fileID: 0}
-  button_hide: {fileID: 0}
-  button_fullscreen: {fileID: 0}
   button_close: {fileID: 0}
   anim_alpha: 1
   ui_hue_start: 0
@@ -4308,7 +4306,6 @@ MonoBehaviour:
   ui_alpha: 0
   prefab_hierarchy_folder: {fileID: 0}
   prefab_hierarchy_file: {fileID: 0}
-  drag_mode: 0
   button_confirm: {fileID: 0}
   button_cancel: {fileID: 0}
   trad_cancel: {fileID: 0}
@@ -4641,7 +4638,7 @@ MonoBehaviour:
   tmp_label: {fileID: 0}
   trad_label: {fileID: 0}
   disposed: 0
-  dropdown: {fileID: 0}
+  _dropdown: {fileID: 0}
   stay_open: 0
 --- !u!224 &4808045423084287071 stripped
 RectTransform:
