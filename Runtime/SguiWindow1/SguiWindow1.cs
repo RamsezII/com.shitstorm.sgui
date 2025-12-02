@@ -106,12 +106,20 @@ namespace _SGUI_
         bool OnImguiInputs(Event e)
         {
             if (e.type == EventType.KeyDown)
-                if (e.keyCode == KeyCode.F11)
+                switch (e.keyCode)
                 {
-                    fullscreen.Toggle();
-                    return true;
+                    case KeyCode.F10:
+                        CheckBounds();
+                        break;
+
+                    case KeyCode.F11:
+                        fullscreen.Toggle();
+                        break;
+
+                    default:
+                        return false;
                 }
-            return false;
+            return true;
         }
 
         public void CheckBounds()

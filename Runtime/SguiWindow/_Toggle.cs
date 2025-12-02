@@ -10,6 +10,7 @@
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public void ToggleWindow() => ToggleWindow(!IsWindowOpened);
         public void ToggleWindow(bool toggle)
         {
             if (toggle)

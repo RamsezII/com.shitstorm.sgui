@@ -32,6 +32,9 @@ namespace _SGUI_
 
             hover_handler.onEnterExit += (PointerEventData eventData, bool onEnter) =>
             {
+                if (eventData.dragging)
+                    return;
+
                 hover_b = onEnter;
 
                 if (onEnter)
@@ -50,6 +53,9 @@ namespace _SGUI_
 
             move_handler.onMove += (PointerEventData eventData) =>
             {
+                if (eventData.dragging)
+                    return;
+
                 window.resizer_visual.TryFocusZone(this);
             };
 

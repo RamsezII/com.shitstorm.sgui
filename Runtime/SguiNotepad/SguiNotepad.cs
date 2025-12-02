@@ -52,6 +52,8 @@ namespace _SGUI_
             dropdown_files.onItemClick += OnClick_FilesDropdown;
 
             base.Awake();
+
+            trad_title.SetTrad("ShitCodium");
         }
 
         //--------------------------------------------------------------------------------------------------------------

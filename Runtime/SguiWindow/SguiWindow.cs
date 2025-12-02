@@ -1,6 +1,7 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace _SGUI_
@@ -8,7 +9,6 @@ namespace _SGUI_
     public partial class SguiWindow : MonoBehaviour
     {
         public static readonly ListListener<SguiWindow> instances = new();
-        public bool HasFocus => instances.IsLast(this);
 
         [HideInInspector] public Animator animator;
 
@@ -26,14 +26,13 @@ namespace _SGUI_
         static uint _id;
         public uint id = _id++;
 
-        public override string ToString() => $"{GetType()}[{id}] \"{trad_title.traductions.Automatic}\"";
-
         //--------------------------------------------------------------------------------------------------------------
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void OnBeforeSceneLoad()
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
         {
             _id = 0;
+            instances.Reset();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -49,12 +48,11 @@ namespace _SGUI_
             AwakeUI();
 
             if (window_icon != null)
-            {
                 os_button = OSView.instance.GetSoftwareButton(GetType(), force: true);
-                os_button.software_instances.AddElement(this);
-            }
 
             trad_title.SetTrad(GetType().Name);
+
+            instances.AddElement(this);
         }
 
         protected virtual void OnEnable()
@@ -65,6 +63,8 @@ namespace _SGUI_
 
             OSView.instance.users.AddElement(this);
             UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
+
+            os_button?.RefreshOpenState();
         }
 
         protected virtual void OnDisable()
@@ -72,18 +72,43 @@ namespace _SGUI_
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             OSView.instance?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
+
+            os_button?.RefreshOpenState();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected virtual void Start()
         {
+            if (os_button != null)
+                os_button.software_instances.AddElement(this);
+
             StartUI();
             ToggleWindow(true);
             button_close.onClick.AddListener(() => SetScalePivot(null));
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public void TakeFocus()
+        {
+            transform.SetAsLastSibling();
+            instances.Modify(list =>
+            {
+                list.Remove(this);
+                list.Add(this);
+            });
+        }
+
+        public bool HasFocus()
+        {
+            for (int i = instances._collection.Count - 1; i >= 0; --i)
+                if (this == instances._collection[i])
+                    return true;
+                else if (instances._collection[i].gameObject.activeInHierarchy)
+                    return false;
+            return true;
+        }
 
         public void SetScalePivot(in SoftwareButton button)
         {
@@ -211,6 +236,9 @@ namespace _SGUI_
             Oblivionize();
             onDestroy?.Invoke();
             UsageManager.RemoveUser(this);
+            instances.RemoveElement(this);
+
+            os_button?.RefreshOpenState();
         }
     }
 }

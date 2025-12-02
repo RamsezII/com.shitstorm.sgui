@@ -29,10 +29,8 @@ namespace _SGUI_
                                 {
                                     SguiWindow window = rc_results[i].gameObject.GetComponentInParent<SguiWindow>();
                                     if (window != null)
-                                    {
-                                        window.transform.SetAsLastSibling();
-                                        return true;
-                                    }
+                                        window.TakeFocus();
+                                    return true;
                                 }
                         }
                         break;
