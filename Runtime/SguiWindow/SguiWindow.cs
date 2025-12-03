@@ -102,6 +102,8 @@ namespace _SGUI_
                 list.Remove(this);
                 list.Add(this);
             });
+
+            SoftwareButton.RefreshAllOpenStates();
         }
 
         public bool HasFocus()

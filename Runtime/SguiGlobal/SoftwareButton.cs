@@ -12,9 +12,11 @@ namespace _SGUI_
 {
     public class SoftwareButton : OSButton, IPointerClickHandler
     {
+        internal static readonly HashSet<SoftwareButton> instances = new();
+
         public RectTransform rt;
         TMP_Dropdown dropdown;
-        public Image img_icon, img_open;
+        public Image img_icon, img_open, img_focus;
         public RawImage rimg_icon;
         RawImage[] img_instances;
         public int max_instances = 10;
@@ -29,13 +31,24 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            instances.Clear();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Awake()
         {
+            instances.Add(this);
+
             rt = (RectTransform)transform;
             dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
             img_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
             img_icon = transform.Find("img_icon").GetComponent<Image>();
             img_open = transform.Find("is-open").GetComponent<Image>();
+            img_focus = transform.Find("has-focus").GetComponent<Image>();
             rimg_icon = transform.Find("rimg_icon").GetComponent<RawImage>();
 
             base.Awake();
@@ -104,9 +117,9 @@ namespace _SGUI_
                         }
                     ));
                 });
-            });
 
-            RefreshOpenState();
+                RefreshOpenState();
+            });
 
             Traductable.language.AddListener(this, value => RefreshDropdown());
 
@@ -125,18 +138,32 @@ namespace _SGUI_
             dropdownOptions.Modify(null);
         }
 
+        internal static void RefreshAllOpenStates()
+        {
+            foreach (var button in instances)
+                button.RefreshOpenState();
+        }
+
         internal void RefreshOpenState()
         {
-            bool open = false;
+            bool open = false, focus = false;
 
             for (int i = 0; i < software_instances._collection.Count; i++)
             {
                 SguiWindow window = software_instances._collection[i];
                 if (!window.oblivionized && window.isActiveAndEnabled)
+                {
                     open = true;
+                    if (window.HasFocus())
+                        focus = true;
+
+                    if (open && focus)
+                        break;
+                }
             }
 
             img_open.gameObject.SetActive(open);
+            img_focus.gameObject.SetActive(focus);
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -210,6 +237,7 @@ namespace _SGUI_
 
         private void OnDestroy()
         {
+            instances.Remove(this);
             Traductable.language._propagator.RemoveListener_user(this);
             if (software_prefab != null)
                 foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include, FindObjectsSortMode.None))
