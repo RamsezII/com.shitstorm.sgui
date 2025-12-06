@@ -45,12 +45,12 @@ namespace _SGUI_
 
                 case BaseStates.Enable:
                     if (!value)
-                        animator.CrossFade((int)BaseStates.Enable_, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
+                        animator.CrossFade((int)BaseStates.Enable_, 0, 0, 1 - animator.GetNormalizedTimeClamped(0));
                     break;
 
                 case BaseStates.Enable_:
                     if (value)
-                        animator.CrossFade((int)BaseStates.Enable, 0, 0, 1 - animator.GetNormlizedTimeClamped(0));
+                        animator.CrossFade((int)BaseStates.Enable, 0, 0, 1 - animator.GetNormalizedTimeClamped(0));
                     break;
 
                 default:

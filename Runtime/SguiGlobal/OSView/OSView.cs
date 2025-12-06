@@ -107,7 +107,7 @@ namespace _SGUI_
                         if (!toggle)
                         {
                             state = BaseStates.Enable_;
-                            offset = 1 - animator.GetNormlizedTimeClamped();
+                            offset = 1 - animator.GetNormalizedTimeClamped();
                         }
                         break;
 
@@ -115,7 +115,7 @@ namespace _SGUI_
                         if (toggle)
                         {
                             state = BaseStates.Enable;
-                            offset = 1 - animator.GetNormlizedTimeClamped();
+                            offset = 1 - animator.GetNormalizedTimeClamped();
                         }
                         break;
                 }
