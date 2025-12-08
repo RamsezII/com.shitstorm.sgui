@@ -19,8 +19,7 @@ namespace _SGUI_
             rT_2D, rt_windows1, rt_windows2,
             rT_3D;
 
-        [SerializeField] RectTransform rT_scheduler;
-        [SerializeField] TextMeshProUGUI txt_scheduler, text_framerate;
+        [SerializeField] TextMeshProUGUI text_framerate;
 
         public RectTransform vchat_icon_rT, vchat_bar_rT;
 
@@ -41,24 +40,21 @@ namespace _SGUI_
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            raycaster_2D = transform.Find("Canvas2D").GetComponent<GraphicRaycaster>();
-            raycaster_3D = transform.Find("CameraUI/Canvas3D").GetComponent<GraphicRaycaster>();
-
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
             rt_windows1 = (RectTransform)rT_2D.Find("windows1");
             rt_windows2 = (RectTransform)rT_2D.Find("windows2");
 
-            rT_scheduler = (RectTransform)canvas2D.transform.Find("rT/scheduler");
-            txt_scheduler = rT_scheduler.Find("text").GetComponent<TextMeshProUGUI>();
-
             text_framerate = transform.Find("Canvas2D/rT/Framerate/text").GetComponent<TextMeshProUGUI>();
 
-            cameraUI = transform.Find("CameraUI").GetComponent<Camera>();
+            cameraUI = transform.Find("WorldCameraUI").GetComponent<Camera>();
             canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
             canvasGroup3D = canvas3D.GetComponent<CanvasGroup>();
             rT_3D = (RectTransform)canvas3D.transform.Find("rT");
+
+            raycaster_2D = canvas2D.GetComponent<GraphicRaycaster>();
+            raycaster_3D = canvas3D.GetComponent<GraphicRaycaster>();
 
             vchat_icon_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat");
             vchat_bar_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat/icon/bar");
@@ -71,14 +67,6 @@ namespace _SGUI_
         private void Start()
         {
             StartButtons();
-
-            NUCLEOR.instance.sequencer.schedulables.AddListener1(this, isNotEmpty =>
-            {
-                NUCLEOR.delegates.LateUpdate -= OnLateUpdateSchedulerInfos;
-                if (isNotEmpty)
-                    NUCLEOR.delegates.LateUpdate += OnLateUpdateSchedulerInfos;
-                rT_scheduler.gameObject.SetActive(isNotEmpty);
-            });
 
             IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
 
@@ -100,25 +88,6 @@ namespace _SGUI_
                 else
                     text_framerate.color = Color.red;
             }));
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        void OnLateUpdateSchedulerInfos()
-        {
-            Schedulable schedulable = NUCLEOR.instance.sequencer.schedulables._collection[0];
-
-            float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
-
-            float body_width = rT_scheduler.rect.width;
-            float char_width = txt_scheduler.GetPreferredValues("_", body_width, float.PositiveInfinity).x;
-            int max_chars = (int)(body_width / char_width);
-
-            int bar_count = max_chars - 9;
-            int count = (int)(Mathf.Clamp01(progress) * bar_count);
-
-            txt_scheduler.text = $"{schedulable.description}\n({Util_ark.GetRotator()}) {new string('▓', count)}{new string('░', bar_count - count)} {Mathf.RoundToInt(100 * progress),3}%";
-            rT_scheduler.sizeDelta = new(0, txt_scheduler.GetPreferredValues(txt_scheduler.text, rT_2D.rect.width, float.PositiveInfinity).y);
         }
 
         //--------------------------------------------------------------------------------------------------------------
