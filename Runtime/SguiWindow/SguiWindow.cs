@@ -133,7 +133,8 @@ namespace _SGUI_
         public static SguiWindow InstantiateWindow(in SguiWindow prefab)
         {
             RectTransform parent_rt = prefab is SguiWindow1
-                ? SguiGlobal.instance.rt_windows1
+                //? SguiGlobal.instance.rt_windows1
+                ? OSView.instance.windows_rt
                 : SguiGlobal.instance.rt_windows2;
 
             SguiWindow winwow = Instantiate(prefab, parent_rt);

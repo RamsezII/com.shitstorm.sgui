@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -31,6 +32,8 @@ namespace _SGUI_
         [SerializeField] SoftwareButton prefab_softwarebutton;
         readonly Dictionary<Type, SoftwareButton> softwares = new();
 
+        public static readonly object auto_usage = new();
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
@@ -56,19 +59,11 @@ namespace _SGUI_
             edit_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
 
             prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
-        }
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void OnEnable()
-        {
-            RefreshDatetime();
-            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
-        }
-
-        private void OnDisable()
-        {
-            UsageManager.RemoveUser(this);
+            transform.Find("clickable").GetComponent<PointerClickHandler>().onClick += (PointerEventData eventData) =>
+            {
+                users.RemoveElement(auto_usage);
+            };
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -97,10 +92,7 @@ namespace _SGUI_
                 {
                     case BaseStates.Default:
                         if (toggle)
-                        {
-                            gameObject.SetActive(true);
                             state = BaseStates.Enable;
-                        }
                         break;
 
                     case BaseStates.Enable:

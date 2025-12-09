@@ -1,4 +1,5 @@
-﻿using _UTIL_;
+﻿using _ARK_;
+using _UTIL_;
 using UnityEngine;
 
 namespace _SGUI_
@@ -29,9 +30,13 @@ namespace _SGUI_
 
                         switch (state)
                         {
-                            case BaseStates.Default:
-                                if (onEnter)
-                                    gameObject.SetActive(false);
+                            case BaseStates.Enable:
+                                RefreshDatetime();
+                                UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
+                                break;
+
+                            default:
+                                UsageManager.RemoveUser(this);
                                 break;
                         }
 
