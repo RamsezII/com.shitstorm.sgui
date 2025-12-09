@@ -46,13 +46,13 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
-            IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
+            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            IMGUI_global.instance.users_inputs.RemoveKey(OnImguiInputs);
+            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
         }
 
         //--------------------------------------------------------------------------------------------------------------

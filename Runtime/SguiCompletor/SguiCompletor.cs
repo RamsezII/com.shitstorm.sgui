@@ -35,13 +35,13 @@ namespace _SGUI_
         private void OnEnable()
         {
             UsageManager.AddUser(this, UsageGroups.Keyboard, UsageGroups.Typing, UsageGroups.GameMouse);
-            IMGUI_global.instance.users_inputs.AddElement(OnIMGUIInputs, this);
+            IMGUI_global.instance.inputs_users.AddElement(OnIMGUIInputs);
         }
 
         private void OnDisable()
         {
             UsageManager.RemoveUser(this);
-            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
+            IMGUI_global.instance.inputs_users.RemoveElement(OnIMGUIInputs);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -153,6 +153,7 @@ namespace _SGUI_
 
         private void OnDestroy()
         {
+            IMGUI_global.instance.inputs_users.RemoveElement(OnIMGUIInputs);
             if (this == instance)
                 instance = null;
         }

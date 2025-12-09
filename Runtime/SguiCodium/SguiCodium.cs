@@ -57,13 +57,5 @@ namespace _SGUI_
         {
             script_view.file_path.Value = button_file.full_path.GetFile();
         }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
-        }
     }
 }

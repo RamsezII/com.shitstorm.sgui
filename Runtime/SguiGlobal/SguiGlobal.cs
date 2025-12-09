@@ -68,7 +68,7 @@ namespace _SGUI_
         {
             StartButtons();
 
-            IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
+            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
 
             UsageManager.usages[(int)UsageGroups.IMGUI].AddListener1(this, isNotEmpty =>
             {
@@ -94,7 +94,7 @@ namespace _SGUI_
 
         void OnDestroy()
         {
-            IMGUI_global.instance?.users_inputs.RemoveKey(OnImguiInputs);
+            IMGUI_global.instance?.inputs_users.RemoveElement(OnImguiInputs);
             op_framerate.Dispose();
         }
     }

@@ -57,12 +57,12 @@ namespace _SGUI_
 
         protected virtual void OnSelectStdin(string text)
         {
-            IMGUI_global.instance.users_inputs.AddElement(OnImguiInputs, this);
+            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
         }
 
         protected virtual void OnDeselectStdin(string arg0)
         {
-            IMGUI_global.instance.users_inputs.RemoveKeysByValue(this);
+            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
         }
 
         protected virtual bool OnImguiInputs(Event e)
@@ -74,6 +74,7 @@ namespace _SGUI_
 
         protected virtual void OnDestroy()
         {
+            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
         }
     }
 }
