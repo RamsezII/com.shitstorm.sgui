@@ -70,7 +70,7 @@ namespace _SGUI_
 
             IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
 
-            UsageManager.usages[(int)UsageGroups.IMGUI].AddListener1(this, isNotEmpty =>
+            UsageManager.usages[(int)UsageGroups.IMGUI].AddListener1(isNotEmpty =>
             {
                 canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
                 canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;

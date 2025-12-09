@@ -23,7 +23,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            current_zones.AddListener1(this, gameObject.SetActive);
+            current_zones.AddListener1(gameObject.SetActive);
         }
 
         //--------------------------------------------------------------------------------------------------------------

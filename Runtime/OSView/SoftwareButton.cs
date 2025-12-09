@@ -62,7 +62,7 @@ namespace _SGUI_
 
             rt.sizeDelta = 25 * Vector2.one;
 
-            software_instances.AddListener2(this, list =>
+            software_instances.AddListener2(list =>
             {
                 for (int i = 0; i < img_instances.Length; i++)
                     img_instances[i].gameObject.SetActive(list.Count > i);
@@ -121,9 +121,9 @@ namespace _SGUI_
                 RefreshOpenState();
             });
 
-            Traductable.language.AddListener(this, value => RefreshDropdown());
+            Traductable.language.AddListener(OnTraductablesLangage);
 
-            dropdownOptions.AddListener2(this, _list =>
+            dropdownOptions.AddListener2(_list =>
             {
                 dropdown.ClearOptions();
                 List<string> options = _list.Select(x => x.trad.Automatic).ToList();
@@ -133,7 +133,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void RefreshDropdown()
+        void OnTraductablesLangage(Languages value)
         {
             dropdownOptions.Modify(null);
         }
@@ -238,7 +238,9 @@ namespace _SGUI_
         private void OnDestroy()
         {
             instances.Remove(this);
-            Traductable.language._propagator.RemoveListener_user(this);
+
+            Traductable.language.RemoveListener(OnTraductablesLangage);
+
             if (software_prefab != null)
                 foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include, FindObjectsSortMode.None))
                     if (instance != null)

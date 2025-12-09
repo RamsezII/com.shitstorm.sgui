@@ -83,7 +83,7 @@ namespace _SGUI_
                 delay = 15,
             });
 
-            users.AddListener1(this, toggle =>
+            users.AddListener1(toggle =>
             {
                 BaseStates state = state_base;
                 float fade = 0, offset = 0;

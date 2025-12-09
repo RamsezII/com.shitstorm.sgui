@@ -23,7 +23,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            NUCLEOR.instance.sequencer.schedulables.AddListener1(this, isNotEmpty =>
+            NUCLEOR.instance.sequencer.schedulables.AddListener1(isNotEmpty =>
             {
                 NUCLEOR.delegates.LateUpdate -= Refresh;
                 if (isNotEmpty)
