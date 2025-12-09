@@ -119,6 +119,14 @@ namespace _SGUI_
                 if (state != state_base)
                     animator.CrossFade((int)state, fade, (int)AnimLayers.Base, offset);
             });
+
+            edit_close.onClick.AddListener(ShowApplicationShutdownConfirm);
+
+            Application.wantsToQuit += () =>
+            {
+                ShowApplicationShutdownConfirm();
+                return false;
+            };
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -140,6 +148,25 @@ namespace _SGUI_
                 }
             }
             return button;
+        }
+
+        public static void ShowApplicationShutdownConfirm()
+        {
+            var dialog = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
+            {
+                french = $"Éteindre {Application.productName} ?",
+                english = $"Shutdown {Application.productName} ?",
+            });
+
+            dialog.onAction_confirm += () =>
+            {
+#if UNITY_EDITOR
+                if (Application.isEditor)
+                    UnityEditor.EditorApplication.isPlaying = false;
+                else
+#endif
+                    Application.Quit();
+            };
         }
 
         void RefreshDatetime()
