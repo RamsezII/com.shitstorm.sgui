@@ -16,7 +16,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             huable_background = transform.Find("rT/background").GetComponent<Graphic>();
 
@@ -29,7 +29,7 @@ namespace _SGUI_
             trad_cancel = button_cancel.transform.Find("label").GetComponent<Traductable>();
             trad_confirm = button_confirm.transform.Find("label").GetComponent<Traductable>();
 
-            base.Awake();
+            base.OnAwake();
         }
 
         //--------------------------------------------------------------------------------------------------------------

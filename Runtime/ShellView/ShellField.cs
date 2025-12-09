@@ -14,7 +14,7 @@ namespace _SGUI_
         public TextMeshProUGUI lint;
         public new Action<string> onValueChanged;
 
-        public static bool zspaces_check = true;
+        public static bool zspaces_check = false;
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -26,8 +26,11 @@ namespace _SGUI_
 
             base.Awake();
 
-            onSelect.AddListener(_ => IMGUI_global.instance.clipboard_users.AddElement(OnClipboardOperation));
-            onDeselect.AddListener(_ => IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation));
+            if (Application.isPlaying)
+            {
+                onSelect.AddListener(_ => IMGUI_global.instance.clipboard_users.AddElement(OnClipboardOperation));
+                onDeselect.AddListener(_ => IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation));
+            }
 
             base.onValueChanged.AddListener(OnValueChanged);
         }
@@ -36,43 +39,25 @@ namespace _SGUI_
 
         protected override void OnDisable()
         {
-            IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation);
+            if (Application.isPlaying)
+                IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation);
         }
 
         //----------------------------------------------------------------------------------------------------------
-
-        bool OnClipboardOperation(Event e, IMGUI_global.ClipboardOperations operation)
-        {
-            LoggerOverlay.Log($"{GetType()} Clipboard Operation: \"{operation}\"", this);
-            switch (operation)
-            {
-                case IMGUI_global.ClipboardOperations.Copy:
-                    OnCtrlC();
-                    return true;
-
-                case IMGUI_global.ClipboardOperations.Cut:
-                    OnCtrlX();
-                    return true;
-
-                case IMGUI_global.ClipboardOperations.Paste:
-                    OnCtrlV();
-                    return true;
-            }
-            return false;
-        }
-
-        void OnValueChanged(string arg0)
-        {
-            if (zspaces_check && arg0.ZSpaced(out string zspaced))
-                textComponent.text = zspaced;
-            else
-                onValueChanged?.Invoke(arg0);
-        }
 
         public override void OnScroll(PointerEventData eventData)
         {
             base.OnScroll(eventData);
             scrollview.OnScroll(eventData);
+        }
+
+        void OnValueChanged(string arg0)
+        {
+            if (Application.isPlaying)
+                if (zspaces_check && arg0.ZSpaced(out string zspaced))
+                    textComponent.text = zspaced;
+                else
+                    onValueChanged?.Invoke(arg0);
         }
 
         public bool TryGetSelectedString(out string selectedString, out int start, out int end)
@@ -90,6 +75,25 @@ namespace _SGUI_
                 return string.Empty;
 
             return text[start..end];
+        }
+
+        bool OnClipboardOperation(Event e, IMGUI_global.ClipboardOperations operation)
+        {
+            switch (operation)
+            {
+                case IMGUI_global.ClipboardOperations.Copy:
+                    OnCtrlC();
+                    return true;
+
+                case IMGUI_global.ClipboardOperations.Cut:
+                    OnCtrlX();
+                    return true;
+
+                case IMGUI_global.ClipboardOperations.Paste:
+                    OnCtrlV();
+                    return true;
+            }
+            return false;
         }
 
         void OnCtrlC()

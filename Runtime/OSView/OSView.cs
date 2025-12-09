@@ -32,7 +32,8 @@ namespace _SGUI_
         [SerializeField] SoftwareButton prefab_softwarebutton;
         readonly Dictionary<Type, SoftwareButton> softwares = new();
 
-        public static readonly object auto_usage = new();
+        static readonly object auto_usage = new();
+        public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
 
         //--------------------------------------------------------------------------------------------------------------
 

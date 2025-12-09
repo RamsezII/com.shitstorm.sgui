@@ -18,13 +18,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             Transform video_rt = transform.Find("rT/body/video_player");
             video_player = video_rt.GetComponent<VideoPlayer>();
             audio_source = video_rt.GetComponent<AudioSource>();
 
-            base.Awake();
+            base.OnAwake();
         }
     }
 }

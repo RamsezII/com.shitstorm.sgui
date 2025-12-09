@@ -38,7 +38,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void Awake()
+        protected virtual void OnAwake()
         {
             id = _id++;
 
@@ -65,7 +65,6 @@ namespace _SGUI_
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
 
-            OSView.instance.users.AddElement(this);
             UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
 
             os_button?.RefreshOpenState();
@@ -74,7 +73,6 @@ namespace _SGUI_
         protected virtual void OnDisable()
         {
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
-            OSView.instance?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
 
             os_button?.RefreshOpenState();
@@ -133,13 +131,16 @@ namespace _SGUI_
         public static SguiWindow InstantiateWindow(in SguiWindow prefab)
         {
             RectTransform parent_rt = prefab is SguiWindow1
-                //? SguiGlobal.instance.rt_windows1
                 ? OSView.instance.windows_rt
                 : SguiGlobal.instance.rt_windows2;
 
-            SguiWindow winwow = Instantiate(prefab, parent_rt);
+            SguiWindow clone = Instantiate(prefab, parent_rt);
+            clone.OnAwake();
 
-            return winwow;
+            if (prefab is SguiWindow1)
+                OSView.instance.ToggleSelf(true);
+
+            return clone;
         }
 
         public static SguiCustom ShowAlert(in SguiDialogs type, out SguiCustom_Alert alert, in Traductions traductions)

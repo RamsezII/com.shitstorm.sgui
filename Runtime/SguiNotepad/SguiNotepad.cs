@@ -43,7 +43,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             script_view = GetComponentInChildren<ScriptView>();
             footer_tmp = transform.Find("rT/footer/text").GetComponent<TextMeshProUGUI>();
@@ -51,7 +51,7 @@ namespace _SGUI_
             dropdown_files = transform.Find("rT/buttons/layout/button_Files").GetComponent<HeaderDropdown>();
             dropdown_files.onItemClick += OnClick_FilesDropdown;
 
-            base.Awake();
+            base.OnAwake();
 
             trad_title.SetTrad("ShitCodium");
         }

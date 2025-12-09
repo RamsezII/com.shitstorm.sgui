@@ -30,7 +30,7 @@ namespace _SGUI_
             return clone;
         }
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             hierarchy_viewport_rT = (RectTransform)transform.Find("rT/left-window/scroll-view/viewport");
             hierarchy_content_rT = (RectTransform)hierarchy_viewport_rT.Find("content_layout");
@@ -41,7 +41,7 @@ namespace _SGUI_
 
             header_input = transform.Find("rT/input_path/input_text").GetComponent<TMP_InputField>();
 
-            base.Awake();
+            base.OnAwake();
         }
 
         void Init(in Action<string> on_done, in FS_TYPES mode)

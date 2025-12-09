@@ -9,7 +9,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             hierarchy_viewport_rT = (RectTransform)transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport");
             hierarchy_content_rT = (RectTransform)hierarchy_viewport_rT.Find("content_layout");
@@ -18,7 +18,7 @@ namespace _SGUI_
             prefab_hierarchy_folder = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/folder_button").GetComponent<Button_Folder>();
             prefab_hierarchy_file = transform.Find("rT/body/left_explorer/hierarchy/scroll_view/viewport/content_layout/file_button").GetComponent<Button_File>();
 
-            base.Awake();
+            base.OnAwake();
         }
 
         protected override void OnEnable()

@@ -2,9 +2,9 @@
 {
     public abstract partial class SguiTerminal : SguiWindow1
     {
-        protected override void Awake()
+        protected override void OnAwake()
         {
-            base.Awake();
+            base.OnAwake();
             trad_title.SetTrad("SguiTerminal");
         }
     }

@@ -19,9 +19,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
-            base.Awake();
+            base.OnAwake();
 
             content_layout_rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
             content_layout = content_layout_rT.GetComponent<VerticalLayoutGroup>();

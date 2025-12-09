@@ -20,7 +20,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             huable_background = transform.Find("rT/body/background").GetComponent<Graphic>();
 
@@ -40,7 +40,7 @@ namespace _SGUI_
             if (dropdown_help != null)
                 dropdown_help.onItemClick += OnClickDropdown_Help;
 
-            base.Awake();
+            base.OnAwake();
         }
 
         protected override void OnEnable()

@@ -19,7 +19,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             rT_fill = (RectTransform)transform.Find("rT/progress/mask/fill");
             tmp_percentage = transform.Find("rT/progress/text").GetComponent<TextMeshProUGUI>();
@@ -27,7 +27,7 @@ namespace _SGUI_
             trad_infos = transform.Find("rT/text").GetComponent<Traductable>();
             tmp_infos = trad_infos.FirstTmp();
 
-            base.Awake();
+            base.OnAwake();
 
             initsize_tmp = tmp_infos.preferredHeight;
 

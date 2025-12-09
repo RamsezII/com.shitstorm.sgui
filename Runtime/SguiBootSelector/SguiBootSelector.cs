@@ -14,7 +14,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnAwake()
         {
             content_rt = (RectTransform)transform.Find("rT/body/content/inside/scrollview/viewport/content");
             vlayout = content_rt.Find("layout").GetComponent<VerticalLayoutGroup>();
@@ -22,7 +22,7 @@ namespace _SGUI_
             categories = GetComponentsInChildren<SguiBootCategory>();
             trad_sub_title = transform.Find("rT/body/content/title").GetComponent<Traductable>();
 
-            base.Awake();
+            base.OnAwake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
