@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.HID;
 
 namespace _SGUI_
 {
@@ -45,7 +44,7 @@ namespace _SGUI_
                         case KeyCode.Mouse1:
                             for (int i = 0; i < rc_results.Count; ++i)
                             {
-                                var clickable = rc_results[i].gameObject.GetComponentInParent<SguiContextClick.ILeftClickable>();
+                                var clickable = rc_results[i].gameObject.GetComponentInParent<SguiContextClick.IUser>();
                                 if (clickable != null)
                                 {
                                     SguiContextClick_List left_click_menu = SguiContextClick.instance.RightClickHere(Input.mousePosition);

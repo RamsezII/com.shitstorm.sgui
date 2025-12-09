@@ -5,7 +5,7 @@ namespace _SGUI_
 {
     public class SguiContextClick : MonoBehaviour
     {
-        public interface ILeftClickable
+        public interface IUser
         {
             void OnSguiContextClick(SguiContextClick_List context_list);
         }
