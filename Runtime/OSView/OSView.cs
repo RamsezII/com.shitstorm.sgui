@@ -85,6 +85,9 @@ namespace _SGUI_
 
             users.AddListener1(toggle =>
             {
+                if (this == null)
+                    return;
+
                 BaseStates state = state_base;
                 float fade = 0, offset = 0;
 
