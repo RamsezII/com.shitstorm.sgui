@@ -124,6 +124,8 @@ namespace _SGUI_
 
             Application.wantsToQuit += () =>
             {
+                if (ArkMachine.flag_shutdown)
+                    return true;
                 ShowApplicationShutdownConfirm();
                 return false;
             };
@@ -157,16 +159,7 @@ namespace _SGUI_
                 french = $"Éteindre {Application.productName} ?",
                 english = $"Shutdown {Application.productName} ?",
             });
-
-            dialog.onAction_confirm += () =>
-            {
-#if UNITY_EDITOR
-                if (Application.isEditor)
-                    UnityEditor.EditorApplication.isPlaying = false;
-                else
-#endif
-                    Application.Quit();
-            };
+            dialog.onAction_confirm += () => ArkMachine.ShutdownApplication(true);
         }
 
         void RefreshDatetime()
