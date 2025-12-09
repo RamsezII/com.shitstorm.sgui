@@ -356,6 +356,11 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 860eefe3b4f78a74db263d1b0d529910, type: 2}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_wordWrappingRatios
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2651048763851923652, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
       propertyPath: m_Pivot.x
@@ -501,6 +506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 58753152
+      objectReference: {fileID: 0}
+    - target: {fileID: 350054107533990283, guid: ec39179769c5e3940ae407fb10407100,
+        type: 3}
+      propertyPath: m_wordWrappingRatios
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2651048763851923652, guid: ec39179769c5e3940ae407fb10407100,
         type: 3}
