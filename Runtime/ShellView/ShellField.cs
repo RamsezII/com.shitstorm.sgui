@@ -14,6 +14,8 @@ namespace _SGUI_
         public TextMeshProUGUI lint;
         public new Action<string> onValueChanged;
 
+        public static bool zspaces_check = true;
+
         //----------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
@@ -21,43 +23,47 @@ namespace _SGUI_
             scrollview = GetComponentInParent<ScrollRect>();
             rT = (RectTransform)transform;
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
-            base.onValueChanged.AddListener(OnValueChanged);
 
             base.Awake();
+
+            onSelect.AddListener(_ => IMGUI_global.instance.clipboard_users.AddElement(OnClipboardOperation));
+            onDeselect.AddListener(_ => IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation));
+
+            base.onValueChanged.AddListener(OnValueChanged);
         }
 
         //----------------------------------------------------------------------------------------------------------
-
-        protected override void OnEnable()
-        {
-            if (this == null)
-                return;
-
-            base.OnEnable();
-
-            if (Application.isPlaying)
-                IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
-        }
 
         protected override void OnDisable()
         {
-            if (this == null)
-                return;
-
-            base.OnDisable();
-
-            if (Application.isPlaying)
-                IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+            IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation);
         }
 
         //----------------------------------------------------------------------------------------------------------
 
+        bool OnClipboardOperation(Event e, IMGUI_global.ClipboardOperations operation)
+        {
+            LoggerOverlay.Log($"{GetType()} Clipboard Operation: \"{operation}\"", this);
+            switch (operation)
+            {
+                case IMGUI_global.ClipboardOperations.Copy:
+                    OnCtrlC();
+                    return true;
+
+                case IMGUI_global.ClipboardOperations.Cut:
+                    OnCtrlX();
+                    return true;
+
+                case IMGUI_global.ClipboardOperations.Paste:
+                    OnCtrlV();
+                    return true;
+            }
+            return false;
+        }
+
         void OnValueChanged(string arg0)
         {
-            onValueChanged?.Invoke(arg0);
-            return;
-
-            if (arg0.ZSpaced(out string zspaced))
+            if (zspaces_check && arg0.ZSpaced(out string zspaced))
                 textComponent.text = zspaced;
             else
                 onValueChanged?.Invoke(arg0);
@@ -86,38 +92,13 @@ namespace _SGUI_
             return text[start..end];
         }
 
-        bool OnImguiInputs(Event e)
-        {
-            return false;
-
-            if (!isFocused)
-                return false;
-
-            if (e != null && e.isKey && e.type == EventType.KeyDown)
-                if (e.control || e.command)
-                    switch (e.keyCode)
-                    {
-                        case KeyCode.C:
-                            OnCtrlC();
-                            return true;
-
-                        case KeyCode.X:
-                            OnCtrlX();
-                            return true;
-
-                        case KeyCode.V:
-                            OnCtrlV();
-                            return true;
-                    }
-
-            return false;
-        }
-
         void OnCtrlC()
         {
             if (TryGetSelectedString(out string selected, out _, out _))
             {
-                selected.UnZSpaced(out selected);
+                if (zspaces_check)
+                    selected.UnZSpaced(out selected);
+
                 GUIUtility.systemCopyBuffer = selected;
             }
         }
@@ -125,22 +106,32 @@ namespace _SGUI_
         void OnCtrlV()
         {
             GetSelectedString(out int start, out int end);
+
             string text = this.text;
             text = text[..start] + GUIUtility.systemCopyBuffer + text[end..];
-            text.ZSpaced(out string zspaced);
-            textComponent.text = zspaced;
+
+            if (zspaces_check)
+                text.ZSpaced(out text);
+
+            textComponent.text = text;
         }
 
         void OnCtrlX()
         {
             if (TryGetSelectedString(out string selected, out int start, out int end))
             {
-                selected.UnZSpaced(out selected);
+                if (zspaces_check)
+                    selected.UnZSpaced(out selected);
+
                 GUIUtility.systemCopyBuffer = selected;
+
                 string text = this.text;
                 text = text[..start] + text[end..];
-                text.ZSpaced(out string zspaced);
-                textComponent.text = zspaced;
+
+                if (zspaces_check)
+                    text.ZSpaced(out text);
+
+                textComponent.text = text;
             }
         }
     }
