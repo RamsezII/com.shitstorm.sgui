@@ -21,7 +21,9 @@ namespace _SGUI_
             rt = (RectTransform)transform;
             button = GetComponentInChildren<Button>();
             trad = GetComponentInChildren<Traductable>();
-            arrow = GetComponentInChildren<RawImage>();
+            arrow = transform.Find("arrow").GetComponent<RawImage>();
+
+            arrow.gameObject.SetActive(false);
         }
 
         //--------------------------------------------------------------------------------------------------------------

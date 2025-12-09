@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public partial class SguiWindow : MonoBehaviour
+    public partial class SguiWindow : MonoBehaviour, SguiGlobal.ISguiGlobalLeftClick
     {
         public static readonly ListListener<SguiWindow> instances = new();
 
@@ -112,6 +112,11 @@ namespace _SGUI_
                 else if (instances._collection[i].gameObject.activeInHierarchy)
                     return false;
             return true;
+        }
+
+        public virtual void OnSguiGlobalLeftClick()
+        {
+            TakeFocus();
         }
 
         public void SetScalePivot(in SoftwareButton button)

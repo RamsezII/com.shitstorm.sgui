@@ -1,13 +1,29 @@
+using System;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public class SguiContextClick : MonoBehaviour
     {
+        public interface ILeftClickable
+        {
+            void OnSguiContextClick(SguiContextClick_List context_list);
+        }
+
         public static SguiContextClick instance;
 
         [SerializeField] internal SguiContextClick_List prefab_scrollview;
         [SerializeField] internal SguiContextClick_List scrollview_lastRootList;
+
+        public static Action<SguiContextClick_List> onGlobalContextList;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            onGlobalContextList = null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 

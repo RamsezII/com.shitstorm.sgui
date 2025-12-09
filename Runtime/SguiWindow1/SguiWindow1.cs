@@ -110,16 +110,13 @@ namespace _SGUI_
                 {
                     case KeyCode.F10:
                         CheckBounds();
-                        break;
+                        return true;
 
                     case KeyCode.F11:
                         fullscreen.Toggle();
-                        break;
-
-                    default:
-                        return false;
+                        return true;
                 }
-            return true;
+            return false;
         }
 
         public void CheckBounds()
@@ -144,7 +141,6 @@ namespace _SGUI_
 
         public virtual void OnResized()
         {
-
         }
     }
 }

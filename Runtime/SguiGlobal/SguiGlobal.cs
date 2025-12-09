@@ -92,9 +92,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void OnDestroy()
+        private void OnDestroy()
         {
-            IMGUI_global.instance?.inputs_users.RemoveElement(OnImguiInputs);
+            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
             op_framerate.Dispose();
         }
     }

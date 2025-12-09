@@ -1,42 +1,63 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.HID;
 
 namespace _SGUI_
 {
     partial class SguiGlobal
     {
+        public interface ISguiGlobalLeftClick
+        {
+            void OnSguiGlobalLeftClick();
+        }
+
         bool OnImguiInputs(Event e)
         {
             if (e.type == EventType.MouseDown)
-                switch (e.keyCode)
+            {
+                List<RaycastResult> rc_results = new();
+
+                rc_results.Clear();
+
+                PointerEventData data = new(EventSystem.current)
                 {
-                    case KeyCode.Mouse0:
-                        {
-                            List<RaycastResult> rc_results = new();
+                    position = Input.mousePosition
+                };
 
-                            rc_results.Clear();
+                raycaster_2D.Raycast(data, rc_results);
 
-                            PointerEventData data = new(EventSystem.current)
+                if (rc_results.Count > 0)
+                    switch (e.keyCode)
+                    {
+                        case KeyCode.Mouse0:
+                            for (int i = 0; i < rc_results.Count; ++i)
                             {
-                                position = Input.mousePosition
-                            };
-
-                            raycaster_2D.Raycast(data, rc_results);
-
-                            if (rc_results.Count > 0)
-                                for (int i = 0; i < rc_results.Count; ++i)
+                                var clickable = rc_results[i].gameObject.GetComponentInParent<ISguiGlobalLeftClick>();
+                                if (clickable != null)
                                 {
-                                    SguiWindow window = rc_results[i].gameObject.GetComponentInParent<SguiWindow>();
-                                    if (window != null)
-                                    {
-                                        window.TakeFocus();
-                                        return true;
-                                    }
+                                    clickable.OnSguiGlobalLeftClick();
+                                    return true;
                                 }
-                        }
-                        break;
-                }
+                            }
+                            break;
+
+                        case KeyCode.Mouse1:
+                            for (int i = 0; i < rc_results.Count; ++i)
+                            {
+                                var clickable = rc_results[i].gameObject.GetComponentInParent<SguiContextClick.ILeftClickable>();
+                                if (clickable != null)
+                                {
+                                    SguiContextClick_List left_click_menu = SguiContextClick.instance.RightClickHere(Input.mousePosition);
+                                    SguiContextClick.onGlobalContextList?.Invoke(left_click_menu);
+                                    clickable.OnSguiContextClick(left_click_menu);
+                                    return true;
+                                }
+                            }
+                            break;
+                    }
+            }
+
             return false;
         }
     }
