@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3544846117473548994}
   - component: {fileID: 9205988247860004068}
-  - component: {fileID: 6165578296185854821}
+  - component: {fileID: 4237931273169770351}
   m_Layer: 5
   m_Name: grid
   m_TagString: Untagged
@@ -150,7 +150,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659856392450717435}
   m_CullTransparentMesh: 1
---- !u!114 &6165578296185854821
+--- !u!114 &4237931273169770351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,15 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1659856392450717435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3fa88cc4bb54a74b9e14349c7e3fe9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7567f482cf5aabe478f51af35ed14a68, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: shitstorm._UTIL_::_UTIL_.UIGridRenderer
+  m_EditorClassIdentifier: shitstorm._UTIL_::_UTIL_.UI_NormalizedGridRenderer
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  tickness: 1
-  spacing: 10
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  thickness: 10
+  count_h: 5
+  count_v: 5
 --- !u!1 &2983756260161750053
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,11 +445,22 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  drawFill: 1
-  fillColor: {r: 0, g: 0, b: 0, a: 0.8}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  drawFillTop: 1
+  fillColorTop: {r: 0, g: 0, b: 0, a: 0.5}
+  drawFillBottom: 1
+  fillColorBottom: {r: 0.35, g: 0.35, b: 0.35, a: 1}
   drawLine: 1
   lineColor: {r: 0, g: 0, b: 0, a: 1}
   lineThickness: 1
+  drawGrid: 1
+  gridColumns: 24
+  gridRows: 12
+  gridThickness: 1
+  gridColor: {r: 0, g: 0, b: 0, a: 0.2}
 --- !u!1 &6150589300170825953
 GameObject:
   m_ObjectHideFlags: 0
