@@ -7,6 +7,7 @@ namespace _SGUI_
 {
     partial class SoftwareButton : SguiContextHover.IUser
     {
+        public Traductions hover_info;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -37,11 +38,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        Traductions SguiContextHover.IUser.OnSguiContextHover()
-        {
-            if (software_prefab == null)
-                return new("???");
-            return new(software_prefab.GetType().FullName);
-        }
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_info;
     }
 }

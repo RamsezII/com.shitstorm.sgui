@@ -41,7 +41,7 @@ namespace _SGUI_
             text = rt_square.Find("text").GetComponent<TextMeshProUGUI>();
             trad = rt_square.Find("text").GetComponent<Traductable>();
 
-            op = new(.5f, true, () =>
+            op = new(.35f, true, () =>
             {
                 NUCLEOR.instance.heartbeat_unscaled.operations.Remove(op);
 
@@ -53,6 +53,7 @@ namespace _SGUI_
                 }
 
                 Toggle(true);
+                ToggleMouseCheck(true);
 
                 trad.SetTrads(user.OnSguiContextHover());
 
@@ -75,6 +76,25 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        void ToggleMouseCheck(in bool toggle)
+        {
+            NUCLEOR.delegates.Update_OnStartOfFrame -= CheckForMouseMove;
+            if (toggle)
+                NUCLEOR.delegates.Update_OnStartOfFrame += CheckForMouseMove;
+        }
+
+        void CheckForMouseMove()
+        {
+            if (user == null)
+            {
+                Toggle(false);
+                ToggleMouseCheck(false);
+            }
+
+            if (Input.mousePositionDelta.sqrMagnitude > 0)
+                UnsetTarget(user);
+        }
 
         void ToggleOperation(in bool toggle)
         {
@@ -110,7 +130,7 @@ namespace _SGUI_
             {
                 case BaseStates.Default:
                     if (toggle)
-                        animator.CrossFadeInFixedTime((int)BaseStates.Enable, .5f, (int)AnimLayers.Base);
+                        animator.CrossFadeInFixedTime((int)BaseStates.Enable, .75f, (int)AnimLayers.Base);
                     break;
 
                 case BaseStates.Enable:
@@ -124,6 +144,7 @@ namespace _SGUI_
 
         private void OnDestroy()
         {
+            ToggleMouseCheck(false);
             op.Dispose();
         }
     }

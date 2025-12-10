@@ -8,6 +8,7 @@ namespace _SGUI_
 {
     public class SguiWindow2 : SguiWindow
     {
+        public RawImage rimg_background;
         public Button button_confirm, button_cancel;
         public Traductable trad_cancel, trad_confirm;
 
@@ -18,6 +19,7 @@ namespace _SGUI_
 
         protected override void OnAwake()
         {
+            rimg_background = transform.Find("background").GetComponent<RawImage>();
             huable_background = transform.Find("rT/background").GetComponent<Graphic>();
 
             buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
