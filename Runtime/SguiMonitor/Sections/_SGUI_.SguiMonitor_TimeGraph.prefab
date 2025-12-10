@@ -28,7 +28,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7955702686986420647}
+  - {fileID: 6520500585071359615}
   - {fileID: 6396299417378316449}
   - {fileID: 2707112167712123324}
   - {fileID: 8321159246617035770}
@@ -49,7 +49,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7955702686986420647}
   - component: {fileID: 7369382506220925322}
-  - component: {fileID: 6426309056855853428}
+  - component: {fileID: 2390107980131038653}
   m_Layer: 5
   m_Name: visual
   m_TagString: Untagged
@@ -69,7 +69,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 6808451445005893537}
+  m_Father: {fileID: 6520500585071359615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -84,7 +84,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836260002719545174}
   m_CullTransparentMesh: 1
---- !u!114 &6426309056855853428
+--- !u!114 &2390107980131038653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,25 +97,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._UTIL_::_UTIL_.UI_TimeGraphRenderer
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+  timeLate: 1
+  timeSpan: 5
   drawGrid: 1
   gridColumns: 6
   gridRows: 2
   gridThickness: 1
-  gridColor: {r: 0.85, g: 0.85, b: 0.85, a: 0.8}
-  drawFillTop: 0
-  fillColorTop: {r: 0, g: 0, b: 0, a: 0.5}
-  drawFillBottom: 1
-  fillColorBottom: {r: 0.85, g: 0.85, b: 0.85, a: 0.8}
-  drawLine: 1
-  lineColor: {r: 0, g: 0, b: 0, a: 0.5019608}
-  lineThickness: 1
+  gridColor: {r: 0, g: 0, b: 0, a: 0.15}
+  _drawFrame: 1
+  _testTime_current: 0
+  passes:
+  - drawFillTop: 1
+    fillColorTop: {r: 0, g: 0, b: 0, a: 0.5}
+    drawFillBottom: 1
+    fillColorBottom: {r: 0, g: 0, b: 0, a: 0.8}
+    drawLine: 1
+    lineColor: {r: 0, g: 0, b: 0, a: 1}
+    lineThickness: 1
+    points:
+    - time: 9
+      value: 0.1821624
 --- !u!1 &1113795560685442444
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,3 +665,54 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6225047770425794171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6520500585071359615}
+  - component: {fileID: 7076237635201785944}
+  m_Layer: 5
+  m_Name: mask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6520500585071359615
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225047770425794171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 7955702686986420647}
+  m_Father: {fileID: 6808451445005893537}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7076237635201785944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225047770425794171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 5, y: 5}

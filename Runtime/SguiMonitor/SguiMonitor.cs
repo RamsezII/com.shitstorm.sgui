@@ -46,6 +46,8 @@ namespace _SGUI_
                 french = "Moniteur",
                 english = "Monitor",
             });
+
+            rimg_background.gameObject.SetActive(false);
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -12,5 +12,21 @@ namespace _SGUI_
         {
             monitor = GetComponentInParent<SguiMonitor>();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected virtual void OnEnable()
+        {
+        }
+
+        protected virtual void OnDisable()
+        {
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected virtual void OnDestroy()
+        {            
+        }
     }
 }

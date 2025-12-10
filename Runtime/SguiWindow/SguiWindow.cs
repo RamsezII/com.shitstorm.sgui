@@ -131,11 +131,11 @@ namespace _SGUI_
             }
         }
 
-        public static T InstantiateWindow<T>() where T : SguiWindow => (T)InstantiateWindow(typeof(T));
-        public static SguiWindow InstantiateWindow(in Type type) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type));
-        public static SguiWindow InstantiateWindow(in SguiWindow prefab)
+        public static T InstantiateWindow<T>(in bool as_software = false) where T : SguiWindow => (T)InstantiateWindow(typeof(T), as_software: false);
+        public static SguiWindow InstantiateWindow(in Type type, in bool as_software = false) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type), as_software: as_software);
+        public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool as_software = false)
         {
-            RectTransform parent_rt = prefab is SguiWindow1
+            RectTransform parent_rt = as_software || prefab is SguiWindow1
                 ? OSView.instance.windows_rt
                 : SguiGlobal.instance.rt_windows2;
 

@@ -66,7 +66,7 @@ namespace _SGUI_
                 rt_square.position = tpos;
 
                 Vector2 pos = rt_square.anchoredPosition;
-                pos.y -= size.y + 5;
+                pos.y += 1 + .5f * size.y;
 
                 pos.x = Mathf.Clamp(pos.x, 5 + .5f * size.x, psize.x - .5f * size.x - 5);
                 pos.y = Mathf.Clamp(pos.y, 5 + .5f * size.y, psize.y - .5f * size.y - 5);
