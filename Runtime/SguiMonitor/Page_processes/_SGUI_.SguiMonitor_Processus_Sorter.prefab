@@ -172,6 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26221ecd3e9d7c46ae0a0ab3aeb9512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiMonitor_ProcessusSorter
+  page: {fileID: 0}
+  trad: {fileID: 0}
+  text: {fileID: 0}
+  hover_infos:
+    english: 
+    french: 
 --- !u!1 &2286302193449278090
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +279,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 0, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.05
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -404,7 +410,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 0, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.05
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}

@@ -10,6 +10,8 @@ namespace _SGUI_
         public SguiMonitor_ProcessesPage page;
         public Traductable trad;
         public TextMeshProUGUI text;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -35,11 +37,6 @@ namespace _SGUI_
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             SguiContextHover.instance.UnsetTarget(this);
-        }
-
-        Traductions SguiContextHover.IUser.OnSguiContextHover()
-        {
-            return new(text.text);
         }
     }
 }
