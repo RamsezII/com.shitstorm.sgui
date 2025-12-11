@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiMonitor_Section : SguiMonitor_Addable
+    public class SguiMonitor_Resources_Section : SguiMonitor_Resources_Addable
     {
         RectTransform arrow_rt;
         public Traductable trad_label;

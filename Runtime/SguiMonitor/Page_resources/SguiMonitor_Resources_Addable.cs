@@ -2,7 +2,7 @@
 
 namespace _SGUI_
 {
-    public abstract class SguiMonitor_Addable : MonoBehaviour
+    public abstract class SguiMonitor_Resources_Addable : MonoBehaviour
     {
         public SguiMonitor monitor;
 

@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5173717551275293839}
   - component: {fileID: 2161033294678969795}
   m_Layer: 5
-  m_Name: _SGUI_.SguiMonitorSection
+  m_Name: _SGUI_.SguiMonitor_Resources_Section
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: 250, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5173717551275293839
 MonoBehaviour:
@@ -213,6 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685d757bb438a474ca2a83a66bfb7048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._CORE_::_CORE_.SguiMonitor_Section
+  monitor: {fileID: 0}
+  trad_label: {fileID: 0}
+  text_label: {fileID: 0}
+  click_handler: {fileID: 0}
 --- !u!114 &2161033294678969795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,8 +339,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -352,7 +356,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

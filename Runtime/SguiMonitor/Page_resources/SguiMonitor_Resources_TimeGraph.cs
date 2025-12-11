@@ -3,7 +3,7 @@ using _UTIL_;
 
 namespace _SGUI_
 {
-    public class SguiMonitor_TimeGraph : SguiMonitor_Addable
+    public class SguiMonitor_Resources_TimeGraph : SguiMonitor_Resources_Addable
     {
         public new UI_TimeGraphRenderer renderer;
         HeartBeat.Operation op_refresh;

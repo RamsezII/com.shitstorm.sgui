@@ -1,25 +1,26 @@
-using System;
-using System.Collections.Generic;
+using _UTIL_;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_
 {
     public class SguiMonitor : SguiWindow2
     {
-        static readonly HashSet<SguiMonitor> active_monitors = new();
+        public enum Pages : byte
+        {
+            Processes,
+            Resources,
+            FileSystems,
+        }
 
-        readonly Dictionary<Type, SguiMonitor_Addable> addables_prefabs = new();
-        readonly List<SguiMonitor_Addable> addables_clones = new();
+        public readonly ValueHandler<Pages> page = new();
 
-        public static Action<SguiMonitor> onOpenedMonitor;
+        public SguiMonitor_ProcessesPage page_processes;
+        public SguiMonitor_ResourcesPage page_resources;
+
+        [SerializeField] SguiMonitor_PageButton[] pages_buttons;
 
         //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            onOpenedMonitor = null;
-        }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
@@ -36,8 +37,9 @@ namespace _SGUI_
 
         protected override void OnAwake()
         {
-            foreach (var addable in GetComponentsInChildren<SguiMonitor_Addable>())
-                addables_prefabs.Add(addable.GetType(), addable);
+            page_processes = GetComponentInChildren<SguiMonitor_ProcessesPage>(includeInactive: true);
+            page_resources = GetComponentInChildren<SguiMonitor_ResourcesPage>(includeInactive: true);
+            pages_buttons = GetComponentsInChildren<SguiMonitor_PageButton>(includeInactive: true);
 
             base.OnAwake();
 
@@ -52,59 +54,25 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            active_monitors.Add(this);
-            if (didStart)
-                RegenerateAddables();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            active_monitors.Remove(this);
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void Start()
         {
             base.Start();
 
-            foreach (var pair in addables_prefabs)
-                pair.Value.gameObject.SetActive(false);
+            for (int i = 0; i < pages_buttons.Length; i++)
+            {
+                var button = pages_buttons[i];
+                Pages code = (Pages)i;
+                button.button.onClick.AddListener(() => page.Value = code);
+            }
 
-            RegenerateAddables();
-        }
+            page.AddListener(value =>
+            {
+                page_processes.gameObject.SetActive(value == Pages.Processes);
+                page_resources.gameObject.SetActive(value == Pages.Resources);
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        public static void RegenerateAllAddables()
-        {
-            foreach (var instance in active_monitors)
-                instance.RegenerateAddables();
-        }
-
-        public void RegenerateAddables()
-        {
-            for (int i = 0; i < addables_clones.Count; i++)
-                Destroy(addables_clones[i].gameObject);
-            addables_clones.Clear();
-
-            onOpenedMonitor?.Invoke(this);
-        }
-
-        public T AddSection<T>() where T : SguiMonitor_Addable
-        {
-            var prefab = addables_prefabs[typeof(T)];
-
-            var clone = Instantiate(prefab, prefab.transform.parent);
-            addables_clones.Add(clone);
-
-            clone.gameObject.SetActive(true);
-
-            return (T)clone;
+                for (int i = 0; i < pages_buttons.Length; ++i)
+                    pages_buttons[i].img_selected.gameObject.SetActive((Pages)i == value);
+            });
         }
     }
 }
