@@ -1,16 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-namespace _SGUI_
+namespace _SGUI_.Monitor
 {
-    public abstract class SguiMonitor_Resources_Addable : MonoBehaviour
+    public abstract class Page : MonoBehaviour
     {
-        public SguiMonitor monitor;
 
         //--------------------------------------------------------------------------------------------------------------
 
+        internal protected virtual void OnAwake()
+        {
+
+        }
+
         protected virtual void Awake()
         {
-            monitor = GetComponentInParent<SguiMonitor>();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -25,8 +28,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        protected virtual void Start()
+        {
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         protected virtual void OnDestroy()
-        {            
+        {
         }
     }
 }

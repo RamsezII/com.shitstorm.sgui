@@ -1,11 +1,19 @@
+using _SGUI_.Monitor;
+using _SGUI_.Monitor.Processes;
+using _SGUI_.Monitor.Resources;
 using _UTIL_;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _SGUI_
 {
     public class SguiMonitor : SguiWindow2
     {
+        public interface IMonitorSection
+        {
+            GameObject gameObject { get; }
+            Transform transform { get; }
+        }
+
         public enum Pages : byte
         {
             Processes,
@@ -15,10 +23,10 @@ namespace _SGUI_
 
         public readonly ValueHandler<Pages> page = new();
 
-        public SguiMonitor_ProcessesPage page_processes;
-        public SguiMonitor_ResourcesPage page_resources;
+        public ProcessesPage page_processes;
+        public ResourcesPage page_resources;
 
-        [SerializeField] SguiMonitor_PageButton[] pages_buttons;
+        [SerializeField] PageButton[] pages_buttons;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -37,9 +45,9 @@ namespace _SGUI_
 
         protected override void OnAwake()
         {
-            page_processes = GetComponentInChildren<SguiMonitor_ProcessesPage>(includeInactive: true);
-            page_resources = GetComponentInChildren<SguiMonitor_ResourcesPage>(includeInactive: true);
-            pages_buttons = GetComponentsInChildren<SguiMonitor_PageButton>(includeInactive: true);
+            page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);
+            page_resources = GetComponentInChildren<ResourcesPage>(includeInactive: true);
+            pages_buttons = GetComponentsInChildren<PageButton>(includeInactive: true);
 
             base.OnAwake();
 
@@ -50,6 +58,9 @@ namespace _SGUI_
             });
 
             rimg_background.gameObject.SetActive(false);
+
+            page_processes.OnAwake();
+            page_resources.OnAwake();
         }
 
         //--------------------------------------------------------------------------------------------------------------

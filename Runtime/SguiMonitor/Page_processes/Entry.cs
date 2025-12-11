@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace _SGUI_
+namespace _SGUI_.Monitor.Processes
 {
-    public class SguiMonitor_Processus_Entry_Text : MonoBehaviour
+    class Entry : MonoBehaviour
     {
 
         //--------------------------------------------------------------------------------------------------------------

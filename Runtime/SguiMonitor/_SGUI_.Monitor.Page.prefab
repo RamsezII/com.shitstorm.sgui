@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4048157714685431297}
   m_Layer: 5
-  m_Name: _SGUI_.SguiMonitorPage
+  m_Name: _SGUI_.Monitor.Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

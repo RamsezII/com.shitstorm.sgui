@@ -1,6 +1,8 @@
-﻿namespace _SGUI_
+using UnityEngine;
+
+namespace _SGUI_.Monitor.Processes
 {
-    public partial class SguiMonitor_ProcessesPage : SguiMonitorPage
+    public class EntryText : MonoBehaviour
     {
 
         //--------------------------------------------------------------------------------------------------------------

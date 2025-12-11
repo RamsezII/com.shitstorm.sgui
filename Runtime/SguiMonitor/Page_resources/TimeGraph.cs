@@ -1,42 +1,39 @@
 ﻿using _ARK_;
 using _UTIL_;
+using UnityEngine;
 
-namespace _SGUI_
+namespace _SGUI_.Monitor.Resources
 {
-    public class SguiMonitor_Resources_TimeGraph : SguiMonitor_Resources_Addable
+    public class TimeGraph : MonoBehaviour, ResourcesPage.IResourcesSection
     {
         public new UI_TimeGraphRenderer renderer;
         HeartBeat.Operation op_refresh;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        private void Awake()
         {
             renderer = GetComponentInChildren<UI_TimeGraphRenderer>();
-            base.Awake();
             op_refresh = new(.2f, true, renderer.SetVerticesDirty);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
             NUCLEOR.instance.heartbeat_unscaled.operations.Add(op_refresh);
         }
 
-        protected override void OnDisable()
+        private void OnDisable()
         {
-            base.OnDisable();
             NUCLEOR.instance.heartbeat_unscaled.operations.Remove(op_refresh);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnDestroy()
+        private void OnDestroy()
         {
             op_refresh.Dispose();
-            base.OnDestroy();
         }
     }
 }

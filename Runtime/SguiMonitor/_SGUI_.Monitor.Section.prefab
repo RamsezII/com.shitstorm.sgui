@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5173717551275293839}
   - component: {fileID: 2161033294678969795}
   m_Layer: 5
-  m_Name: _SGUI_.SguiMonitor_Resources_Section
+  m_Name: _SGUI_.Monitor.Section
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

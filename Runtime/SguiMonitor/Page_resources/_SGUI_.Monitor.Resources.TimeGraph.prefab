@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 4061147454374578015}
   - component: {fileID: 1583933550692788047}
   m_Layer: 5
-  m_Name: _SGUI_.SguiMonitor_Resources_TimeGraph
+  m_Name: _SGUI_.Monitor.Resources.TimeGraph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

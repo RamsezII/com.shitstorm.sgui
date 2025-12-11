@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _SGUI_
+namespace _SGUI_.Monitor.Resources
 {
-    public sealed partial class SguiMonitor_ResourcesPage : SguiMonitorPage
+    public sealed partial class ResourcesPage : Page
     {
-        static readonly HashSet<SguiMonitor_ResourcesPage> active_monitors = new();
+        public interface IResourcesSection : SguiMonitor.IMonitorSection
+        {
+        }
 
-        readonly Dictionary<Type, SguiMonitor_Resources_Addable> addables_prefabs = new();
-        readonly List<SguiMonitor_Resources_Addable> addables_clones = new();
+        static readonly HashSet<ResourcesPage> active_monitors = new();
 
-        public static Action<SguiMonitor_ResourcesPage> onOpenResources;
+        readonly Dictionary<Type, IResourcesSection> addables_prefabs = new();
+        readonly List<IResourcesSection> addables_clones = new();
+
+        public static Action<ResourcesPage> onOpenResources;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -25,7 +29,7 @@ namespace _SGUI_
 
         protected override void Awake()
         {
-            foreach (var addable in GetComponentsInChildren<SguiMonitor_Resources_Addable>())
+            foreach (var addable in GetComponentsInChildren<IResourcesSection>())
                 addables_prefabs.Add(addable.GetType(), addable);
 
             base.Awake();
@@ -76,11 +80,11 @@ namespace _SGUI_
             onOpenResources?.Invoke(this);
         }
 
-        public T AddSection<T>() where T : SguiMonitor_Resources_Addable
+        public T AddSection<T>() where T : IResourcesSection
         {
             var prefab = addables_prefabs[typeof(T)];
 
-            var clone = Instantiate(prefab, prefab.transform.parent);
+            var clone = Instantiate(prefab.gameObject, prefab.transform.parent).GetComponent<T>();
             addables_clones.Add(clone);
 
             clone.gameObject.SetActive(true);

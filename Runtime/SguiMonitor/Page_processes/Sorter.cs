@@ -1,56 +1,45 @@
 using _ARK_;
-using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace _SGUI_
+namespace _SGUI_.Monitor.Processes
 {
-    public class SguiMonitor_Processus_Sorter : MonoBehaviour, SguiContextHover.IUser, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
+    public class Sorter : MonoBehaviour, SguiContextHover.IUser, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
     {
-        public SguiMonitor_ProcessesPage page;
+        public ProcessesPage page;
         public RectTransform rt;
+        internal Toggle toggle;
+        internal RawImage rimg_arrow;
         public Traductable trad;
-        public TextMeshProUGUI text;
         public Traductions hover_infos;
-        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
+
+        public Action<bool> onIsAscendingOrder;
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
-            page = GetComponentInParent<SguiMonitor_ProcessesPage>();
+            page = GetComponentInParent<ProcessesPage>();
             rt = (RectTransform)transform;
+            toggle = GetComponent<Toggle>();
+            rimg_arrow = transform.Find("text/arrow").GetComponent<RawImage>();
             trad = GetComponentInChildren<Traductable>();
-            text = GetComponentInChildren<TextMeshProUGUI>();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void OnEnable()
-        {
-            Traductable.language.AddListener(OnLangage, doNotCallThisTime: !didStart);
-        }
-
-        private void OnDisable()
-        {
-            Traductable.language.RemoveListener(OnLangage);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Start()
         {
-            OnLangage(0);
+            onIsAscendingOrder += asc => rimg_arrow.rectTransform.localRotation = Quaternion.Euler(0, 0, asc ? 180 : 0);
+            toggle.onValueChanged.AddListener(value => onIsAscendingOrder(value));
+            onIsAscendingOrder(toggle.isOn);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void OnLangage(Languages lang)
-        {
-            float w = text.GetPreferredValues(text.text, rt.sizeDelta.x, float.PositiveInfinity).x;
-            w = Mathf.Min(w, rt.sizeDelta.x);
-            text.rectTransform.sizeDelta = new(w, 0);
-        }
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
