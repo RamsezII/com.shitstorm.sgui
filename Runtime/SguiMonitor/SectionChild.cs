@@ -1,6 +1,8 @@
-﻿namespace _SGUI_.Monitor.Processes
+﻿using UnityEngine;
+
+namespace _SGUI_.Monitor
 {
-    public partial class ProcessesPage : Page
+    public abstract class SectionChild : MonoBehaviour
     {
 
         //--------------------------------------------------------------------------------------------------------------

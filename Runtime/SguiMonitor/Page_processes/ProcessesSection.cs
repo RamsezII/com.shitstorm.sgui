@@ -1,6 +1,6 @@
 ﻿namespace _SGUI_.Monitor.Processes
 {
-    public partial class ProcessesPage : Page
+    public class ProcessesSection : Section
     {
 
         //--------------------------------------------------------------------------------------------------------------

@@ -1941,7 +1941,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4650356307704581688, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2188224491693451678}
   m_SourcePrefab: {fileID: 100100000, guid: 4bf4a6b48a0cd7344aebc2dd2059027f, type: 3}
 --- !u!224 &2191237653255077137 stripped
 RectTransform:
@@ -1949,6 +1953,28 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2182563662096284795}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6828411935530562115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4650356307704581688, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2182563662096284795}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2188224491693451678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828411935530562115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45f7f5e362441547b113094f38b9bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Monitor.Resources.ResourcesSection
+  monitor: {fileID: 0}
+  toggle: {fileID: 0}
+  trad: {fileID: 0}
+  arrow_rt: {fileID: 0}
 --- !u!1001 &2205700001001257641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2906,6 +2932,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2743502634464534177, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+        type: 3}
+      propertyPath: traductions.french
+      value: Muons
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743502634464534177, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+        type: 3}
+      propertyPath: traductions.english
+      value: Muons
+      objectReference: {fileID: 0}
     - target: {fileID: 4278899624492242676, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2919,7 +2955,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4650356307704581688, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2229611864959485415}
   m_SourcePrefab: {fileID: 100100000, guid: 4bf4a6b48a0cd7344aebc2dd2059027f, type: 3}
 --- !u!224 &2946505105976676160 stripped
 RectTransform:
@@ -2927,6 +2967,28 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2938255533889244714}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7516408527753166866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4650356307704581688, guid: 4bf4a6b48a0cd7344aebc2dd2059027f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2938255533889244714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2229611864959485415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516408527753166866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52427f2b77e6d894cab2a2eea0468916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Monitor.Processes.ProcessesSection
+  monitor: {fileID: 0}
+  toggle: {fileID: 0}
+  trad: {fileID: 0}
+  arrow_rt: {fileID: 0}
 --- !u!1001 &3122995054638460965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4585,6 +4647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923aac4d1307bcb49b43b3af563c3aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiMonitor_ResourcesPage
+  prefab_section: {fileID: 0}
 --- !u!224 &1902859050447473500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2513401113761468855, guid: cf855d5c67173e04092b812aee792f7d,
@@ -9541,6 +9604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca3fd9fca087f74182dbb8dfa489fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiMonitor_ProcessesPage
+  prefab_section: {fileID: 0}
 --- !u!224 &6740775396799765991 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2513401113761468855, guid: cf855d5c67173e04092b812aee792f7d,

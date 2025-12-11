@@ -8,12 +8,6 @@ namespace _SGUI_
 {
     public class SguiMonitor : SguiWindow2
     {
-        public interface IMonitorSection
-        {
-            GameObject gameObject { get; }
-            Transform transform { get; }
-        }
-
         public enum Pages : byte
         {
             Processes,
