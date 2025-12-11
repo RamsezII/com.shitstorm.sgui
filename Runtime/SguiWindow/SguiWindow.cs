@@ -155,19 +155,19 @@ namespace _SGUI_
             switch (type)
             {
                 case SguiDialogs.Info:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
                     break;
 
                 case SguiDialogs.Dialog:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
                     break;
 
                 case SguiDialogs.Error:
-                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
                     break;
 
                 default:
-                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.Automatic}\"", sgui);
+                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
                     break;
             }
 
@@ -193,10 +193,7 @@ namespace _SGUI_
         public static SguiProgressBar InstantiateProgressBar_NEW()
         {
             SguiProgressBar window = InstantiateWindow<SguiProgressBar>();
-
-            var tmpro_title = window.trad_title.FirstTmp();
-            tmpro_title.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
-
+            window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
             return window;
         }
 
@@ -208,9 +205,7 @@ namespace _SGUI_
 
             window.button_confirm.transform.gameObject.SetActive(false);
             window.button_close.transform.parent.parent.gameObject.SetActive(false);
-
-            var tmpro_title = window.trad_title.FirstTmp();
-            tmpro_title.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
+            window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
 
             if (no_label)
             {

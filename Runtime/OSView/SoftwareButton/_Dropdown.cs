@@ -83,7 +83,7 @@ namespace _SGUI_
             dropdownOptions.AddListener2(_list =>
             {
                 dropdown.ClearOptions();
-                List<string> options = _list.Select(x => x.trad.Automatic).ToList();
+                List<string> options = _list.Select(x => x.trad.GetAutomatic()).ToList();
                 dropdown.AddOptions(options);
             });
         }

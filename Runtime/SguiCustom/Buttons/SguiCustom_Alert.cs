@@ -1,6 +1,4 @@
 using _ARK_;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,8 +46,7 @@ namespace _SGUI_
 
         public void FitText()
         {
-            TextMeshProUGUI tmp = trad_text.AllTmps().First();
-            float height = tmp.preferredHeight;
+            float height = trad_text.tmpro.preferredHeight;
             rT.sizeDelta = initial_size + new Vector2(0, height);
         }
     }

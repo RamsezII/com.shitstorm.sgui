@@ -10,7 +10,7 @@ namespace _SGUI_
         public RectTransform rT_fill;
         [SerializeField] TextMeshProUGUI tmp_percentage;
         public Traductable trad_infos;
-        TextMeshProUGUI tmp_timer, tmp_infos;
+        TextMeshProUGUI tmp_timer;
 
         float initsize_tmp;
 
@@ -25,11 +25,10 @@ namespace _SGUI_
             tmp_percentage = transform.Find("rT/progress/text").GetComponent<TextMeshProUGUI>();
             tmp_timer = transform.Find("rT/header/timer").GetComponent<TextMeshProUGUI>();
             trad_infos = transform.Find("rT/text").GetComponent<Traductable>();
-            tmp_infos = trad_infos.FirstTmp();
 
             base.OnAwake();
 
-            initsize_tmp = tmp_infos.preferredHeight;
+            initsize_tmp = trad_infos.tmpro.preferredHeight;
 
             start_time = Time.unscaledTime;
         }
@@ -59,13 +58,13 @@ namespace _SGUI_
 
         public void AutoSize()
         {
-            if (!tmp_percentage.gameObject.activeInHierarchy || string.IsNullOrWhiteSpace(tmp_infos.text))
+            if (!tmp_percentage.gameObject.activeInHierarchy || string.IsNullOrWhiteSpace(trad_infos.tmpro.text))
             {
                 rt.sizeDelta = rect_current.size;
                 return;
             }
 
-            float preferred_height = tmp_infos.preferredHeight;
+            float preferred_height = trad_infos.tmpro.preferredHeight;
             rt.sizeDelta = new(rect_current.size.x, rect_current.size.y + preferred_height - initsize_tmp);
         }
 
