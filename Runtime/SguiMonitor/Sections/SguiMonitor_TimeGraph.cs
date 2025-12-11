@@ -5,16 +5,16 @@ namespace _SGUI_
 {
     public class SguiMonitor_TimeGraph : SguiMonitor_Addable
     {
-        public UI_TimeGraphRenderer graph;
+        public new UI_TimeGraphRenderer renderer;
         HeartBeat.Operation op_refresh;
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
-            graph = GetComponentInChildren<UI_TimeGraphRenderer>();
+            renderer = GetComponentInChildren<UI_TimeGraphRenderer>();
             base.Awake();
-            op_refresh = new(1, true, graph.SetVerticesDirty);
+            op_refresh = new(.2f, true, renderer.SetVerticesDirty);
         }
 
         //--------------------------------------------------------------------------------------------------------------
