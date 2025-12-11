@@ -12,6 +12,8 @@ namespace _SGUI_.Monitor
 
         [SerializeField] Section prefab_section;
 
+        readonly List<Section> sections = new();
+
         //--------------------------------------------------------------------------------------------------------------
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -82,18 +84,28 @@ namespace _SGUI_.Monitor
         static void RegenerateAllPagesOfType<T>() where T : Page, new()
         {
             Type type = typeof(T);
-            if (pages_populators.TryGetValue(type, out var populators))
-                if (populators != null)
-                    if (all_active_pages.TryGetValue(type, out var pages))
+            if (all_active_pages.TryGetValue(type, out var pages))
+            {
+                foreach (var page in pages)
+                {
+                    for (int i = 0; i < page.sections.Count; i++)
+                        Destroy(page.sections[i].gameObject);
+                    page.sections.Clear();
+                }
+
+                if (pages_populators.TryGetValue(type, out var populators))
+                    if (populators != null)
                         foreach (var page in pages)
                             populators(page);
+            }
         }
 
         public T AddSection<T>() where T : Section, new()
         {
-            T clone = (T)Instantiate(prefab_section, prefab_section.transform.parent);
-            clone.gameObject.SetActive(true);
-            return clone;
+            T section = (T)Instantiate(prefab_section, prefab_section.transform.parent);
+            section.gameObject.SetActive(true);
+            sections.Add(section);
+            return section;
         }
 
         //--------------------------------------------------------------------------------------------------------------
