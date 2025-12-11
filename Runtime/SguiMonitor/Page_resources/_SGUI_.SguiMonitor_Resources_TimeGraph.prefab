@@ -108,8 +108,8 @@ MonoBehaviour:
   timeLate: 1
   timeSpan: 5
   drawGrid: 1
-  gridColumns: 6
-  gridRows: 2
+  gridColumns: 12
+  gridRows: 4
   gridThickness: 1
   gridColor: {r: 0, g: 0, b: 0, a: 0.2}
   _drawFrame: 28
