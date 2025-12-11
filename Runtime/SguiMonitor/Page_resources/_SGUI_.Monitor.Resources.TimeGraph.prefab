@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
+  m_SizeDelta: {x: -50, y: -10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &836260002719545174
 GameObject:
@@ -303,7 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b32a4a3cf76fb4d859236280bfe072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._CORE_::_CORE_.SguiMonitor_TimeGraph
-  monitor: {fileID: 0}
   renderer: {fileID: 0}
 --- !u!1 &2126099369746899772
 GameObject:

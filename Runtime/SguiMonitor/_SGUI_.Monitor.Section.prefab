@@ -110,7 +110,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7190402799736662998
@@ -214,9 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._CORE_::_CORE_.SguiMonitor_Section
   monitor: {fileID: 0}
-  trad_label: {fileID: 0}
-  text_label: {fileID: 0}
-  click_handler: {fileID: 0}
+  button: {fileID: 0}
+  trad: {fileID: 0}
 --- !u!114 &2161033294678969795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
+  tmpro: {fileID: 0}
+  auto_width: 0
   traductions:
     english: 
     french: 
@@ -378,7 +379,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 20, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
