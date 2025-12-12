@@ -26,6 +26,8 @@ namespace _SGUI_
 
         protected SguiRect rect_current;
 
+        bool startedHue;
+
         //--------------------------------------------------------------------------------------------------------------
 
         void AwakeUI()
@@ -51,7 +53,11 @@ namespace _SGUI_
             prefab_hierarchy_file?.gameObject.SetActive(false);
 
             if (animate_hue)
-                ui_alpha = huable_background.color.a;
+                NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
+                {
+                    ui_alpha = huable_background.color.a;
+                    startedHue = true;
+                };
 
             button_close?.onClick.AddListener(OnClickClose);
         }
@@ -69,6 +75,8 @@ namespace _SGUI_
 
         void UpdateHue()
         {
+            if (!startedHue)
+                return;
             const float ui_hue_speed = .03f;
             ui_hue_current = (ui_hue_start + Time.unscaledTime * ui_hue_speed) % 1;
             huable_background.color = huable_background.color.ModifyHsv(ui_hue_current, ui_alpha * anim_alpha);
