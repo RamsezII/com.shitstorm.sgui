@@ -35,6 +35,8 @@ namespace _SGUI_
         static readonly object auto_usage = new();
         public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
 
+        readonly object timestopUser = new();
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
@@ -120,7 +122,16 @@ namespace _SGUI_
                     animator.CrossFade((int)state, fade, (int)AnimLayers.Base, offset);
             });
 
+            edit_play.onClick.AddListener(() => ToggleSelf(false));
             edit_close.onClick.AddListener(ShowApplicationShutdownConfirm);
+            edit_pause.onClick.AddListener(() => NUCLEOR.instance.timeScale_raw.Value = NUCLEOR.instance.timeScale_raw._value > 0 ? 0 : 1);
+
+            NUCLEOR.instance.timeScale_raw.AddListener(value =>
+            {
+                bool timestop = value <= 0;
+                edit_pause.transform.Find("toggle").gameObject.SetActive(timestop);
+                users.ToggleElement(timestopUser, timestop);
+            });
 
             Application.wantsToQuit += () =>
             {

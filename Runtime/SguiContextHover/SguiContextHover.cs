@@ -147,7 +147,7 @@ namespace _SGUI_
         private void OnDestroy()
         {
             ToggleMouseCheck(false);
-            op.Dispose();
+            op?.Dispose();
         }
     }
 }
