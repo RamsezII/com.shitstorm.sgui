@@ -6,17 +6,15 @@ namespace _SGUI_.Monitor.Resources
     public class TimeGraph : ResourcesSectionChild
     {
         public new UI_TimeGraphRenderer renderer;
-        HeartBeat.Operation op_refresh;
+        public HeartBeat.Operation op_refresh;
+        public float renderStep = .2f;
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
             renderer = GetComponentInChildren<UI_TimeGraphRenderer>();
-
             base.Awake();
-
-            op_refresh = new(.2f, true, renderer.SetVerticesDirty);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -24,13 +22,17 @@ namespace _SGUI_.Monitor.Resources
         protected override void OnEnable()
         {
             base.OnEnable();
-            NUCLEOR.instance.heartbeat_unscaled.operations.Add(op_refresh);
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_refresh = new(renderStep, true, () =>
+            {
+                op_refresh.delay = renderStep;
+                renderer.SetVerticesDirty();
+            }));
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            NUCLEOR.instance.heartbeat_unscaled.operations.Remove(op_refresh);
+            op_refresh.Dispose();
         }
 
         //--------------------------------------------------------------------------------------------------------------

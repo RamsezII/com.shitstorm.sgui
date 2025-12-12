@@ -108,8 +108,8 @@ MonoBehaviour:
   timeLate: 1
   timeSpan: 5
   drawGrid: 1
-  gridColumns: 12
-  gridRows: 4
+  gridColumns: 6
+  gridRows: 2
   gridThickness: 1
   gridColor: {r: 0, g: 0, b: 0, a: 0.2}
   _drawFrame: 28
@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b32a4a3cf76fb4d859236280bfe072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._CORE_::_CORE_.SguiMonitor_TimeGraph
+  section: {fileID: 0}
   renderer: {fileID: 0}
 --- !u!1 &2126099369746899772
 GameObject:
@@ -705,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 2, y: 2}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7496057960801888181
 GameObject:
   m_ObjectHideFlags: 0

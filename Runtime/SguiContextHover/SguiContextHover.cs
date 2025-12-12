@@ -41,41 +41,43 @@ namespace _SGUI_
             text = rt_square.Find("text").GetComponent<TextMeshProUGUI>();
             trad = rt_square.Find("text").GetComponent<Traductable>();
 
-            op = new(.35f, true, () =>
-            {
-                NUCLEOR.instance.heartbeat_unscaled.operations.Remove(op);
-
-                if (user == null)
-                {
-                    user = null;
-                    Toggle(false);
-                    return;
-                }
-
-                Toggle(true);
-                ToggleMouseCheck(true);
-
-                trad.SetTrads(user.OnSguiContextHover());
-
-                Vector2 psize = rt_all.rect.size;
-                Vector2 size = text.GetPreferredValues(text.text, 200, float.MaxValue);
-                size.x = Mathf.Max(size.x, 50);
-                size.y = Mathf.Max(size.y, 15);
-
-                rt_square.sizeDelta = size;
-                rt_square.position = tpos;
-
-                Vector2 pos = rt_square.anchoredPosition;
-                pos.y += 1 + .5f * size.y;
-
-                pos.x = Mathf.Clamp(pos.x, 5 + .5f * size.x, psize.x - .5f * size.x - 5);
-                pos.y = Mathf.Clamp(pos.y, 5 + .5f * size.y, psize.y - .5f * size.y - 5);
-
-                rt_square.anchoredPosition = pos;
-            });
+            Toggle(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        void OnOperation()
+        {
+            op.Dispose();
+
+            if (user == null)
+            {
+                user = null;
+                Toggle(false);
+                return;
+            }
+
+            Toggle(true);
+            ToggleMouseCheck(true);
+
+            trad.SetTrads(user.OnSguiContextHover());
+
+            Vector2 psize = rt_all.rect.size;
+            Vector2 size = text.GetPreferredValues(text.text, 200, float.MaxValue);
+            size.x = Mathf.Max(size.x, 50);
+            size.y = Mathf.Max(size.y, 15);
+
+            rt_square.sizeDelta = size;
+            rt_square.position = tpos;
+
+            Vector2 pos = rt_square.anchoredPosition;
+            pos.y += 1 + .5f * size.y;
+
+            pos.x = Mathf.Clamp(pos.x, 5 + .5f * size.x, psize.x - .5f * size.x - 5);
+            pos.y = Mathf.Clamp(pos.y, 5 + .5f * size.y, psize.y - .5f * size.y - 5);
+
+            rt_square.anchoredPosition = pos;
+        }
 
         void ToggleMouseCheck(in bool toggle)
         {
@@ -93,17 +95,17 @@ namespace _SGUI_
             }
 
             if (Input.mousePositionDelta.sqrMagnitude > 0)
-                UnsetTarget(user);
+                UnassignUser(user);
         }
 
         void ToggleOperation(in bool toggle)
         {
-            NUCLEOR.instance.heartbeat_unscaled.operations.Remove(op);
+            op?.Dispose();
             if (toggle)
-                NUCLEOR.instance.heartbeat_unscaled.operations.Add(op);
+                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new(.35f, true, OnOperation));
         }
 
-        public void SetTarget(in IUser user)
+        public void AssignUser(in IUser user)
         {
             this.user = user;
 
@@ -114,7 +116,7 @@ namespace _SGUI_
             ToggleOperation(true);
         }
 
-        public void UnsetTarget(in IUser user)
+        public void UnassignUser(in IUser user)
         {
             ToggleOperation(false);
             if (user == this.user)

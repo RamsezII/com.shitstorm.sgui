@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 namespace _SGUI_.Monitor.Processes
 {
-    public class Sorter : MonoBehaviour, SguiContextHover.IUser, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
+    public class SectionColumn : MonoBehaviour, SguiContextHover.IUser, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler, IDragHandler
     {
-        public ProcessesPage page;
+        public ProcessesSorters sorters;
         public RectTransform rt;
         internal Toggle toggle;
         internal RawImage rimg_arrow;
         public Traductable trad;
         public Traductions hover_infos;
+        public int column_index;
 
         public Action<bool> onIsAscendingOrder;
 
@@ -21,10 +22,11 @@ namespace _SGUI_.Monitor.Processes
 
         private void Awake()
         {
-            page = GetComponentInParent<ProcessesPage>();
+            sorters = GetComponentInParent<ProcessesSorters>(includeInactive: true);
+            column_index = 0;
             rt = (RectTransform)transform;
             toggle = GetComponent<Toggle>();
-            rimg_arrow = transform.Find("text/arrow").GetComponent<RawImage>();
+            rimg_arrow = transform.Find("arrow").GetComponent<RawImage>();
             trad = GetComponentInChildren<Traductable>();
         }
 
@@ -43,17 +45,32 @@ namespace _SGUI_.Monitor.Processes
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            SguiContextHover.instance.SetTarget(this);
+            SguiContextHover.instance.AssignUser(this);
         }
 
         void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
         {
-            SguiContextHover.instance.SetTarget(this);
+            SguiContextHover.instance.AssignUser(this);
+        }
+
+        void IDragHandler.OnDrag(PointerEventData eventData)
+        {
+            if (column_index == 0)
+                return;
+
+            RectTransform prev_rt = sorters.columns[column_index - 1].rt;
+
+            float w = prev_rt.sizeDelta.x;
+            w += eventData.delta.x;
+            w = Mathf.Clamp(w, 20, 200);
+            prev_rt.sizeDelta = new Vector2(w, sorters.init_height);
+
+            sorters.section.RefreshColumnWidth(column_index - 1);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            SguiContextHover.instance.UnsetTarget(this);
+            SguiContextHover.instance.UnassignUser(this);
         }
     }
 }

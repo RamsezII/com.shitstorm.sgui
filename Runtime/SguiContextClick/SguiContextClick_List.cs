@@ -13,6 +13,7 @@ namespace _SGUI_
         public ScrollRect scrollview;
         public VerticalLayoutGroup layout;
         [SerializeField] SguiContextClick_List_Button prefab_button;
+        public readonly List<SguiContextClick_List_Button> buttons_clones = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -50,6 +51,9 @@ namespace _SGUI_
 
         private void Start()
         {
+            if (buttons_clones.Count == 0)
+                Destroy(gameObject);
+
             prefab_button.gameObject.SetActive(false);
             AutoSizeAndMove();
         }
@@ -59,6 +63,7 @@ namespace _SGUI_
         public SguiContextClick_List_Button AddButton()
         {
             var clone = Instantiate(prefab_button, prefab_button.transform.parent);
+            buttons_clones.Add(clone);
 
             clone.gameObject.SetActive(true);
             clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));

@@ -1,6 +1,8 @@
+using _ARK_;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SGUI_.Monitor
 {
@@ -10,6 +12,9 @@ namespace _SGUI_.Monitor
         static readonly Dictionary<Type, Action<Page>> pages_populators = new();
         HashSet<Page> active_pages;
 
+        public SguiMonitor monitor;
+        public ScrollRect scrollview;
+        public VerticalLayoutGroup vlayout;
         [SerializeField] Section prefab_section;
 
         readonly List<Section> sections = new();
@@ -27,6 +32,9 @@ namespace _SGUI_.Monitor
 
         internal protected virtual void OnAwake()
         {
+            monitor = GetComponentInParent<SguiMonitor>(includeInactive: true);
+            scrollview = GetComponentInChildren<ScrollRect>(includeInactive: true);
+            vlayout = GetComponentInChildren<VerticalLayoutGroup>(includeInactive: true);
             prefab_section = GetComponentInChildren<Section>(includeInactive: true);
         }
 
@@ -105,7 +113,21 @@ namespace _SGUI_.Monitor
             T section = (T)Instantiate(prefab_section, prefab_section.transform.parent);
             section.gameObject.SetActive(true);
             sections.Add(section);
+            OnSection(section);
             return section;
+        }
+
+        protected virtual void OnSection(in Section section)
+        {
+        }
+
+        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize);
+        void _AutoSize()
+        {
+            if (this == null)
+                return;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)vlayout.transform);
+            scrollview.content.sizeDelta = new(vlayout.preferredWidth, vlayout.preferredHeight);
         }
 
         //--------------------------------------------------------------------------------------------------------------

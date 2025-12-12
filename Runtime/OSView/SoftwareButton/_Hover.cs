@@ -24,15 +24,15 @@ namespace _SGUI_
                 mouseIsOnButton = onEnter;
                 if (software_instances.IsEmpty)
                     if (onEnter)
-                        SguiContextHover.instance.SetTarget(this);
+                        SguiContextHover.instance.AssignUser(this);
                     else
-                        SguiContextHover.instance.UnsetTarget(this);
+                        SguiContextHover.instance.UnassignUser(this);
             };
 
             move_handler.onMove += (PointerEventData eventData) =>
             {
                 if (software_instances.IsEmpty)
-                    SguiContextHover.instance.SetTarget(this);
+                    SguiContextHover.instance.AssignUser(this);
             };
         }
 

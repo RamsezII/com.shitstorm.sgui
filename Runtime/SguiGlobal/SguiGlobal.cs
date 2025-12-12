@@ -72,11 +72,17 @@ namespace _SGUI_
 
             UsageManager.usages[(int)UsageGroups.IMGUI].AddListener1(isNotEmpty =>
             {
+                if (this == null)
+                {
+                    Debug.LogWarning($"{this} is null", this);
+                    return;
+                }
+
                 canvasGroup2D.interactable = canvasGroup3D.interactable = !isNotEmpty;
                 canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;
             });
 
-            NUCLEOR.instance.heartbeat_unscaled.operations.Add(op_framerate = new HeartBeat.Operation(1, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_framerate = new HeartBeat.Operation(1, true, () =>
             {
                 float framerate = 1 / NUCLEOR.instance.averageUnscaledDeltatime;
                 text_framerate.text = $"{Mathf.RoundToInt(framerate)}";

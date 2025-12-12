@@ -37,12 +37,12 @@ namespace _SGUI_
 
         private void OnEnable()
         {
-            NUCLEOR.instance.heartbeat_unscaled.operations.Add(operation = new(.065f, true, RefreshTexts));
+           operation = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new(.065f, true, RefreshTexts));
         }
 
         private void OnDisable()
         {
-            NUCLEOR.instance.heartbeat_unscaled.operations.Remove(operation);
+            operation.Dispose();
             rt.sizeDelta = Vector2.zero;
         }
 
