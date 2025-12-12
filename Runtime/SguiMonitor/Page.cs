@@ -32,10 +32,10 @@ namespace _SGUI_.Monitor
 
         internal protected virtual void OnAwake()
         {
-            monitor = GetComponentInParent<SguiMonitor>(includeInactive: true);
-            scrollview = GetComponentInChildren<ScrollRect>(includeInactive: true);
-            vlayout = GetComponentInChildren<VerticalLayoutGroup>(includeInactive: true);
-            prefab_section = GetComponentInChildren<Section>(includeInactive: true);
+            monitor = GetComponentInParent<SguiMonitor>(true);
+            scrollview = GetComponentInChildren<ScrollRect>(true);
+            vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
+            prefab_section = GetComponentInChildren<Section>(true);
         }
 
         protected virtual void Awake()

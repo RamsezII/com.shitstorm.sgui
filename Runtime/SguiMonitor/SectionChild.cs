@@ -10,7 +10,7 @@ namespace _SGUI_.Monitor
 
         protected virtual void Awake()
         {
-            section = GetComponentInParent<Section>(includeInactive: true);
+            section = GetComponentInParent<Section>(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -19,10 +19,10 @@ namespace _SGUI_
 
         private void Awake()
         {
-            section = GetComponentInParent<ProcessesSection>(includeInactive: true);
+            section = GetComponentInParent<ProcessesSection>(true);
             rt = (RectTransform)transform;
-            hlayout = GetComponentInChildren<HorizontalLayoutGroup>(includeInactive: true);
-            prefab_column = GetComponentInChildren<SectionColumn>(includeInactive: true);
+            hlayout = GetComponentInChildren<HorizontalLayoutGroup>(true);
+            prefab_column = GetComponentInChildren<SectionColumn>(true);
             init_height = rt.sizeDelta.y;
         }
 

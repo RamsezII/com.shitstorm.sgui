@@ -22,7 +22,7 @@ namespace _SGUI_.Monitor.Processes
 
         private void Awake()
         {
-            sorters = GetComponentInParent<ProcessesSorters>(includeInactive: true);
+            sorters = GetComponentInParent<ProcessesSorters>(true);
             column_index = 0;
             rt = (RectTransform)transform;
             toggle = GetComponent<Toggle>();
