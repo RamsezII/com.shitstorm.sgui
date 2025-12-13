@@ -18,7 +18,11 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
         {
-            OSView.instance.GetSoftwareButton<SguiOpen>(force: true);
+            OSView.instance.AddSoftwareButton<SguiOpen>(new()
+            {
+                french = "Explorateur de fichiers",
+                english = "Files explorer",
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------

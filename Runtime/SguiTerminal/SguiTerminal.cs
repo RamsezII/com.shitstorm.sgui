@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,9 +13,7 @@ namespace _SGUI_
 
         internal static void AddSoftwareButton()
         {
-            var software_button = OSView.instance.GetSoftwareButton<SguiTerminal>(force: true);
-
-            software_button.hover_info = new($"Terminal");
+            var software_button = OSView.instance.AddSoftwareButton<SguiTerminal>(new("Terminal"));
 
             software_button.onClick_left_empty = eventData => OnClickLeft();
 

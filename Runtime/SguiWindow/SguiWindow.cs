@@ -51,7 +51,7 @@ namespace _SGUI_
             AwakeUI();
 
             if (window_icon != null)
-                os_button = OSView.instance.GetSoftwareButton(GetType(), force: true);
+                os_button = OSView.instance.AddSoftwareButton(GetType(), new(GetType().FullName));
 
             trad_title.SetTrad($"[{id}] {GetType().Name}");
             sgui_description.Value = new($"[{id}] {GetType().FullName}");

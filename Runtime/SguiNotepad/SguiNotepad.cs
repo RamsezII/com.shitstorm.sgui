@@ -16,7 +16,11 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
         {
-            OSView.instance.GetSoftwareButton<SguiNotepad>(force: true);
+            OSView.instance.AddSoftwareButton<SguiNotepad>(new()
+            {
+                french = "Éditeur de texte",
+                english = "Text editor",
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -30,7 +30,7 @@ namespace _SGUI_
         public Button edit_play, edit_pause, edit_close;
 
         [SerializeField] SoftwareButton prefab_softwarebutton;
-        readonly Dictionary<Type, SoftwareButton> softwares = new();
+        public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
 
         static readonly object auto_usage = new();
         public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
@@ -147,17 +147,18 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SoftwareButton GetSoftwareButton<T>(in bool force) where T : SguiWindow => GetSoftwareButton(typeof(T), force);
-        public SoftwareButton GetSoftwareButton(in Type type, in bool force)
+        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiWindow => AddSoftwareButton(typeof(T), hoverInfos);
+        public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
         {
-            if (!softwares.TryGetValue(type, out SoftwareButton button) || button == null)
+            if (!softwaresButtons.TryGetValue(type, out SoftwareButton button) || button == null)
             {
                 SguiWindow prefab = (SguiWindow)Util.LoadResourceByType(type);
                 if (prefab == null)
                     Debug.LogError($"{this}: Failed to load software prefab of type '{type}'.", this);
                 else
                 {
-                    softwares[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+                    softwaresButtons[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+                    button.hover_info = hoverInfos;
                     button.rimg_icon.texture = prefab.window_icon;
                     button.software_prefab = prefab;
                     button.gameObject.SetActive(true);

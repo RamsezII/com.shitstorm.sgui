@@ -26,12 +26,11 @@ namespace _SGUI_
 
         internal static void AddSoftwareButton()
         {
-            var button = OSView.instance.GetSoftwareButton<SguiMonitor>(force: true);
-            button.hover_info = new()
+            OSView.instance.AddSoftwareButton<SguiMonitor>(new()
             {
                 french = "Moniteur de Ressources",
                 english = "Resources Monitor",
-            };
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
