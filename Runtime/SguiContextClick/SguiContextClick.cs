@@ -50,7 +50,7 @@ namespace _SGUI_
             scrollview_lastRootList = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
 
             scrollview_lastRootList.gameObject.SetActive(true);
-            scrollview_lastRootList.list_rt.position = mousePosition;
+            scrollview_lastRootList.rt.position = mousePosition;
 
             return scrollview_lastRootList;
         }

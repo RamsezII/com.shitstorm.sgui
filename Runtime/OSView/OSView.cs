@@ -67,6 +67,9 @@ namespace _SGUI_
             {
                 users.RemoveElement(auto_usage);
             };
+
+            SguiMonitor.AddSoftwareButton();
+            SguiTerminal.AddSoftwareButton();
         }
 
         //--------------------------------------------------------------------------------------------------------------

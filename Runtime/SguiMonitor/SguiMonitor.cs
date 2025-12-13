@@ -24,8 +24,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void OnAfterSceneLoad()
+        internal static void AddSoftwareButton()
         {
             var button = OSView.instance.GetSoftwareButton<SguiMonitor>(force: true);
             button.hover_info = new()

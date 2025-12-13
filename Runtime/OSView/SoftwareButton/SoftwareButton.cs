@@ -1,7 +1,5 @@
-using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,7 @@ namespace _SGUI_
         public RectTransform rt;
         public Image img_icon, img_open, img_focus;
         public RawImage rimg_icon;
-        RawImage[] img_instances;
+        RawImage[] rimg_instances;
         public int max_instances = 10;
 
         internal SguiWindow software_prefab;
@@ -35,8 +33,7 @@ namespace _SGUI_
             instances.Add(this);
 
             rt = (RectTransform)transform;
-            dropdown = transform.Find("dropdown").GetComponent<TMP_Dropdown>();
-            img_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
+            rimg_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
             img_icon = transform.Find("img_icon").GetComponent<Image>();
             img_open = transform.Find("is-open").GetComponent<Image>();
             img_focus = transform.Find("has-focus").GetComponent<Image>();
@@ -53,18 +50,16 @@ namespace _SGUI_
 
             rt.sizeDelta = 25 * Vector2.one;
 
-            StartDropdown();
-            StartHover();
+            software_instances.AddListener2(list =>
+            {
+                for (int i = 0; i < rimg_instances.Length; ++i)
+                    rimg_instances[i].gameObject.SetActive(i < list.Count);
+            });
 
-            Traductable.language.AddListener(OnTraductablesLangage);
+            StartHover();
         }
 
         //--------------------------------------------------------------------------------------------------------------
-
-        void OnTraductablesLangage(Languages value)
-        {
-            dropdownOptions.Modify(null);
-        }
 
         public SguiWindow InstantiateSoftware()
         {
@@ -111,8 +106,6 @@ namespace _SGUI_
         private void OnDestroy()
         {
             instances.Remove(this);
-
-            Traductable.language.RemoveListener(OnTraductablesLangage);
 
             if (software_prefab != null)
                 foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include, FindObjectsSortMode.None))

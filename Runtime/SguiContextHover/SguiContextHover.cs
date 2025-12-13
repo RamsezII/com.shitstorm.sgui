@@ -71,7 +71,7 @@ namespace _SGUI_
             rt_square.position = tpos;
 
             Vector2 pos = rt_square.anchoredPosition;
-            pos.y += 1 + .5f * size.y;
+            pos.y += 5 + .5f * size.y;
 
             pos.x = Mathf.Clamp(pos.x, 5 + .5f * size.x, psize.x - .5f * size.x - 5);
             pos.y = Mathf.Clamp(pos.y, 5 + .5f * size.y, psize.y - .5f * size.y - 5);
@@ -102,7 +102,7 @@ namespace _SGUI_
         {
             op?.Dispose();
             if (toggle)
-                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new(.35f, true, OnOperation));
+                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new(.15f, true, OnOperation));
         }
 
         public void AssignUser(in IUser user)
@@ -132,7 +132,7 @@ namespace _SGUI_
             {
                 case BaseStates.Default:
                     if (toggle)
-                        animator.CrossFadeInFixedTime((int)BaseStates.Enable, .75f, (int)AnimLayers.Base);
+                        animator.CrossFadeInFixedTime((int)BaseStates.Enable, .3f, (int)AnimLayers.Base);
                     break;
 
                 case BaseStates.Enable:

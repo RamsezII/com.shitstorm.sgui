@@ -43,9 +43,9 @@ namespace _SGUI_
                 sublist.gameObject.SetActive(true);
 
                 Util.GetWorldCorners(rt, out _, out Vector2 max);
-                sublist.list_rt.position = max;
+                sublist.rt.position = max;
 
-                sublist.list_rt.anchoredPosition += new Vector2(0, plist.layout.padding.top);
+                sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 
                 onSublist(sublist);
             });
