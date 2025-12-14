@@ -1,5 +1,3 @@
-using _ARK_;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,9 +10,6 @@ namespace _SGUI_
         ScrollRect scrollview;
         public RectTransform rT;
         public TextMeshProUGUI lint;
-        public new Action<string> onValueChanged;
-
-        public static bool zspaces_check = false;
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -25,22 +20,6 @@ namespace _SGUI_
             lint = transform.Find("area/lint").GetComponent<TextMeshProUGUI>();
 
             base.Awake();
-
-            if (Application.isPlaying)
-            {
-                onSelect.AddListener(_ => IMGUI_global.instance.clipboard_users.AddElement(OnClipboardOperation));
-                onDeselect.AddListener(_ => IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation));
-            }
-
-            base.onValueChanged.AddListener(OnValueChanged);
-        }
-
-        //----------------------------------------------------------------------------------------------------------
-
-        protected override void OnDisable()
-        {
-            if (Application.isPlaying)
-                IMGUI_global.instance.clipboard_users.RemoveElement(OnClipboardOperation);
         }
 
         //----------------------------------------------------------------------------------------------------------
@@ -49,94 +28,6 @@ namespace _SGUI_
         {
             base.OnScroll(eventData);
             scrollview.OnScroll(eventData);
-        }
-
-        void OnValueChanged(string arg0)
-        {
-            if (Application.isPlaying)
-                if (zspaces_check && arg0.ZSpaced(out string zspaced))
-                    textComponent.text = zspaced;
-                else
-                    onValueChanged?.Invoke(arg0);
-        }
-
-        public bool TryGetSelectedString(out string selectedString, out int start, out int end)
-        {
-            selectedString = GetSelectedString(out start, out end);
-            return !string.IsNullOrEmpty(selectedString);
-        }
-
-        public string GetSelectedString(out int start, out int end)
-        {
-            start = Mathf.Min(selectionStringFocusPosition, selectionStringAnchorPosition);
-            end = Mathf.Max(selectionStringFocusPosition, selectionStringAnchorPosition);
-
-            if (selectionStringFocusPosition == selectionStringAnchorPosition)
-                return string.Empty;
-
-            return text[start..end];
-        }
-
-        bool OnClipboardOperation(Event e, IMGUI_global.ClipboardOperations operation)
-        {
-            switch (operation)
-            {
-                case IMGUI_global.ClipboardOperations.Copy:
-                    OnCtrlC();
-                    return true;
-
-                case IMGUI_global.ClipboardOperations.Cut:
-                    OnCtrlX();
-                    return true;
-
-                case IMGUI_global.ClipboardOperations.Paste:
-                    OnCtrlV();
-                    return true;
-            }
-            return false;
-        }
-
-        void OnCtrlC()
-        {
-            if (TryGetSelectedString(out string selected, out _, out _))
-            {
-                if (zspaces_check)
-                    selected.UnZSpaced(out selected);
-
-                GUIUtility.systemCopyBuffer = selected;
-            }
-        }
-
-        void OnCtrlV()
-        {
-            GetSelectedString(out int start, out int end);
-
-            string text = this.text;
-            text = text[..start] + GUIUtility.systemCopyBuffer + text[end..];
-
-            if (zspaces_check)
-                text.ZSpaced(out text);
-
-            textComponent.text = text;
-        }
-
-        void OnCtrlX()
-        {
-            if (TryGetSelectedString(out string selected, out int start, out int end))
-            {
-                if (zspaces_check)
-                    selected.UnZSpaced(out selected);
-
-                GUIUtility.systemCopyBuffer = selected;
-
-                string text = this.text;
-                text = text[..start] + text[end..];
-
-                if (zspaces_check)
-                    text.ZSpaced(out text);
-
-                textComponent.text = text;
-            }
         }
     }
 }
