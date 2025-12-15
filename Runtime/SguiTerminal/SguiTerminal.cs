@@ -7,7 +7,17 @@ namespace _SGUI_
 {
     public sealed partial class SguiTerminal : SguiWindow1
     {
-        public RectTransform rt_shellview;
+        public ShellView shellView;
+        public RectTransform prt_shellView, rt_shellview;
+        public static Action<SguiContextClick_List> onSoftwareButtonAddWindowList;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            onSoftwareButtonAddWindowList = null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -15,19 +25,14 @@ namespace _SGUI_
         {
             var software_button = OSView.instance.AddSoftwareButton<SguiTerminal>(new("Terminal"));
 
-            software_button.onClick_left_empty = eventData => OnClickLeft();
-
-            software_button.onClick_left_notEmpty = eventData =>
-            {
-                OnClickLeft();
-                return false;
-            };
+            software_button.onClick_left_empty = eventData => OnLeftClick(eventData.position);
 
             software_button.onRightClickhandler += OnRightClick;
 
-            void OnClickLeft()
+            void OnLeftClick(in Vector2 mousePos)
             {
-
+                var list = SguiContextClick.instance.RightClickHere(mousePos);
+                onSoftwareButtonAddWindowList(list);
             }
 
             void OnRightClick(in PointerEventData eventData, ref bool enable_AddWindow, ref bool enable_CloseAll, in List<Action<SguiContextClick_List_Button>> addButtons)
@@ -42,12 +47,7 @@ namespace _SGUI_
                         english = $"Add a window",
                     });
 
-                    button.SetupSublist(sublist =>
-                    {
-                        sublist.AddButton().trad.SetTrad("BOA");
-                        sublist.AddButton().trad.SetTrad("ZOA");
-                        sublist.AddButton().trad.SetTrad("AST");
-                    });
+                    button.SetupSublist(onSoftwareButtonAddWindowList);
                 });
             }
         }
@@ -56,6 +56,8 @@ namespace _SGUI_
 
         protected override void OnAwake()
         {
+            shellView = GetComponentInChildren<ShellView>(true);
+            prt_shellView = (RectTransform)transform.Find("rT/body");
             rt_shellview = (RectTransform)transform.Find("rT/body/_SGUI_.ShellView");
             base.OnAwake();
             trad_title.SetTrad("SguiTerminal");

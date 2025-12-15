@@ -8,6 +8,7 @@ namespace _SGUI_.Monitor
 {
     public abstract class Section : MonoBehaviour
     {
+        SguiMonitor monitor;
         public Page page;
         public RectTransform prt, rt;
         [SerializeField] internal Toggle toggle;
@@ -28,6 +29,7 @@ namespace _SGUI_.Monitor
 
         protected virtual void Awake()
         {
+            monitor = GetComponentInParent<SguiMonitor>(true);
             page = GetComponentInParent<Page>();
             prt = (RectTransform)transform.parent;
             rt = (RectTransform)transform;
