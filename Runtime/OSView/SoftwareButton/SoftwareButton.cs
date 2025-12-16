@@ -63,6 +63,12 @@ namespace _SGUI_
 
         public SguiWindow InstantiateSoftware()
         {
+            if (software_prefab == null)
+            {
+                LoggerOverlay.Log($"{nameof(software_prefab)} is null ({software_prefab})", this, logLevel: LoggerOverlay.LogLevel.Warning);
+                return null;
+            }
+
             SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab, as_software: true);
             switch (instance)
             {

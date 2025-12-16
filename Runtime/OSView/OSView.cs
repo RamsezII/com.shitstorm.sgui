@@ -166,6 +166,15 @@ namespace _SGUI_
             return button;
         }
 
+        public SoftwareButton AddSoftwareButton(in Traductions hoverInfos, in Texture icon)
+        {
+            var button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+            button.hover_info = hoverInfos;
+            button.rimg_icon.texture = icon;
+            button.gameObject.SetActive(true);
+            return button;
+        }
+
         public static void ShowApplicationShutdownConfirm()
         {
             var dialog = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()

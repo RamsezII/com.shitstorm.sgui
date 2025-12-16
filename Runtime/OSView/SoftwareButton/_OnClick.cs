@@ -17,12 +17,6 @@ namespace _SGUI_
         {
             SguiContextHover.instance.UnassignUser(this);
 
-            if (software_prefab == null)
-            {
-                LoggerOverlay.Log($"{nameof(software_prefab)} is null ({software_prefab})", this, logLevel: LoggerOverlay.LogLevel.Warning);
-                return;
-            }
-
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
