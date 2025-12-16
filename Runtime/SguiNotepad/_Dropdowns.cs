@@ -31,16 +31,15 @@ namespace _SGUI_
         protected virtual void OnPopulateDropdown_Files(List<TMP_Dropdown.OptionData> options)
         {
             for (Files_Dropdowns code = 0; code < Files_Dropdowns._last_; ++code)
-                if (code != Files_Dropdowns.OpenFolder || this is SguiCodium)
-                    options.Add(new(code switch
-                    {
-                        Files_Dropdowns.NewFile => "New File",
-                        Files_Dropdowns.OpenFile => "Open File",
-                        Files_Dropdowns.OpenFolder => "Open Folder",
-                        Files_Dropdowns.Save => "Save",
-                        Files_Dropdowns.SaveAs => "Save As",
-                        _ => code.ToString(),
-                    }));
+                options.Add(new(code switch
+                {
+                    Files_Dropdowns.NewFile => "New File",
+                    Files_Dropdowns.OpenFile => "Open File",
+                    Files_Dropdowns.OpenFolder => "Open Folder",
+                    Files_Dropdowns.Save => "Save",
+                    Files_Dropdowns.SaveAs => "Save As",
+                    _ => code.ToString(),
+                }));
         }
 
         public virtual void OnClick_FilesDropdown(string item)

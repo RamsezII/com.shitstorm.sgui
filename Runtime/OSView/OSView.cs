@@ -69,7 +69,6 @@ namespace _SGUI_
             };
 
             SguiMonitor.AddSoftwareButton();
-            SguiTerminal.AddSoftwareButton();
         }
 
         //--------------------------------------------------------------------------------------------------------------
