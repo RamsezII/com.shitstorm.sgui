@@ -102,6 +102,12 @@ namespace _SGUI_
             });
 
             SoftwareButton.RefreshAllOpenStates();
+
+            OnTakeFocus();
+        }
+
+        protected virtual void OnTakeFocus()
+        {
         }
 
         public bool HasFocus()
