@@ -81,14 +81,12 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AddLine() => prefab_line.Clone().SetActive(true);
+        public void AddLine() => prefab_line.Clone(true);
 
         public SguiContextClick_List_Button AddButton()
         {
-            var clone = prefab_button.Clone();
+            var clone = prefab_button.Clone(true);
             buttons_clones.Add(clone);
-
-            clone.gameObject.SetActive(true);
             clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));
 
             if (didStart)
@@ -121,6 +119,42 @@ namespace _SGUI_
             }
 
             rt.position = pos;
+        }
+
+        public void ContextListTest()
+        {
+            AddButton();
+            AddButton();
+            AddLine();
+            AddButton();
+
+            var button = AddButton();
+            button.trad.SetTrad("1");
+            button.SetupSublist(sublist =>
+            {
+                sublist.AddButton();
+                sublist.AddButton();
+
+                var sbutton = sublist.AddButton();
+                sbutton.trad.SetTrad("2");
+
+                sbutton.SetupSublist(ssublist =>
+                {
+                    ssublist.AddButton();
+                    ssublist.AddButton();
+                    ssublist.AddButton();
+                    ssublist.AddLine();
+                    ssublist.AddButton();
+                    ssublist.AddButton();
+                    ssublist.AddLine();
+                    ssublist.AddButton();
+                });
+
+                sublist.AddButton();
+            });
+
+            AddButton();
+            AddButton();
         }
     }
 }

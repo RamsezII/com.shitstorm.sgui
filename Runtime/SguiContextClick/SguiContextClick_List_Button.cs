@@ -38,13 +38,12 @@ namespace _SGUI_
                 if (plist.sublist != null)
                     Destroy(plist.sublist.gameObject);
 
-                var sublist = plist.sublist = Instantiate(SguiContextClick.instance.prefab_scrollview, plist.transform);
+                var sublist = plist.sublist = Instantiate(SguiContextClick.instance.prefab_list, plist.transform);
 
                 sublist.gameObject.SetActive(true);
 
                 Util.GetWorldCorners(rt, out _, out Vector2 max);
                 sublist.rt.position = max;
-
                 sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 
                 onSublist(sublist);

@@ -12,7 +12,7 @@ namespace _SGUI_
 
         public static SguiContextClick instance;
 
-        [SerializeField] internal SguiContextClick_List prefab_scrollview;
+        [SerializeField] internal SguiContextClick_List prefab_list;
         [SerializeField] internal SguiContextClick_List scrollview_lastRootList;
 
         public static Action<SguiContextClick_List> onGlobalContextList;
@@ -30,14 +30,14 @@ namespace _SGUI_
         private void Awake()
         {
             instance = this;
-            prefab_scrollview = GetComponentInChildren<SguiContextClick_List>();
+            prefab_list = GetComponentInChildren<SguiContextClick_List>(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void Start()
         {
-            prefab_scrollview.gameObject.SetActive(false);
+            prefab_list.gameObject.SetActive(false);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -47,9 +47,7 @@ namespace _SGUI_
             if (scrollview_lastRootList != null)
                 Destroy(scrollview_lastRootList.gameObject);
 
-            scrollview_lastRootList = Instantiate(prefab_scrollview, prefab_scrollview.transform.parent);
-
-            scrollview_lastRootList.gameObject.SetActive(true);
+            scrollview_lastRootList = prefab_list.Clone(true);
             scrollview_lastRootList.rt.position = mousePosition;
 
             return scrollview_lastRootList;
