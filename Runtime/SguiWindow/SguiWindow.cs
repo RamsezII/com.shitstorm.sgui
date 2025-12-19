@@ -9,6 +9,10 @@ namespace _SGUI_
     {
         public static readonly ListListener<SguiWindow> instances = new();
 
+        public static readonly ValueHandler<SguiWindow> focused = new();
+        public void TakeFocus() => focused.Value = this;
+        public bool HasFocus() => this == focused._value;
+
         [HideInInspector] public Animator animator;
 
         public Action<BaseStates, bool> onState, onState_once;
@@ -34,6 +38,7 @@ namespace _SGUI_
         {
             _id = 0;
             instances.Reset();
+            focused.Reset();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -65,7 +70,7 @@ namespace _SGUI_
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
 
-            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.Typing, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
+            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
 
             os_button?.RefreshOpenState();
         }
@@ -88,13 +93,26 @@ namespace _SGUI_
             StartUI();
             ToggleWindow(true);
             button_close.onClick.AddListener(() => SetScalePivot(null));
+
+            focused.AddListener(OnFocused);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void TakeFocus()
+        public virtual void OnSguiGlobalLeftClick()
+        {
+            TakeFocus();
+        }
+
+        protected virtual void OnFocused(SguiWindow focused)
+        {
+            OnFocus(this == focused);
+        }
+
+        protected virtual void OnFocus(in bool has_focus)
         {
             transform.SetAsLastSibling();
+
             instances.Modify(list =>
             {
                 list.Remove(this);
@@ -102,28 +120,6 @@ namespace _SGUI_
             });
 
             SoftwareButton.RefreshAllOpenStates();
-
-            foreach (var window in transform.parent.GetComponentsInChildren<SguiWindow>(true))
-                OnFocus(this == window);
-        }
-
-        protected virtual void OnFocus(in bool has_focus)
-        {
-        }
-
-        public bool HasFocus()
-        {
-            for (int i = instances._collection.Count - 1; i >= 0; --i)
-                if (this == instances._collection[i])
-                    return true;
-                else if (instances._collection[i].gameObject.activeInHierarchy)
-                    return false;
-            return true;
-        }
-
-        public virtual void OnSguiGlobalLeftClick()
-        {
-            TakeFocus();
         }
 
         public void SetScalePivot(in SoftwareButton button)
@@ -254,6 +250,11 @@ namespace _SGUI_
             instances.RemoveElement(this);
 
             os_button?.RefreshOpenState();
+
+            focused.RemoveListener(OnFocused);
+
+            if (this == focused._value)
+                focused.Value = null;
         }
     }
 }
