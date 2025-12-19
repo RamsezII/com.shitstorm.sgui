@@ -103,10 +103,11 @@ namespace _SGUI_
 
             SoftwareButton.RefreshAllOpenStates();
 
-            OnTakeFocus();
+            foreach (var window in transform.parent.GetComponentsInChildren<SguiWindow>(true))
+                OnFocus(this == window);
         }
 
-        protected virtual void OnTakeFocus()
+        protected virtual void OnFocus(in bool has_focus)
         {
         }
 
