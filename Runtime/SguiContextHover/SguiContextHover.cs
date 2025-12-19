@@ -14,12 +14,15 @@ namespace _SGUI_
 
             void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
             {
+                if (eventData.dragging)
+                    return;
                 instance.AssignUser(this);
             }
 
             void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
             {
-                instance.AssignUser(this);
+                if (this == instance.user)
+                    instance.AssignUser(this);
             }
 
             void IPointerExitHandler.OnPointerExit(PointerEventData eventData)

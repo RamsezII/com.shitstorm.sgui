@@ -40,20 +40,6 @@ namespace _SGUI_
                                 }
                             }
                             break;
-
-                        case KeyCode.Mouse1:
-                            for (int i = 0; i < rc_results.Count; ++i)
-                            {
-                                var clickable = rc_results[i].gameObject.GetComponentInParent<SguiContextClick.IUser>();
-                                if (clickable != null)
-                                {
-                                    SguiContextClick_List left_click_menu = SguiContextClick.instance.RightClickHere(Input.mousePosition);
-                                    SguiContextClick.onGlobalContextList?.Invoke(left_click_menu);
-                                    clickable.OnSguiContextClick(left_click_menu);
-                                    return true;
-                                }
-                            }
-                            break;
                     }
             }
 

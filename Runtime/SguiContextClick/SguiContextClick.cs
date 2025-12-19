@@ -1,13 +1,25 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
     public class SguiContextClick : MonoBehaviour
     {
-        public interface IUser
+        public interface IUser : IPointerClickHandler
         {
-            void OnSguiContextClick(SguiContextClick_List context_list);
+            void OnSguiContextClick(SguiContextClick_List list);
+            void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+            {
+                if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    if (eventData.dragging)
+                        return;
+
+                    var list = instance.InstantiateListHere(eventData.position);
+                    OnSguiContextClick(list);
+                }
+            }
         }
 
         public static SguiContextClick instance;
@@ -42,7 +54,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiContextClick_List RightClickHere(in Vector2 mousePosition)
+        public SguiContextClick_List InstantiateListHere(in Vector2 mousePosition)
         {
             if (scrollview_lastRootList != null)
                 Destroy(scrollview_lastRootList.gameObject);
