@@ -55,8 +55,6 @@ namespace _SGUI_
                 for (int i = 0; i < rimg_instances.Length; ++i)
                     rimg_instances[i].gameObject.SetActive(i < list.Count);
             });
-
-            StartHover();
         }
 
         //--------------------------------------------------------------------------------------------------------------

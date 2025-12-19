@@ -2,14 +2,30 @@
 using _UTIL_;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
     public sealed partial class SguiContextHover : MonoBehaviour
     {
-        public interface IUser
+        public interface IUser : IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
         {
             Traductions OnSguiContextHover();
+
+            void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+            {
+                instance.AssignUser(this);
+            }
+
+            void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
+            {
+                instance.AssignUser(this);
+            }
+
+            void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+            {
+                instance.UnassignUser(this);
+            }
         }
 
         public static SguiContextHover instance;
