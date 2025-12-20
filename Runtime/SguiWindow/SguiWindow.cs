@@ -39,6 +39,7 @@ namespace _SGUI_
             _id = 0;
             instances.Reset();
             focused.Reset();
+            focused.AddListener(value => SoftwareButton.RefreshAllOpenStates());
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -111,6 +112,9 @@ namespace _SGUI_
 
         protected virtual void OnFocus(in bool has_focus)
         {
+            if (!has_focus)
+                return;
+
             transform.SetAsLastSibling();
 
             instances.Modify(list =>
@@ -118,8 +122,6 @@ namespace _SGUI_
                 list.Remove(this);
                 list.Add(this);
             });
-
-            SoftwareButton.RefreshAllOpenStates();
         }
 
         public void SetScalePivot(in SoftwareButton button)

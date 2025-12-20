@@ -68,8 +68,21 @@ namespace _SGUI_
                 };
 
                 if (timer > 0)
-                    if (logLevel != LogLevel._ConsolRedirect)
-                        Debug.Log(text, context);
+                    switch (logLevel)
+                    {
+                        case LogLevel.Warning:
+                            Debug.LogWarning(text, context);
+                            break;
+
+                        case LogLevel.Error:
+                        case LogLevel.Fatal:
+                            Debug.LogError(text, context);
+                            break;
+
+                        default:
+                            Debug.Log(text, context);
+                            break;
+                    }
             }
 
             logs.Add((text, timer + Time.unscaledTime));
