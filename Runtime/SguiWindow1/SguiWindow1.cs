@@ -11,6 +11,7 @@ namespace _SGUI_
         public Button button_hide, button_fullscreen;
         [SerializeField] internal ResizerDragzone resizer_dragzone;
         [SerializeField] internal ResizerVisual resizer_visual;
+        [SerializeField] RectTransform rt_unselected;
 
         public readonly ValueHandler<bool> fullscreen = new();
 
@@ -31,6 +32,8 @@ namespace _SGUI_
 
             resizer_dragzone = transform.Find("rT/_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
             resizer_visual = transform.Find("_SGUI_.ResizerVisual").GetComponent<ResizerVisual>();
+
+            rt_unselected = (RectTransform)transform.Find("rT/unselected");
 
             dropdown_settings = transform.Find("rT/buttons/layout/button_Settings")?.GetComponent<HeaderDropdown>();
             if (dropdown_settings != null)
@@ -102,6 +105,12 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnFocus(in bool has_focus)
+        {
+            base.OnFocus(has_focus);
+            rt_unselected.gameObject.SetActive(!has_focus);
+        }
 
         bool OnImguiInputs(Event e)
         {
