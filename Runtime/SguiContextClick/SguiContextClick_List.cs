@@ -15,7 +15,7 @@ namespace _SGUI_
         public ScrollRect scrollview;
         public VerticalLayoutGroup vlayout;
         [SerializeField] SguiContextClick_List_Button prefab_button;
-        [SerializeField] GameObject prefab_line;
+        [SerializeField] RectTransform prefab_line;
         public readonly List<SguiContextClick_List_Button> buttons_clones = new();
 
         //--------------------------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace _SGUI_
             prt = (RectTransform)rt.parent;
             vlayout = GetComponentInChildren<VerticalLayoutGroup>();
             prefab_button = GetComponentInChildren<SguiContextClick_List_Button>();
-            prefab_line = transform.Find("rt/scroll-view/viewport/content/layout/trait").gameObject;
+            prefab_line = (RectTransform)transform.Find("rt/scroll-view/viewport/content/layout/trait");
 
             canvasGroup.alpha = 0;
 
@@ -81,7 +81,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AddLine() => prefab_line.Clone(true);
+        public RectTransform AddLine() => prefab_line.Clone(true);
 
         public SguiContextClick_List_Button AddButton()
         {

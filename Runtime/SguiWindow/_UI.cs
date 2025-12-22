@@ -21,9 +21,6 @@ namespace _SGUI_
         [SerializeField, Range(0, 1)] float ui_hue_start, ui_hue_current;
         [SerializeField] float ui_alpha;
 
-        [SerializeField] internal Button_Folder prefab_hierarchy_folder;
-        [SerializeField] internal Button_File prefab_hierarchy_file;
-
         protected SguiRect rect_current;
 
         bool startedHue;
@@ -49,9 +46,6 @@ namespace _SGUI_
 
         void StartUI()
         {
-            prefab_hierarchy_folder?.gameObject.SetActive(false);
-            prefab_hierarchy_file?.gameObject.SetActive(false);
-
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
                 {
