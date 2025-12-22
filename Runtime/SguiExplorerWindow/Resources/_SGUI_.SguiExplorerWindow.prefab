@@ -576,7 +576,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   oblivionized: 0
   animate_hue: 0
-  window_icon: {fileID: 2800000, guid: b6c50aef0ff4f064eb958b410d269417, type: 3}
+  window_icon: {fileID: 2800000, guid: 0c0fba77feb16e6469efaafd5635074d, type: 3}
   id: 3
   state_base: 0
   canvas: {fileID: 0}

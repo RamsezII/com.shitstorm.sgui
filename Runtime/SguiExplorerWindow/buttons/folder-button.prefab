@@ -347,11 +347,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_Folder
   view: {fileID: 0}
-  tmpro: {fileID: 0}
   rt: {fileID: 0}
   full_path: 
   short_path: 
   depth: 0
-  clicks: 0
   icon_opened: {fileID: 0}
   icon_closed: {fileID: 0}

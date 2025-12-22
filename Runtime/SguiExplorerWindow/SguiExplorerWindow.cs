@@ -26,6 +26,12 @@ namespace _SGUI_
             view = GetComponentInChildren<SguiExplorerView>(true);
 
             base.OnAwake();
+
+            trad_title.SetTrads(new()
+            {
+                french = $"Shitplorateur",
+                english = "Shitplorator",
+            });
         }
 
         public static SguiExplorerWindow OpenHere(in PathModes mode)

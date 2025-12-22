@@ -1,6 +1,7 @@
 ﻿using _ARK_;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace _SGUI_.Explorer
 {
@@ -8,6 +9,7 @@ namespace _SGUI_.Explorer
     {
         public SguiExplorerView view;
 
+        [SerializeField] RawImage rimg_selected;
         public RectTransform rt;
         public string full_path, short_path;
         public int depth;
@@ -17,6 +19,7 @@ namespace _SGUI_.Explorer
         protected override void Awake()
         {
             view = GetComponentInParent<SguiExplorerView>(true);
+            rimg_selected = transform.Find("selected").GetComponent<RawImage>();
             rt = (RectTransform)transform.Find("rt");
 
             base.Awake();
@@ -24,8 +27,33 @@ namespace _SGUI_.Explorer
 
         //--------------------------------------------------------------------------------------------------------------
 
+        protected override void Start()
+        {
+            base.Start();
+
+            view.selected_line.AddListener(value =>
+            {
+                OnSelectedButton(value);
+            });
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        void OnSelectedButton(Button_Hierarchy value)
+        {
+            bool selected = this == value;
+            OnSelected(selected);
+        }
+
+        protected virtual void OnSelected(in bool selected)
+        {
+            rimg_selected.gameObject.SetActive(selected);
+        }
+
         public virtual void OnPointerClick(PointerEventData eventData)
         {
+            view.selected_line.Value = this;
+
             if (eventData.button == PointerEventData.InputButton.Right)
             {
                 var list = SguiContextClick.instance.InstantiateListHere(eventData.position);
@@ -57,6 +85,15 @@ namespace _SGUI_.Explorer
         protected virtual void OnContextList(in SguiContextClick_List list)
         {
 
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            view.selected_line.RemoveListener(OnSelectedButton);
         }
     }
 }

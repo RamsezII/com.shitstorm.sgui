@@ -1,5 +1,6 @@
 using _ARK_;
 using _SGUI_.Explorer;
+using _UTIL_;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ namespace _SGUI_
         [SerializeField] VerticalLayoutGroup vlayout;
         [SerializeField] Button_Folder prefab_folder;
         [SerializeField] Button_File prefab_file;
+
+        internal readonly ValueHandler<Button_Hierarchy> selected_line = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
