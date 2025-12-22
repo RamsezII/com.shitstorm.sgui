@@ -1,9 +1,18 @@
-﻿namespace _SGUI_.Explorer
+﻿using System.IO;
+
+namespace _SGUI_.Explorer
 {
     internal class Button_File : Button_Hierarchy
     {
+        public FileInfo current_file;
 
         //--------------------------------------------------------------------------------------------------------------
+
+        internal override void AssignFsi(in FileSystemInfo fsi)
+        {
+            base.AssignFsi(fsi);
+            current_file = (FileInfo)fsi;
+        }
 
         protected override void OnContextList(in SguiContextClick_List list)
         {

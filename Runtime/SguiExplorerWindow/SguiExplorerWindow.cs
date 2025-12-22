@@ -1,4 +1,4 @@
-using _COBRA_;
+using System.IO;
 using UnityEngine;
 
 namespace _SGUI_
@@ -29,14 +29,24 @@ namespace _SGUI_
 
             trad_title.SetTrads(new()
             {
-                french = $"Shitplorateur",
-                english = "Shitplorator",
+                french = $"Explorateur",
+                english = "Explorer",
             });
         }
 
-        public static SguiExplorerWindow OpenHere(in PathModes mode)
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void Start()
         {
-            return InstantiateWindow<SguiExplorerWindow>();
+            base.Start();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public static SguiExplorerWindow OpenHere(in DirectoryInfo dir)
+        {
+            var window = InstantiateWindow<SguiExplorerWindow>();
+            return window;
         }
     }
 }

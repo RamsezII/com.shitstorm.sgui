@@ -1,6 +1,7 @@
 using _ARK_;
 using _SGUI_.Explorer;
 using _UTIL_;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,12 @@ namespace _SGUI_
     public partial class SguiExplorerView : ArkComponent, SguiContextClick.IUser
     {
         [SerializeField] VerticalLayoutGroup vlayout;
-        [SerializeField] Button_Folder prefab_folder;
-        [SerializeField] Button_File prefab_file;
+        [SerializeField] internal Button_Folder prefab_folder;
+        [SerializeField] internal Button_File prefab_file;
 
-        internal readonly ValueHandler<Button_Hierarchy> selected_line = new();
+        [SerializeField] internal Button_Folder home_folder;
+
+        internal readonly ValueHandler<Button_Hierarchy> selected_fsi = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -23,6 +26,9 @@ namespace _SGUI_
             prefab_file = GetComponentInChildren<Button_File>(true);
 
             base.Awake();
+
+            home_folder = prefab_folder.Clone(true);
+            home_folder.AssignFsi(ArkPaths.instance.Value.dpath_home.GetDir(true));
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -33,19 +39,14 @@ namespace _SGUI_
 
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
-
-            prefab_folder.Clone(true);
-            prefab_folder.Clone(true);
-            prefab_folder.Clone(true);
-            prefab_folder.Clone(true);
-            prefab_file.Clone(true);
-            prefab_file.Clone(true);
-            prefab_file.Clone(true);
-            prefab_file.Clone(true);
-            prefab_file.Clone(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public void GoHere(in DirectoryInfo dir)
+        {
+
+        }
 
         public void AudotSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);
         void OnAutoSize()

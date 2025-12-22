@@ -404,6 +404,7 @@ MonoBehaviour:
   vlayout: {fileID: 0}
   prefab_folder: {fileID: 0}
   prefab_file: {fileID: 0}
+  home_folder: {fileID: 0}
 --- !u!1 &5509008416093199053
 GameObject:
   m_ObjectHideFlags: 0

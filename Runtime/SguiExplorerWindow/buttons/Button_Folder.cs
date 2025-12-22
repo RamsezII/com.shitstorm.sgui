@@ -1,5 +1,8 @@
 ﻿using _UTIL_;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,11 +11,12 @@ namespace _SGUI_.Explorer
 {
     internal class Button_Folder : Button_Hierarchy
     {
-        readonly List<Button_Hierarchy> hierarchy = new();
-
         [SerializeField] RawImage icon_opened, icon_closed;
 
         public readonly ValueHandler<bool> toggle = new();
+
+        public DirectoryInfo current_dir;
+        readonly List<Button_Hierarchy> children = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -30,23 +34,55 @@ namespace _SGUI_.Explorer
         {
             base.Start();
 
+            transform.Find("rt/icon").GetComponent<PointerClickHandler>().onClick += eventData => toggle.Toggle();
+
             toggle.AddListener(value =>
             {
-                for (int i = 0; i < hierarchy.Count; ++i)
+                for (int i = 0; i < children.Count; ++i)
                 {
-                    if (hierarchy[i] is Button_Folder bfolder)
+                    if (children[i] is Button_Folder bfolder)
                         bfolder.toggle.Value = false;
-                    Destroy(hierarchy[i].gameObject);
+                    Destroy(children[i].gameObject);
                 }
 
-                hierarchy.Clear();
+                children.Clear();
 
                 icon_opened.gameObject.SetActive(value);
                 icon_closed.gameObject.SetActive(!value);
+
+                if (value)
+                {
+                    int sibling_index = transform.GetSiblingIndex();
+
+                    foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
+                        .OrderByDescending(x => x.Name, StringComparer.Ordinal)
+                        .OrderBy(x => x is DirectoryInfo))
+                    {
+                        Button_Hierarchy button = null;
+
+                        if (fsi is DirectoryInfo dir)
+                            button = view.prefab_folder.Clone(true);
+
+                        if (fsi is FileInfo file)
+                            button = view.prefab_file.Clone(true);
+
+                        children.Add(button);
+
+                        button.depth = 1 + depth;
+                        button.AssignFsi(fsi);
+                        button.transform.SetSiblingIndex(1 + sibling_index);
+                    }
+                }
             });
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        internal override void AssignFsi(in FileSystemInfo fsi)
+        {
+            base.AssignFsi(fsi);
+            current_dir = (DirectoryInfo)fsi;
+        }
 
         public override void OnPointerClick(PointerEventData eventData)
         {

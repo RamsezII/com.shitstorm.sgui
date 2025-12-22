@@ -1,4 +1,6 @@
 ﻿using _ARK_;
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +13,7 @@ namespace _SGUI_.Explorer
 
         [SerializeField] RawImage rimg_selected;
         public RectTransform rt;
+        public TextMeshProUGUI text;
         public string full_path, short_path;
         public int depth;
 
@@ -21,6 +24,7 @@ namespace _SGUI_.Explorer
             view = GetComponentInParent<SguiExplorerView>(true);
             rimg_selected = transform.Find("selected").GetComponent<RawImage>();
             rt = (RectTransform)transform.Find("rt");
+            text = rt.Find("text").GetComponent<TextMeshProUGUI>();
 
             base.Awake();
         }
@@ -31,13 +35,17 @@ namespace _SGUI_.Explorer
         {
             base.Start();
 
-            view.selected_line.AddListener(value =>
-            {
-                OnSelectedButton(value);
-            });
+            view.selected_fsi.AddListener(OnSelectedButton);
+
+            rt.anchoredPosition += new Vector2(5 * depth, 0);
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        internal virtual void AssignFsi(in FileSystemInfo fsi)
+        {
+            text.text = fsi.Name;
+        }
 
         void OnSelectedButton(Button_Hierarchy value)
         {
@@ -52,7 +60,7 @@ namespace _SGUI_.Explorer
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
-            view.selected_line.Value = this;
+            view.selected_fsi.Value = this;
 
             if (eventData.button == PointerEventData.InputButton.Right)
             {
@@ -93,7 +101,7 @@ namespace _SGUI_.Explorer
         {
             base.OnDestroy();
 
-            view.selected_line.RemoveListener(OnSelectedButton);
+            view.selected_fsi.RemoveListener(OnSelectedButton);
         }
     }
 }
