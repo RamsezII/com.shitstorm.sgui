@@ -69,8 +69,8 @@ namespace _SGUI_.Explorer
                 var button = list.AddButton();
                 button.trad.SetTrads(new()
                 {
-                    french = $"Ouvrir Shitcodium dans \"{short_path}\"",
-                    english = $"Open Shitcodium in \"{short_path}\"",
+                    french = $"Ouvrir dans Shitcodium",
+                    english = $"Open in Shitcodium",
                 });
             }
         }

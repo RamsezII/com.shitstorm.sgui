@@ -62,8 +62,8 @@ namespace _SGUI_.Explorer
                     var button = list.AddButton();
                     button.trad.SetTrads(new()
                     {
-                        french = $"Renommer \"{short_path}\"",
-                        english = $"Rename \"{short_path}\"",
+                        french = "Renommer",
+                        english = "Rename",
                     });
                 }
 
@@ -71,8 +71,8 @@ namespace _SGUI_.Explorer
                     var button = list.AddButton();
                     button.trad.SetTrads(new()
                     {
-                        french = $"Supprimer \"{short_path}\"",
-                        english = $"Delete \"{short_path}\"",
+                        french = "Supprimer",
+                        english = "Delete",
                     });
                 }
 

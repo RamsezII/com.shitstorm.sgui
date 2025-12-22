@@ -68,8 +68,17 @@ namespace _SGUI_
                 var button = list.AddButton();
                 button.trad.SetTrads(new()
                 {
-                    french = $"Ouvrir Shitcodium ici",
-                    english = $"Open Shitcodium here",
+                    french = $"Ouvrir un terminal ici",
+                    english = $"Open a terminal here",
+                });
+            }
+
+            {
+                var button = list.AddButton();
+                button.trad.SetTrads(new()
+                {
+                    french = $"Ouvrir dans Shitcodium",
+                    english = $"Open in Shitcodium",
                 });
             }
         }
