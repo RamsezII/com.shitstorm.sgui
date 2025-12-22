@@ -43,9 +43,16 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public static SguiExplorerWindow Open()
+        {
+            var window = InstantiateWindow<SguiExplorerWindow>();
+            return window;
+        }
+
         public static SguiExplorerWindow OpenHere(in DirectoryInfo dir)
         {
             var window = InstantiateWindow<SguiExplorerWindow>();
+            window.view.GoHere(dir);
             return window;
         }
     }

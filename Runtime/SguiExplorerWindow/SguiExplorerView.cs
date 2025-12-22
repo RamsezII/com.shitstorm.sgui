@@ -39,13 +39,15 @@ namespace _SGUI_
 
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
+
+            home_folder.toggle.Toggle(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         public void GoHere(in DirectoryInfo dir)
         {
-
+            string path = dir.FullName;
         }
 
         public void AudotSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);

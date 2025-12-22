@@ -104,8 +104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "hierarchy-button\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ea2a69a26d900244abed0c851816ab5, type: 2}
-  m_sharedMaterial: {fileID: 6099915848301163636, guid: 7ea2a69a26d900244abed0c851816ab5,
+  m_fontAsset: {fileID: 11400000, guid: af6fd8e5ef6121f44ac9124828091bcd, type: 2}
+  m_sharedMaterial: {fileID: 3458970894582362280, guid: af6fd8e5ef6121f44ac9124828091bcd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9
+  m_fontSize: 8
   m_fontSizeBase: 9
   m_fontWeight: 400
   m_enableAutoSizing: 0

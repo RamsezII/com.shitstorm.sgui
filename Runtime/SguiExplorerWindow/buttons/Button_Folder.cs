@@ -52,6 +52,8 @@ namespace _SGUI_.Explorer
 
                 if (value)
                 {
+                    view.selected_fsi.Value = this;
+
                     int sibling_index = transform.GetSiblingIndex();
 
                     foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
