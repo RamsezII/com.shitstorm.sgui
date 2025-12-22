@@ -16,7 +16,7 @@ namespace _SGUI_.Explorer
         public readonly ValueHandler<bool> toggle = new();
 
         public DirectoryInfo current_dir;
-        readonly List<Button_Hierarchy> children = new();
+        internal readonly Dictionary<string, Button_Hierarchy> paths_buttons = new(StringComparer.Ordinal);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +26,17 @@ namespace _SGUI_.Explorer
 
             icon_opened = rt.Find("icon/opened").GetComponent<RawImage>();
             icon_closed = rt.Find("icon/closed").GetComponent<RawImage>();
+
+            toggle.AddListener(value =>
+            {
+                icon_opened.gameObject.SetActive(value);
+                icon_closed.gameObject.SetActive(!value);
+
+                if (toggle._value)
+                    view.selected_fsi.Value = this;
+
+                Repopulate();
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -35,50 +46,47 @@ namespace _SGUI_.Explorer
             base.Start();
 
             transform.Find("rt/icon").GetComponent<PointerClickHandler>().onClick += eventData => toggle.Toggle();
-
-            toggle.AddListener(value =>
-            {
-                for (int i = 0; i < children.Count; ++i)
-                {
-                    if (children[i] is Button_Folder bfolder)
-                        bfolder.toggle.Value = false;
-                    Destroy(children[i].gameObject);
-                }
-
-                children.Clear();
-
-                icon_opened.gameObject.SetActive(value);
-                icon_closed.gameObject.SetActive(!value);
-
-                if (value)
-                {
-                    view.selected_fsi.Value = this;
-
-                    int sibling_index = transform.GetSiblingIndex();
-
-                    foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
-                        .OrderByDescending(x => x.Name, StringComparer.Ordinal)
-                        .OrderBy(x => x is DirectoryInfo))
-                    {
-                        Button_Hierarchy button = null;
-
-                        if (fsi is DirectoryInfo dir)
-                            button = view.prefab_folder.Clone(true);
-
-                        if (fsi is FileInfo file)
-                            button = view.prefab_file.Clone(true);
-
-                        children.Add(button);
-
-                        button.depth = 1 + depth;
-                        button.AssignFsi(fsi);
-                        button.transform.SetSiblingIndex(1 + sibling_index);
-                    }
-                }
-            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public void Repopulate()
+        {
+            foreach (var path_button in paths_buttons)
+            {
+                if (path_button.Value is Button_Folder bfolder)
+                    bfolder.toggle.Value = false;
+                Destroy(path_button.Value.gameObject);
+            }
+
+            paths_buttons.Clear();
+
+            if (toggle._value)
+            {
+                int sibling_index = transform.GetSiblingIndex();
+
+                foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
+                    .OrderByDescending(x => x.Name, StringComparer.Ordinal)
+                    .OrderBy(x => x is DirectoryInfo))
+                {
+                    Button_Hierarchy button = null;
+
+                    if (fsi is DirectoryInfo dir)
+                        button = view.prefab_folder.Clone(true);
+
+                    if (fsi is FileInfo file)
+                        button = view.prefab_file.Clone(true);
+
+                    paths_buttons.Add(fsi.Name, button);
+
+                    button.depth = 1 + depth;
+                    button.AssignFsi(fsi);
+                    button.transform.SetSiblingIndex(1 + sibling_index);
+                }
+            }
+
+            view.AutoSize();
+        }
 
         internal override void AssignFsi(in FileSystemInfo fsi)
         {
@@ -103,6 +111,8 @@ namespace _SGUI_.Explorer
         {
             base.OnContextList(list);
 
+            list.AddLine();
+
             {
                 var button = list.AddButton();
                 button.trad.SetTrads(new()
@@ -111,6 +121,10 @@ namespace _SGUI_.Explorer
                     english = $"Open in Shitcodium",
                 });
             }
+
+            list.AddLine();
+
+            ((SguiContextClick.IUser)view).OnSguiContextClick(list);
         }
     }
 }

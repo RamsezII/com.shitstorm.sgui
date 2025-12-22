@@ -14,8 +14,9 @@ namespace _SGUI_.Explorer
         [SerializeField] RawImage rimg_selected;
         public RectTransform rt;
         public TextMeshProUGUI text;
-        public string full_path, short_path;
         public int depth;
+
+        public FileSystemInfo current_fsi;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ namespace _SGUI_.Explorer
 
         internal virtual void AssignFsi(in FileSystemInfo fsi)
         {
+            current_fsi = fsi;
             text.text = fsi.Name;
         }
 

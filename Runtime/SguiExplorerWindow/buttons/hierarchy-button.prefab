@@ -104,8 +104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "hierarchy-button\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af6fd8e5ef6121f44ac9124828091bcd, type: 2}
-  m_sharedMaterial: {fileID: 3458970894582362280, guid: af6fd8e5ef6121f44ac9124828091bcd,
+  m_fontAsset: {fileID: 11400000, guid: 1c31798c52fa197478619dbc23def8ed, type: 2}
+  m_sharedMaterial: {fileID: 1771178799086956252, guid: 1c31798c52fa197478619dbc23def8ed,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
