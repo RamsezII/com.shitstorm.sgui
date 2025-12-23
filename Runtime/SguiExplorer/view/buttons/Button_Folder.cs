@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.Explorer
 {
-    internal class Button_Folder : Button_Hierarchy
+    internal partial class Button_Folder : Button_Hierarchy
     {
         [SerializeField] RawImage icon_opened, icon_closed;
 
@@ -117,14 +117,29 @@ namespace _SGUI_.Explorer
                 var button = list.AddButton();
                 button.trad.SetTrads(new()
                 {
-                    french = $"Ouvrir dans Shitcodium",
-                    english = $"Open in Shitcodium",
+                    french = $"Créer un fichier",
+                    english = $"Create file",
                 });
+
+                button.button.onClick.AddListener(() => view.Prompt_CreateFile(current_dir));
             }
 
-            list.AddLine();
+            {
+                var button = list.AddButton();
+                button.trad.SetTrads(new()
+                {
+                    french = $"Créer un dossier",
+                    english = $"Create a directory",
+                });
 
-            ((SguiContextClick.IUser)view).OnSguiContextClick(list);
+                button.button.onClick.AddListener(() => view.Prompt_CreateFolder(current_dir));
+            }
+
+            if (SguiExplorerView.onContextClick_directory != null)
+            {
+                list.AddLine();
+                SguiExplorerView.onContextClick_directory(list, current_dir);
+            }
         }
     }
 }

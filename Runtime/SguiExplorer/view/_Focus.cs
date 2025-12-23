@@ -6,7 +6,7 @@ namespace _SGUI_
 {
     partial class SguiExplorerView
     {
-        void OnFocus()
+        internal void RebuildHierarchy()
         {
             string selected_fsi = null;
 
@@ -21,8 +21,11 @@ namespace _SGUI_
             root_folder.toggle.Value = false;
             root_folder.toggle.Value = true;
 
-            for (int i = all_toggled_folders.Length - 1; i >= 0; i--)
-                GoHere(new DirectoryInfo(all_toggled_folders[i]));
+            foreach (string f in all_toggled_folders)
+            {
+                GoHere(new DirectoryInfo(f));
+                ((Button_Folder)this.selected_fsi._value).toggle.Value = true;
+            }
 
             if (selected_fsi != null)
                 GoHere(new DirectoryInfo(selected_fsi));

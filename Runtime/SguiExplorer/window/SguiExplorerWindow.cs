@@ -1,9 +1,8 @@
-using System.IO;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    public partial class SguiExplorerWindow : SguiWindow2
+    public sealed class SguiExplorerWindow : SguiWindow2
     {
         public SguiExplorerView view;
 
@@ -32,28 +31,6 @@ namespace _SGUI_
                 french = $"Explorateur",
                 english = "Explorer",
             });
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        public static SguiExplorerWindow Open()
-        {
-            var window = InstantiateWindow<SguiExplorerWindow>();
-            return window;
-        }
-
-        public static SguiExplorerWindow OpenHere(in DirectoryInfo dir)
-        {
-            var window = InstantiateWindow<SguiExplorerWindow>();
-            window.view.GoHere(dir);
-            return window;
         }
     }
 }

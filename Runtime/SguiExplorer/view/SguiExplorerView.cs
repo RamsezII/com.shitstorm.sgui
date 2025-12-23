@@ -2,7 +2,6 @@ using _ARK_;
 using _SGUI_.Explorer;
 using _UTIL_;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,6 +19,18 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder root_folder;
 
         internal readonly ValueHandler<Button_Hierarchy> selected_fsi = new();
+
+        public static Action<SguiContextClick_List, DirectoryInfo> onContextClick_directory;
+        public static Action<SguiContextClick_List, FileInfo> onContextClick_file;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            onContextClick_directory = null;
+            onContextClick_file = null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -53,7 +64,7 @@ namespace _SGUI_
                     ((SguiContextClick.IUser)this).OnSguiContextClick(SguiContextClick.instance.InstantiateListHere(eventData.position));
             };
 
-            NUCLEOR.delegates.OnApplicationFocus += OnFocus;
+            NUCLEOR.delegates.OnApplicationFocus += RebuildHierarchy;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -72,19 +83,28 @@ namespace _SGUI_
                     return;
                 }
 
-                var splits = rel_path.Split('/', '\\');
                 var current = root_folder;
+
+                var splits = rel_path.Split(
+                    new char[]
+                    {
+                        Path.DirectorySeparatorChar,
+                        Path.AltDirectorySeparatorChar,
+                    },
+                    StringSplitOptions.RemoveEmptyEntries
+                );
 
                 for (int i = 0; i < splits.Length; i++)
                 {
                     string split = splits[i];
-                    if (!string.IsNullOrWhiteSpace(split))
-                    {
-                        current.toggle.Value = true;
+                    current.toggle.Value = true;
+
+                    if (!current.paths_buttons.TryGetValue(split, out var button))
+                        Debug.LogWarning($"path \"{split}\" is not present ({selected_fsi._value.current_fsi.FullName})", this);
+                    else if (i == splits.Length - 1)
+                        selected_fsi.Value = button;
+                    else
                         current = (Button_Folder)current.paths_buttons[split];
-                        if (i == splits.Length - 1)
-                            selected_fsi.Value = current;
-                    }
                 }
             }
         }
@@ -103,7 +123,7 @@ namespace _SGUI_
 
         protected override void OnDestroy()
         {
-            NUCLEOR.delegates.OnApplicationFocus -= OnFocus;
+            NUCLEOR.delegates.OnApplicationFocus -= RebuildHierarchy;
             base.OnDestroy();
         }
     }
