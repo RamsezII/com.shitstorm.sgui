@@ -16,6 +16,7 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder prefab_folder;
         [SerializeField] internal Button_File prefab_file;
 
+        public string root_dpath;
         [SerializeField] internal Button_Folder root_folder;
 
         internal readonly ValueHandler<Button_Hierarchy> selected_fsi = new();
@@ -43,9 +44,7 @@ namespace _SGUI_
 
             base.Awake();
 
-            root_folder = prefab_folder.Clone(true);
-            root_folder.AssignFsi(ArkPaths.instance.Value.dpath_home.GetDir(true));
-            root_folder.toggle.Value = true;
+            root_dpath = ArkPaths.instance.Value.dpath_home;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -53,6 +52,8 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
+
+            InitRootFolder();
 
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
@@ -69,8 +70,54 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        void InitRootFolder()
+        {
+            if (root_folder != null)
+                return;
+
+            root_folder = prefab_folder.Clone(true);
+            root_folder.AssignFsi(root_dpath.GetDir(false));
+            root_folder.toggle.Value = true;
+        }
+
+        public bool TryGetSelectedFSI(out FileSystemInfo fsi)
+        {
+            if (selected_fsi._value != null)
+            {
+                fsi = selected_fsi._value.current_fsi;
+                return true;
+            }
+            fsi = null;
+            return false;
+        }
+
+        public bool TryGetSelectedDIR(out DirectoryInfo dir)
+        {
+            if (selected_fsi._value is Button_Folder bdir)
+            {
+                dir = bdir.current_dir;
+                return true;
+            }
+            dir = null;
+            return false;
+        }
+
+        public bool TryGetSelectedFILE(out FileInfo file)
+        {
+            if (selected_fsi._value is Button_File bfile)
+            {
+                file = bfile.current_file;
+                return true;
+            }
+            file = null;
+            return false;
+        }
+
         public void GoHere(in FileSystemInfo fsi)
         {
+            if (root_folder == null)
+                InitRootFolder();
+
             string target_path = Path.GetFullPath(fsi.FullName);
             string root_path = Path.GetFullPath(root_folder.current_dir.FullName);
 
@@ -102,7 +149,11 @@ namespace _SGUI_
                     if (!current.paths_buttons.TryGetValue(split, out var button))
                         Debug.LogWarning($"path \"{split}\" is not present ({selected_fsi._value.current_fsi.FullName})", this);
                     else if (i == splits.Length - 1)
+                    {
+                        if (button is Button_Folder bdir)
+                            bdir.toggle.Value = true;
                         selected_fsi.Value = button;
+                    }
                     else
                         current = (Button_Folder)current.paths_buttons[split];
                 }

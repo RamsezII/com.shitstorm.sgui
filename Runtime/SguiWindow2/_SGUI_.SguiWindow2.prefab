@@ -994,6 +994,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: button-close
       objectReference: {fileID: 0}
+    - target: {fileID: 2262367454408144763, guid: 389efa22790cee44e87aebd05a7b104d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262367454408144763, guid: 389efa22790cee44e87aebd05a7b104d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.79640526
+      objectReference: {fileID: 0}
     - target: {fileID: 2590232821374106925, guid: 389efa22790cee44e87aebd05a7b104d,
         type: 3}
       propertyPath: m_LocalRotation.w
