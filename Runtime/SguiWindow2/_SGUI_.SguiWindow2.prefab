@@ -1133,6 +1133,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: button_confirm
       objectReference: {fileID: 0}
+    - target: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 7818440116127398780}
     - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
       propertyPath: traductions.french
@@ -1142,6 +1152,21 @@ PrefabInstance:
         type: 3}
       propertyPath: traductions.english
       value: Confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3690129887729121433, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
@@ -1248,6 +1273,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2309ffb65cb0255b583e79edccc64b, type: 3}
+--- !u!114 &5584451477036342062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6027777876739402710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6958907628225811279 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3690129887729121433, guid: 8f2309ffb65cb0255b583e79edccc64b,
@@ -1447,6 +1484,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: button_cancel
       objectReference: {fileID: 0}
+    - target: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 5584451477036342062}
     - target: {fileID: 2911556402883010996, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
       propertyPath: traductions.french
@@ -1456,6 +1503,21 @@ PrefabInstance:
         type: 3}
       propertyPath: traductions.english
       value: Cancel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469732941459883121, guid: 8f2309ffb65cb0255b583e79edccc64b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3690129887729121433, guid: 8f2309ffb65cb0255b583e79edccc64b,
         type: 3}
@@ -1568,3 +1630,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8239793815331097476}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7818440116127398780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2222822240606138616, guid: 8f2309ffb65cb0255b583e79edccc64b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8239793815331097476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

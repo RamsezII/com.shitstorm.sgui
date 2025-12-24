@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public sealed class SguiContextClick_List_Button : MonoBehaviour
+    public sealed class SguiContextClick_List_Button : MonoBehaviour, SguiContextHover.IUser
     {
         public SguiContextClick_List plist;
         public RectTransform rt;
         public Button button;
         public Traductable trad;
         [SerializeField] RawImage arrow;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 

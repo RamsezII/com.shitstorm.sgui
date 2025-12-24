@@ -126,6 +126,12 @@ namespace _SGUI_
 
         public void AssignUser(in IUser user)
         {
+            if (string.IsNullOrWhiteSpace(user.OnSguiContextHover().GetAutomatic()))
+            {
+                this.user = user;
+                return;
+            }
+
             this.user = user;
 
             Toggle(false);
@@ -156,7 +162,7 @@ namespace _SGUI_
 
                 case BaseStates.Enable:
                     if (!toggle)
-                        animator.CrossFadeInFixedTime((int)BaseStates.Default, .1f, (int)AnimLayers.Base);
+                        animator.CrossFadeInFixedTime((int)BaseStates.Default, .15f, (int)AnimLayers.Base);
                     break;
             }
         }
