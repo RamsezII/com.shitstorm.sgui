@@ -170,6 +170,22 @@ namespace _SGUI_.Explorer
                     });
                 }
 
+                {
+                    var button = list.AddButton();
+                    button.trad.SetTrads(new()
+                    {
+                        french = "Copier le chemin",
+                        english = "Copy path",
+                    });
+
+                    button.button.onClick.AddListener(() =>
+                    {
+                        string path = current_fsi.FullName.NormalizePath();
+                        GUIUtility.systemCopyBuffer = path;
+                        LoggerOverlay.Log($"Path copied to clipboard ({path})", this, timer: 5);
+                    });
+                }
+
                 OnContextList(list);
             }
         }
