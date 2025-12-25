@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    internal class HeaderDropdown : MonoBehaviour
+    public class HeaderDropdown : MonoBehaviour
     {
         public SguiWindow1 window;
         public Button button;
