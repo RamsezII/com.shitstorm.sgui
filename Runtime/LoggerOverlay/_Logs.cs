@@ -70,6 +70,9 @@ namespace _SGUI_
                 if (timer > 0)
                     switch (logLevel)
                     {
+                        case LogLevel._ConsolRedirect:
+                            break;
+
                         case LogLevel.Warning:
                             Debug.LogWarning(text, context);
                             break;
