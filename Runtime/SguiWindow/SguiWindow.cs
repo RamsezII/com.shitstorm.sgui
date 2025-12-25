@@ -13,8 +13,11 @@ namespace _SGUI_
         public static readonly ListListener<SguiWindow> focused = new();
         public void TakeFocus() => focused.Modify(list =>
         {
+            if (focused.IsLast(this))
+                return;
             list.Remove(this);
             list.Add(this);
+            ToggleWindow(true);
         });
         public bool HasFocus() => this == focused.IsLast(this);
 
