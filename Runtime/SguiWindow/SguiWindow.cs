@@ -1,6 +1,7 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _SGUI_
@@ -9,9 +10,13 @@ namespace _SGUI_
     {
         public static readonly ListListener<SguiWindow> instances = new();
 
-        public static readonly ValueHandler<SguiWindow> focused = new();
-        public void TakeFocus() => focused.Value = this;
-        public bool HasFocus() => this == focused._value;
+        public static readonly ListListener<SguiWindow> focused = new();
+        public void TakeFocus() => focused.Modify(list =>
+        {
+            list.Remove(this);
+            list.Add(this);
+        });
+        public bool HasFocus() => this == focused.IsLast(this);
 
         [HideInInspector] public Animator animator;
 
@@ -39,7 +44,7 @@ namespace _SGUI_
             _id = 0;
             instances.Reset();
             focused.Reset();
-            focused.AddListener(value => SoftwareButton.RefreshAllOpenStates());
+            focused.AddListener2(list => SoftwareButton.RefreshAllOpenStates());
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -95,7 +100,7 @@ namespace _SGUI_
             ToggleWindow(true);
             button_close.onClick.AddListener(() => SetScalePivot(null));
 
-            focused.AddListener(OnFocused);
+            focused.AddListener2(OnFocused);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -105,11 +110,7 @@ namespace _SGUI_
             TakeFocus();
         }
 
-        protected virtual void OnFocused(SguiWindow focused)
-        {
-            OnFocus(this == focused);
-        }
-
+        void OnFocused(List<SguiWindow> list) => OnFocus(focused.IsLast(this));
         protected virtual void OnFocus(in bool has_focus)
         {
             if (!has_focus)
@@ -253,10 +254,9 @@ namespace _SGUI_
 
             os_button?.RefreshOpenState();
 
-            focused.RemoveListener(OnFocused);
+            focused._listeners2 -= OnFocused;
 
-            if (this == focused._value)
-                focused.Value = null;
+            focused.RemoveElement(this);
         }
     }
 }
