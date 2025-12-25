@@ -455,7 +455,7 @@ PrefabInstance:
     - target: {fileID: 5761368120172786459, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
       propertyPath: m_Name
-      value: _SGUI_.SguiExplorerWindow
+      value: _SGUI_.SguiExplorerPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 6352574027782868876, guid: e1ca649690ba2ce47970c55b27e07add,
         type: 3}
@@ -571,7 +571,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   oblivionized: 0
   animate_hue: 0
-  window_icon: {fileID: 2800000, guid: 0c0fba77feb16e6469efaafd5635074d, type: 3}
+  window_icon: {fileID: 0}
   id: 3
   state_base: 0
   canvas: {fileID: 0}
