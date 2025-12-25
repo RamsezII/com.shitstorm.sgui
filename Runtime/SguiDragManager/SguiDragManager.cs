@@ -1,5 +1,4 @@
 using _ARK_;
-using _UTIL_;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,7 +26,7 @@ namespace _SGUI_
             void IDragHandler.OnDrag(PointerEventData eventData)
             {
                 instance.rt_pos.position = eventData.position;
-                instance.RaycastUnder(this, eventData);
+                instance.RaycastUnder<T>(eventData);
             }
 
             void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -36,20 +35,22 @@ namespace _SGUI_
             }
         }
 
-        public interface IAcceptDraggable<T> : IDropHandler
+        public interface IAcceptDraggable : IDropHandler
+        {
+        }
+
+        public interface IAcceptDraggable<T> : IAcceptDraggable
         {
             void IDropHandler.OnDrop(PointerEventData eventData)
             {
                 if (eventData.pointerDrag.TryGetComponent<IDraggable<T>>(out var draggable))
-                    if (CanAcceptDraggable(draggable))
-                    {
-                        AcceptDraggable(draggable);
-                        draggable.OnDropAccepted(this);
-                    }
+                {
+                    AcceptDraggable(draggable);
+                    draggable.OnDropAccepted(this);
+                }
                 instance.gameObject.SetActive(false);
             }
 
-            bool CanAcceptDraggable(in IDraggable<T> draggable);
             void AcceptDraggable(in IDraggable<T> draggable);
         }
 
@@ -88,31 +89,31 @@ namespace _SGUI_
 
         //----------------------------------------------------------------------------------------------------------
 
-        void RaycastUnder<T>(in IDraggable<T> draggable, in PointerEventData eventData)
+        void RaycastUnder<T>(in PointerEventData eventData)
         {
             results.Clear();
             SguiGlobal.instance.raycaster_2D.Raycast(eventData, results);
 
-            bool found_acceptor = false;
-            bool can_accept = false;
+            bool found = false;
+            bool accepts = false;
 
             for (int i = 0; i < results.Count; i++)
             {
-                IAcceptDraggable<T> handler = results[i].gameObject.GetComponentInParent<IAcceptDraggable<T>>(true);
+                IAcceptDraggable handler = results[i].gameObject.GetComponentInParent<IAcceptDraggable>(true);
                 if (handler != null)
                 {
-                    found_acceptor = true;
-                    if (handler.CanAcceptDraggable(draggable))
+                    found = true;
+                    if (handler is IAcceptDraggable<T>)
                     {
-                        can_accept = true;
+                        accepts = true;
                         break;
                     }
                 }
             }
 
-            rimg_ok.gameObject.SetActive(found_acceptor && can_accept);
-            rimg_no.gameObject.SetActive(found_acceptor && !can_accept);
-            rimg_none.gameObject.SetActive(!found_acceptor);
+            rimg_ok.gameObject.SetActive(found && accepts);
+            rimg_no.gameObject.SetActive(found && !accepts);
+            rimg_none.gameObject.SetActive(!found);
 
             results.Clear();
         }
