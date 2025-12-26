@@ -68,7 +68,7 @@ namespace _SGUI_
             canvasGroup.alpha = 0;
 
             HeartBeat.Operation op = default;
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new(0, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new("lerp contextlist alpha", 0, true, () =>
             {
                 if (this == null || canvasGroup.alpha >= 1)
                 {

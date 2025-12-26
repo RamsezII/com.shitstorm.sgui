@@ -41,7 +41,7 @@ namespace _SGUI_
             AutoSize();
 
             tmp_timer.text = "0s";
-            op_timer = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new(.45f, true, () =>
+            op_timer = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new("update progress bar timer", .45f, true, () =>
             {
                 string time = (Time.unscaledTime - start_time).TimeLog();
                 tmp_timer.text = time;

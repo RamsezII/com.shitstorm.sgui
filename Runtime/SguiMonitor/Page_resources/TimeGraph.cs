@@ -22,7 +22,7 @@ namespace _SGUI_.Monitor.Resources
         protected override void OnEnable()
         {
             base.OnEnable();
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_refresh = new(renderStep, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_refresh = new("refresh time graph", renderStep, true, () =>
             {
                 op_refresh.delay = renderStep;
                 renderer.SetVerticesDirty();

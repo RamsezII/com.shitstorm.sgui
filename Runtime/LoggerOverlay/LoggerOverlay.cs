@@ -37,7 +37,7 @@ namespace _SGUI_
 
         private void OnEnable()
         {
-           operation = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new(.065f, true, RefreshTexts));
+           operation = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new("refresh logger overlay", .065f, true, RefreshTexts));
         }
 
         private void OnDisable()

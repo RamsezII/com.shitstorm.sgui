@@ -82,7 +82,7 @@ namespace _SGUI_
                 canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;
             });
 
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_framerate = new HeartBeat.Operation(1, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_framerate = new HeartBeat.Operation("refresh framerate monitor", 1, true, () =>
             {
                 float framerate = 1 / NUCLEOR.instance.averageUnscaledDeltatime;
                 text_framerate.text = $"{Mathf.RoundToInt(framerate)}";

@@ -79,7 +79,7 @@ namespace _SGUI_
 
             prefab_softwarebutton.gameObject.SetActive(false);
 
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(new(4, true, () =>
+            NUCLEOR.instance.heartbeat_unscaled.AddOperation(new("refresh datetime", 4, true, () =>
             {
                 if (text_computer_time.gameObject.activeInHierarchy)
                     RefreshDatetime();

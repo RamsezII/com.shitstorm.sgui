@@ -121,7 +121,7 @@ namespace _SGUI_
         {
             op?.Dispose();
             if (toggle)
-                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new(.15f, true, OnOperation));
+                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new("wait before hover text", .15f, true, OnOperation));
         }
 
         public void AssignUser(in IUser user)

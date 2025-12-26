@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.Explorer
 {
-    internal partial class Button_Hierarchy : ArkComponent, IPointerClickHandler, SguiDragManager.IDraggable<string>
+    internal partial class Button_Hierarchy : ArkComponent, IPointerClickHandler, SguiDragManager.IDraggable
     {
         public SguiExplorerView view;
 
@@ -17,9 +17,10 @@ namespace _SGUI_.Explorer
         public int depth;
 
         public FileSystemInfo current_fsi;
+        public string normalized_path;
 
-        Traductions SguiDragManager.IDraggable<string>.DragInfos => new(current_fsi.FullName.NormalizePath());
-        string SguiDragManager.IDraggable<string>.DragData => current_fsi.FullName.NormalizePath();
+        string SguiDragManager.IDraggable.DragDisplay => normalized_path;
+        object SguiDragManager.IDraggable.DragData => normalized_path;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -38,6 +39,8 @@ namespace _SGUI_.Explorer
         protected override void Start()
         {
             base.Start();
+
+            normalized_path = current_fsi.FullName.NormalizePath();
 
             view.selected_fsi.AddListener(OnSelectedButton);
 
@@ -198,9 +201,9 @@ namespace _SGUI_.Explorer
 
         }
 
-        void SguiDragManager.IDraggable<string>.OnDropAccepted(in SguiDragManager.IAcceptDraggable<string> handler)
+        void SguiDragManager.IDraggable.OnDropAccepted(in SguiDragManager.IAcceptDraggable acceptor)
         {
-
+            LoggerOverlay.Log($"{current_fsi.Name} dropped on {acceptor}");
         }
 
         //--------------------------------------------------------------------------------------------------------------

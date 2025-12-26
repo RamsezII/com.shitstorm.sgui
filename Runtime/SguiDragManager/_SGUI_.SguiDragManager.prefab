@@ -390,7 +390,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5300364976825094152}
   - component: {fileID: 2791766979584014842}
-  - component: {fileID: 8437922000404225889}
   - component: {fileID: 2318242061192985545}
   m_Layer: 5
   m_Name: text
@@ -426,23 +425,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6528941940704028827}
   m_CullTransparentMesh: 1
---- !u!114 &8437922000404225889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6528941940704028827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
-  tmpro: {fileID: 0}
-  auto_width: 0
-  traductions:
-    english: draggable
-    french: draggable
 --- !u!114 &2318242061192985545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +445,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: _SGUI_.Draggable
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2fcb81e5d682344a8405d28c5d6da82, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 0195daa40437c264cb50dbc78402638f, type: 2}
