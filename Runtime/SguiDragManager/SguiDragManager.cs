@@ -70,9 +70,9 @@ namespace _SGUI_
 
             rt_pos = (RectTransform)transform.Find("rt_pos");
             rt_size = (RectTransform)rt_pos.transform.Find("rt_size");
-            rimg_ok = rt_pos.transform.Find("status/ok").GetComponent<RawImage>();
-            rimg_no = rt_pos.transform.Find("status/no").GetComponent<RawImage>();
-            rimg_none = rt_pos.transform.Find("status/none").GetComponent<RawImage>();
+            rimg_ok = rt_size.transform.Find("status/ok").GetComponent<RawImage>();
+            rimg_no = rt_size.transform.Find("status/no").GetComponent<RawImage>();
+            rimg_none = rt_size.transform.Find("status/none").GetComponent<RawImage>();
             trad = transform.GetComponentInChildren<Traductable>(true);
 
             base.Awake();
