@@ -192,13 +192,22 @@ namespace _SGUI_.Explorer
                     });
                 }
 
+                {
+                    var button = list.AddButton();
+                    button.trad.SetTrads(new()
+                    {
+                        french = "Ouvrir dans l'explorateur",
+                        english = "Open in the explorer",
+                    });
+                    button.button.onClick.AddListener(() => Application.OpenURL(current_fsi.FullName));
+                }
+
                 OnContextList(list);
             }
         }
 
         protected virtual void OnContextList(in SguiContextClick_List list)
         {
-
         }
 
         void SguiDragManager.IDraggable.OnDropAccepted(in SguiDragManager.IAcceptDraggable acceptor)
