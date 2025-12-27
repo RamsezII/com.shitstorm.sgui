@@ -212,7 +212,6 @@ namespace _SGUI_.Explorer
 
         void SguiDragManager.IDraggable.OnDropAccepted(in SguiDragManager.IAcceptDraggable acceptor)
         {
-            LoggerOverlay.Log($"{current_fsi.Name} dropped on {acceptor}");
         }
 
         //--------------------------------------------------------------------------------------------------------------

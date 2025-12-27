@@ -1829,15 +1829,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   oblivionized: 0
   animate_hue: 1
-  window_icon: {fileID: 2800000, guid: c3b7a39c4c1d3154e943eeff9116fb08, type: 3}
+  window_icon: {fileID: 2800000, guid: 23b1d5a2cd56df0418dc4632a6ac6e72, type: 3}
   id: 0
-  hierarchy_viewport_rT: {fileID: 0}
-  hierarchy_content_rT: {fileID: 0}
-  hierarchy_layout: {fileID: 0}
-  root_folder: {fileID: 0}
-  hierarchy_width: 5
-  fs_mode: 255
-  hierarchy_last_select: {fileID: 0}
   state_base: 0
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
@@ -1851,8 +1844,6 @@ MonoBehaviour:
   ui_hue_start: 0
   ui_hue_current: 0
   ui_alpha: 0
-  prefab_hierarchy_folder: {fileID: 0}
-  prefab_hierarchy_file: {fileID: 0}
   rimg_background: {fileID: 0}
   button_confirm: {fileID: 0}
   button_cancel: {fileID: 0}
