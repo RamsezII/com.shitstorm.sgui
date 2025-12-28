@@ -15,6 +15,7 @@ namespace _SGUI_
 
         [SerializeField] CanvasGroup canvasGroup;
         RectTransform rt;
+        public Traductable trad_title;
         ScrollRect scrollview;
         VerticalLayoutGroup vlayout;
         public TMP_InputField input_search;
@@ -32,6 +33,7 @@ namespace _SGUI_
 
             canvasGroup = GetComponent<CanvasGroup>();
             rt = (RectTransform)transform.Find("rT");
+            trad_title = transform.Find("rT/margin/title").GetComponent<Traductable>();
             scrollview = GetComponentInChildren<ScrollRect>(true);
             vlayout = scrollview.content.GetComponentInChildren<VerticalLayoutGroup>(true);
             input_search = GetComponentInChildren<TMP_InputField>(true);
@@ -43,6 +45,7 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
+            trad_title.SetTrad(GetType().FullName);
             canvasGroup.alpha = 0;
             NUCLEOR.delegates.LateUpdate += RefreshAlpha;
         }
@@ -59,6 +62,9 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
+
+            prefab_item.button.onClick.AddListener(Close);
+            prefab_item.gameObject.SetActive(false);
 
             transform.Find("background").GetComponent<PointerClickHandler>().onClick += eventData =>
             {
@@ -77,8 +83,6 @@ namespace _SGUI_
             transform.Find("rT/margin/button-close").GetComponent<Button>().onClick.AddListener(Close);
 
             input_search.transform.Find("clear-icon").GetComponent<Button>().onClick.AddListener(() => input_search.text = string.Empty);
-
-            prefab_item.gameObject.SetActive(false);
 
             Close();
         }
@@ -121,7 +125,7 @@ namespace _SGUI_
             var clone = prefab_item.Clone(true);
             clones.Add(clone);
             AutoSize();
-            return prefab_item;
+            return clone;
         }
 
         //--------------------------------------------------------------------------------------------------------------

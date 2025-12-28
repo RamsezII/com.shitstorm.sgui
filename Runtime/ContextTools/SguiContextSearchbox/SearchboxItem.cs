@@ -19,8 +19,6 @@ namespace _SGUI_.searchbox
             label = GetComponentInChildren<TextMeshProUGUI>();
 
             base.Awake();
-
-            button.onClick.AddListener(searchbox.Close);
         }
     }
 }
