@@ -14,7 +14,8 @@ namespace _SGUI_
         public static SguiSearchbox instance;
 
         [SerializeField] CanvasGroup canvasGroup;
-        RectTransform rt, content_rt;
+        RectTransform rt;
+        ScrollRect scrollview;
         VerticalLayoutGroup vlayout;
         public TMP_InputField input_search;
         [SerializeField] SearchboxItem prefab_item;
@@ -31,9 +32,9 @@ namespace _SGUI_
 
             canvasGroup = GetComponent<CanvasGroup>();
             rt = (RectTransform)transform.Find("rT");
-            content_rt = (RectTransform)transform.Find("rT/list/scrollview/viewport-mask/content");
-            vlayout = content_rt.Find("layout").GetComponent<VerticalLayoutGroup>();
-            input_search = transform.Find("rT/searchbar/inputfield").GetComponent<TMP_InputField>();
+            scrollview = GetComponentInChildren<ScrollRect>(true);
+            vlayout = scrollview.content.GetComponentInChildren<VerticalLayoutGroup>(true);
+            input_search = GetComponentInChildren<TMP_InputField>(true);
             prefab_item = vlayout.GetComponentInChildren<SearchboxItem>(true);
         }
 
@@ -73,9 +74,9 @@ namespace _SGUI_
                 }
             };
 
-            transform.Find("rT/button-close").GetComponent<Button>().onClick.AddListener(Close);
+            transform.Find("rT/margin/button-close").GetComponent<Button>().onClick.AddListener(Close);
 
-            transform.Find("rT/searchbar/inputfield/clear-icon").GetComponent<Button>().onClick.AddListener(() => input_search.text = string.Empty);
+            input_search.transform.Find("clear-icon").GetComponent<Button>().onClick.AddListener(() => input_search.text = string.Empty);
 
             prefab_item.gameObject.SetActive(false);
 
@@ -86,7 +87,7 @@ namespace _SGUI_
 
         void RefreshAlpha()
         {
-            float a = Mathf.MoveTowards(canvasGroup.alpha, 1, 7 * Time.deltaTime);
+            float a = Mathf.MoveTowards(canvasGroup.alpha, 1, 10 * Time.deltaTime);
             canvasGroup.alpha = a;
             if (a >= 1)
                 NUCLEOR.delegates.LateUpdate -= RefreshAlpha;
@@ -97,7 +98,7 @@ namespace _SGUI_
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)vlayout.transform);
             float h = vlayout.preferredHeight;
-            content_rt.sizeDelta = new Vector2(0, h);
+            scrollview.content.sizeDelta = new Vector2(0, h);
         }
 
         public void Close() => Toggle(false);
