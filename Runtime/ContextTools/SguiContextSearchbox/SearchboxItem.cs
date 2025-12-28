@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 namespace _SGUI_.searchbox
 {
-    public sealed class SearchboxItem : ArkComponent
+    public sealed class SearchboxItem : ArkComponent, SguiContextHover.IUser
     {
         public SguiSearchbox searchbox;
         public Button button;
         public TextMeshProUGUI label;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 

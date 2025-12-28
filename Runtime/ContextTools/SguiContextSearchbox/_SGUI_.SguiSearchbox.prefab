@@ -2130,11 +2130,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1296251053443522427}
     m_Modifications:
-    - target: {fileID: 2992742059302766654, guid: 13e9111e40b8b134d8e5c44add3353ad,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4450371060815900497, guid: 13e9111e40b8b134d8e5c44add3353ad,
         type: 3}
       propertyPath: m_Name
@@ -2178,7 +2173,7 @@ PrefabInstance:
     - target: {fileID: 8655744762630909551, guid: 13e9111e40b8b134d8e5c44add3353ad,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8655744762630909551, guid: 13e9111e40b8b134d8e5c44add3353ad,
         type: 3}

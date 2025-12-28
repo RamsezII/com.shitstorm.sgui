@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 36
+  m_fontSize: 8
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 8
-  m_fontSizeMax: 10
+  m_fontSizeMin: 6
+  m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 8192
@@ -235,6 +235,9 @@ MonoBehaviour:
   searchbox: {fileID: 0}
   button: {fileID: 0}
   label: {fileID: 0}
+  hover_infos:
+    english: 
+    french: 
 --- !u!1 &6953715066418522885
 GameObject:
   m_ObjectHideFlags: 0

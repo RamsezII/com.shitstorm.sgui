@@ -63,7 +63,6 @@ namespace _SGUI_
         {
             base.Start();
 
-            prefab_item.button.onClick.AddListener(Close);
             prefab_item.gameObject.SetActive(false);
 
             transform.Find("background").GetComponent<PointerClickHandler>().onClick += eventData =>
@@ -123,6 +122,7 @@ namespace _SGUI_
         public SearchboxItem AddItem()
         {
             var clone = prefab_item.Clone(true);
+            clone.button.onClick.AddListener(Close);
             clones.Add(clone);
             AutoSize();
             return clone;
