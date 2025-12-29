@@ -15,7 +15,7 @@ namespace _SGUI_
 
         [SerializeField] CanvasGroup canvasGroup;
         RectTransform rt;
-        public Traductable trad_title;
+        [SerializeField] Traductable trad_title;
         ScrollRect scrollview;
         VerticalLayoutGroup vlayout;
         public TMP_InputField input_search;
@@ -113,9 +113,10 @@ namespace _SGUI_
             gameObject.SetActive(toggle);
         }
 
-        public void OpenHere(in Vector2 screenPosition)
+        public void OpenHere(in Vector2 screenPosition, in Traductions title)
         {
             Toggle(true);
+            trad_title.SetTrads(title);
             rt.position = screenPosition;
         }
 

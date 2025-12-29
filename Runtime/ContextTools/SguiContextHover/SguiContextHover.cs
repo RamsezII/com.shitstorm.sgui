@@ -128,7 +128,7 @@ namespace _SGUI_
         {
             if (string.IsNullOrWhiteSpace(user.OnSguiContextHover().GetAutomatic()))
             {
-                this.user = user;
+                LoggerOverlay.Log($"empty hover: {user.GetType()} ({(user as MonoBehaviour)?.transform.GetPath(true) ?? "unknown origin"})", user as Object, logLevel: LoggerOverlay.LogLevel.Sublog);
                 return;
             }
 
