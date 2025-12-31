@@ -23,10 +23,11 @@ namespace _SGUI_
     {
         public static SguiCursor instance;
 
-        public interface IMouseHoverUser
+        public interface IUser
         {
             bool IsStillUsingCursor();
         }
+
         [HideInInspector] public Animator animator;
         [SerializeField] RectTransform rt_cursor, rt_label, rt_icon_default;
         public IA_SguiCursor inputActions;
@@ -34,7 +35,7 @@ namespace _SGUI_
         readonly ListListener block_users = new();
         public Vector2 last_position;
 
-        readonly ValueHandler<(SguiCursorTypes cursor, IMouseHoverUser user)> cursor_user = new();
+        readonly ValueHandler<(SguiCursorTypes cursor, IUser user)> cursor_user = new();
 
         readonly RectTransform[] rimgs = new RectTransform[(int)SguiCursorTypes._last_];
 
@@ -136,7 +137,7 @@ namespace _SGUI_
             block_users.RemoveElement(user);
         }
 
-        public void UnsetSpecificUser(in IMouseHoverUser user)
+        public void UnsetSpecificUser(in IUser user)
         {
             if (user == cursor_user._value.user)
                 UnsetUser();
@@ -150,7 +151,7 @@ namespace _SGUI_
             NUCLEOR.delegates.LateUpdate -= EvaluateCursorUser;
         }
 
-        public void SetUser(in SguiCursorTypes cursor, in IMouseHoverUser user)
+        public void SetUser(in SguiCursorTypes cursor, in IUser user)
         {
             UnsetUser();
             UsageManager.ToggleUser(user, true, UsageGroups.GameMouse);
