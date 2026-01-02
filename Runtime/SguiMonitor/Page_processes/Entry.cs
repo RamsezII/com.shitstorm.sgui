@@ -1,3 +1,4 @@
+using _SGUI_.context_click;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace _SGUI_.Monitor.Processes
         [SerializeField] EntryColumn prefab_column;
         public readonly List<EntryColumn> columns = new();
         public int columnCount;
-        public Action<SguiContextClick_List> onContextClick;
+        public Action<ContextList> onContextClick;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ namespace _SGUI_.Monitor.Processes
             return column;
         }
 
-        void SguiContextClick.IUser.OnSguiContextClick(SguiContextClick_List context_list)
+        void SguiContextClick.IUser.OnSguiContextClick(ContextList context_list)
         {
             onContextClick?.Invoke(context_list);
         }

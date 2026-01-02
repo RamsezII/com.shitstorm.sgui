@@ -3,11 +3,11 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _SGUI_
+namespace _SGUI_.context_click
 {
-    public sealed class SguiContextClick_List_Button : MonoBehaviour, SguiContextHover.IUser
+    public sealed class ContextListButton : MonoBehaviour, SguiContextHover.IUser
     {
-        public SguiContextClick_List plist;
+        public ContextList plist;
         public RectTransform rt;
         public Button button;
         public Traductable trad;
@@ -19,7 +19,7 @@ namespace _SGUI_
 
         private void Awake()
         {
-            plist = GetComponentInParent<SguiContextClick_List>();
+            plist = GetComponentInParent<ContextList>();
             rt = (RectTransform)transform;
             button = GetComponentInChildren<Button>();
             trad = GetComponentInChildren<Traductable>();
@@ -30,7 +30,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void SetupSublist(Action<SguiContextClick_List> onSublist)
+        public void SetupSublist(Action<ContextList> onSublist)
         {
             button.onClick.RemoveAllListeners();
             arrow.gameObject.SetActive(true);

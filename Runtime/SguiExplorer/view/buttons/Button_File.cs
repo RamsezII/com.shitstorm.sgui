@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using _SGUI_.context_click;
+using System.IO;
 using UnityEngine;
 
 namespace _SGUI_.Explorer
@@ -15,7 +16,7 @@ namespace _SGUI_.Explorer
             current_file = (FileInfo)fsi;
         }
 
-        protected override void OnContextList(in SguiContextClick_List list)
+        protected override void OnContextList(in ContextList list)
         {
             base.OnContextList(list);
 

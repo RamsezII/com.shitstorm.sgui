@@ -1,4 +1,5 @@
-﻿using _UTIL_;
+﻿using _SGUI_.context_click;
+using _UTIL_;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -107,7 +108,7 @@ namespace _SGUI_.Explorer
             }
         }
 
-        protected override void OnContextList(in SguiContextClick_List list)
+        protected override void OnContextList(in ContextList list)
         {
             base.OnContextList(list);
 

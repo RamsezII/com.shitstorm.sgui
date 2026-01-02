@@ -1,34 +1,33 @@
+using _ARK_;
 using _UTIL_;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    class ResizerDragzone : MonoBehaviour
+    class ResizerDragzone : ArkComponent
     {
         public SguiWindow1 window;
         [SerializeField] internal DIRS_FLAGS direction;
         [SerializeField] internal bool hover_b, drag_b;
-        readonly ValueHandler<bool> resize_visible = new();
-        Vector2 dragVector, save_min, save_max;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected override void Awake()
         {
             window = GetComponentInParent<SguiWindow1>();
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Start()
+        protected override void Start()
         {
-            resize_visible.AddListener(value => window.resizer_visual.current_zones.ToggleElement(this, value));
+            base.Start();
 
             var click_handler = transform.GetComponent<PointerClickHandler>();
             var drag_handler = transform.GetComponent<DragHandler>();
             var hover_handler = transform.GetComponent<PointerEnterExitHandler>();
-            var move_handler = transform.GetComponent<PointerMoveHandler>();
 
             hover_handler.onEnterExit += (PointerEventData eventData, bool onEnter) =>
             {
@@ -37,80 +36,86 @@ namespace _SGUI_
 
                 hover_b = onEnter;
 
-                if (onEnter)
-                {
-                    window.resizer_visual.TryFocusZone(this);
-
-                    window.resizer_visual.rt.position = window.rt.position;
-                    window.resizer_visual.rt.sizeDelta = window.rt.sizeDelta;
-                    window.resizer_visual.rt.anchorMin = window.resizer_visual.rt.anchorMax = .5f * Vector2.one;
-                }
-                else
-                    window.resizer_visual.UnfocusZone(this);
-
-                RefreshVisibility();
-            };
-
-            move_handler.onMove += (PointerEventData eventData) =>
-            {
-                if (eventData.dragging)
-                    return;
-
-                window.resizer_visual.TryFocusZone(this);
+                if (!onEnter)
+                    ResizerVisual.instance.UntakeFocus(this);
+                else if (ResizerVisual.instance.TryTakeFocus(this))
+                    ApplyWindowDims();
             };
 
             click_handler.onPointerDown += (PointerEventData eventData) =>
             {
-                dragVector = Vector2.zero;
-                window.rt.GetWorldCorners(out save_min, out save_max);
+                ApplyWindowDims();
+                ResizerVisual.instance.TryTakeFocus(this);
             };
 
             drag_handler.onBeginDrag += (PointerEventData eventData) =>
             {
                 drag_b = true;
-                RefreshVisibility();
+                ResizerVisual.instance.TryTakeFocus(this);
             };
 
             drag_handler.onDrag += (PointerEventData eventData) =>
             {
-                dragVector += eventData.delta;
+                if (!drag_b)
+                    return;
 
-                Vector2 min = save_min;
-                Vector2 max = save_max;
+                {
+                    Vector2 pos = ResizerVisual.instance.rt.position;
 
-                if (direction.HasFlag(DIRS_FLAGS.Top))
-                    max.y = save_max.y + dragVector.y;
+                    if ((direction & (DIRS_FLAGS.Top | DIRS_FLAGS.Down)) != 0)
+                        pos.y += .5f * eventData.delta.y;
 
-                if (direction.HasFlag(DIRS_FLAGS.Right))
-                    max.x = save_max.x + dragVector.x;
+                    if ((direction & (DIRS_FLAGS.Left | DIRS_FLAGS.Right)) != 0)
+                        pos.x += .5f * eventData.delta.x;
 
-                if (direction.HasFlag(DIRS_FLAGS.Left))
-                    min.x = save_min.x + dragVector.x;
+                    ResizerVisual.instance.rt.position = pos;
+                }
 
-                if (direction.HasFlag(DIRS_FLAGS.Down))
-                    min.y = save_min.y + dragVector.y;
+                {
+                    SguiGlobal.instance.ScreenPointToLocalPoint(eventData.delta, out Vector2 ldelta);
+                    LoggerOverlay.Log(ldelta, this, timer: 0);
 
-                window.resizer_visual.rt.position = .5f * (min + max);
-                window.resizer_visual.rt.sizeDelta = .5f * (max - min);
+                    Rect r = ResizerVisual.instance.rt.rect;
+
+                    if (direction.HasFlag(DIRS_FLAGS.Top))
+                        r.yMax += ldelta.y;
+
+                    if (direction.HasFlag(DIRS_FLAGS.Right))
+                        r.xMax += ldelta.x;
+
+                    if (direction.HasFlag(DIRS_FLAGS.Left))
+                        r.xMin += ldelta.x;
+
+                    if (direction.HasFlag(DIRS_FLAGS.Down))
+                        r.yMin += ldelta.y;
+
+                    ResizerVisual.instance.rt.sizeDelta = r.size;
+                    ResizerVisual.instance.rt.anchorMin = ResizerVisual.instance.rt.anchorMax = .5f * Vector2.one;
+                }
             };
 
             drag_handler.onEndDrag += (PointerEventData eventData) =>
             {
                 drag_b = false;
+                ResizerVisual.instance.UntakeFocus(this);
 
-                window.rt.position = window.resizer_visual.rt.position;
-                window.rt.sizeDelta = window.resizer_visual.rt.sizeDelta;
-                window.rt.anchorMin = window.rt.anchorMax = .5f * Vector2.one;
+                window.rt.position = ResizerVisual.instance.rt.position;
+                window.rt.sizeDelta = ResizerVisual.instance.rt.sizeDelta;
+                window.rt.anchorMin = ResizerVisual.instance.rt.anchorMin;
+                window.rt.anchorMax = ResizerVisual.instance.rt.anchorMax;
 
                 window.CheckBounds();
                 window.OnResized();
-                RefreshVisibility();
             };
+        }
 
-            void RefreshVisibility()
-            {
-                resize_visible.Value = hover_b || drag_b;
-            }
+        //--------------------------------------------------------------------------------------------------------------
+
+        void ApplyWindowDims()
+        {
+            ResizerVisual.instance.rt.anchorMin = ResizerVisual.instance.rt.anchorMax = .5f * Vector2.one;
+            ResizerVisual.instance.rt.sizeDelta = window.rt.sizeDelta;
+            ResizerVisual.instance.rt.position = window.rt.position;
         }
     }
 }

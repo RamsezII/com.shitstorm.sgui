@@ -52,7 +52,7 @@ namespace _SGUI_
 
             header_rt = (RectTransform)transform.Find("header");
             taskbar_rt = (RectTransform)transform.Find("task-bar");
-            windows_rt = (RectTransform)transform.Find("windows");
+            windows_rt = (RectTransform)transform.Find("windows/softwares-layer");
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 

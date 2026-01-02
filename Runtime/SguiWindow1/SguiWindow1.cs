@@ -10,14 +10,13 @@ namespace _SGUI_
     {
         public Button button_hide, button_fullscreen;
         [SerializeField] internal ResizerDragzone resizer_dragzone;
-        [SerializeField] internal ResizerVisual resizer_visual;
         [SerializeField] RectTransform rt_unselected;
 
         public readonly ValueHandler<bool> fullscreen = new();
 
         public const int
-            min_width = 300,
-            min_height = 250;
+            min_width = 200,
+            min_height = 150;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -31,7 +30,6 @@ namespace _SGUI_
             button_close = buttons_rt.Find("close/button").GetComponent<Button>();
 
             resizer_dragzone = transform.Find("rT/_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
-            resizer_visual = transform.Find("_SGUI_.ResizerVisual").GetComponent<ResizerVisual>();
 
             rt_unselected = (RectTransform)transform.Find("rT/unselected");
 
@@ -130,22 +128,18 @@ namespace _SGUI_
 
         public void CheckBounds()
         {
-            rt_parent.GetWorldCorners(out Vector2 pmin, out Vector2 pmax);
-            rt.GetWorldCorners(out Vector2 min, out Vector2 max);
+            Vector2 maxsize = rt_parent.rect.size;
+            Vector2 minsize = new(min_width, min_height);
+            Vector2 size = rt.rect.size;
 
-            Vector2 min_dims = new(min_width, min_height);
-
-            for (int i = 0; i < 2; ++i)
-            {
-                min[i] = Mathf.Clamp(min[i], pmin[i], pmax[i] - min_dims[i]);
-                max[i] = Mathf.Clamp(max[i], min[i] + min_dims[i], pmax[i]);
-            }
-
-            Vector2 size = .5f * (max - min);
-            Vector2 position = .5f * (min + max);
+            size = new(
+                Mathf.Clamp(size.x, minsize.x, maxsize.x),
+                Mathf.Clamp(size.y, minsize.y, maxsize.y)
+            );
 
             rt.sizeDelta = size;
-            rt.position = position;
+
+            CheckPosition();
         }
 
         public virtual void OnResized()

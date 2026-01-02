@@ -1,4 +1,5 @@
 ﻿using _ARK_;
+using _SGUI_.context_click;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -206,7 +207,7 @@ namespace _SGUI_.Explorer
             }
         }
 
-        protected virtual void OnContextList(in SguiContextClick_List list)
+        protected virtual void OnContextList(in ContextList list)
         {
         }
 

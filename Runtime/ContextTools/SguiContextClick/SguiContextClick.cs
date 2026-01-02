@@ -1,3 +1,4 @@
+using _SGUI_.context_click;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +9,7 @@ namespace _SGUI_
     {
         public interface IUser : IPointerClickHandler
         {
-            void OnSguiContextClick(SguiContextClick_List list);
+            void OnSguiContextClick(ContextList list);
             void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
             {
                 if (eventData.button == PointerEventData.InputButton.Right)
@@ -24,10 +25,10 @@ namespace _SGUI_
 
         public static SguiContextClick instance;
 
-        [SerializeField] internal SguiContextClick_List prefab_list;
-        [SerializeField] internal SguiContextClick_List scrollview_lastRootList;
+        [SerializeField] internal ContextList prefab_list;
+        [SerializeField] internal ContextList scrollview_lastRootList;
 
-        public static Action<SguiContextClick_List> onGlobalContextList;
+        public static Action<ContextList> onGlobalContextList;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ namespace _SGUI_
         private void Awake()
         {
             instance = this;
-            prefab_list = GetComponentInChildren<SguiContextClick_List>(true);
+            prefab_list = GetComponentInChildren<ContextList>(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiContextClick_List InstantiateListHere(in Vector2 mousePosition)
+        public ContextList InstantiateListHere(in Vector2 mousePosition)
         {
             if (scrollview_lastRootList != null)
                 Destroy(scrollview_lastRootList.gameObject);

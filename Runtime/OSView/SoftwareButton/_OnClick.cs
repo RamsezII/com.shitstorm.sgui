@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _SGUI_.context_click;
+using System;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,7 @@ namespace _SGUI_
     {
         public Action<PointerEventData> onClick_left_empty, onClick_middle;
         public Func<PointerEventData, bool> onClick_left_notEmpty, onClick_right;
-        public delegate void OnRightClickhandler(in PointerEventData eventData, ref bool enable_AddWindow, ref bool enable_CloseAll, in List<Action<SguiContextClick_List_Button>> addButtons);
+        public delegate void OnRightClickhandler(in PointerEventData eventData, ref bool enable_AddWindow, ref bool enable_CloseAll, in List<Action<ContextListButton>> addButtons);
         public OnRightClickhandler onRightClickhandler;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ namespace _SGUI_
                     {
                         bool enable_AddWindow = true, enable_CloseAll = true;
                         var list = SguiContextClick.instance.InstantiateListHere(eventData.position);
-                        List<Action<SguiContextClick_List_Button>> onButtons = new();
+                        List<Action<ContextListButton>> onButtons = new();
                         onRightClickhandler?.Invoke(eventData, ref enable_AddWindow, ref enable_CloseAll, onButtons);
 
                         if (enable_AddWindow)

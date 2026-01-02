@@ -5,18 +5,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace _SGUI_
+namespace _SGUI_.context_click
 {
-    public sealed class SguiContextClick_List : MonoBehaviour
+    public sealed class ContextList : MonoBehaviour
     {
         CanvasGroup canvasGroup;
         public RectTransform prt, rt;
-        public SguiContextClick_List sublist;
+        public ContextList sublist;
         public ScrollRect scrollview;
         public VerticalLayoutGroup vlayout;
-        [SerializeField] SguiContextClick_List_Button prefab_button;
+        [SerializeField] ContextListButton prefab_button;
         [SerializeField] RectTransform prefab_line;
-        public readonly List<SguiContextClick_List_Button> buttons_clones = new();
+        public readonly List<ContextListButton> buttons_clones = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ namespace _SGUI_
             rt = (RectTransform)scrollview.transform.parent;
             prt = (RectTransform)rt.parent;
             vlayout = GetComponentInChildren<VerticalLayoutGroup>();
-            prefab_button = GetComponentInChildren<SguiContextClick_List_Button>();
+            prefab_button = GetComponentInChildren<ContextListButton>();
             prefab_line = (RectTransform)transform.Find("rt/scroll-view/viewport/content/layout/trait");
 
             canvasGroup.alpha = 0;
@@ -41,7 +41,7 @@ namespace _SGUI_
                 if (rc_results.Count > 0)
                     for (int i = 0; i < rc_results.Count; i++)
                     {
-                        SguiContextClick_List_Button button = rc_results[i].gameObject.GetComponentInParent<SguiContextClick_List_Button>();
+                        ContextListButton button = rc_results[i].gameObject.GetComponentInParent<ContextListButton>();
                         if (button != null)
                             if (button.plist.sublist != null)
                             {
@@ -83,7 +83,7 @@ namespace _SGUI_
 
         public RectTransform AddLine() => prefab_line.Clone(true);
 
-        public SguiContextClick_List_Button AddButton()
+        public ContextListButton AddButton()
         {
             var clone = prefab_button.Clone(true);
             buttons_clones.Add(clone);

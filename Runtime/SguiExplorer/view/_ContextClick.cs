@@ -1,4 +1,5 @@
-﻿using _SGUI_.Explorer;
+﻿using _SGUI_.context_click;
+using _SGUI_.Explorer;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace _SGUI_
 {
     partial class SguiExplorerView : SguiContextClick.IUser
     {
-        public void OnSguiContextClick(SguiContextClick_List list)
+        public void OnSguiContextClick(ContextList list)
         {
             DirectoryInfo pdir = GetComponentsInChildren<Button_Folder>().Where(x => x.toggle._value).Last().current_dir;
             LoggerOverlay.Log($"view click: ({pdir.FullName})", this);

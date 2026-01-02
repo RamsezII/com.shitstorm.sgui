@@ -1,48 +1,53 @@
+using _ARK_;
 using _UTIL_;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    class ResizerVisual : MonoBehaviour
+    class ResizerVisual : ArkComponent
     {
-        public SguiWindow1 window;
+        public static ResizerVisual instance;
+
         public RectTransform rt;
-
-        readonly ValueHandler<ResizerDragzone> current_zone = new();
-        internal readonly ListListener<ResizerDragzone> current_zones = new();
+        readonly ValueHandler<object> current_user = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected override void Awake()
         {
-            window = GetComponentInParent<SguiWindow1>();
+            instance = this;
             rt = (RectTransform)transform;
+
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Start()
+        protected override void Start()
         {
-            current_zones.AddListener1(gameObject.SetActive);
+            base.Start();
+
+            current_user.AddListener(value => gameObject.SetActive(value != null));
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal bool TryFocusZone(in ResizerDragzone zone)
+        public bool TryTakeFocus(in object user)
         {
-            ResizerDragzone current = current_zone._value;
-            if (zone == current || current == null || !current.drag_b)
+            if (current_user._value == null || current_user._value == user)
             {
-                current_zone.Value = zone;
+                current_user.Value = user;
                 return true;
             }
+            else
+                Debug.LogWarning($"{user} could not user Resizer (used by: {current_user._value})", this);
             return false;
         }
 
-        internal void UnfocusZone(in ResizerDragzone zone)
+        public void UntakeFocus(in object user)
         {
-            if (zone == current_zone._value)
-                current_zone.Value = null;
+            if (current_user._value == user)
+                current_user.Value = null;
         }
     }
 }

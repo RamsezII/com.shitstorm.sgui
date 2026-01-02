@@ -16,6 +16,7 @@ namespace _SGUI_
         public GraphicRaycaster raycaster_3D, raycaster_2D;
 
         public RectTransform
+            rt_screen,
             rT_2D, rt_windows1, rt_windows2,
             rT_3D;
 
@@ -45,6 +46,8 @@ namespace _SGUI_
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
             rt_windows1 = (RectTransform)rT_2D.Find("windows1");
             rt_windows2 = (RectTransform)rT_2D.Find("windows2");
+
+            rt_screen = (RectTransform)canvas2D.transform.Find("screen_transform");
 
             text_framerate = transform.Find("Canvas2D/rT/Framerate/text").GetComponent<TextMeshProUGUI>();
 
@@ -95,6 +98,22 @@ namespace _SGUI_
                     text_framerate.color = Color.red;
             }));
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public bool ScreenPointToWorldPoint(in Vector2 screenPoint, out Vector3 worldPoint) => RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            rect: rt_screen,
+            screenPoint: screenPoint,
+            cam: null,
+            out worldPoint
+        );
+
+        public bool ScreenPointToLocalPoint(in Vector2 screenPoint, out Vector2 localPoint) => RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rect: rt_screen,
+            screenPoint: screenPoint,
+            cam: null,
+            localPoint: out localPoint
+        );
 
         //--------------------------------------------------------------------------------------------------------------
 

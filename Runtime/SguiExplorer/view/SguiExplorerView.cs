@@ -1,4 +1,5 @@
 using _ARK_;
+using _SGUI_.context_click;
 using _SGUI_.Explorer;
 using _UTIL_;
 using System;
@@ -21,8 +22,8 @@ namespace _SGUI_
 
         internal readonly ValueHandler<Button_Hierarchy> selected_fsi = new();
 
-        public static Action<SguiContextClick_List, DirectoryInfo> onContextClick_directory;
-        public static Action<SguiContextClick_List, FileInfo> onContextClick_file;
+        public static Action<ContextList, DirectoryInfo> onContextClick_directory;
+        public static Action<ContextList, FileInfo> onContextClick_file;
 
         //--------------------------------------------------------------------------------------------------------------
 
