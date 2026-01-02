@@ -1,3 +1,4 @@
+using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,14 +68,25 @@ namespace _SGUI_
                 return null;
             }
 
-            SguiWindow instance = SguiWindow.InstantiateWindow(software_prefab, as_software: true);
-            switch (instance)
+            bool randomize = false;
+            if (software_prefab is SguiWindow1)
+                foreach (var w in SguiWindow.focused._collection)
+                    if (w.rt.anchoredPosition.sqrMagnitude < 1)
+                    {
+                        randomize = true;
+                        break;
+                    }
+
+            SguiWindow window = SguiWindow.InstantiateWindow(software_prefab, as_software: true);
+            switch (window)
             {
                 case SguiWindow1 w1:
                     w1.SetScalePivot(this);
+                    if (randomize)
+                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => window.rt.anchoredPosition = 25 * (Vector2)Random.onUnitSphere;
                     break;
             }
-            return instance;
+            return window;
         }
 
         internal static void RefreshAllOpenStates()
