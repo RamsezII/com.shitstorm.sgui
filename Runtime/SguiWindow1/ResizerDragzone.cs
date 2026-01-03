@@ -113,7 +113,8 @@ namespace _SGUI_
 
         void ApplyWindowDims()
         {
-            ResizerVisual.instance.rt.anchorMin = ResizerVisual.instance.rt.anchorMax = .5f * Vector2.one;
+            ResizerVisual.instance.rt.anchorMin = window.rt.anchorMin;
+            ResizerVisual.instance.rt.anchorMax = window.rt.anchorMax;
             ResizerVisual.instance.rt.sizeDelta = window.rt.sizeDelta;
             ResizerVisual.instance.rt.position = window.rt.position;
         }

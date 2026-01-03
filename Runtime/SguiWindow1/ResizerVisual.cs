@@ -40,14 +40,26 @@ namespace _SGUI_
                 return true;
             }
             else
+            {
+                if (current_user._value == null)
+                    current_user.Value = null;
                 Debug.LogWarning($"{user} could not user Resizer (used by: {current_user._value})", this);
+            }
             return false;
         }
 
-        public void UntakeFocus(in object user)
+        public bool UntakeFocus(in object user)
         {
             if (current_user._value == user)
+            {
                 current_user.Value = null;
+                return true;
+            }
+
+            if (current_user._value == null)
+                current_user.Value = null;
+
+            return false;
         }
     }
 }

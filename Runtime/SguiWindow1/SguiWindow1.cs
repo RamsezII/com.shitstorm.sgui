@@ -139,7 +139,7 @@ namespace _SGUI_
 
             rt.sizeDelta = size;
 
-            CheckPosition();
+            CheckPosition(out _);
         }
 
         public virtual void OnResized()

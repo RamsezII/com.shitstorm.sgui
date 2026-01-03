@@ -71,6 +71,8 @@ namespace _SGUI_
             sgui_description.Value = new($"[{id}] {GetType().FullName}");
 
             instances.AddElement(this);
+
+            saved_size = rt.rect.size;
         }
 
         protected virtual void OnEnable()
