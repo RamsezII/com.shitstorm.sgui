@@ -52,28 +52,6 @@ namespace _SGUI_
             rt_unselected = (RectTransform)transform.Find("rT/unselected");
 
             base.OnAwake();
-
-            if (onHeaderButtonContextList_settings != null)
-            {
-                var button = AddHeaderButton();
-                button.trad.SetTrads(new()
-                {
-                    french = "Réglages",
-                    english = "Settings",
-                });
-                button.onContextList = list => onHeaderButtonContextList_settings(this, list);
-            }
-
-            if (onHeaderButtonContextList_help != null)
-            {
-                var button = AddHeaderButton();
-                button.trad.SetTrads(new()
-                {
-                    french = "Aide",
-                    english = "Help",
-                });
-                button.onContextList = list => onHeaderButtonContextList_help(this, list);
-            }
         }
 
         protected override void OnEnable()
@@ -132,6 +110,30 @@ namespace _SGUI_
                 SetScalePivot(os_button);
                 ToggleWindow(false);
             });
+
+            if (onHeaderButtonContextList_help != null)
+            {
+                var button = AddHeaderButton();
+                button.transform.SetAsFirstSibling();
+                button.trad.SetTrads(new()
+                {
+                    french = "Aide",
+                    english = "Help",
+                });
+                button.onContextList = list => onHeaderButtonContextList_help(this, list);
+            }
+
+            if (onHeaderButtonContextList_settings != null)
+            {
+                var button = AddHeaderButton();
+                button.transform.SetAsFirstSibling();
+                button.trad.SetTrads(new()
+                {
+                    french = "Réglages",
+                    english = "Settings",
+                });
+                button.onContextList = list => onHeaderButtonContextList_settings(this, list);
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
