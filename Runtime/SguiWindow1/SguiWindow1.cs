@@ -1,5 +1,8 @@
 using _ARK_;
+using _SGUI_.context_click;
+using _SGUI_.window1;
 using _UTIL_;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,7 +12,8 @@ namespace _SGUI_
     public abstract partial class SguiWindow1 : SguiWindow
     {
         public Button button_hide, button_fullscreen;
-        [SerializeField] internal ResizerDragzone resizer_dragzone;
+        [SerializeField] HeaderButton prefab_headerbutton;
+        [SerializeField] ResizerDragzone resizer_dragzone;
         [SerializeField] RectTransform rt_unselected;
 
         public readonly ValueHandler<bool> fullscreen = new();
@@ -17,6 +21,18 @@ namespace _SGUI_
         public const int
             min_width = 200,
             min_height = 150;
+
+        public HeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
+
+        public static Action<SguiWindow1, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            onHeaderButtonContextList_settings = onHeaderButtonContextList_help = null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -29,19 +45,35 @@ namespace _SGUI_
             button_fullscreen = buttons_rt.Find("fullscreen/button").GetComponent<Button>();
             button_close = buttons_rt.Find("close/button").GetComponent<Button>();
 
+            prefab_headerbutton = GetComponentInChildren<HeaderButton>(true);
+
             resizer_dragzone = transform.Find("rT/_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
 
             rt_unselected = (RectTransform)transform.Find("rT/unselected");
 
-            dropdown_settings = transform.Find("rT/buttons/layout/button_Settings")?.GetComponent<HeaderDropdown>();
-            if (dropdown_settings != null)
-                dropdown_settings.onItemClick += OnClickDropdown_Settings;
-
-            dropdown_help = transform.Find("rT/buttons/layout/button_Help")?.GetComponent<HeaderDropdown>();
-            if (dropdown_help != null)
-                dropdown_help.onItemClick += OnClickDropdown_Help;
-
             base.OnAwake();
+
+            if (onHeaderButtonContextList_settings != null)
+            {
+                var button = AddHeaderButton();
+                button.trad.SetTrads(new()
+                {
+                    french = "Réglages",
+                    english = "Settings",
+                });
+                button.onContextList = list => onHeaderButtonContextList_settings(this, list);
+            }
+
+            if (onHeaderButtonContextList_help != null)
+            {
+                var button = AddHeaderButton();
+                button.trad.SetTrads(new()
+                {
+                    french = "Aide",
+                    english = "Help",
+                });
+                button.onContextList = list => onHeaderButtonContextList_help(this, list);
+            }
         }
 
         protected override void OnEnable()
@@ -61,6 +93,8 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
+
+            prefab_headerbutton.gameObject.SetActive(false);
 
             RectTransform header_zone = (RectTransform)transform.Find("rT/header/header_mask/padding/drag-button");
 
@@ -98,8 +132,6 @@ namespace _SGUI_
                 SetScalePivot(os_button);
                 ToggleWindow(false);
             });
-
-            OnPopulateDropdowns();
         }
 
         //--------------------------------------------------------------------------------------------------------------
