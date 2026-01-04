@@ -1,4 +1,5 @@
 using _ARK_;
+using _SGUI_.osview;
 using _UTIL_;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,11 @@ namespace _SGUI_
         public RectTransform rt_editor_buttons;
         public Button edit_play, edit_pause, edit_close;
 
+        [SerializeField] OSHeaderButton prefab_headerbutton;
         [SerializeField] SoftwareButton prefab_softwarebutton;
         public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
+
+        public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
 
         static readonly object auto_usage = new();
         public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
@@ -63,6 +67,8 @@ namespace _SGUI_
 
             prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
 
+            prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
+
             transform.Find("clickable").GetComponent<PointerClickHandler>().onClick += (PointerEventData eventData) =>
             {
                 users.RemoveElement(auto_usage);
@@ -77,6 +83,7 @@ namespace _SGUI_
         {
             transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
 
+            prefab_headerbutton.gameObject.SetActive(false);
             prefab_softwarebutton.gameObject.SetActive(false);
 
             NUCLEOR.instance.heartbeat_unscaled.AddOperation(new("refresh datetime", 4, true, () =>

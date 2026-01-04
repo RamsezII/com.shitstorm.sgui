@@ -40,7 +40,16 @@ namespace _SGUI_.window1
                 onContextList(SguiContextClick.instance.InstantiateListHere(listPos));
             });
 
-            rt.sizeDelta = new Vector2(trad.tmpro.preferredWidth, rt.sizeDelta.y);
+            trad.onRefresh += AutoSize;
+            _AutoSize_Immediate();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
+        void _AutoSize_Immediate()
+        {
+            rt.sizeDelta = new(trad.tmpro.preferredWidth, rt.sizeDelta.y);
         }
     }
 }
