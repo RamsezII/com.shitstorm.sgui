@@ -34,17 +34,16 @@ namespace _SGUI_
 
         public bool TryTakeFocus(in object user)
         {
+            if (current_user._value == null)
+                current_user.Value = null;
+
             if (current_user._value == null || current_user._value == user)
             {
                 current_user.Value = user;
                 return true;
             }
             else
-            {
-                if (current_user._value == null)
-                    current_user.Value = null;
                 Debug.LogWarning($"{user} could not user Resizer (used by: {current_user._value})", this);
-            }
             return false;
         }
 

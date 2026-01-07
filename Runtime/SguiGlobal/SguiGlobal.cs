@@ -115,6 +115,17 @@ namespace _SGUI_
             localPoint: out localPoint
         );
 
+        public static Vector3 InverseTransformPoint(in Camera camera, in Vector3 point)
+        {
+            Vector3 lpos = camera.WorldToViewportPoint(point);
+            Rect r = instance.rt_screen.rect;
+            return new Vector3(
+                Mathf.LerpUnclamped(r.xMin, r.xMax, lpos.x),
+                Mathf.LerpUnclamped(r.yMin, r.yMax, lpos.y),
+                lpos.z
+            );
+        }
+
         //--------------------------------------------------------------------------------------------------------------
 
         private void OnDestroy()
