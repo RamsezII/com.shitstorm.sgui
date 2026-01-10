@@ -147,7 +147,7 @@ namespace _SGUI_
         public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool as_software = false)
         {
             RectTransform parent_rt = as_software || prefab is SguiWindow1
-                ? OSView.instance.windows_rt
+                ? OSView.instance.rt_softwares
                 : SguiGlobal.instance.rt_windows2;
 
             SguiWindow clone = Instantiate(prefab, parent_rt);

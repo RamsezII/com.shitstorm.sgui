@@ -25,7 +25,7 @@ namespace _SGUI_
         HeartBeat.Operation refresh_computer_time_operation;
 
         RectTransform header_rt, taskbar_rt;
-        [HideInInspector] public RectTransform windows_rt;
+        [HideInInspector] public RectTransform rt_editor, rt_softwares;
 
         public RectTransform rt_editor_buttons;
         public Button edit_play, edit_pause, edit_close;
@@ -56,7 +56,8 @@ namespace _SGUI_
 
             header_rt = (RectTransform)transform.Find("header");
             taskbar_rt = (RectTransform)transform.Find("task-bar");
-            windows_rt = (RectTransform)transform.Find("windows/softwares-layer");
+            rt_editor = (RectTransform)transform.Find("windows/editor-layer");
+            rt_softwares = (RectTransform)transform.Find("windows/softwares-layer");
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
