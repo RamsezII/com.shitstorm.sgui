@@ -38,20 +38,23 @@ namespace _SGUI_
 
                 if (!onEnter)
                     ResizerVisual.instance.UntakeFocus(this);
-                else if (ResizerVisual.instance.TryTakeFocus(this))
+                else
+                {
+                    ResizerVisual.instance.TakeFocus(this);
                     ApplyWindowDims();
+                }
             };
 
             click_handler.onPointerDown += (PointerEventData eventData) =>
             {
                 ApplyWindowDims();
-                ResizerVisual.instance.TryTakeFocus(this);
+                ResizerVisual.instance.TakeFocus(this);
             };
 
             drag_handler.onBeginDrag += (PointerEventData eventData) =>
             {
                 drag_b = true;
-                ResizerVisual.instance.TryTakeFocus(this);
+                ResizerVisual.instance.TakeFocus(this);
             };
 
             drag_handler.onDrag += (PointerEventData eventData) =>

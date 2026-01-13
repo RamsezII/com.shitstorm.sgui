@@ -95,7 +95,7 @@ namespace _SGUI_
 
                 if (needs_visual)
                 {
-                    ResizerVisual.instance.TryTakeFocus(this);
+                    ResizerVisual.instance.TakeFocus(this);
                     rt_resizer.sizeDelta = -10 * Vector2.one;
                     rt_resizer.anchoredPosition = Vector2.zero;
                 }
