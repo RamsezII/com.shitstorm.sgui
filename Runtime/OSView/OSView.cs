@@ -187,8 +187,8 @@ namespace _SGUI_
         {
             var dialog = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
             {
-                french = $"Éteindre {Application.productName} ?",
-                english = $"Shutdown {Application.productName} ?",
+                french = $"Fermer {Application.productName} ?",
+                english = $"Close {Application.productName} ?",
             });
             dialog.onAction_confirm += () => ArkMachine.ShutdownApplication(true);
         }
