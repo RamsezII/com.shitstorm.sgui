@@ -3,12 +3,14 @@ using _SGUI_.context_hover;
 
 namespace _SGUI_.context_tools.settings
 {
-    public abstract class ContextSetting_item : ArkComponent
+    public abstract class ContextSetting_item : ArkComponent, SguiContextHover.IUser
     {
         public SguiContextSettings settings;
 
         public ContextHoverHandler hover_handler;
-        public Traductable trad;
+        public Traductable label_trad;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -17,7 +19,7 @@ namespace _SGUI_.context_tools.settings
             settings = GetComponentInParent<SguiContextSettings>(true);
 
             hover_handler = GetComponentInChildren<ContextHoverHandler>(true);
-            trad = GetComponentInChildren<Traductable>(true);
+            label_trad = GetComponentInChildren<Traductable>(true);
 
             base.Awake();
         }

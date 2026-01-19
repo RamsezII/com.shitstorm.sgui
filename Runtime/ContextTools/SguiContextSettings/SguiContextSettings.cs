@@ -33,7 +33,7 @@ namespace _SGUI_.context_tools
             rt = (RectTransform)transform.Find("rt");
             vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
 
-            transform.Find("raycast").GetComponent<PointerClickHandler>().onClick += eventData =>
+            transform.Find("raycast").GetComponent<PointerClickHandler>().onPointerDown += eventData =>
             {
                 gameObject.SetActive(false);
             };
@@ -62,11 +62,27 @@ namespace _SGUI_.context_tools
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public ContextSetting_item AddItem<T>(in Traductions trad) where T : ContextSetting_item => AddItem(typeof(T), trad);
+        public void OpenHere(in Vector2 position, in Vector2 pivot, in Traductions title)
+        {
+            DestroyChildren();
+            gameObject.SetActive(true);
+            rt.pivot = pivot;
+            rt.position = position;
+            AddItem<SettingsHeader>(title);
+        }
+
+        void DestroyChildren()
+        {
+            foreach (var clone in clones)
+                Destroy(clone.gameObject);
+            clones.Clear();
+        }
+
+        public T AddItem<T>(in Traductions trad) where T : ContextSetting_item => (T)AddItem(typeof(T), trad);
         public ContextSetting_item AddItem(in Type type, in Traductions trad)
         {
             var clone = prefabs[type].Clone(true);
-            clone.trad.SetTrads(trad);
+            clone.label_trad.SetTrads(trad);
             AutoSize();
             return clone;
         }
@@ -77,26 +93,9 @@ namespace _SGUI_.context_tools
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)vlayout.transform);
             float height = vlayout.preferredHeight;
             rt.sizeDelta = new Vector2(init_size.x, Mathf.Min(init_size.y, height));
-            Rect r = rt.rect;
-            Vector2 displ = Vector2.zero;
-            displ += Vector2.Max(r.min, Vector2.zero);
-            displ -= Vector2.Min(SguiGlobal.instance.rt_screen.rect.max - r.max, Vector2.zero);
-            rt.anchoredPosition += displ;
-        }
 
-        void DestroyChildren()
-        {
-            foreach (var clone in clones)
-                Destroy(clone.gameObject);
-            clones.Clear();
-        }
-
-        public void OpenHere(in Vector2 position, in Traductions title)
-        {
-            DestroyChildren();
-            gameObject.SetActive(true);
-            rt.position = position;
-            AddItem<SettingsHeader>(title);
+            if (Util.GetStayInsideCorrection(rt, SguiGlobal.instance.rt_screen, 5 * Vector2.one, out Vector2 correction))
+                rt.position += (Vector3)correction;
         }
     }
 }

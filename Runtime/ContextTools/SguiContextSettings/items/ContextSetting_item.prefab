@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8189175357987633446}
   - component: {fileID: 1827028229445374587}
   - component: {fileID: 1281218395383793616}
-  - component: {fileID: 7542113624272490860}
   - component: {fileID: 9013176988153274170}
   m_Layer: 5
   m_Name: label
@@ -64,21 +63,6 @@ MonoBehaviour:
   traductions:
     english: 'Label:'
     french: 'Label :'
---- !u!114 &7542113624272490860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7371536598615737157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3d6511a4fed4d4bbfc28409e618438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.context_hover.ContextHoverHandler
-  hover_infos:
-    english: 
-    french: 
 --- !u!114 &9013176988153274170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +113,7 @@ MonoBehaviour:
   m_fontSize: 8
   m_fontSizeBase: 8
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 5
   m_fontSizeMax: 8
   m_fontStyle: 0
