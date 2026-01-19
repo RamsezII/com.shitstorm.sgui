@@ -83,8 +83,6 @@ namespace _SGUI_
 
             Vector2 psize = rt_all.rect.size;
             Vector2 size = text.GetPreferredValues(text.text, 200, float.MaxValue);
-            size.x = Mathf.Max(size.x, 50);
-            size.y = Mathf.Max(size.y, 15);
 
             rt_square.sizeDelta = size;
             rt_square.position = tpos;
