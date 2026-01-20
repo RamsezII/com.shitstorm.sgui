@@ -57,9 +57,7 @@ namespace _SGUI_
 
                         if (enable_AddWindow)
                         {
-                            var button = list.AddButton();
-
-                            button.trad.SetTrads(new()
+                            var button = list.AddButton(new()
                             {
                                 french = $"Ouvrir une nouvelle fenêtre",
                                 english = $"Open new window",
@@ -72,7 +70,7 @@ namespace _SGUI_
                         }
 
                         foreach (var onButton in onButtons)
-                            onButton(list.AddButton());
+                            onButton(list.AddButton(default));
 
                         for (int i = 0; i < software_instances._collection.Count; i++)
                         {
@@ -81,8 +79,7 @@ namespace _SGUI_
                                 LoggerOverlay.Log($"error trad: {window}", window, logLevel: LoggerOverlay.LogLevel.Warning);
                             else
                             {
-                                var button = list.AddButton();
-                                button.trad.SetTrads(window.sgui_description._value);
+                                var button = list.AddButton(window.sgui_description._value);
                                 button.button.onClick.AddListener(() =>
                                 {
                                     window.SetScalePivot(this);
@@ -94,14 +91,11 @@ namespace _SGUI_
 
                         if (enable_CloseAll)
                         {
-                            var button = list.AddButton();
-
-                            button.trad.SetTrads(new()
+                            var button = list.AddButton(new()
                             {
                                 french = "Fermer toutes les fenêtres",
                                 english = "Close all windows",
                             });
-
                             button.button.onClick.AddListener(() =>
                             {
                                 for (int i = software_instances._collection.Count - 1; i >= 0; --i)

@@ -76,14 +76,13 @@ namespace _SGUI_.Explorer
                 var list = SguiContextClick.instance.InstantiateListHere(eventData.position);
 
                 {
-                    var button = list.AddButton();
                     var trad_rename = new Traductions()
                     {
                         french = $"Renommer",
                         english = $"Rename",
                     };
 
-                    button.trad.SetTrads(trad_rename);
+                    var button = list.AddButton(trad_rename);
 
                     button.button.onClick.AddListener(() =>
                     {
@@ -139,14 +138,11 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton();
-                    var trad_delete = new Traductions()
+                    var button = list.AddButton(new()
                     {
                         french = $"Supprimer",
                         english = $"Delete",
-                    };
-
-                    button.trad.SetTrads(trad_delete);
+                    });
 
                     button.button.onClick.AddListener(() =>
                     {
@@ -178,8 +174,7 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton();
-                    button.trad.SetTrads(new()
+                    var button = list.AddButton(new()
                     {
                         french = "Copier le chemin",
                         english = "Copy path",
@@ -194,8 +189,7 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton();
-                    button.trad.SetTrads(new()
+                    var button = list.AddButton(new()
                     {
                         french = "Ouvrir dans l'explorateur",
                         english = "Open in the explorer",

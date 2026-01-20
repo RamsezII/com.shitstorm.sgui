@@ -14,8 +14,7 @@ namespace _SGUI_
             LoggerOverlay.Log($"view click: ({pdir.FullName})", this);
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Créer un fichier",
                     english = $"Create file",
@@ -25,8 +24,7 @@ namespace _SGUI_
             }
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Créer un dossier",
                     english = $"Create a directory",
@@ -36,8 +34,7 @@ namespace _SGUI_
             }
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Ouvrir l'explorateur ici",
                     english = $"Open explorer here",

@@ -25,8 +25,7 @@ namespace _SGUI_.Explorer
             list.AddLine();
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Ouvrir fichier à l'exterieur",
                     english = $"Open file outside",
@@ -41,8 +40,7 @@ namespace _SGUI_.Explorer
             list.AddLine();
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Créer un fichier",
                     english = $"Create file",
@@ -52,8 +50,7 @@ namespace _SGUI_.Explorer
             }
 
             {
-                var button = list.AddButton();
-                button.trad.SetTrads(new()
+                var button = list.AddButton(new()
                 {
                     french = $"Créer un dossier",
                     english = $"Create a directory",

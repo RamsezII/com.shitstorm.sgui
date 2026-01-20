@@ -83,9 +83,11 @@ namespace _SGUI_.context_click
 
         public RectTransform AddLine() => prefab_line.Clone(true);
 
-        public ContextListButton AddButton()
+        public ContextListButton AddButton_label(in string label) => AddButton(new Traductions(label));
+        public ContextListButton AddButton(in Traductions label)
         {
             var clone = prefab_button.Clone(true);
+            clone.trad.SetTrads(label);
             buttons_clones.Add(clone);
             clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));
 
@@ -119,42 +121,6 @@ namespace _SGUI_.context_click
             }
 
             rt.position = pos;
-        }
-
-        public void ContextListTest()
-        {
-            AddButton();
-            AddButton();
-            AddLine();
-            AddButton();
-
-            var button = AddButton();
-            button.trad.SetTrad("1");
-            button.SetupSublist(sublist =>
-            {
-                sublist.AddButton();
-                sublist.AddButton();
-
-                var sbutton = sublist.AddButton();
-                sbutton.trad.SetTrad("2");
-
-                sbutton.SetupSublist(ssublist =>
-                {
-                    ssublist.AddButton();
-                    ssublist.AddButton();
-                    ssublist.AddButton();
-                    ssublist.AddLine();
-                    ssublist.AddButton();
-                    ssublist.AddButton();
-                    ssublist.AddLine();
-                    ssublist.AddButton();
-                });
-
-                sublist.AddButton();
-            });
-
-            AddButton();
-            AddButton();
         }
     }
 }
