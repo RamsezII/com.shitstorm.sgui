@@ -11,6 +11,20 @@ namespace _SGUI_
         public static readonly ListListener<SguiWindow> instances = new();
 
         public static readonly ListListener<SguiWindow> focused = new();
+
+        public static bool TryGetFocused<T>(out T output) where T : SguiWindow
+        {
+            if (focused.IsNotEmpty)
+                if (focused._collection[^1] is T t)
+                {
+                    output = t;
+                    return true;
+                }
+            output = null;
+            return false;
+        }
+
+        public bool HasFocus() => this == focused.IsLast(this);
         public void TakeFocus() => focused.Modify(list =>
         {
             if (focused.IsLast(this))
@@ -19,7 +33,6 @@ namespace _SGUI_
             list.Add(this);
             ToggleWindow(true);
         });
-        public bool HasFocus() => this == focused.IsLast(this);
 
         [HideInInspector] public Animator animator;
 

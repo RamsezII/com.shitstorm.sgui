@@ -10,13 +10,13 @@ namespace _SGUI_
         {
             ArkShortcuts.AddShortcut(
                 shortcutName: "change focus",
-                nameof_button: "tab",
                 action: static () =>
                 {
                     if (focused._collection.Count > 0)
                         focused._collection[0].TakeFocus();
                 },
-                control: true
+                control: true,
+                bindings: "tab"
             );
         }
     }
