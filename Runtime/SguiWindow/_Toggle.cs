@@ -1,14 +1,18 @@
-﻿namespace _SGUI_
+﻿using System;
+
+namespace _SGUI_
 {
     partial class SguiWindow
     {
+        public Action<bool> onToggle;
+
+        //--------------------------------------------------------------------------------------------------------------
+
         public bool IsWindowOpened => state_base switch
         {
             BaseStates.Active or BaseStates.toActive => true,
             _ => false,
         };
-
-        //--------------------------------------------------------------------------------------------------------------
 
         public void ToggleWindow() => ToggleWindow(!IsWindowOpened);
         public void ToggleWindow(bool toggle)
@@ -63,7 +67,7 @@
 
         protected virtual void OnToggleWindow(in bool toggle)
         {
-
+            onToggle?.Invoke(toggle);
         }
     }
 }
