@@ -26,6 +26,10 @@ namespace _SGUI_
 
         HeartBeat.Operation op_framerate;
 
+#if UNITY_EDITOR
+        [SerializeField] internal SguiWindow _FOCUSED_WINDOW;
+#endif
+
         //--------------------------------------------------------------------------------------------------------------
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

@@ -22,8 +22,6 @@ namespace _SGUI_
             min_width = 200,
             min_height = 150;
 
-        public HeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
-
         public static Action<SguiWindow1, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -113,25 +111,23 @@ namespace _SGUI_
 
             if (onHeaderButtonContextList_help != null)
             {
-                var button = AddHeaderButton();
-                button.transform.SetAsFirstSibling();
-                button.trad.SetTrads(new()
+                var button = AddHeaderButton(new()
                 {
                     french = "Aide",
                     english = "Help",
                 });
+                button.transform.SetAsFirstSibling();
                 button.onContextList = list => onHeaderButtonContextList_help(this, list);
             }
 
             if (onHeaderButtonContextList_settings != null)
             {
-                var button = AddHeaderButton();
-                button.transform.SetAsFirstSibling();
-                button.trad.SetTrads(new()
+                var button = AddHeaderButton(new()
                 {
                     french = "Réglages",
                     english = "Settings",
                 });
+                button.transform.SetAsFirstSibling();
                 button.onContextList = list => onHeaderButtonContextList_settings(this, list);
             }
         }
@@ -178,6 +174,13 @@ namespace _SGUI_
 
         public virtual void OnResized()
         {
+        }
+
+        public HeaderButton AddHeaderButton(in Traductions title)
+        {
+            HeaderButton clone = prefab_headerbutton.Clone(true);
+            clone.trad.SetTrads(title);
+            return clone;
         }
     }
 }

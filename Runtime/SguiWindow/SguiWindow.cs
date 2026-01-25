@@ -134,6 +134,8 @@ namespace _SGUI_
             if (!has_focus)
                 return;
 
+            SguiGlobal.instance._FOCUSED_WINDOW = this;
+
             transform.SetAsLastSibling();
 
             instances.Modify(list =>
