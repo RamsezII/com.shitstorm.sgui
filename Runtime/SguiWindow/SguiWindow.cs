@@ -134,7 +134,9 @@ namespace _SGUI_
             if (!has_focus)
                 return;
 
+#if UNITY_EDITOR
             SguiGlobal.instance._FOCUSED_WINDOW = this;
+#endif
 
             transform.SetAsLastSibling();
 
