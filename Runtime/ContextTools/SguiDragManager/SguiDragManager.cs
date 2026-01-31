@@ -15,8 +15,6 @@ namespace _SGUI_
             string DragDisplay { get; }
             object DragData { get; }
 
-            void OnDropAccepted(in IAcceptDraggable acceptor);
-
             void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
             {
                 instance.gameObject.SetActive(true);
@@ -44,10 +42,7 @@ namespace _SGUI_
             void IDropHandler.OnDrop(PointerEventData eventData)
             {
                 if (eventData.pointerDrag.TryGetComponent<IDraggable>(out var draggable))
-                {
                     TryAcceptDraggable(draggable, true);
-                    draggable.OnDropAccepted(this);
-                }
                 instance.gameObject.SetActive(false);
             }
         }
