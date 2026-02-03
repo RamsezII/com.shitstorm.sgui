@@ -10,12 +10,9 @@ namespace _SGUI_
     public class SguiCustom_Dropdown : SguiCustom_Abstract
     {
         public TMP_Dropdown _dropdown;
-        public Action<SguiCustom_Dropdown_Template> on_template_clone;
-
         public Dictionary<string, bool> toggles;
         float current_scrollheight = 1;
         [SerializeField] bool stay_open;
-
         public IEnumerable<string> ESelectedItems() => toggles?.Where(pair => pair.Value).Select(pair => pair.Key);
 
         //--------------------------------------------------------------------------------------------------------------
@@ -48,7 +45,7 @@ namespace _SGUI_
         {
             if (stay_open)
             {
-                Scrollbar scrollbar = template_clone.transform.Find("scrollbar").GetComponent<Scrollbar>();
+                Scrollbar scrollbar = template_clone.GetComponentInChildren<Scrollbar>();
 
                 scrollbar.value = 0;
                 scrollbar.value = 1;
@@ -80,7 +77,6 @@ namespace _SGUI_
                     });
                 }
             }
-            on_template_clone?.Invoke(template_clone);
         }
 
         //--------------------------------------------------------------------------------------------------------------
