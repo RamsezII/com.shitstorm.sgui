@@ -93,7 +93,10 @@ namespace _SGUI_
             gradients[2].renderer.values.Add(new(1, Color.white));
 
             for (int i = 0; i < gradients.Length; ++i)
-                gradients[i]._slider.onValueChanged.AddListener(value => SetColor(ReadFromSliders()));
+            {
+                var gradient = gradients[i];
+                gradient._slider.onValueChanged.AddListener(value => SetColor(ReadFromSliders()));
+            }
 
             dropdown_mode.value = 2;
             dropdown_mode.RefreshShownValue();
@@ -161,17 +164,19 @@ namespace _SGUI_
                 gradients[0].renderer.values.Add(new(1, Color.white));
             }
 
-            if (mode == Modes.RGB_0_255)
+            for (int i = 0; i < 3; i++)
             {
-                gradients[0]._slider.maxValue = 255;
-                gradients[1]._slider.maxValue = 255;
-                gradients[2]._slider.maxValue = 255;
-            }
-            else
-            {
-                gradients[0]._slider.maxValue = 1;
-                gradients[1]._slider.maxValue = 1;
-                gradients[2]._slider.maxValue = 1;
+                var gradient = gradients[i];
+                if (mode == Modes.RGB_0_255)
+                {
+                    gradient._slider.maxValue = 255;
+                    gradient._slider.wholeNumbers = true;
+                }
+                else
+                {
+                    gradient._slider.wholeNumbers = false;
+                    gradient._slider.maxValue = 1;
+                }
             }
 
             SetColor(color);
@@ -188,6 +193,9 @@ namespace _SGUI_
 
         public void SetColor(in Color color)
         {
+            this.color = color;
+            new_color.SetColor(color);
+
             Color.RGBToHSV(color, out float H, out float S, out float V);
             Vector3 hsv = new(H, S, V);
             float angle = H * 2 * Mathf.PI;
@@ -196,9 +204,6 @@ namespace _SGUI_
 
             rt_disk_sel.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
             rt_square_sel.localPosition = new Vector2(S - .5f, V - .5f) * rt_square.sizeDelta;
-
-            this.color = color;
-            new_color.SetColor(color);
 
             gradients[3]._slider.SetValueWithoutNotify(color.a);
             squareGradient_h.color = Color.HSVToRGB(H, 1, 1);
