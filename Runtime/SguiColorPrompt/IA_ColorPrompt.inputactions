@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "IA_ColorPrompt",
+    "maps": [
+        {
+            "name": "Controls",
+            "id": "3df38042-cfc6-4c80-942c-0f97f4dbdd22",
+            "actions": [
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "052609d0-78fd-4b33-bc5f-8dd43676b861",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dfb747f5-2e92-4581-87d1-ec29e8e7e8f7",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

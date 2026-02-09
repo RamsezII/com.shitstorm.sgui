@@ -28,6 +28,7 @@ namespace _SGUI_
 
 #if UNITY_EDITOR
         [SerializeField] internal SguiWindow _FOCUSED_WINDOW;
+        public RectTransform _FOCUSED_RECTT;
 #endif
 
         //--------------------------------------------------------------------------------------------------------------
