@@ -20,7 +20,9 @@ namespace _SGUI_.prompts.color_prompt
 
         public void SetColor(in Color color)
         {
-            graphic.color = color;
+            Color c = color;
+            c.a = 1;
+            graphic.color = c;
             rt_fill.anchorMax = new Vector2(color.a, 1);
         }
     }

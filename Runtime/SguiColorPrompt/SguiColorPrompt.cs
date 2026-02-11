@@ -27,8 +27,8 @@ namespace _SGUI_
         [SerializeField] ColorPromptGradient[] gradients;
         [SerializeField] TMP_InputField tmp_hex;
 
-        Action<Color> onSubmit;
-        Action onCancel;
+        public Action<Color> _onSubmit;
+        public Action _onCancel, _onClose;
 
         [SerializeField] Modes mode;
 
@@ -95,7 +95,7 @@ namespace _SGUI_
             for (int i = 0; i < gradients.Length; ++i)
             {
                 var gradient = gradients[i];
-                gradient._slider.onValueChanged.AddListener(value => SetColor(ReadFromSliders()));
+                gradient._slider.onValueChanged.AddListener(value => SetNewColor(ReadFromSliders()));
             }
 
             dropdown_mode.value = 2;
@@ -117,20 +117,23 @@ namespace _SGUI_
 
         void Submit()
         {
-            onSubmit?.Invoke(color);
+            _onSubmit?.Invoke(color);
             Close();
         }
 
-        void Cancel()
+        public void Cancel()
         {
-            onCancel?.Invoke();
+            _onCancel?.Invoke();
+            Close();
         }
 
         void Close()
         {
             gameObject.SetActive(false);
-            onSubmit = null;
-            onCancel = null;
+            _onClose?.Invoke();
+            _onSubmit = null;
+            _onCancel = null;
+            _onClose = null;
         }
 
         void OnMode(int value) => OnMode((Modes)value);
@@ -179,19 +182,22 @@ namespace _SGUI_
                 }
             }
 
-            SetColor(color);
+            SetNewColor(color);
         }
 
         public void ShowColorPrompt(in Vector2 position, in Color currentColor, in Action<Color> onSubmit, in Action onCancel = null)
         {
-            this.onSubmit = onSubmit;
-            this.onCancel = onCancel;
-            current_color.SetColor(currentColor);
             gameObject.SetActive(true);
             rt.position = position;
+
+            current_color.SetColor(currentColor);
+            SetNewColor(color);
+
+            _onSubmit = onSubmit;
+            _onCancel = onCancel;
         }
 
-        public void SetColor(in Color color)
+        public void SetNewColor(in Color color)
         {
             this.color = color;
             new_color.SetColor(color);

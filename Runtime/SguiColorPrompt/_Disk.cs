@@ -25,7 +25,7 @@ namespace _SGUI_
                 float hue = angle / (2 * Mathf.PI);
 
                 Color.RGBToHSV(ReadFromSliders(), out _, out float s, out float v);
-                SetColor(Color.HSVToRGB(hue, s, v));
+                SetNewColor(Color.HSVToRGB(hue, s, v));
             }
         }
     }

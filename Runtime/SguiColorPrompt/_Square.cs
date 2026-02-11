@@ -21,7 +21,7 @@ namespace _SGUI_
                 float saturation = Mathf.Clamp01((lpos.x + rt_square.rect.width / 2) / rt_square.rect.width);
                 float value = Mathf.Clamp01((lpos.y + rt_square.rect.height / 2) / rt_square.rect.height);
                 Color.RGBToHSV(color, out float h, out _, out _);
-                SetColor(Color.HSVToRGB(h, saturation, value));
+                SetNewColor(Color.HSVToRGB(h, saturation, value));
             }
         }
     }
