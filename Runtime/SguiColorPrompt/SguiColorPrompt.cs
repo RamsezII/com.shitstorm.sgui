@@ -3,6 +3,7 @@ using _UTIL_;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -91,6 +92,11 @@ namespace _SGUI_
 
             gradients[2].renderer.values.Add(new(0, Color.black));
             gradients[2].renderer.values.Add(new(1, Color.white));
+
+            rt.GetComponent<DragHandler>().onDrag += (PointerEventData eventData) =>
+            {
+                rt.anchoredPosition += eventData.delta;
+            };
 
             for (int i = 0; i < gradients.Length; ++i)
             {

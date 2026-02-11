@@ -37,7 +37,12 @@ namespace _SGUI_.context_tools.settings
                 if (_destroyed)
                     return;
 
-                SguiColorPrompt.instance.ShowColorPrompt(Input.mousePosition, current_color, onSubmit);
+                SguiColorPrompt.instance.ShowColorPrompt(Input.mousePosition, current_color, value =>
+                {
+                    SetColor(value);
+                    onSubmit?.Invoke(value);
+                });
+
                 promptIsUp = true;
                 SguiColorPrompt.instance._onClose += () => promptIsUp = false;
             });
