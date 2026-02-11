@@ -879,7 +879,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2969275452427197880}
-  - component: {fileID: 2649235358095305887}
   - component: {fileID: 5440503422620885146}
   - component: {fileID: 2208817278633937498}
   m_Layer: 5
@@ -912,28 +911,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &2649235358095305887
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098959381411802931}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 45d53825bfbb0434b980e6cb8be577ca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!225 &5440503422620885146
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -958,7 +935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ac7dd3619fb544d9cdc0706d7a9245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   canvasGroup: {fileID: 0}
   graphicRaycaster: {fileID: 0}
   rt_editor: {fileID: 0}
@@ -969,7 +945,9 @@ MonoBehaviour:
   edit_close: {fileID: 0}
   prefab_headerbutton: {fileID: 0}
   prefab_softwarebutton: {fileID: 0}
-  state_base: 0
+  header_height: 0
+  footer_height: 0
+  toggle_lerp: 0
 --- !u!1 &5137359683714128120
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,9 +15,6 @@ namespace _SGUI_
     {
         public static OSView instance;
 
-        [HideInInspector] public Animator animator;
-        public readonly ListListener users = new();
-
         [HideInInspector] public CanvasGroup canvasGroup;
         [HideInInspector] public GraphicRaycaster graphicRaycaster;
 
@@ -36,9 +33,6 @@ namespace _SGUI_
 
         public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
 
-        static readonly object auto_usage = new();
-        public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
-
         readonly object timestopUser = new();
 
         //--------------------------------------------------------------------------------------------------------------
@@ -46,10 +40,6 @@ namespace _SGUI_
         private void Awake()
         {
             instance = this;
-
-            animator = GetComponent<Animator>();
-            animator.keepAnimatorStateOnDisable = true;
-            animator.writeDefaultValuesOnDisable = true;
 
             canvasGroup = GetComponent<CanvasGroup>();
             graphicRaycaster = GetComponent<GraphicRaycaster>();
@@ -75,6 +65,8 @@ namespace _SGUI_
                 users.RemoveElement(auto_usage);
             };
 
+            AwakeToggle();
+
             SguiMonitor.AddSoftwareButton();
         }
 
@@ -96,41 +88,7 @@ namespace _SGUI_
                 delay = 15,
             });
 
-            users.AddListener1(toggle =>
-            {
-                if (this == null)
-                    return;
-
-                BaseStates state = state_base;
-                float fade = 0, offset = 0;
-
-                switch (state_base)
-                {
-                    case BaseStates.Default:
-                        if (toggle)
-                            state = BaseStates.Enable;
-                        break;
-
-                    case BaseStates.Enable:
-                        if (!toggle)
-                        {
-                            state = BaseStates.Enable_;
-                            offset = 1 - animator.GetNormalizedTimeClamped();
-                        }
-                        break;
-
-                    case BaseStates.Enable_:
-                        if (toggle)
-                        {
-                            state = BaseStates.Enable;
-                            offset = 1 - animator.GetNormalizedTimeClamped();
-                        }
-                        break;
-                }
-
-                if (state != state_base)
-                    animator.CrossFade((int)state, fade, (int)AnimLayers.Base, offset);
-            });
+            StartToggle();
 
             edit_play.onClick.AddListener(() => ToggleSelf(false));
             edit_close.onClick.AddListener(ShowApplicationShutdownConfirm);
@@ -201,23 +159,11 @@ namespace _SGUI_
             text_computer_time.text = $"{time}\n{date}";
         }
 
-        void ResizeSguiGlobal2DrT()
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnDestroy()
         {
-            RectTransform rT = SguiGlobal.instance.rT_2D;
-
-            if (state_base == BaseStates.Default)
-            {
-                rT.anchoredPosition = new(.5f, 0);
-                rT.sizeDelta = new(0, 0);
-            }
-            else
-            {
-                float top_h = header_rt.rect.height;
-                float bottom_h = taskbar_rt.rect.height;
-
-                rT.anchoredPosition = new(.5f, bottom_h);
-                rT.sizeDelta = new(0, 1 - top_h - bottom_h);
-            }
+            NUCLEOR.delegates.LateUpdate -= RefreshToggle;
         }
     }
 }
