@@ -55,8 +55,8 @@ namespace _SGUI_
             header_rt.pivot = new(.5f, smooth);
             taskbar_rt.pivot = new(.5f, 1 - smooth);
 
-            canvasGroup.alpha = smooth;
-            canvasGroup.interactable = toggle_lerp > 0;
+            canvasGroup.alpha = Mathf.InverseLerp(.5f, 1, smooth);
+            canvasGroup.interactable = toggle_lerp > .5f;
 
             if (toggle_lerp == target)
                 NUCLEOR.delegates.LateUpdate -= RefreshToggle;
