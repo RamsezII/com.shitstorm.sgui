@@ -30,7 +30,7 @@ namespace _SGUI_
             users.AddListener1(isNotEmpty =>
             {
                 if (isNotEmpty)
-                    UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse);
+                    UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse, UsageGroups.Keyboard);
                 else
                     UsageManager.RemoveUser(this);
 
@@ -45,8 +45,7 @@ namespace _SGUI_
         {
             bool toggle = users.IsNotEmpty;
             int target = toggle ? 1 : 0;
-            float speed = toggle ? 3.5f : 6f;
-            toggle_lerp = Mathf.MoveTowards(toggle_lerp, target, speed * Time.unscaledDeltaTime);
+            toggle_lerp = Mathf.MoveTowards(toggle_lerp, target, 3 * Time.unscaledDeltaTime);
             float smooth = Mathf.SmoothStep(0, 1, toggle_lerp);
 
             SguiGlobal.instance.rT_2D.anchoredPosition = new(0, smooth * footer_height);

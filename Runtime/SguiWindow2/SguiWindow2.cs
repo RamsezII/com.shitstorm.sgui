@@ -55,6 +55,16 @@ namespace _SGUI_
             drag_handler.onBeginDrag += OnHeaderBeginDrag;
             drag_handler.onDrag += OnHeaderDrag;
             drag_handler.onEndDrag += OnHeaderEndDrag;
+
+            OSView.instance.users.AddElement(this);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            OSView.instance.users.RemoveElement(this);
         }
     }
 }

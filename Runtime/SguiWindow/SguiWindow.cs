@@ -93,17 +93,12 @@ namespace _SGUI_
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
-
-            UsageManager.AddUser(this, UsageGroups.TrueMouse, UsageGroups.BlockPlayer, UsageGroups.Keyboard);
-
             os_button?.RefreshOpenState();
         }
 
         protected virtual void OnDisable()
         {
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
-            UsageManager.RemoveUser(this);
-
             os_button?.RefreshOpenState();
         }
 
