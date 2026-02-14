@@ -56,7 +56,7 @@ namespace _SGUI_
             drag_handler.onDrag += OnHeaderDrag;
             drag_handler.onEndDrag += OnHeaderEndDrag;
 
-            OSView.instance.users.AddElement(this);
+            UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse, UsageGroups.Keyboard);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ namespace _SGUI_
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            OSView.instance.users.RemoveElement(this);
+            UsageManager.RemoveUser(this);
         }
     }
 }
