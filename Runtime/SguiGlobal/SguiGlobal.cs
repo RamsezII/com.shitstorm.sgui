@@ -82,7 +82,7 @@ namespace _SGUI_
             {
                 if (this == null)
                 {
-                    Debug.LogWarning($"{this} is null", this);
+                    Debug.LogWarning($"null ({this})", this);
                     return;
                 }
 
