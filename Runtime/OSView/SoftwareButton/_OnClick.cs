@@ -76,7 +76,7 @@ namespace _SGUI_
                         {
                             SguiWindow window = software_instances._collection[i];
                             if (window.trad_title == null)
-                                LoggerOverlay.Log($"error trad: {window}", window, logLevel: LoggerOverlay.LogLevel.Warning);
+                                SguiLoggerOverlay.Log($"error trad: {window}", window, logLevel: SguiLoggerOverlay.LogLevel.Warning);
                             else
                             {
                                 var button = list.AddButton(window.sgui_description._value);

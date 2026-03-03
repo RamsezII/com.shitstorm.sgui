@@ -184,7 +184,7 @@ namespace _SGUI_.Explorer
                     {
                         string path = current_fsi.FullName.NormalizePath();
                         GUIUtility.systemCopyBuffer = path;
-                        LoggerOverlay.Log($"Path copied to clipboard ({path})", this, timer: 5);
+                        SguiLoggerOverlay.Log($"Path copied to clipboard ({path})", this, timer: 5);
                     });
                 }
 

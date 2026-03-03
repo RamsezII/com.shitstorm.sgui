@@ -64,7 +64,7 @@ namespace _SGUI_
         {
             if (software_prefab == null)
             {
-                LoggerOverlay.Log($"{nameof(software_prefab)} is null ({software_prefab})", this, logLevel: LoggerOverlay.LogLevel.Warning);
+                SguiLoggerOverlay.Log($"{nameof(software_prefab)} is null ({software_prefab})", this, logLevel: SguiLoggerOverlay.LogLevel.Warning);
                 return null;
             }
 

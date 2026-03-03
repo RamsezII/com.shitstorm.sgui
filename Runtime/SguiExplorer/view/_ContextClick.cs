@@ -11,7 +11,7 @@ namespace _SGUI_
         public void OnSguiContextClick(ContextList list)
         {
             DirectoryInfo pdir = GetComponentsInChildren<Button_Folder>().Where(x => x.toggle._value).Last().current_dir;
-            LoggerOverlay.Log($"view click: ({pdir.FullName})", this);
+            SguiLoggerOverlay.Log($"view click: ({pdir.FullName})", this);
 
             {
                 var button = list.AddButton(new()
