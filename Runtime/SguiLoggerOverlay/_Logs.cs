@@ -3,18 +3,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SguiLogLevel
+{
+    _ConsolRedirect = -1,
+    Info,
+    Sublog,
+    Warning,
+    Error,
+    Fatal
+}
+
 partial class SguiLoggerOverlay
 {
-    public enum LogLevel
-    {
-        _ConsolRedirect = -1,
-        Info,
-        Sublog,
-        Warning,
-        Error,
-        Fatal
-    }
-
     static readonly List<(string text, float deadline)> logs = new();
 
     //--------------------------------------------------------------------------------------------------------------
@@ -39,10 +39,10 @@ partial class SguiLoggerOverlay
             _ => message,
         };
 
-        NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, timer: type < LogType.Log ? 3 : 2, logLevel: LogLevel._ConsolRedirect);
+        NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, timer: type < LogType.Log ? 3 : 2, logLevel: SguiLogLevel._ConsolRedirect);
     }
 
-    public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in LogLevel logLevel = LogLevel.Info)
+    public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in SguiLogLevel logLevel = SguiLogLevel.Info)
     {
         while (logs.Count >= 20)
             logs.RemoveAt(0);
@@ -58,25 +58,25 @@ partial class SguiLoggerOverlay
 
             text += logLevel switch
             {
-                LogLevel.Sublog => s.ToSubLog(),
-                LogLevel.Warning => s.SetColor(Colors.yellow),
-                LogLevel.Error => s.SetColor(Colors.orange),
-                LogLevel.Fatal => s.SetColor(Colors.red),
+                SguiLogLevel.Sublog => s.ToSubLog(),
+                SguiLogLevel.Warning => s.SetColor(Colors.yellow),
+                SguiLogLevel.Error => s.SetColor(Colors.orange),
+                SguiLogLevel.Fatal => s.SetColor(Colors.red),
                 _ => s,
             };
 
             if (timer > 0)
                 switch (logLevel)
                 {
-                    case LogLevel._ConsolRedirect:
+                    case SguiLogLevel._ConsolRedirect:
                         break;
 
-                    case LogLevel.Warning:
+                    case SguiLogLevel.Warning:
                         Debug.LogWarning(text, context);
                         break;
 
-                    case LogLevel.Error:
-                    case LogLevel.Fatal:
+                    case SguiLogLevel.Error:
+                    case SguiLogLevel.Fatal:
                         Debug.LogError(text, context);
                         break;
 

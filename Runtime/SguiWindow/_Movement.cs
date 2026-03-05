@@ -101,7 +101,7 @@ namespace _SGUI_
                 }
                 else
                 {
-                    SguiLoggerOverlay.Log($"did not need visual", this, logLevel: SguiLoggerOverlay.LogLevel.Warning);
+                    SguiLoggerOverlay.Log($"did not need visual", this, logLevel: SguiLogLevel.Warning);
                     ResizerVisual.instance.UntakeFocus(this);
                 }
             }
