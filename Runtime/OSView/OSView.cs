@@ -91,7 +91,16 @@ namespace _SGUI_
             StartToggle();
 
             edit_play.onClick.AddListener(() => ToggleSelf(false));
-            edit_close.onClick.AddListener(ShowApplicationShutdownConfirm);
+
+            edit_close.onClick.AddListener(() =>
+            {
+                SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
+                {
+                    french = $"Fermer {Application.productName} ?",
+                    english = $"Close {Application.productName} ?",
+                }).onAction_confirm += () => ArkMachine.ShutdownApplication();
+            });
+
             edit_pause.onClick.AddListener(() => NUCLEOR.instance.timeScale_raw.Value = NUCLEOR.instance.timeScale_raw._value > 0 ? 0 : 1);
 
             NUCLEOR.instance.timeScale_raw.AddListener(value =>
@@ -100,14 +109,6 @@ namespace _SGUI_
                 edit_pause.transform.Find("toggle").gameObject.SetActive(timestop);
                 users.ToggleElement(timestopUser, timestop);
             });
-
-            Application.wantsToQuit += () =>
-            {
-                if (ArkMachine.flag_shutdown)
-                    return true;
-                ShowApplicationShutdownConfirm();
-                return false;
-            };
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -139,16 +140,6 @@ namespace _SGUI_
             button.rimg_icon.texture = icon;
             button.gameObject.SetActive(true);
             return button;
-        }
-
-        public static void ShowApplicationShutdownConfirm()
-        {
-            var dialog = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
-            {
-                french = $"Fermer {Application.productName} ?",
-                english = $"Close {Application.productName} ?",
-            });
-            dialog.onAction_confirm += () => ArkMachine.ShutdownApplication(true);
         }
 
         void RefreshDatetime()
