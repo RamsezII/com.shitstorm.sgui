@@ -8,7 +8,7 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
-        public Button button_bottom_audio;
+        public Button button_bottom_audio, button_bottom_settings;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ namespace _SGUI_
             osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
             button_bottom_audio = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/audio/button").GetComponent<Button>();
+            button_bottom_settings = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/machine/button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

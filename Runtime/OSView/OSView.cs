@@ -19,7 +19,6 @@ namespace _SGUI_
         [HideInInspector] public GraphicRaycaster graphicRaycaster;
 
         TextMeshProUGUI text_computer_time;
-        HeartBeat.Operation refresh_computer_time_operation;
 
         RectTransform header_rt, taskbar_rt;
         [HideInInspector] public RectTransform rt_editor, rt_softwares;
