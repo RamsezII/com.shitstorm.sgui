@@ -42,7 +42,7 @@ partial class SguiLoggerOverlay
         NUCLEOR.delegates.Update_OnStartOfFrame_once += () => Log(message, timer: type < LogType.Log ? 3 : 2, logLevel: SguiLogLevel._ConsolRedirect);
     }
 
-    public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in SguiLogLevel logLevel = SguiLogLevel.Info)
+    public static void Log(in object o, in UnityEngine.Object context = null, in float timer = 2, in SguiLogLevel logLevel = SguiLogLevel.Info, in bool doNotRedirectToConsole = false)
     {
         while (logs.Count >= 20)
             logs.RemoveAt(0);
@@ -65,25 +65,26 @@ partial class SguiLoggerOverlay
                 _ => s,
             };
 
-            if (timer > 0)
-                switch (logLevel)
-                {
-                    case SguiLogLevel._ConsolRedirect:
-                        break;
+            if (!doNotRedirectToConsole)
+                if (timer > 0)
+                    switch (logLevel)
+                    {
+                        case SguiLogLevel._ConsolRedirect:
+                            break;
 
-                    case SguiLogLevel.Warning:
-                        Debug.LogWarning(text, context);
-                        break;
+                        case SguiLogLevel.Warning:
+                            Debug.LogWarning(text, context);
+                            break;
 
-                    case SguiLogLevel.Error:
-                    case SguiLogLevel.Fatal:
-                        Debug.LogError(text, context);
-                        break;
+                        case SguiLogLevel.Error:
+                        case SguiLogLevel.Fatal:
+                            Debug.LogError(text, context);
+                            break;
 
-                    default:
-                        Debug.Log(text, context);
-                        break;
-                }
+                        default:
+                            Debug.Log(text, context);
+                            break;
+                    }
         }
 
         logs.Add((text, timer + Time.unscaledTime));
