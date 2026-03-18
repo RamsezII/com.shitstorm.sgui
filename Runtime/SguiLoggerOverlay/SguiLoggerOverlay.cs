@@ -11,7 +11,7 @@ public sealed partial class SguiLoggerOverlay : MonoBehaviour
     RectTransform rt;
     TextMeshProUGUI text;
 
-    HeartBeat.Operation operation;
+    Scheduler.Operation operation;
 
     //--------------------------------------------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ public sealed partial class SguiLoggerOverlay : MonoBehaviour
 
     private void OnEnable()
     {
-        operation = NUCLEOR.instance.heartbeat_unscaled.AddOperation(new("refresh logger overlay", .065f, true, RefreshTexts));
+        operation = NUCLEOR.instance.scheduler_unscaled.AddOperation(new("refresh logger overlay", .065f, true, RefreshTexts));
     }
 
     private void OnDisable()

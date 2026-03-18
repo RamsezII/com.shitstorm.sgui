@@ -43,7 +43,7 @@ namespace _SGUI_
 
         public bool Enabled => state_base == BaseStates.Enable;
 
-        HeartBeat.Operation op;
+        Scheduler.Operation op;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ namespace _SGUI_
         {
             op?.Dispose();
             if (toggle)
-                NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new("wait before hover text", .25f, true, OnOperation));
+                NUCLEOR.instance.scheduler_unscaled.AddOperation(op = new("wait before hover text", .25f, true, OnOperation));
         }
 
         public void AssignUser(in IUser user)

@@ -67,8 +67,8 @@ namespace _SGUI_.context_click
 
             canvasGroup.alpha = 0;
 
-            HeartBeat.Operation op = default;
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op = new("lerp contextlist alpha", 0, true, () =>
+            Scheduler.Operation op = default;
+            NUCLEOR.instance.scheduler_unscaled.AddOperation(op = new("lerp contextlist alpha", 0, true, () =>
             {
                 if (this == null || canvasGroup.alpha >= 1)
                 {

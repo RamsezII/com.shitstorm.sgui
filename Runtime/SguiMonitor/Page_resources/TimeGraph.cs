@@ -6,7 +6,7 @@ namespace _SGUI_.Monitor.Resources
     public class TimeGraph : ResourcesSectionChild
     {
         public new UI_TimeGraphRenderer renderer;
-        public HeartBeat.Operation op_refresh;
+        public Scheduler.Operation op_refresh;
         public float renderStep = .2f;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ namespace _SGUI_.Monitor.Resources
         protected override void OnEnable()
         {
             base.OnEnable();
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_refresh = new("refresh time graph", renderStep, true, () =>
+            NUCLEOR.instance.scheduler_unscaled.AddOperation(op_refresh = new("refresh time graph", renderStep, true, () =>
             {
                 op_refresh.delay = renderStep;
                 renderer.SetVerticesDirty();

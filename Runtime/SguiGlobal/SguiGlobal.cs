@@ -24,7 +24,7 @@ namespace _SGUI_
 
         public RectTransform vchat_icon_rT, vchat_bar_rT;
 
-        HeartBeat.Operation op_framerate;
+        Scheduler.Operation op_framerate;
 
 #if UNITY_EDITOR
         [SerializeField] internal SguiWindow _FOCUSED_WINDOW;
@@ -90,7 +90,7 @@ namespace _SGUI_
                 canvasGroup2D.blocksRaycasts = canvasGroup3D.blocksRaycasts = !isNotEmpty;
             });
 
-            NUCLEOR.instance.heartbeat_unscaled.AddOperation(op_framerate = new HeartBeat.Operation("refresh framerate monitor", 1, true, () =>
+            NUCLEOR.instance.scheduler_unscaled.AddOperation(op_framerate = new Scheduler.Operation("refresh framerate monitor", 1, true, () =>
             {
                 float framerate = 1 / NUCLEOR.instance.averageUnscaledDeltatime;
                 text_framerate.text = $"{Mathf.RoundToInt(framerate)}";
