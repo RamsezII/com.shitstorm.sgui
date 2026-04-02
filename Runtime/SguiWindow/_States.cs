@@ -36,7 +36,7 @@ namespace _SGUI_
                             {
                                 case BaseStates.Default:
                                     if (oblivionized)
-                                        Destroy(gameObject);
+                                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => Destroy(gameObject);
                                     else
                                     {
                                         OnUpdateAlpha();
