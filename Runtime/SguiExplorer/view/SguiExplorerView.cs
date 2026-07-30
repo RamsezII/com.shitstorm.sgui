@@ -45,7 +45,7 @@ namespace _SGUI_
 
             base.Awake();
 
-            root_dpath = ArkPaths.instance.Value.dpath_home;
+            root_dpath = ArkMachine.DFHome.FullName;
         }
 
         //--------------------------------------------------------------------------------------------------------------
