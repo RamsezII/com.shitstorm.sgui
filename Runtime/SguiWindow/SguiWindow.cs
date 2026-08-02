@@ -47,7 +47,7 @@ namespace _SGUI_
         public Texture window_icon;
         protected SoftwareButton os_button;
 
-        public readonly ValueHandler<Traductions> sgui_description = new();
+        public readonly ValueNotifier<Traductions> sgui_description = new();
 
         static uint _id;
         public uint id;

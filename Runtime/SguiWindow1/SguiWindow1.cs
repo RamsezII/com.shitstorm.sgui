@@ -16,7 +16,7 @@ namespace _SGUI_
         [SerializeField] ResizerDragzone resizer_dragzone;
         [SerializeField] RectTransform rt_unselected;
 
-        public readonly ValueHandler<bool> fullscreen = new();
+        public readonly ValueNotifier<bool> fullscreen = new();
 
         public const int
             min_width = 200,

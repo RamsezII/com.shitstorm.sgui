@@ -9,7 +9,7 @@ namespace _SGUI_.tab_control
     {
         public Button button_select, button_close;
         public TextMeshProUGUI text;
-        public readonly ValueHandler<bool> selected = new();
+        public readonly ValueNotifier<bool> selected = new();
 
         //--------------------------------------------------------------------------------------------------------------
         protected override void Awake()

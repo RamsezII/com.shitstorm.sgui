@@ -59,10 +59,10 @@ namespace _SGUI_
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
 
-            transform.Find("clickable").GetComponent<PointerClickHandler>().onClick += (PointerEventData eventData) =>
-            {
-                users.RemoveElement(auto_usage);
-            };
+            RectTransform rt_clickable = (RectTransform)transform.Find("clickable");
+            rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
+            toggle.AddListener(rt_clickable.gameObject.SetActive);
+            isVisible.AddListener(rt_softwares.gameObject.SetActive);
 
             AwakeToggle();
 
@@ -106,7 +106,7 @@ namespace _SGUI_
             {
                 bool timestop = value <= 0;
                 edit_pause.transform.Find("toggle").gameObject.SetActive(timestop);
-                users.ToggleElement(timestopUser, timestop);
+                users_forceOpen.ToggleElement(timestopUser, timestop);
             });
         }
 

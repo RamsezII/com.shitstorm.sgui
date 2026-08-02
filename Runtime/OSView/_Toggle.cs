@@ -6,9 +6,16 @@ namespace _SGUI_
 {
     partial class OSView
     {
-        public readonly ListListener users = new();
+        public readonly HashSetListener
+            users_forceOpen = new(),
+            users_allowClosed = new();
+
+        readonly ValueNotifier<bool> toggle = new();
+        public bool IsOpen => toggle._value;
+        public readonly ValueNotifier<bool> isVisible = new();
+
         static readonly object auto_usage = new();
-        public void ToggleSelf(in bool toggle) => users.ToggleElement(auto_usage, toggle);
+        public void ToggleSelf(in bool toggle) => users_forceOpen.ToggleElement(auto_usage, toggle);
 
         [SerializeField] float header_height, footer_height;
         [SerializeField, Range(0, 1)] float toggle_lerp;
@@ -17,6 +24,14 @@ namespace _SGUI_
 
         void AwakeToggle()
         {
+            void NotifyToggle(bool _)
+            {
+                toggle.Value = users_forceOpen.IsNotEmpty || users_allowClosed.IsEmpty;
+            }
+
+            users_forceOpen.AddListener1(NotifyToggle, doNotCallThisTime: false);
+            users_allowClosed.AddListener1(NotifyToggle, doNotCallThisTime: true);
+
             toggle_lerp = .5f;
         }
 
@@ -27,9 +42,9 @@ namespace _SGUI_
             header_height = header_rt.rect.height;
             footer_height = taskbar_rt.rect.height;
 
-            users.AddListener1(isNotEmpty =>
+            toggle.AddListener(value =>
             {
-                if (isNotEmpty)
+                if (value)
                     UsageManager.AddUser(this, UsageGroups.BlockPlayer, UsageGroups.TrueMouse, UsageGroups.Keyboard);
                 else
                     UsageManager.RemoveUser(this);
@@ -43,8 +58,7 @@ namespace _SGUI_
 
         void RefreshToggle()
         {
-            bool toggle = users.IsNotEmpty;
-            int target = toggle ? 1 : 0;
+            int target = toggle._value ? 1 : 0;
             toggle_lerp = Mathf.MoveTowards(toggle_lerp, target, 3 * Time.unscaledDeltaTime);
             float smooth = Mathf.SmoothStep(0, 1, toggle_lerp);
 
@@ -56,8 +70,6 @@ namespace _SGUI_
 
             canvasGroup.alpha = Mathf.InverseLerp(.5f, 1, smooth);
             canvasGroup.interactable = toggle_lerp > .5f;
-
-            rt_softwares.gameObject.SetActive(toggle_lerp > 0);
 
             if (toggle_lerp == target)
                 NUCLEOR.delegates.LateUpdate -= RefreshToggle;

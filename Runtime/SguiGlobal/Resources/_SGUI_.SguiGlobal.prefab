@@ -58,6 +58,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -351,6 +352,7 @@ MonoBehaviour:
   _FOCUSED_WINDOW: {fileID: 0}
   _FOCUSED_RECTT: {fileID: 0}
   button_bottom_audio: {fileID: 0}
+  button_bottom_settings: {fileID: 0}
 --- !u!1 &478417470535090273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1478,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2225,7 +2228,12 @@ PrefabInstance:
     - target: {fileID: 4534709768221797689, guid: f731882894fe43346ae9b1d7d059f56a,
         type: 3}
       propertyPath: m_Size
-      value: 0.7
+      value: 0.70000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534709768221797689, guid: f731882894fe43346ae9b1d7d059f56a,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.9999998
       objectReference: {fileID: 0}
     - target: {fileID: 7001458575663176634, guid: f731882894fe43346ae9b1d7d059f56a,
         type: 3}
@@ -2781,6 +2789,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -3669,6 +3678,31 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9041135020202137361, guid: 467284ffc8af85b429ee2a2234359df7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041135020202137361, guid: 467284ffc8af85b429ee2a2234359df7,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041135020202137361, guid: 467284ffc8af85b429ee2a2234359df7,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041135020202137361, guid: 467284ffc8af85b429ee2a2234359df7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041135020202137361, guid: 467284ffc8af85b429ee2a2234359df7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9120368027477878397, guid: 467284ffc8af85b429ee2a2234359df7,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3866,12 +3900,12 @@ PrefabInstance:
     - target: {fileID: 8774403530031674134, guid: cac0b8b2ca1bbbb4cb64a6c2ca0e0d7f,
         type: 3}
       propertyPath: m_Size
-      value: 0.33333334
+      value: 0.33333337
       objectReference: {fileID: 0}
     - target: {fileID: 8774403530031674134, guid: cac0b8b2ca1bbbb4cb64a6c2ca0e0d7f,
         type: 3}
       propertyPath: m_Value
-      value: 1.0000021
+      value: 1.0000023
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

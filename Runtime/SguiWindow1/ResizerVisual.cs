@@ -9,7 +9,7 @@ namespace _SGUI_
         public static ResizerVisual instance;
 
         public RectTransform rt;
-        readonly ValueHandler<object> current_user = new();
+        readonly ValueNotifier<object> current_user = new();
 
         //--------------------------------------------------------------------------------------------------------------
 

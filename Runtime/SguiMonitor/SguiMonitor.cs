@@ -15,7 +15,7 @@ namespace _SGUI_
             FileSystems,
         }
 
-        public readonly ValueHandler<Pages> page = new();
+        public readonly ValueNotifier<Pages> page = new();
 
         public ProcessesPage page_processes;
         public ResourcesPage page_resources;

@@ -20,7 +20,7 @@ namespace _SGUI_
         public string root_dpath;
         [SerializeField] internal Button_Folder root_folder;
 
-        internal readonly ValueHandler<Button_Hierarchy> selected_fsi = new();
+        internal readonly ValueNotifier<Button_Hierarchy> selected_fsi = new();
 
         public static Action<ContextList, DirectoryInfo> onContextClick_directory;
         public static Action<ContextList, FileInfo> onContextClick_file;

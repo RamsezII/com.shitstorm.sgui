@@ -16,7 +16,7 @@ namespace _SGUI_
         public int compl_start, compl_end;
         [SerializeField] Vector2 offset;
 
-        public readonly ValueHandler<bool> toggle = new();
+        public readonly ValueNotifier<bool> toggle = new();
 
         //--------------------------------------------------------------------------------------------------------------
 

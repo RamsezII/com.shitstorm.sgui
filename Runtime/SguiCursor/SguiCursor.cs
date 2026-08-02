@@ -35,7 +35,7 @@ namespace _SGUI_
         readonly ListListener block_users = new();
         public Vector2 last_position;
 
-        readonly ValueHandler<(SguiCursorTypes cursor, IUser user)> cursor_user = new();
+        readonly ValueNotifier<(SguiCursorTypes cursor, IUser user)> cursor_user = new();
 
         readonly RectTransform[] rimgs = new RectTransform[(int)SguiCursorTypes._last_];
 

@@ -14,7 +14,7 @@ namespace _SGUI_.Explorer
     {
         [SerializeField] RawImage icon_opened, icon_closed;
 
-        public readonly ValueHandler<bool> toggle = new();
+        public readonly ValueNotifier<bool> toggle = new();
 
         public DirectoryInfo current_dir;
         internal readonly Dictionary<string, Button_Hierarchy> paths_buttons = new(StringComparer.Ordinal);
