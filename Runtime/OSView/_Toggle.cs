@@ -71,6 +71,8 @@ namespace _SGUI_
             canvasGroup.alpha = Mathf.InverseLerp(.5f, 1, smooth);
             canvasGroup.interactable = toggle_lerp > .5f;
 
+            isVisible.Value = toggle_lerp > 0;
+
             if (toggle_lerp == target)
                 NUCLEOR.delegates.LateUpdate -= RefreshToggle;
         }

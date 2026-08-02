@@ -61,7 +61,8 @@ namespace _SGUI_
 
             RectTransform rt_clickable = (RectTransform)transform.Find("clickable");
             rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
-            toggle.AddListener(rt_clickable.gameObject.SetActive);
+            Graphic invisible_click_graphic = rt_clickable.GetComponent<Graphic>();
+            toggle.AddListener(value => invisible_click_graphic.raycastTarget = value);
             isVisible.AddListener(rt_softwares.gameObject.SetActive);
 
             AwakeToggle();
