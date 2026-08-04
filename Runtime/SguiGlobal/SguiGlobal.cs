@@ -10,13 +10,15 @@ namespace _SGUI_
     {
         public static SguiGlobal instance;
 
-        public Camera cameraUI;
+        public Camera cam_worldUI;
         public Canvas canvas2D, canvas3D;
         public CanvasGroup canvasGroup2D, canvasGroup3D;
         public GraphicRaycaster raycaster_3D, raycaster_2D;
 
         public RectTransform
-            rt_screen,
+            rt_canvas2D, rt_canvas3D,
+            rt_current_mode2D, rt_mode_manager2D,
+            rt_current_mode3D, rt_mode_manager3D,
             rT_2D, rt_windows1, rt_windows2,
             rT_3D;
 
@@ -47,22 +49,27 @@ namespace _SGUI_
             DontDestroyOnLoad(gameObject);
 
             canvas2D = transform.Find("Canvas2D").GetComponent<Canvas>();
+            rt_canvas2D = (RectTransform)canvas2D.transform;
+            raycaster_2D = canvas2D.GetComponent<GraphicRaycaster>();
             canvasGroup2D = canvas2D.GetComponent<CanvasGroup>();
             rT_2D = (RectTransform)canvas2D.transform.Find("rT");
             rt_windows1 = (RectTransform)rT_2D.Find("windows1");
             rt_windows2 = (RectTransform)rT_2D.Find("windows2");
 
-            rt_screen = (RectTransform)canvas2D.transform.Find("screen_transform");
+            rt_current_mode2D = (RectTransform)canvas2D.transform.Find("current_mode");
+            rt_mode_manager2D = (RectTransform)canvas2D.transform.Find("mode_manager");
 
             text_framerate = transform.Find("Canvas2D/rT/Framerate/text").GetComponent<TextMeshProUGUI>();
 
-            cameraUI = transform.Find("WorldCameraUI").GetComponent<Camera>();
-            canvas3D = cameraUI.transform.Find("Canvas3D").GetComponent<Canvas>();
+            cam_worldUI = transform.Find("WorldCameraUI").GetComponent<Camera>();
+            canvas3D = cam_worldUI.transform.Find("Canvas3D").GetComponent<Canvas>();
+            rt_canvas3D = (RectTransform)canvas3D.transform;
+            raycaster_3D = canvas3D.GetComponent<GraphicRaycaster>();
             canvasGroup3D = canvas3D.GetComponent<CanvasGroup>();
             rT_3D = (RectTransform)canvas3D.transform.Find("rT");
 
-            raycaster_2D = canvas2D.GetComponent<GraphicRaycaster>();
-            raycaster_3D = canvas3D.GetComponent<GraphicRaycaster>();
+            rt_current_mode3D = (RectTransform)canvas3D.transform.Find("current_mode");
+            rt_mode_manager3D = (RectTransform)canvas3D.transform.Find("mode_manager");
 
             vchat_icon_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat");
             vchat_bar_rT = (RectTransform)transform.Find("Canvas2D/rT/VChat/icon/bar");
@@ -107,14 +114,14 @@ namespace _SGUI_
         //--------------------------------------------------------------------------------------------------------------
 
         public bool ScreenPointToWorldPoint(in Vector2 screenPoint, out Vector3 worldPoint) => RectTransformUtility.ScreenPointToWorldPointInRectangle(
-            rect: rt_screen,
+            rect: rt_canvas2D,
             screenPoint: screenPoint,
             cam: null,
             out worldPoint
         );
 
         public bool ScreenPointToLocalPoint(in Vector2 screenPoint, out Vector2 localPoint) => RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect: rt_screen,
+            rect: rt_canvas2D,
             screenPoint: screenPoint,
             cam: null,
             localPoint: out localPoint
@@ -123,7 +130,7 @@ namespace _SGUI_
         public static Vector3 InverseTransformPoint(in Camera camera, in Vector3 point)
         {
             Vector3 lpos = camera.WorldToViewportPoint(point);
-            Rect r = instance.rt_screen.rect;
+            Rect r = instance.rt_canvas2D.rect;
             return new Vector3(
                 Mathf.LerpUnclamped(r.xMin, r.xMax, lpos.x),
                 Mathf.LerpUnclamped(r.yMin, r.yMax, lpos.y),
