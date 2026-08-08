@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    class ResizerDragzone : ArkComponent
+    class ResizerDragzone : ArkComponent1
     {
         public SguiWindow1 window;
         [SerializeField] internal DIRS_FLAGS direction;

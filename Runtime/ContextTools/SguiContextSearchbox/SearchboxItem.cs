@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.searchbox
 {
-    public sealed class SearchboxItem : ArkComponent, SguiContextHover.IUser
+    public sealed class SearchboxItem : ArkComponent1, SguiContextHover.IUser
     {
         public SguiSearchbox searchbox;
         public Button button;

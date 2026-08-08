@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed class SguiTabController : ArkComponent
+    public sealed class SguiTabController : ArkComponent1
     {
         [SerializeField] SguiTabButton prefab_tab;
         readonly ListListener<SguiTabButton> tabs = new();

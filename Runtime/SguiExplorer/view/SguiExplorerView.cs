@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class SguiExplorerView : ArkComponent
+    public partial class SguiExplorerView : ArkComponent1
     {
         [SerializeField] ScrollRect scrollview;
         [SerializeField] VerticalLayoutGroup vlayout;

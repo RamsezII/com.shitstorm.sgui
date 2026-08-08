@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public sealed partial class SguiSearchbox : ArkComponent
+    public sealed partial class SguiSearchbox : ArkComponent1
     {
         public static SguiSearchbox instance;
 

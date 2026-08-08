@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public sealed partial class SguiDragManager : ArkComponent
+    public sealed partial class SguiDragManager : ArkComponent1
     {
         public interface IDraggable : IBeginDragHandler, IDragHandler, IEndDragHandler
         {

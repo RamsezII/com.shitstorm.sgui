@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    class ResizerVisual : ArkComponent
+    class ResizerVisual : ArkComponent1
     {
         public static ResizerVisual instance;
 

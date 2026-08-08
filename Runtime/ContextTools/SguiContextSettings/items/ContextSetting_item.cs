@@ -3,7 +3,7 @@ using _SGUI_.context_hover;
 
 namespace _SGUI_.context_tools.settings
 {
-    public abstract class ContextSetting_item : ArkComponent, SguiContextHover.IUser
+    public abstract class ContextSetting_item : ArkComponent1, SguiContextHover.IUser
     {
         public SguiContextSettings settings;
 

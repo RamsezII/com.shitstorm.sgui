@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.tab_control
 {
-    public class SguiTabButton : ArkComponent
+    public class SguiTabButton : ArkComponent1
     {
         public Button button_select, button_close;
         public TextMeshProUGUI text;

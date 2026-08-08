@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.Explorer
 {
-    internal partial class Button_Hierarchy : ArkComponent, IPointerClickHandler, SguiDragManager.IDraggable
+    internal partial class Button_Hierarchy : ArkComponent1, IPointerClickHandler, SguiDragManager.IDraggable
     {
         public SguiExplorerView view;
 

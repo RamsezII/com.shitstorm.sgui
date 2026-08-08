@@ -75,8 +75,14 @@ namespace _SGUI_
 
             RectTransform rt_clickable = (RectTransform)transform.Find("clickable");
             rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
+
             Graphic invisible_click_graphic = rt_clickable.GetComponent<Graphic>();
-            toggle.AddListener(value => invisible_click_graphic.raycastTarget = value);
+            toggle.AddListener(value =>
+            {
+                if (invisible_click_graphic != null)
+                    invisible_click_graphic.raycastTarget = value;
+            });
+
             isVisible.AddListener(rt_softwares.gameObject.SetActive);
 
             AwakeToggle();
@@ -112,8 +118,8 @@ namespace _SGUI_
             {
                 SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
                 {
-                    french = $"Fermer {Application.productName} ?",
-                    english = $"Close {Application.productName} ?",
+                    french = $"Éteindre {Application.productName.Bold()} ?",
+                    english = $"Power off {Application.productName.Bold()}?",
                 }).onAction_confirm += () => ArkMachine.ShutdownApplication();
             });
 
