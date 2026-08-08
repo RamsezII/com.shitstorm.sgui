@@ -15,10 +15,15 @@ public sealed partial class SguiLoggerOverlay : MonoBehaviour
 
     //--------------------------------------------------------------------------------------------------------------
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void OnResetStatics()
+    {
+        logs.Clear();
+    }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoad()
     {
-        logs.Clear();
         Application.logMessageReceivedThreaded -= OnLogMessageReceived;
         Application.logMessageReceivedThreaded += OnLogMessageReceived;
     }

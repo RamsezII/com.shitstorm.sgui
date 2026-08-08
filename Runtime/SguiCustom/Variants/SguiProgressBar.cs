@@ -19,7 +19,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             rT_fill = (RectTransform)transform.Find("rT/progress/mask/fill");
             tmp_percentage = transform.Find("rT/progress/text").GetComponent<TextMeshProUGUI>();

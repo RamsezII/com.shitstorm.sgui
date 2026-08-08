@@ -22,7 +22,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             Transform video_rt = transform.Find("rT/body/video_player");
             video_player = video_rt.GetComponent<VideoPlayer>();

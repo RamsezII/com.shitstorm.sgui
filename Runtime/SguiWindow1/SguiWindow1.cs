@@ -34,7 +34,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             huable_background = transform.Find("rT/body/background").GetComponent<Graphic>();
 

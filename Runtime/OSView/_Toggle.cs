@@ -62,9 +62,6 @@ namespace _SGUI_
             toggle_lerp = Mathf.MoveTowards(toggle_lerp, target, 3 * Time.unscaledDeltaTime);
             float smooth = Mathf.SmoothStep(0, 1, toggle_lerp);
 
-            SguiGlobal.instance.rT_2D.anchoredPosition = new(0, smooth * footer_height);
-            SguiGlobal.instance.rT_2D.sizeDelta = new(0, 1 - smooth * (header_height + footer_height));
-
             header_rt.pivot = new(.5f, smooth);
             taskbar_rt.pivot = new(.5f, 1 - smooth);
 

@@ -65,7 +65,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void OnAwake()
+        internal protected virtual void OnAwake()
         {
             id = _id++;
 
@@ -154,20 +154,12 @@ namespace _SGUI_
             }
         }
 
-        public static T InstantiateWindow<T>(in bool as_software = false) where T : SguiWindow => (T)InstantiateWindow(typeof(T), as_software: false);
-        public static SguiWindow InstantiateWindow(in Type type, in bool as_software = false) => InstantiateWindow((SguiWindow)Util.LoadResourceByType(type), as_software: as_software);
-        public static SguiWindow InstantiateWindow(in SguiWindow prefab, in bool as_software = false)
+        public static T InstantiateWindow<T>() where T : SguiWindow2 => (T)InstantiateWindow(typeof(T));
+        public static SguiWindow2 InstantiateWindow(in Type type) => InstantiateWindow((SguiWindow2)Util.LoadResourceByType(type));
+        public static SguiWindow2 InstantiateWindow(in SguiWindow2 prefab)
         {
-            RectTransform parent_rt = as_software || prefab is SguiWindow1
-                ? OSView.instance.rt_softwares
-                : SguiGlobal.instance.rt_windows2;
-
-            SguiWindow clone = Instantiate(prefab, parent_rt);
+            SguiWindow2 clone = Instantiate(prefab, SguiGlobal.instance.rt_windows);
             clone.OnAwake();
-
-            if (prefab is SguiWindow1)
-                OSView.instance.ToggleSelf(true);
-
             return clone;
         }
 

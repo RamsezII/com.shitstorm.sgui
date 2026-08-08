@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_
 {
+    [RequireComponent(typeof(CanvasGroup), typeof(GraphicRaycaster))]
     public partial class OSView : MonoBehaviour
     {
         public static OSView instance;
@@ -21,10 +21,17 @@ namespace _SGUI_
         TextMeshProUGUI text_computer_time;
 
         RectTransform header_rt, taskbar_rt;
-        [HideInInspector] public RectTransform rt_editor, rt_softwares;
 
-        public RectTransform rt_editor_buttons;
-        public Button edit_play, edit_pause, edit_close;
+        public RectTransform
+            rt_editor,
+            rt_editor_buttons,
+            rt_softwares,
+            vchat_icon_rT, vchat_bar_rT;
+
+        public Button
+            edit_play, edit_pause, edit_close;
+
+        [SerializeField] TextMeshProUGUI text_framerate;
 
         [SerializeField] OSHeaderButton prefab_headerbutton;
         [SerializeField] SoftwareButton prefab_softwarebutton;
@@ -48,6 +55,9 @@ namespace _SGUI_
             rt_editor = (RectTransform)transform.Find("windows/editor-layer");
             rt_softwares = (RectTransform)transform.Find("windows/softwares-layer");
 
+            vchat_icon_rT = (RectTransform)transform.Find("task-bar/VChat/icon");
+            vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
+
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
             rt_editor_buttons = (RectTransform)transform.Find("header/buttons-central");
@@ -58,6 +68,10 @@ namespace _SGUI_
             prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
+
+            text_framerate = transform.Find("task-bar/Framerate/text").GetComponent<TextMeshProUGUI>();
+
+            AwakeButtons();
 
             RectTransform rt_clickable = (RectTransform)transform.Find("clickable");
             rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
@@ -78,6 +92,8 @@ namespace _SGUI_
 
             prefab_headerbutton.gameObject.SetActive(false);
             prefab_softwarebutton.gameObject.SetActive(false);
+
+            StartFramerate();
 
             NUCLEOR.instance.scheduler_unscaled.AddOperation(new("refresh datetime", 4, true, () =>
             {
@@ -109,16 +125,18 @@ namespace _SGUI_
                 edit_pause.transform.Find("toggle").gameObject.SetActive(timestop);
                 users_forceOpen.ToggleElement(timestopUser, timestop);
             });
+
+            StartButtons();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiWindow => AddSoftwareButton(typeof(T), hoverInfos);
+        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiWindow1 => AddSoftwareButton(typeof(T), hoverInfos);
         public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
         {
             if (!softwaresButtons.TryGetValue(type, out SoftwareButton button) || button == null)
             {
-                SguiWindow prefab = (SguiWindow)Util.LoadResourceByType(type);
+                SguiWindow1 prefab = (SguiWindow1)Util.LoadResourceByType(type);
                 if (prefab == null)
                     Debug.LogError($"{this}: Failed to load software prefab of type '{type}'.", this);
                 else
@@ -155,6 +173,8 @@ namespace _SGUI_
         private void OnDestroy()
         {
             NUCLEOR.delegates.LateUpdate -= RefreshToggle;
+
+            op_framerate?.Dispose();
         }
     }
 }

@@ -75,7 +75,7 @@ namespace _SGUI_
                 }
 
                 {
-                    SguiGlobal.instance.ScreenPointToLocalPoint(eventData.delta, out Vector2 ldelta);
+                    ArkUI.ScreenPointToLocalPoint(eventData.delta, out Vector2 ldelta);
                     SguiLoggerOverlay.Log(ldelta, this, timer: 0);
 
                     Rect r = ResizerVisual.instance.rt.rect;

@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    partial class SguiGlobal
+    partial class OSView
     {
         readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
@@ -14,12 +14,12 @@ namespace _SGUI_
 
         void AwakeButtons()
         {
-            foreach (OSButton button in canvas2D.GetComponentsInChildren<OSButton>(true))
+            foreach (OSButton button in GetComponentsInChildren<OSButton>(true))
                 osbuttons_prefabs[button.GetType()] = button;
-            osbuttons_prefabs[typeof(SoftwareButton)] = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
+            osbuttons_prefabs[typeof(SoftwareButton)] = transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
-            button_bottom_audio = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/audio/button").GetComponent<Button>();
-            button_bottom_settings = canvas2D.transform.Find("_SGUI_.OSView/task-bar/buttons-right/machine/button").GetComponent<Button>();
+            button_bottom_audio = transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
+            button_bottom_settings = transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -16,7 +16,7 @@ namespace _SGUI_
         RawImage[] rimg_instances;
         public int max_instances = 10;
 
-        internal SguiWindow software_prefab;
+        internal SguiWindow1 software_prefab;
         public readonly ListListener<SguiWindow> software_instances = new();
 
         //--------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiWindow InstantiateSoftware()
+        public SguiWindow1 InstantiateSoftware()
         {
             if (software_prefab == null)
             {
@@ -69,15 +69,14 @@ namespace _SGUI_
             }
 
             bool randomize = false;
-            if (software_prefab is SguiWindow1)
-                foreach (var w in SguiWindow.focused._collection)
-                    if (w.rt.anchoredPosition.sqrMagnitude < 1)
-                    {
-                        randomize = true;
-                        break;
-                    }
+            foreach (var w in SguiWindow.focused._collection)
+                if (w.rt.anchoredPosition.sqrMagnitude < 1)
+                {
+                    randomize = true;
+                    break;
+                }
 
-            SguiWindow window = SguiWindow.InstantiateWindow(software_prefab, as_software: true);
+            SguiWindow1 window = OSView.InstantiateSoftware(software_prefab);
             switch (window)
             {
                 case SguiWindow1 w1:

@@ -8,7 +8,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
 

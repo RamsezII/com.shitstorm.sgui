@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiMonitor : SguiWindow2
+    public class SguiMonitor : SguiWindow1
     {
         public enum Pages : byte
         {
@@ -35,7 +35,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);
             page_resources = GetComponentInChildren<ResourcesPage>(includeInactive: true);
@@ -48,8 +48,6 @@ namespace _SGUI_
                 french = "Moniteur",
                 english = "Monitor",
             });
-
-            rimg_background.gameObject.SetActive(false);
 
             page_processes.OnAwake();
             page_resources.OnAwake();

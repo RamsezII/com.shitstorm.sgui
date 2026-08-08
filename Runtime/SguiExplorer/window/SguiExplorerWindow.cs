@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed class SguiExplorerWindow : SguiWindow2
+    public sealed class SguiExplorerWindow : SguiWindow1
     {
         public SguiExplorerView view;
 
@@ -20,7 +20,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnAwake()
+        internal protected override void OnAwake()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
 

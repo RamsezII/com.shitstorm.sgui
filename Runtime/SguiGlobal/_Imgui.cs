@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using _ARK_;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,7 +25,7 @@ namespace _SGUI_
                     position = Input.mousePosition
                 };
 
-                raycaster_2D.Raycast(data, rc_results);
+                ArkUI.instance.ui2D.raycaster.Raycast(data, rc_results);
 
                 if (rc_results.Count > 0)
                     switch (e.keyCode)
