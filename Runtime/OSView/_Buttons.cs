@@ -16,10 +16,10 @@ namespace _SGUI_
         {
             foreach (OSButton button in GetComponentsInChildren<OSButton>(true))
                 osbuttons_prefabs[button.GetType()] = button;
-            osbuttons_prefabs[typeof(SoftwareButton)] = transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
+            osbuttons_prefabs[typeof(SoftwareButton)] = rootGroup.transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
-            button_bottom_audio = transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
-            button_bottom_settings = transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
+            button_bottom_audio = rootGroup.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
+            button_bottom_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

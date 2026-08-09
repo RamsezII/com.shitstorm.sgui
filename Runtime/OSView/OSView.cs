@@ -10,19 +10,18 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    [RequireComponent(typeof(CanvasGroup), typeof(GraphicRaycaster))]
     public partial class OSView : MonoBehaviour
     {
         public static OSView instance;
 
-        [HideInInspector] public CanvasGroup canvasGroup;
+        [HideInInspector] public CanvasGroup rootGroup;
         [HideInInspector] public GraphicRaycaster graphicRaycaster;
 
         TextMeshProUGUI text_computer_time;
 
-        RectTransform header_rt, taskbar_rt;
-
         public RectTransform
+            header_rt, rt_header_persistent,
+            taskbar_rt, rt_footer_persistent,
             rt_editor,
             rt_editor_buttons,
             rt_softwares,
@@ -47,33 +46,37 @@ namespace _SGUI_
         {
             instance = this;
 
-            canvasGroup = GetComponent<CanvasGroup>();
             graphicRaycaster = GetComponent<GraphicRaycaster>();
 
-            header_rt = (RectTransform)transform.Find("header");
-            taskbar_rt = (RectTransform)transform.Find("task-bar");
-            rt_editor = (RectTransform)transform.Find("windows/editor-layer");
-            rt_softwares = (RectTransform)transform.Find("windows/softwares-layer");
+            RectTransform rt_rootGroup = (RectTransform)transform.Find("root_group");
+            rootGroup = rt_rootGroup.GetComponent<CanvasGroup>();
 
-            vchat_icon_rT = (RectTransform)transform.Find("task-bar/runtime_infos/VChat/icon");
+            header_rt = (RectTransform)rt_rootGroup.Find("header");
+            rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
+            taskbar_rt = (RectTransform)rt_rootGroup.Find("task-bar");
+            rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
+            rt_editor = (RectTransform)rt_rootGroup.Find("windows/editor-layer");
+            rt_softwares = (RectTransform)rt_rootGroup.Find("windows/softwares-layer");
+
+            vchat_icon_rT = (RectTransform)rt_footer_persistent.Find("VChat/icon");
             vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
 
-            text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
+            text_computer_time = rt_rootGroup.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
-            rt_editor_buttons = (RectTransform)transform.Find("header/buttons-central");
+            rt_editor_buttons = (RectTransform)rt_rootGroup.Find("header/buttons-central");
             edit_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
             edit_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
             edit_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
 
-            prefab_softwarebutton = transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
+            prefab_softwarebutton = rt_rootGroup.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
 
-            text_framerate = transform.Find("task-bar/runtime_infos/Framerate/text").GetComponent<TextMeshProUGUI>();
+            text_framerate = rt_footer_persistent.Find("Framerate/text").GetComponent<TextMeshProUGUI>();
 
             AwakeButtons();
 
-            RectTransform rt_clickable = (RectTransform)transform.Find("clickable");
+            RectTransform rt_clickable = (RectTransform)rt_rootGroup.Find("clickable");
             rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
 
             Graphic invisible_click_graphic = rt_clickable.GetComponent<Graphic>();
@@ -94,7 +97,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
+            rootGroup.transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
 
             prefab_headerbutton.gameObject.SetActive(false);
             prefab_softwarebutton.gameObject.SetActive(false);
