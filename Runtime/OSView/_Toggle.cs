@@ -11,13 +11,11 @@ namespace _SGUI_
             users_allowClosed = new();
 
         readonly ValueNotifier<bool> toggle = new();
-        public bool IsOpen => toggle._value;
         public readonly ValueNotifier<bool> isVisible = new();
 
         static readonly object auto_usage = new();
         public void ToggleSelf(in bool toggle) => users_forceOpen.ToggleElement(auto_usage, toggle);
 
-        [SerializeField] float header_height, footer_height;
         [SerializeField, Range(0, 1)] float toggle_lerp;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -39,9 +37,6 @@ namespace _SGUI_
 
         void StartToggle()
         {
-            header_height = header_rt.rect.height;
-            footer_height = taskbar_rt.rect.height;
-
             toggle.AddListener(value =>
             {
                 if (value)

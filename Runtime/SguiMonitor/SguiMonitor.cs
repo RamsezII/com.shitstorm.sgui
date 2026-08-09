@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiMonitor : SguiWindow1
+    public class SguiMonitor : SguiSoftware
     {
         public enum Pages : byte
         {

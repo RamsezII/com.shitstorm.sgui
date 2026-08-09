@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 807828740312013534}
   m_Layer: 5
-  m_Name: sgui2-custom-button
+  m_Name: custom-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

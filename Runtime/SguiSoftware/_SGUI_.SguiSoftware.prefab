@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 760598685874526509}
   - component: {fileID: 1142019855720683692}
   m_Layer: 5
-  m_Name: _SGUI_.SguiWindow1
+  m_Name: _SGUI_.SguiSoftware
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

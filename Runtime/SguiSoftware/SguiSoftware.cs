@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public abstract partial class SguiWindow1 : SguiWindow
+    public abstract partial class SguiSoftware : SguiWindow
     {
         public Button button_hide, button_fullscreen;
         [SerializeField] HeaderButton prefab_headerbutton;
@@ -22,7 +22,7 @@ namespace _SGUI_
             min_width = 200,
             min_height = 150;
 
-        public static Action<SguiWindow1, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
+        public static Action<SguiSoftware, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
 
         //--------------------------------------------------------------------------------------------------------------
 

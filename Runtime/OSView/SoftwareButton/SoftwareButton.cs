@@ -16,7 +16,7 @@ namespace _SGUI_
         RawImage[] rimg_instances;
         public int max_instances = 10;
 
-        internal SguiWindow1 software_prefab;
+        internal SguiSoftware software_prefab;
         public readonly ListListener<SguiWindow> software_instances = new();
 
         //--------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SguiWindow1 InstantiateSoftware()
+        public SguiSoftware InstantiateSoftware()
         {
             if (software_prefab == null)
             {
@@ -76,10 +76,10 @@ namespace _SGUI_
                     break;
                 }
 
-            SguiWindow1 window = OSView.InstantiateSoftware(software_prefab);
+            SguiSoftware window = OSView.InstantiateSoftware(software_prefab);
             switch (window)
             {
-                case SguiWindow1 w1:
+                case SguiSoftware w1:
                     w1.SetScalePivot(this);
                     if (randomize)
                         NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => window.rt.anchoredPosition = 25 * (Vector2)Random.onUnitSphere;

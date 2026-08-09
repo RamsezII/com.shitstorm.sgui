@@ -8,7 +8,7 @@ namespace _SGUI_.window1
 {
     public class HeaderButton : MonoBehaviour
     {
-        public SguiWindow1 window;
+        public SguiSoftware window;
         public RectTransform rt;
         public Button button;
         public Traductable trad;
@@ -18,7 +18,7 @@ namespace _SGUI_.window1
 
         private void Awake()
         {
-            window = GetComponentInParent<SguiWindow1>(true);
+            window = GetComponentInParent<SguiSoftware>(true);
             rt = (RectTransform)transform;
             button = GetComponent<Button>();
             trad = GetComponentInChildren<Traductable>(true);

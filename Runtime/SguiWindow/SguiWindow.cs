@@ -154,11 +154,11 @@ namespace _SGUI_
             }
         }
 
-        public static T InstantiateWindow<T>() where T : SguiWindow2 => (T)InstantiateWindow(typeof(T));
-        public static SguiWindow2 InstantiateWindow(in Type type) => InstantiateWindow((SguiWindow2)Util.LoadResourceByType(type));
-        public static SguiWindow2 InstantiateWindow(in SguiWindow2 prefab)
+        public static T InstantiateWindow<T>() where T : SguiPrompt => (T)InstantiateWindow(typeof(T));
+        public static SguiPrompt InstantiateWindow(in Type type) => InstantiateWindow((SguiPrompt)Util.LoadResourceByType(type));
+        public static SguiPrompt InstantiateWindow(in SguiPrompt prefab)
         {
-            SguiWindow2 clone = Instantiate(prefab, SguiGlobal.instance.rt_windows);
+            SguiPrompt clone = Instantiate(prefab, SguiGlobal.instance.rt_windows);
             clone.OnAwake();
             return clone;
         }

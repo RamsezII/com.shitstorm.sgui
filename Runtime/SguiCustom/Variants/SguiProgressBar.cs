@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed class SguiProgressBar : SguiWindow2
+    public sealed class SguiProgressBar : SguiPrompt
     {
         public RectTransform rT_fill;
         [SerializeField] TextMeshProUGUI tmp_percentage;

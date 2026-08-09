@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public sealed class SguiExplorerWindow : SguiWindow1
+    public sealed class SguiExplorerWindow : SguiSoftware
     {
         public SguiExplorerView view;
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class SguiCustom : SguiWindow2
+    public partial class SguiCustom : SguiPrompt
     {
         readonly Dictionary<Type, SguiCustom_Abstract> button_prefabs = new();
 

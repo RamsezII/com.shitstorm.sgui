@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiWindow2 : SguiWindow
+    public class SguiPrompt : SguiWindow
     {
         public RawImage rimg_background;
         public Button button_confirm, button_cancel;

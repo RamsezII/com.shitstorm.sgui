@@ -3,7 +3,7 @@ using UnityEngine.Video;
 
 namespace _SGUI_
 {
-    public partial class SguiMediaPlayer : SguiWindow1
+    public partial class SguiMediaPlayer : SguiSoftware
     {
         [HideInInspector] public VideoPlayer video_player;
         [HideInInspector] public AudioSource audio_source;

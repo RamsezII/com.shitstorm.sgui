@@ -2,7 +2,7 @@ using System.IO;
 
 namespace _SGUI_
 {
-    public partial class SguiExplorerPrompt : SguiWindow2
+    public partial class SguiExplorerPrompt : SguiPrompt
     {
         public SguiExplorerView view;
 

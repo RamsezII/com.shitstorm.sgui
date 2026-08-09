@@ -55,7 +55,7 @@ namespace _SGUI_
             rt_editor = (RectTransform)transform.Find("windows/editor-layer");
             rt_softwares = (RectTransform)transform.Find("windows/softwares-layer");
 
-            vchat_icon_rT = (RectTransform)transform.Find("task-bar/VChat/icon");
+            vchat_icon_rT = (RectTransform)transform.Find("task-bar/runtime_infos/VChat/icon");
             vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
 
             text_computer_time = transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
@@ -69,7 +69,7 @@ namespace _SGUI_
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
 
-            text_framerate = transform.Find("task-bar/Framerate/text").GetComponent<TextMeshProUGUI>();
+            text_framerate = transform.Find("task-bar/runtime_infos/Framerate/text").GetComponent<TextMeshProUGUI>();
 
             AwakeButtons();
 
@@ -137,12 +137,12 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiWindow1 => AddSoftwareButton(typeof(T), hoverInfos);
+        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiSoftware => AddSoftwareButton(typeof(T), hoverInfos);
         public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
         {
             if (!softwaresButtons.TryGetValue(type, out SoftwareButton button) || button == null)
             {
-                SguiWindow1 prefab = (SguiWindow1)Util.LoadResourceByType(type);
+                SguiSoftware prefab = (SguiSoftware)Util.LoadResourceByType(type);
                 if (prefab == null)
                     Debug.LogError($"{this}: Failed to load software prefab of type '{type}'.", this);
                 else

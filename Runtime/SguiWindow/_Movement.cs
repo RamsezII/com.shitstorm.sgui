@@ -24,7 +24,7 @@ namespace _SGUI_
 
         protected virtual void OnHeaderDrag(PointerEventData eventData)
         {
-            if (this is SguiWindow1 window1 && window1.fullscreen._value)
+            if (this is SguiSoftware window1 && window1.fullscreen._value)
                 return;
 
             Vector2 delta = eventData.delta;
