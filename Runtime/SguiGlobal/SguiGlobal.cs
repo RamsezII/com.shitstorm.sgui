@@ -7,7 +7,7 @@ namespace _SGUI_
     {
         public static SguiGlobal instance;
 
-        public RectTransform rt_windows;
+        internal RectTransform rt_sgui_prompts;
 
 #if UNITY_EDITOR
         [SerializeField] internal SguiWindow _FOCUSED_WINDOW;
@@ -21,7 +21,7 @@ namespace _SGUI_
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            rt_windows = (RectTransform)transform.Find("rt_windows");
+            rt_sgui_prompts = (RectTransform)transform.Find("sgui_prompts");
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -12,27 +12,7 @@ namespace _SGUI_
 
         public static readonly ListListener<SguiWindow> focused = new();
 
-        public static bool TryGetFocused<T>(out T output) where T : SguiWindow
-        {
-            if (focused.IsNotEmpty)
-                if (focused._collection[^1] is T t)
-                {
-                    output = t;
-                    return true;
-                }
-            output = null;
-            return false;
-        }
-
         public bool HasFocus() => this == focused.IsLast(this);
-        public void TakeFocus() => focused.Modify(list =>
-        {
-            if (focused.IsLast(this))
-                return;
-            list.Remove(this);
-            list.Add(this);
-            ToggleWindow(true);
-        });
 
         [HideInInspector] public Animator animator;
 
@@ -118,10 +98,27 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual void OnSguiGlobalLeftClick()
+        public static bool TryGetFocused<T>(out T output) where T : SguiWindow
         {
-            TakeFocus();
+            if (focused.IsNotEmpty)
+                if (focused._collection[^1] is T t)
+                {
+                    output = t;
+                    return true;
+                }
+            output = null;
+            return false;
         }
+
+        public virtual void OnSguiGlobalLeftClick() => TakeFocus();
+        public void TakeFocus() => focused.Modify(list =>
+        {
+            if (focused.IsLast(this))
+                return;
+            list.Remove(this);
+            list.Add(this);
+            ToggleWindow(true);
+        });
 
         void OnFocused(List<SguiWindow> list) => OnFocus(focused.IsLast(this));
         protected virtual void OnFocus(in bool has_focus)
@@ -152,84 +149,6 @@ namespace _SGUI_
                 x /= Screen.width;
                 rt_parent.pivot = new(x, 0);
             }
-        }
-
-        public static T InstantiateWindow<T>() where T : SguiPrompt => (T)InstantiateWindow(typeof(T));
-        public static SguiPrompt InstantiateWindow(in Type type) => InstantiateWindow((SguiPrompt)Util.LoadResourceByType(type));
-        public static SguiPrompt InstantiateWindow(in SguiPrompt prefab)
-        {
-            SguiPrompt clone = Instantiate(prefab, SguiGlobal.instance.rt_windows);
-            clone.OnAwake();
-            return clone;
-        }
-
-        public static SguiCustom ShowAlert(in SguiDialogs type, out SguiCustom_Alert alert, in Traductions traductions)
-        {
-            SguiCustom sgui = InstantiateWindow<SguiCustom>();
-
-            switch (type)
-            {
-                case SguiDialogs.Info:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
-                    break;
-
-                case SguiDialogs.Dialog:
-                    Debug.Log($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
-                    break;
-
-                case SguiDialogs.Error:
-                    Debug.LogWarning($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
-                    break;
-
-                default:
-                    Debug.LogError($"{sgui.GetType()}.{type}: \"{traductions.GetAutomatic()}\"", sgui);
-                    break;
-            }
-
-            alert = sgui.AddButton<SguiCustom_Alert>();
-            alert.SetType(type);
-            alert.SetText(traductions);
-            sgui.trad_title.SetTrad(type.ToString());
-
-            if (type == SguiDialogs.Dialog)
-            {
-                sgui.trad_confirm.SetTrads(new() { french = "Oui", english = "Yes", });
-                sgui.trad_cancel.SetTrads(new() { french = "Non", english = "No", });
-            }
-            else
-            {
-                sgui.button_cancel.gameObject.SetActive(false);
-                sgui.trad_confirm.SetTrad("OK");
-            }
-
-            return sgui;
-        }
-
-        public static SguiProgressBar InstantiateProgressBar_NEW()
-        {
-            SguiProgressBar window = InstantiateWindow<SguiProgressBar>();
-            window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
-            return window;
-        }
-
-        public static SguiCustom_Progress InstantiateProgressBar_OLD(in bool no_label)
-        {
-            SguiCustom window = InstantiateWindow<SguiCustom>();
-
-            SguiCustom_Progress progress = window.AddButton<SguiCustom_Progress>();
-
-            window.button_confirm.transform.gameObject.SetActive(false);
-            window.button_close.transform.parent.parent.gameObject.SetActive(false);
-            window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
-
-            if (no_label)
-            {
-                progress.rT_label.gameObject.SetActive(false);
-                RectTransform rt = (RectTransform)progress.rT_fill.parent.parent;
-                rt.anchorMin = new(0, .5f);
-            }
-
-            return progress;
         }
 
         //--------------------------------------------------------------------------------------------------------------

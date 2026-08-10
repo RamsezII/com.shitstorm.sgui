@@ -1,0 +1,26 @@
+{
+    "name": "ram.sgui.Tests",
+    "rootNamespace": "_SGUIS_.Tests",
+    "references": [
+        "GUID:ec96f6dc48fee4244bcebc247464e471",
+        "GUID:2a84e452762c9634994f1da664544658",
+        "GUID:fde3f11d556c00a47a542e879642aabb",
+        "GUID:84fa75d71d64bc04e87c47a81fe0ee9c",
+        "GUID:0308a0376a5119646aa5084f7da0a023"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.ram16.term",
+            "expression": "",
+            "define": "HAS_TERM"
+        }
+    ],
+    "noEngineReferences": false
+}
