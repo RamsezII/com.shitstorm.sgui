@@ -30,7 +30,10 @@ namespace _SGUIS_.Tests
 
                             float timer = 0;
                             while (timer < value)
-                                yield return CmdStep.Status(null, progress: timer / value);
+                            {
+                                timer += Time.unscaledDeltaTime;
+                                yield return default;
+                            }
                         }
                         yield return CmdStep.Result($"Done.");
                     }

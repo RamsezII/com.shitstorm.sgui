@@ -57,14 +57,7 @@ namespace _SGUI_
             return sgui;
         }
 
-        public static SguiProgressBar InstantiateProgressBar_NEW()
-        {
-            SguiProgressBar window = InstantiateWindow<SguiProgressBar>();
-            window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
-            return window;
-        }
-
-        public static SguiCustom InstantiateProgressBar_OLD(in bool no_label, out SguiCustom_Progress progress_bar)
+        public static SguiCustom InstantiateProgressBar(out SguiCustom_Progress progress_bar, in bool no_label = false)
         {
             SguiCustom window = InstantiateWindow<SguiCustom>();
 
