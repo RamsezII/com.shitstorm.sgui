@@ -16,9 +16,10 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnDispose()
+        protected override void OnDestroy()
         {
-            base.OnDispose();
+            base.OnDestroy();
+
             input_field.onValueChanged.RemoveAllListeners();
             input_field.onEndEdit.RemoveAllListeners();
             input_field.onSubmit.RemoveAllListeners();

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _ARK_;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_
@@ -9,10 +10,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AutoSize()
+        public void AutoSizeAtEndOfFrame() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeNow);
+        public void AutoSizeNow()
         {
+            if (this == null)
+                return;
+
             Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform.parent);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content_layout_rT);
             rt.ForceUpdateRectTransforms();
 
             float width = 350;

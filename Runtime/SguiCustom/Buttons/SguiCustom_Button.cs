@@ -16,9 +16,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnDispose()
+        protected override void OnDestroy()
         {
-            base.OnDispose();
+            base.OnDestroy();
             button.onClick.RemoveAllListeners();
         }
     }

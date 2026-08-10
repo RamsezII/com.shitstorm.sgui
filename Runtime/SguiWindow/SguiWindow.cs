@@ -53,8 +53,8 @@ namespace _SGUI_
             {
                 animator.writeDefaultValuesOnDisable = true;
                 animator.keepAnimatorStateOnDisable = true;
-                animator.Update(0);
             }
+
             AwakeUI();
 
             if (window_icon != null)
@@ -91,6 +91,8 @@ namespace _SGUI_
 
             StartUI();
             ToggleWindow(true);
+            animator.Update(0);
+
             button_close.onClick.AddListener(() => SetScalePivot(null));
 
             focused.AddListener2(OnFocused);

@@ -12,6 +12,7 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, SguiCustom_Abstract> button_prefabs = new();
 
+        CanvasGroup canvasGroup_rt;
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
 
@@ -23,6 +24,7 @@ namespace _SGUI_
         {
             base.OnAwake();
 
+            canvasGroup_rt = transform.Find("rT").GetComponent<CanvasGroup>();
             content_layout_rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
             content_layout = content_layout_rT.GetComponent<VerticalLayoutGroup>();
 
@@ -38,11 +40,7 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-
-            foreach (var pair in button_prefabs)
-                pair.Value.gameObject.SetActive(false);
-
-            AutoSize();
+            AutoSizeAtEndOfFrame();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -53,6 +51,7 @@ namespace _SGUI_
             SguiCustom_Abstract prefab = button_prefabs[type];
             SguiCustom_Abstract clone = Instantiate(prefab, prefab.transform.parent);
             clone.gameObject.SetActive(true);
+
             return clone;
         }
 
@@ -75,10 +74,7 @@ namespace _SGUI_
         protected override void OnOblivion()
         {
             base.OnOblivion();
-
-            var buttons = GetButtons(true);
-            for (int i = 0; i < buttons.Length; ++i)
-                buttons[i].Dispose();
+            canvasGroup_rt.interactable = false;
         }
     }
 }
