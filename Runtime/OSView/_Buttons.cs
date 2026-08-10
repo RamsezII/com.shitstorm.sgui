@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _ARK_;
+using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -8,7 +9,9 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
-        public Button button_bottom_audio, button_bottom_settings;
+        public Button
+            button_bottom_audio,
+            button_bottom_settings;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -20,6 +23,20 @@ namespace _SGUI_
 
             button_bottom_audio = rootGroup.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
             button_bottom_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
+
+            rootGroup.transform.Find("task-bar/buttons-right/runtime/button").GetComponent<Button>().onClick.AddListener(() =>
+            {
+                var window = SguiWindow.InstantiateWindow<SguiCustom>();
+                window.trad_title.SetTrads(new(typeof(RuntimeInfo).FullName));
+                window.button_cancel.gameObject.SetActive(false);
+                window.trad_confirm.SetTrad("Ok");
+
+                foreach (var info in RuntimeInfo.EInstances)
+                {
+                    var label = window.AddButton<SguiCustom_Label>();
+                    label.trad_label.SetTrads(info.infos);
+                }
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
