@@ -26,7 +26,7 @@ namespace _SGUI_
 
             base.OnAwake();
 
-            trad_title.SetTrads(new()
+            trad_title.SetTraductions(new()
             {
                 french = $"Explorateur",
                 english = "Explorer",

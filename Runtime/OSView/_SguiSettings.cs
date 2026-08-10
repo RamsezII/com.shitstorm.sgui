@@ -11,7 +11,7 @@ namespace _SGUI_
             button_bottom_settings.onClick.AddListener(() =>
             {
                 var window = SguiWindow.CreatePrompt();
-                window.trad_title.SetTrads(new()
+                window.trad_title.SetTraductions(new()
                 {
                     french = "Réglages",
                     english = "Settings",
@@ -25,15 +25,15 @@ namespace _SGUI_
                         if (type.IsSubclassOf(typeof(JSon)))
                         {
                             var button = window.AddButton<SguiCustom_Button>();
-                            button.trad_label.SetTrad(file.Name);
+                            button.trad_label.SetText(file.Name);
                             button.hover_infos = new(file.FullName);
 
                             button.button.onClick.AddListener(() =>
                             {
                                 var subwindow = SguiWindow.CreatePrompt();
-                                subwindow.trad_title.SetTrad(file.Name);
+                                subwindow.trad_title.SetText(file.Name);
                                 subwindow.SetCancelButton(SguiCustom.CancelTypes.Back);
-                                subwindow.trad_confirm.SetTrads(new() { french = "Sauvegarder", english = "Save", });
+                                subwindow.trad_confirm.SetTraductions(new() { french = "Sauvegarder", english = "Save", });
 
                                 subwindow.EditJSon(file.FullName, type);
                             });

@@ -179,7 +179,7 @@ namespace _SGUI_
         public HeaderButton AddHeaderButton(in Traductions title)
         {
             HeaderButton clone = prefab_headerbutton.Clone(true);
-            clone.trad.SetTrads(title);
+            clone.trad.SetTraductions(title);
             return clone;
         }
     }

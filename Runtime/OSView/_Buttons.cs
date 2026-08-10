@@ -27,14 +27,14 @@ namespace _SGUI_
             rootGroup.transform.Find("task-bar/buttons-right/runtime/button").GetComponent<Button>().onClick.AddListener(() =>
             {
                 var window = SguiWindow.CreatePrompt();
-                window.trad_title.SetTrads(new(typeof(RuntimeInfo).FullName));
+                window.trad_title.SetTraductions(new(typeof(RuntimeInfo).FullName));
                 window.SetCancelButton(SguiCustom.CancelTypes.Off);
                 window.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
 
                 foreach (var info in RuntimeInfo.EInstances)
                 {
                     var label = window.AddButton<SguiCustom_Label>();
-                    label.trad_label.SetTrads(info.infos);
+                    label.trad_label.SetTraductions(info.infos);
                 }
             });
         }

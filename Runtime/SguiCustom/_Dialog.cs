@@ -31,15 +31,15 @@ namespace _SGUI_
                     break;
 
                 case CancelTypes.Cancel:
-                    trad_cancel.SetTrads(new() { french = "Annuler", english = "Cancel", });
+                    trad_cancel.SetTraductions(new() { french = "Annuler", english = "Cancel", });
                     break;
 
                 case CancelTypes.No:
-                    trad_cancel.SetTrads(new() { french = "Non", english = "No", });
+                    trad_cancel.SetTraductions(new() { french = "Non", english = "No", });
                     break;
 
                 case CancelTypes.Back:
-                    trad_cancel.SetTrads(new() { french = "Retour", english = "Back", });
+                    trad_cancel.SetTraductions(new() { french = "Retour", english = "Back", });
                     break;
 
                 default:
@@ -57,15 +57,15 @@ namespace _SGUI_
                     break;
 
                 case ConfirmTypes.Ok:
-                    trad_confirm.SetTrad("Ok");
+                    trad_confirm.SetText("Ok");
                     break;
 
                 case ConfirmTypes.Yes:
-                    trad_confirm.SetTrads(new() { french = "Oui", english = "Yes", });
+                    trad_confirm.SetTraductions(new() { french = "Oui", english = "Yes", });
                     break;
 
                 case ConfirmTypes.Confirm:
-                    trad_confirm.SetTrads(new() { french = "Confirmer", english = "Confirm", });
+                    trad_confirm.SetTraductions(new() { french = "Confirmer", english = "Confirm", });
                     break;
 
                 default:

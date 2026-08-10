@@ -45,7 +45,7 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
-            trad_title.SetTrad(GetType().FullName);
+            trad_title.SetText(GetType().FullName);
             canvasGroup.alpha = 0;
             NUCLEOR.delegates.LateUpdate += RefreshAlpha;
         }
@@ -116,7 +116,7 @@ namespace _SGUI_
         public void OpenHere(in Vector2 screenPosition, in Traductions title)
         {
             Toggle(true);
-            trad_title.SetTrads(title);
+            trad_title.SetTraductions(title);
             rt.position = screenPosition;
         }
 

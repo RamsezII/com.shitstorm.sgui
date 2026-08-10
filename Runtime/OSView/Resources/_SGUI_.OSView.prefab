@@ -4105,7 +4105,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 327e299569ae4084a9b1c63de6d6f045, type: 3}
+      objectReference: {fileID: 2800000, guid: 9d89ce9ea1bd0244ca687a31ec7a2f8a, type: 3}
     - target: {fileID: 1473395303788849432, guid: 45d19046b174dac43bb109123a73c8e9,
         type: 3}
       propertyPath: m_Pivot.x

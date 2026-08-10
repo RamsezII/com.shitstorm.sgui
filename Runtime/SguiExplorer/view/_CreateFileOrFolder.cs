@@ -8,14 +8,14 @@ namespace _SGUI_
         internal void Prompt_CreateFile(DirectoryInfo pdir)
         {
             var window = SguiWindow.CreatePrompt();
-            window.trad_title.SetTrads(new()
+            window.trad_title.SetTraductions(new()
             {
                 french = "Créer un fichier",
                 english = "Create a file",
             });
 
             var inputfield = window.AddButton<SguiCustom_InputField>();
-            inputfield.trad_label.SetTrads(new()
+            inputfield.trad_label.SetTraductions(new()
             {
                 french = "Nom du fichier :",
                 english = "File name:",
@@ -55,14 +55,14 @@ namespace _SGUI_
         internal void Prompt_CreateFolder(DirectoryInfo pdir)
         {
             var window = SguiWindow.CreatePrompt();
-            window.trad_title.SetTrads(new()
+            window.trad_title.SetTraductions(new()
             {
                 french = "Créer un dossier",
                 english = "Create directory",
             });
 
             var inputfield = window.AddButton<SguiCustom_InputField>();
-            inputfield.trad_label.SetTrads(new()
+            inputfield.trad_label.SetTraductions(new()
             {
                 french = "Nom du dossier :",
                 english = "Directory name:",

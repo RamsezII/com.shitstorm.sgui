@@ -13,8 +13,8 @@ namespace _SGUI_
             if (title.IsDefault)
                 title = new(result.GetType().FullName);
 
-            trad_title.SetTrads(title);
-            void OnChange() => trad_title.SetTrad(title + "*");
+            trad_title.SetTraductions(title);
+            void OnChange() => trad_title.SetText(title + "*");
 
             FieldInfo[] target_fields = result.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
             PropertyInfo[] target_properties = result.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -29,7 +29,7 @@ namespace _SGUI_
 
                 if (TryGenerateButton(field_name, field_value, out SguiCustom_Abstract button))
                 {
-                    button.trad_label.SetTrads(new() { french = field_name + " :", english = field_name + ":", });
+                    button.trad_label.SetTraductions(new() { french = field_name + " :", english = field_name + ":", });
                     switch (button)
                     {
                         case SguiCustom_Toggle toggle:
@@ -99,7 +99,7 @@ namespace _SGUI_
                 else
                 {
                     button = AddButton<SguiCustom_Label>();
-                    button.trad_label.SetTrads(new()
+                    button.trad_label.SetTraductions(new()
                     {
                         english = $"Could not parse field: {{ \"{field_name}\" : \"{field_value}\" }} ({field_type})",
                         french = $"Impossible de parser le champ: {{ \"{field_name}\" : \"{field_value}\" }} ({field_type})",
@@ -116,7 +116,7 @@ namespace _SGUI_
 
                 if (TryGenerateButton(property_name, property_value, out SguiCustom_Abstract button))
                 {
-                    button.trad_label.SetTrads(new() { french = property_name + " :", english = property_name + ":", });
+                    button.trad_label.SetTraductions(new() { french = property_name + " :", english = property_name + ":", });
                     switch (button)
                     {
                         case SguiCustom_Toggle toggle:
@@ -163,7 +163,7 @@ namespace _SGUI_
                 else
                 {
                     button = AddButton<SguiCustom_Label>();
-                    button.trad_label.SetTrads(new()
+                    button.trad_label.SetTraductions(new()
                     {
                         english = $"Could not parse field: {{ \"{property_name}\" : \"{property_value}\" }} ({property_type})",
                         french = $"Impossible de parser le champ: {{ \"{property_name}\" : \"{property_value}\" }} ({property_type})",

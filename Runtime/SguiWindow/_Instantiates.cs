@@ -17,7 +17,7 @@ namespace _SGUI_
             return clone;
         }
 
-        public static SguiCustom ShowProgressBar(out SguiCustom_Progress progress_bar, in bool no_label = false)
+        public static SguiCustom ShowProgressBar(out SguiCustom_Progress progress_bar, in bool no_label = false, in bool no_cancel = false)
         {
             SguiCustom window = CreatePrompt();
 
@@ -33,6 +33,9 @@ namespace _SGUI_
                 RectTransform rt = (RectTransform)progress_bar.rT_fill.parent.parent;
                 rt.anchorMin = new(0, .5f);
             }
+
+            if (no_cancel)
+                window.SetCancelButton(SguiCustom.CancelTypes.Off);
 
             return window;
         }
@@ -63,7 +66,7 @@ namespace _SGUI_
             alert = sgui.AddButton<SguiCustom_Alert>();
             alert.SetType(type);
             alert.SetText(traductions);
-            sgui.trad_title.SetTrad(type.ToString());
+            sgui.trad_title.SetText(type.ToString());
 
             if (type == SguiDialogs.Dialog)
             {

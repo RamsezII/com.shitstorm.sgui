@@ -2636,8 +2636,7 @@ MonoBehaviour:
   m_text: 83%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04, type: 2}
-  m_sharedMaterial: {fileID: 4701849021605294625, guid: d46e6d9ebe1a4bf41a3cacc2d7e42e04,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 3d31c0e677ce78a41a524665df9dbd4b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4372,6 +4371,7 @@ MonoBehaviour:
   trad_cancel: {fileID: 0}
   trad_confirm: {fileID: 0}
   autosize_offset_height: 60
+  max_autosize_height: 300
 --- !u!1001 &4243082356187388387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4463,7 +4463,7 @@ PrefabInstance:
     - target: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -37.5
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
@@ -5261,6 +5261,9 @@ MonoBehaviour:
   tmp_label: {fileID: 0}
   trad_label: {fileID: 0}
   button: {fileID: 0}
+  hover_infos:
+    english: 
+    french: 
 --- !u!224 &8694292479365824364 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,

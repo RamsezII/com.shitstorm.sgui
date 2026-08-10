@@ -30,7 +30,7 @@ namespace _SGUI_
                     float max = is_01 ? 1 : splits[2].ParseFloat();
 
                     slider = AddButton<SguiCustom_Slider>();
-                    slider.trad_label.SetTrad(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
+                    slider.trad_label.SetText(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
 
                     slider.slider.wholeNumbers = is_wholeNumber;
                     slider.slider.minValue = min;
@@ -62,7 +62,7 @@ namespace _SGUI_
                 }
 
             inputfield = AddButton<SguiCustom_InputField>();
-            inputfield.trad_label.SetTrad(label + ":");
+            inputfield.trad_label.SetText(label + ":");
             inputfield.input_field.text = value.ToString().Replace(',', '.');
 
             if (is_wholeNumber)

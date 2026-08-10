@@ -87,7 +87,7 @@ namespace _SGUI_.context_click
         public ContextListButton AddButton(in Traductions label)
         {
             var clone = prefab_button.Clone(true);
-            clone.trad.SetTrads(label);
+            clone.trad.SetTraductions(label);
             buttons_clones.Add(clone);
             clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));
 

@@ -82,7 +82,7 @@ namespace _SGUI_.context_tools
         public ContextSetting_item AddItem(in Type type, in Traductions trad)
         {
             var clone = prefabs[type].Clone(true);
-            clone.label_trad.SetTrads(trad);
+            clone.label_trad.SetTraductions(trad);
             AutoSize();
             return clone;
         }

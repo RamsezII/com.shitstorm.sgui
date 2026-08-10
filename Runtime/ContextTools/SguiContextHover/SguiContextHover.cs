@@ -79,7 +79,7 @@ namespace _SGUI_
             Toggle(true);
             ToggleMouseCheck(true);
 
-            trad.SetTrads(user.OnSguiContextHover());
+            trad.SetTraductions(user.OnSguiContextHover());
 
             Vector2 psize = rt_all.rect.size;
             Vector2 size = text.GetPreferredValues(text.text, 200, float.MaxValue);

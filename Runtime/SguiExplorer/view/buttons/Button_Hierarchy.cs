@@ -87,10 +87,10 @@ namespace _SGUI_.Explorer
                     button.button.onClick.AddListener(() =>
                     {
                         var window = SguiWindow.CreatePrompt();
-                        window.trad_title.SetTrads(trad_rename);
+                        window.trad_title.SetTraductions(trad_rename);
 
                         var inputfield = window.AddButton<SguiCustom_InputField>();
-                        inputfield.trad_label.SetTrads(new()
+                        inputfield.trad_label.SetTraductions(new()
                         {
                             french = "Nouveau nom :",
                             english = "New name:",
