@@ -26,7 +26,7 @@ namespace _SGUI_
 
             rootGroup.transform.Find("task-bar/buttons-right/runtime/button").GetComponent<Button>().onClick.AddListener(() =>
             {
-                var window = SguiWindow.InstantiateWindow<SguiCustom>();
+                var window = SguiWindow.CreatePrompt();
                 window.trad_title.SetTrads(new(typeof(RuntimeInfo).FullName));
                 window.button_cancel.gameObject.SetActive(false);
                 window.trad_confirm.SetTrad("Ok");

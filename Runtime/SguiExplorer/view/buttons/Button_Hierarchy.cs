@@ -86,7 +86,7 @@ namespace _SGUI_.Explorer
 
                     button.button.onClick.AddListener(() =>
                     {
-                        var window = SguiWindow.InstantiateWindow<SguiCustom>();
+                        var window = SguiWindow.CreatePrompt();
                         window.trad_title.SetTrads(trad_rename);
 
                         var inputfield = window.AddButton<SguiCustom_InputField>();

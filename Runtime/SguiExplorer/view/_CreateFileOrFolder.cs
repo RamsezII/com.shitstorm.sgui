@@ -7,7 +7,7 @@ namespace _SGUI_
     {
         internal void Prompt_CreateFile(DirectoryInfo pdir)
         {
-            var window = SguiWindow.InstantiateWindow<SguiCustom>();
+            var window = SguiWindow.CreatePrompt();
             window.trad_title.SetTrads(new()
             {
                 french = "Créer un fichier",
@@ -54,7 +54,7 @@ namespace _SGUI_
 
         internal void Prompt_CreateFolder(DirectoryInfo pdir)
         {
-            var window = SguiWindow.InstantiateWindow<SguiCustom>();
+            var window = SguiWindow.CreatePrompt();
             window.trad_title.SetTrads(new()
             {
                 french = "Créer un dossier",

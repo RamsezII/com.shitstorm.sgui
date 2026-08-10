@@ -19,13 +19,13 @@ namespace _SGUI_
 
         public static SguiExplorerPrompt Open()
         {
-            var window = InstantiateWindow<SguiExplorerPrompt>();
+            var window = ShowPrompt<SguiExplorerPrompt>();
             return window;
         }
 
         public static SguiExplorerPrompt OpenHere(in DirectoryInfo dir)
         {
-            var window = InstantiateWindow<SguiExplorerPrompt>();
+            var window = ShowPrompt<SguiExplorerPrompt>();
             window.view.GoHere(dir);
             return window;
         }
