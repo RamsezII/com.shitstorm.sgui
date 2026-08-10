@@ -15,7 +15,7 @@ namespace _SGUI_
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
 
-        public SguiCustom_Abstract[] GetButtons(in bool includeInactive = false) => GetComponentsInChildren<SguiCustom_Abstract>(includeInactive);
+        public bool HasAnyButton => GetComponentInChildren<SguiCustom_Abstract>() != null;
 
         //--------------------------------------------------------------------------------------------------------------
 

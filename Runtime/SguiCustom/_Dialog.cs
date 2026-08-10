@@ -2,74 +2,90 @@
 
 namespace _SGUI_
 {
+    public enum SguiCancelTypes : byte
+    {
+        Off,
+        Cancel,
+        No,
+        Back,
+    }
+
+    public enum SguiConfirmTypes : byte
+    {
+        Off,
+        Ok,
+        Yes,
+        Confirm,
+        Save,
+        Apply,
+    }
+
     partial class SguiCustom
     {
-        public enum CancelTypes : byte
-        {
-            Off,
-            Cancel,
-            No,
-            Back,
-        }
-
-        public enum ConfirmTypes : byte
-        {
-            Off,
-            Ok,
-            Yes,
-            Confirm,
-        }
-
         //--------------------------------------------------------------------------------------------------------------
 
-        public void SetCancelButton(in CancelTypes type)
+        public void SetDialogButtons(in SguiCancelTypes cancel, in SguiConfirmTypes confirm)
+        {
+            SetCancelButton(cancel);
+            SetConfirmButton(confirm);
+        }
+
+        public void SetCancelButton(in SguiCancelTypes type)
         {
             switch (type)
             {
-                case CancelTypes.Off:
+                case SguiCancelTypes.Off:
                     button_cancel.gameObject.SetActive(false);
                     break;
 
-                case CancelTypes.Cancel:
+                case SguiCancelTypes.Cancel:
                     trad_cancel.SetTraductions(new() { french = "Annuler", english = "Cancel", });
                     break;
 
-                case CancelTypes.No:
+                case SguiCancelTypes.No:
                     trad_cancel.SetTraductions(new() { french = "Non", english = "No", });
                     break;
 
-                case CancelTypes.Back:
+                case SguiCancelTypes.Back:
                     trad_cancel.SetTraductions(new() { french = "Retour", english = "Back", });
                     break;
 
                 default:
-                    Debug.LogError($"Wrong {typeof(CancelTypes)}: '{type}'");
+                    Debug.LogError($"Wrong {typeof(SguiCancelTypes)}: '{type}'");
                     break;
             }
         }
 
-        public void SetConfirmButton(in ConfirmTypes type)
+        public void SetConfirmButton(in SguiConfirmTypes type)
         {
             switch (type)
             {
-                case ConfirmTypes.Off:
+                case SguiConfirmTypes.Off:
                     button_confirm.gameObject.SetActive(false);
                     break;
 
-                case ConfirmTypes.Ok:
+                case SguiConfirmTypes.Ok:
                     trad_confirm.SetText("Ok");
                     break;
 
-                case ConfirmTypes.Yes:
+                case SguiConfirmTypes.Yes:
                     trad_confirm.SetTraductions(new() { french = "Oui", english = "Yes", });
                     break;
 
-                case ConfirmTypes.Confirm:
+                case SguiConfirmTypes.Confirm:
                     trad_confirm.SetTraductions(new() { french = "Confirmer", english = "Confirm", });
                     break;
 
+                case SguiConfirmTypes.Save:
+                    trad_confirm.SetTraductions(new() { french = "Sauvegarder", english = "Save", });
+                    break;
+
+                case SguiConfirmTypes.Apply:
+                    trad_confirm.SetTraductions(new() { french = "Appliquer", english = "Apply", });
+                    break;
+
                 default:
-                    Debug.LogError($"Wrong {typeof(ConfirmTypes)}: '{type}'");
+                    Debug.LogError($"Wrong {typeof(SguiConfirmTypes)}: '{type}'");
                     break;
             }
         }

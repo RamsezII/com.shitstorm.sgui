@@ -1,5 +1,4 @@
 ﻿using _ARK_;
-using System;
 using System.IO;
 
 namespace _SGUI_
@@ -13,11 +12,10 @@ namespace _SGUI_
                 var window = SguiWindow.CreatePrompt();
                 window.trad_title.SetTraductions(new()
                 {
-                    french = "Réglages",
-                    english = "Settings",
+                    french = "Tous Les Réglages",
+                    english = "All Settings",
                 });
-                window.SetCancelButton(SguiCustom.CancelTypes.Off);
-                window.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
+                window.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
                 var files = ArkMachine.DFHome.EnumerateFiles("*.json.txt", SearchOption.AllDirectories);
                 foreach (var file in files)
@@ -32,9 +30,7 @@ namespace _SGUI_
                             {
                                 var subwindow = SguiWindow.CreatePrompt();
                                 subwindow.trad_title.SetText(file.Name);
-                                subwindow.SetCancelButton(SguiCustom.CancelTypes.Back);
-                                subwindow.trad_confirm.SetTraductions(new() { french = "Sauvegarder", english = "Save", });
-
+                                subwindow.SetDialogButtons(SguiCancelTypes.Back, SguiConfirmTypes.Save);
                                 subwindow.EditJSon(file.FullName, type);
                             });
                         }

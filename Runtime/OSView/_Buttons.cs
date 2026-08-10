@@ -1,5 +1,4 @@
-﻿using _ARK_;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -23,20 +22,6 @@ namespace _SGUI_
 
             button_bottom_audio = rootGroup.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
             button_bottom_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
-
-            rootGroup.transform.Find("task-bar/buttons-right/runtime/button").GetComponent<Button>().onClick.AddListener(() =>
-            {
-                var window = SguiWindow.CreatePrompt();
-                window.trad_title.SetTraductions(new(typeof(RuntimeInfo).FullName));
-                window.SetCancelButton(SguiCustom.CancelTypes.Off);
-                window.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
-
-                foreach (var info in RuntimeInfo.EInstances)
-                {
-                    var label = window.AddButton<SguiCustom_Label>();
-                    label.trad_label.SetTraductions(info.infos);
-                }
-            });
         }
 
         //--------------------------------------------------------------------------------------------------------------

@@ -23,7 +23,7 @@ namespace _SGUI_
 
             progress_bar = window.AddButton<SguiCustom_Progress>();
 
-            window.SetConfirmButton(SguiCustom.ConfirmTypes.Off);
+            window.SetConfirmButton(SguiConfirmTypes.Off);
             window.button_close.transform.parent.parent.gameObject.SetActive(false);
             window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
 
@@ -35,7 +35,7 @@ namespace _SGUI_
             }
 
             if (no_cancel)
-                window.SetCancelButton(SguiCustom.CancelTypes.Off);
+                window.SetCancelButton(SguiCancelTypes.Off);
 
             return window;
         }
@@ -69,15 +69,9 @@ namespace _SGUI_
             sgui.trad_title.SetText(type.ToString());
 
             if (type == SguiDialogs.Dialog)
-            {
-                sgui.SetCancelButton(SguiCustom.CancelTypes.No);
-                sgui.SetConfirmButton(SguiCustom.ConfirmTypes.Yes);
-            }
+                sgui.SetDialogButtons(SguiCancelTypes.No, SguiConfirmTypes.Yes);
             else
-            {
-                sgui.SetCancelButton(SguiCustom.CancelTypes.Off);
-                sgui.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
-            }
+                sgui.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
             return sgui;
         }

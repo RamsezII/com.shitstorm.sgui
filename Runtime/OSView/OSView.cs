@@ -42,6 +42,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void OnResetStatics()
+        {
+            onRuntimeSettingsPrompt.Clear();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         private void Awake()
         {
             instance = this;
@@ -76,6 +84,7 @@ namespace _SGUI_
             AwakeButtons();
             AwakeToggle();
             AwakeSguiSettings();
+            AwakeRuntimeSettings();
 
             isVisible.AddListener(rt_softwares.gameObject.SetActive);
 
