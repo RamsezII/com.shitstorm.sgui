@@ -1,10 +1,13 @@
+using _ARK_;
 using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public class SguiCustom_Button : SguiCustom_Abstract
+    public class SguiCustom_Button : SguiCustom_Abstract, SguiContextHover.IUser
     {
         public Button button;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 

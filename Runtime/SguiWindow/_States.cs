@@ -41,7 +41,7 @@ namespace _SGUI_
                                     {
                                         OnUpdateAlpha();
                                         if (state_base == BaseStates.fromActive_)
-                                            gameObject.SetActive(false);
+                                            NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => gameObject.SetActive(false);
                                     }
                                     break;
 

@@ -28,8 +28,8 @@ namespace _SGUI_
             {
                 var window = SguiWindow.CreatePrompt();
                 window.trad_title.SetTrads(new(typeof(RuntimeInfo).FullName));
-                window.button_cancel.gameObject.SetActive(false);
-                window.trad_confirm.SetTrad("Ok");
+                window.SetCancelButton(SguiCustom.CancelTypes.Off);
+                window.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
 
                 foreach (var info in RuntimeInfo.EInstances)
                 {

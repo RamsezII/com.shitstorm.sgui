@@ -36,20 +36,20 @@ namespace _SGUI_
 
         internal protected override void OnAwake()
         {
-            huable_background = transform.Find("rT/body/background").GetComponent<Graphic>();
+            base.OnAwake();
 
-            buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
+            huable_background = rt.Find("body/background").GetComponent<Graphic>();
+
+            buttons_rt = (RectTransform)rt.Find("header/buttons");
             button_hide = buttons_rt.Find("hide/button").GetComponent<Button>();
             button_fullscreen = buttons_rt.Find("fullscreen/button").GetComponent<Button>();
             button_close = buttons_rt.Find("close/button").GetComponent<Button>();
 
             prefab_headerbutton = GetComponentInChildren<HeaderButton>(true);
 
-            resizer_dragzone = transform.Find("rT/_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
+            resizer_dragzone = rt.Find("_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
 
-            rt_unselected = (RectTransform)transform.Find("rT/unselected");
-
-            base.OnAwake();
+            rt_unselected = (RectTransform)rt.Find("unselected");
         }
 
         protected override void OnEnable()
@@ -72,7 +72,7 @@ namespace _SGUI_
 
             prefab_headerbutton.gameObject.SetActive(false);
 
-            RectTransform header_zone = (RectTransform)transform.Find("rT/header/header_mask/padding/drag-button");
+            RectTransform header_zone = (RectTransform)rt.Find("header/header_mask/padding/drag-button");
 
             DragHandler drag_handler = header_zone.GetComponent<DragHandler>();
             drag_handler.onBeginDrag += OnHeaderBeginDrag;
@@ -158,7 +158,7 @@ namespace _SGUI_
 
         public void CheckBounds()
         {
-            Vector2 maxsize = rt_parent.rect.size;
+            Vector2 maxsize = rt_root.rect.size;
             Vector2 minsize = new(min_width, min_height);
             Vector2 size = rt.rect.size;
 

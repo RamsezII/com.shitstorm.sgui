@@ -8,6 +8,7 @@ namespace _SGUI_
 {
     public class SguiPrompt : SguiWindow
     {
+        CanvasGroup canvasGroup_rt;
         public RawImage rimg_background;
         public Button button_confirm, button_cancel;
         public Traductable trad_cancel, trad_confirm;
@@ -19,19 +20,21 @@ namespace _SGUI_
 
         internal protected override void OnAwake()
         {
-            rimg_background = transform.Find("background").GetComponent<RawImage>();
-            huable_background = transform.Find("rT/background").GetComponent<Graphic>();
+            base.OnAwake();
 
-            buttons_rt = (RectTransform)transform.Find("rT/header/buttons");
+            canvasGroup_rt = rt.GetComponent<CanvasGroup>();
+
+            rimg_background = transform.Find("background").GetComponent<RawImage>();
+            huable_background = rt.Find("background").GetComponent<Graphic>();
+
+            buttons_rt = (RectTransform)rt.Find("header/buttons");
             button_close = buttons_rt.Find("button-close/Button").GetComponent<Button>();
 
-            button_cancel = transform.Find("rT/footer/button_cancel").GetComponent<Button>();
-            button_confirm = transform.Find("rT/footer/button_confirm").GetComponent<Button>();
+            button_cancel = rt.Find("footer/button_cancel").GetComponent<Button>();
+            button_confirm = rt.Find("footer/button_confirm").GetComponent<Button>();
 
             trad_cancel = button_cancel.transform.Find("label").GetComponent<Traductable>();
             trad_confirm = button_confirm.transform.Find("label").GetComponent<Traductable>();
-
-            base.OnAwake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -51,7 +54,7 @@ namespace _SGUI_
 
             button_cancel.onClick.AddListener(OnClickClose);
 
-            DragHandler drag_handler = transform.Find("rT/header/drag_zone").GetComponent<DragHandler>();
+            DragHandler drag_handler = rt.Find("header/drag_zone").GetComponent<DragHandler>();
             drag_handler.onBeginDrag += OnHeaderBeginDrag;
             drag_handler.onDrag += OnHeaderDrag;
             drag_handler.onEndDrag += OnHeaderEndDrag;
@@ -61,9 +64,10 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnDestroy()
+        protected override void OnOblivion()
         {
-            base.OnDestroy();
+            base.OnOblivion();
+            canvasGroup_rt.interactable = false;
             UsageManager.RemoveUser(this);
         }
     }

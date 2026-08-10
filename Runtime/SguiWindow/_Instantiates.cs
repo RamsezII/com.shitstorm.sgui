@@ -23,7 +23,7 @@ namespace _SGUI_
 
             progress_bar = window.AddButton<SguiCustom_Progress>();
 
-            window.button_confirm.transform.gameObject.SetActive(false);
+            window.SetConfirmButton(SguiCustom.ConfirmTypes.Off);
             window.button_close.transform.parent.parent.gameObject.SetActive(false);
             window.trad_title.tmpro.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
 
@@ -67,13 +67,13 @@ namespace _SGUI_
 
             if (type == SguiDialogs.Dialog)
             {
-                sgui.trad_confirm.SetTrads(new() { french = "Oui", english = "Yes", });
-                sgui.trad_cancel.SetTrads(new() { french = "Non", english = "No", });
+                sgui.SetCancelButton(SguiCustom.CancelTypes.No);
+                sgui.SetConfirmButton(SguiCustom.ConfirmTypes.Yes);
             }
             else
             {
-                sgui.button_cancel.gameObject.SetActive(false);
-                sgui.trad_confirm.SetTrad("OK");
+                sgui.SetCancelButton(SguiCustom.CancelTypes.Off);
+                sgui.SetConfirmButton(SguiCustom.ConfirmTypes.Ok);
             }
 
             return sgui;

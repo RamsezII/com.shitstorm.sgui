@@ -124,7 +124,7 @@ namespace _SGUI_
         public bool CheckPosition(out Vector2 correction)
         {
             rt.GetWorldCorners(out Vector2 min, out Vector2 max);
-            rt_parent.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
+            rt_root.GetWorldCorners(out Vector2 p_min, out Vector2 p_max);
 
             if (Util.BoundsClamp(min, max, p_min, p_max, out correction))
             {

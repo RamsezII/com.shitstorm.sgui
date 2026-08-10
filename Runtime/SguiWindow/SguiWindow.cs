@@ -144,12 +144,12 @@ namespace _SGUI_
         public void SetScalePivot(in SoftwareButton button)
         {
             if (button == null)
-                rt_parent.pivot = .5f * Vector2.one;
+                rt_scale.pivot = .5f * Vector2.one;
             else
             {
                 float x = RectTransformUtility.WorldToScreenPoint(null, os_button.rt.position).x;
                 x /= Screen.width;
-                rt_parent.pivot = new(x, 0);
+                rt_scale.pivot = new(x, 0);
             }
         }
 

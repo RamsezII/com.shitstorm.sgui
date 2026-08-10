@@ -12,7 +12,6 @@ namespace _SGUI_
     {
         readonly Dictionary<Type, SguiCustom_Abstract> button_prefabs = new();
 
-        CanvasGroup canvasGroup_rt;
         VerticalLayoutGroup content_layout;
         RectTransform content_layout_rT;
 
@@ -24,8 +23,7 @@ namespace _SGUI_
         {
             base.OnAwake();
 
-            canvasGroup_rt = transform.Find("rT").GetComponent<CanvasGroup>();
-            content_layout_rT = (RectTransform)transform.Find("rT/body/scroll_view/viewport/content_layout");
+            content_layout_rT = (RectTransform)rt.Find("body/scroll_view/viewport/content_layout");
             content_layout = content_layout_rT.GetComponent<VerticalLayoutGroup>();
 
             for (int i = 0; i < content_layout_rT.childCount; ++i)
@@ -55,6 +53,7 @@ namespace _SGUI_
             return clone;
         }
 
+        public void EditJSon<T>(in string file_path) where T : JSon => EditJSon(file_path, typeof(T));
         public void EditJSon(string file_path, Type type)
         {
             object obj = JsonUtility.FromJson(File.ReadAllText(file_path), type);
@@ -67,14 +66,6 @@ namespace _SGUI_
                 json.Save(file_path, true);
                 NUCLEOR.delegates.OnApplicationFocus?.Invoke();
             });
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void OnOblivion()
-        {
-            base.OnOblivion();
-            canvasGroup_rt.interactable = false;
         }
     }
 }

@@ -48,35 +48,45 @@ namespace _SGUI_
 
             graphicRaycaster = GetComponent<GraphicRaycaster>();
 
-            RectTransform rt_rootGroup = (RectTransform)transform.Find("root_group");
-            rootGroup = rt_rootGroup.GetComponent<CanvasGroup>();
+            rootGroup = transform.Find("root_group").GetComponent<CanvasGroup>();
 
-            header_rt = (RectTransform)rt_rootGroup.Find("header");
+            header_rt = (RectTransform)rootGroup.transform.Find("header");
             rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
-            taskbar_rt = (RectTransform)rt_rootGroup.Find("task-bar");
+            taskbar_rt = (RectTransform)rootGroup.transform.Find("task-bar");
             rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
-            rt_editor = (RectTransform)rt_rootGroup.Find("windows/editor-layer");
-            rt_softwares = (RectTransform)rt_rootGroup.Find("windows/softwares-layer");
+            rt_editor = (RectTransform)rootGroup.transform.Find("windows/editor-layer");
+            rt_softwares = (RectTransform)rootGroup.transform.Find("windows/softwares-layer");
 
             vchat_icon_rT = (RectTransform)rt_footer_persistent.Find("VChat/icon");
             vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
 
-            text_computer_time = rt_rootGroup.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
+            text_computer_time = rootGroup.transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
 
-            rt_editor_buttons = (RectTransform)rt_rootGroup.Find("header/buttons-central");
+            rt_editor_buttons = (RectTransform)rootGroup.transform.Find("header/buttons-central");
             edit_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
             edit_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
             edit_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
 
-            prefab_softwarebutton = rt_rootGroup.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
+            prefab_softwarebutton = rootGroup.transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
 
             text_framerate = rt_footer_persistent.Find("Framerate/text").GetComponent<TextMeshProUGUI>();
 
             AwakeButtons();
+            AwakeToggle();
+            AwakeSguiSettings();
 
-            RectTransform rt_clickable = (RectTransform)rt_rootGroup.Find("clickable");
+            isVisible.AddListener(rt_softwares.gameObject.SetActive);
+
+            SguiMonitor.AddSoftwareButton();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void Start()
+        {
+            RectTransform rt_clickable = (RectTransform)rootGroup.transform.Find("clickable");
             rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
 
             Graphic invisible_click_graphic = rt_clickable.GetComponent<Graphic>();
@@ -86,17 +96,6 @@ namespace _SGUI_
                     invisible_click_graphic.raycastTarget = value;
             });
 
-            isVisible.AddListener(rt_softwares.gameObject.SetActive);
-
-            AwakeToggle();
-
-            SguiMonitor.AddSoftwareButton();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        private void Start()
-        {
             rootGroup.transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
 
             prefab_headerbutton.gameObject.SetActive(false);

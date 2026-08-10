@@ -4322,29 +4322,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3479713609760324819}
-    - targetCorrespondingSourceObject: {fileID: 2507712263226908717, guid: e1ca649690ba2ce47970c55b27e07add,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2181165537729872614}
   m_SourcePrefab: {fileID: 100100000, guid: e1ca649690ba2ce47970c55b27e07add, type: 3}
---- !u!1 &1086121958898075813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2507712263226908717, guid: e1ca649690ba2ce47970c55b27e07add,
-    type: 3}
-  m_PrefabInstance: {fileID: 3305502688738338952}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &2181165537729872614
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086121958898075813}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!224 &2248443939803065490 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3669187911633306650, guid: e1ca649690ba2ce47970c55b27e07add,
@@ -4377,8 +4355,9 @@ MonoBehaviour:
   state_base: 0
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
+  rt_root: {fileID: 0}
+  rt_scale: {fileID: 0}
   rt: {fileID: 0}
-  rt_parent: {fileID: 0}
   trad_title: {fileID: 0}
   huable_background: {fileID: 0}
   buttons_rt: {fileID: 0}

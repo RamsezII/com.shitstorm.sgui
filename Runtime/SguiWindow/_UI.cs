@@ -8,7 +8,7 @@ namespace _SGUI_
     {
         [HideInInspector] public Canvas canvas;
         [HideInInspector] public GraphicRaycaster raycaster;
-        [HideInInspector] public RectTransform rt, rt_parent;
+        [HideInInspector] public RectTransform rt_root, rt_scale, rt;
 
         public Traductable trad_title;
         public Graphic huable_background;
@@ -32,12 +32,13 @@ namespace _SGUI_
             canvas = GetComponentInParent<Canvas>();
             raycaster = GetComponentInParent<GraphicRaycaster>();
 
-            rt = (RectTransform)transform.Find("rT");
-            rt_parent = (RectTransform)rt.parent;
+            rt_root = (RectTransform)transform;
+            rt_scale = rt_root = (RectTransform)rt_root.Find("scale");
+            rt = (RectTransform)rt_scale.Find("rT");
 
             rect_current = new(rt);
 
-            trad_title = transform.Find("rT/header/title").GetComponent<Traductable>();
+            trad_title = rt.Find("header/title").GetComponent<Traductable>();
 
             ui_hue_start = Random.Range(0f, 1f);
         }

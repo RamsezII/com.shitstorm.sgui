@@ -7,6 +7,7 @@ namespace _SGUI_
     partial class SguiCustom
     {
         public float autosize_offset_height = 60;
+        public float max_autosize_height = 300;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -38,7 +39,7 @@ namespace _SGUI_
             }
 
             height += autosize_offset_height;
-            rt.sizeDelta = new Vector2(width, height);
+            rt.sizeDelta = new Vector2(width, Mathf.Min(height, max_autosize_height));
         }
     }
 }
