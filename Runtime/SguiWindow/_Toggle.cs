@@ -46,7 +46,7 @@ namespace _SGUI_
                     if (!toggle)
                     {
                         state = BaseStates.fromActive_;
-                        offset = 1 - animator.GetNormalizedTimeClamped((int)AnimLayers.Base);
+                        offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
                     }
                     break;
 
@@ -54,7 +54,7 @@ namespace _SGUI_
                     if (toggle)
                     {
                         state = BaseStates.toActive;
-                        offset = 1 - animator.GetNormalizedTimeClamped((int)AnimLayers.Base);
+                        offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
                     }
                     break;
             }
