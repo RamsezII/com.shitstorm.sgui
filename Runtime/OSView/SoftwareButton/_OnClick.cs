@@ -51,7 +51,7 @@ namespace _SGUI_
                 case PointerEventData.InputButton.Right:
                     {
                         bool enable_AddWindow = true, enable_CloseAll = true;
-                        var list = SguiContextClick.instance.InstantiateListHere(eventData.position);
+                        var list = SguiContextList.instance.InstantiateListHere(eventData.position);
                         List<Action<ContextListButton>> onButtons = new();
                         onRightClickhandler?.Invoke(eventData, ref enable_AddWindow, ref enable_CloseAll, onButtons);
 
@@ -63,7 +63,7 @@ namespace _SGUI_
                                 english = $"Open new window",
                             });
 
-                            button.button.onClick.AddListener(() =>
+                            button._button.onClick.AddListener(() =>
                             {
                                 InstantiateSoftware();
                             });
@@ -80,7 +80,7 @@ namespace _SGUI_
                             else
                             {
                                 var button = list.AddButton(window.sgui_description._value);
-                                button.button.onClick.AddListener(() =>
+                                button._button.onClick.AddListener(() =>
                                 {
                                     window.SetScalePivot(this);
                                     window.ToggleWindow(true);
@@ -96,7 +96,7 @@ namespace _SGUI_
                                 french = "Fermer toutes les fenêtres",
                                 english = "Close all windows",
                             });
-                            button.button.onClick.AddListener(() =>
+                            button._button.onClick.AddListener(() =>
                             {
                                 for (int i = software_instances._collection.Count - 1; i >= 0; --i)
                                 {

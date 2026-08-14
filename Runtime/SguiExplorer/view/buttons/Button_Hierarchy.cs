@@ -73,7 +73,7 @@ namespace _SGUI_.Explorer
 
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                var list = SguiContextClick.instance.InstantiateListHere(eventData.position);
+                var list = SguiContextList.instance.InstantiateListHere(eventData.position);
 
                 {
                     var trad_rename = new Traductions()
@@ -84,7 +84,7 @@ namespace _SGUI_.Explorer
 
                     var button = list.AddButton(trad_rename);
 
-                    button.button.onClick.AddListener(() =>
+                    button._button.onClick.AddListener(() =>
                     {
                         var window = SguiWindow.CreatePrompt();
                         window.trad_title.SetTraductions(trad_rename);
@@ -144,7 +144,7 @@ namespace _SGUI_.Explorer
                         english = $"Delete",
                     });
 
-                    button.button.onClick.AddListener(() =>
+                    button._button.onClick.AddListener(() =>
                     {
                         var window = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
                         {
@@ -180,7 +180,7 @@ namespace _SGUI_.Explorer
                         english = "Copy path",
                     });
 
-                    button.button.onClick.AddListener(() =>
+                    button._button.onClick.AddListener(() =>
                     {
                         string path = current_fsi.FullName.NormalizePath();
                         GUIUtility.systemCopyBuffer = path;
@@ -194,7 +194,7 @@ namespace _SGUI_.Explorer
                         french = "Ouvrir dans l'explorateur",
                         english = "Open in the explorer",
                     });
-                    button.button.onClick.AddListener(() => Application.OpenURL(current_fsi.FullName));
+                    button._button.onClick.AddListener(() => Application.OpenURL(current_fsi.FullName));
                 }
 
                 OnContextList(list);

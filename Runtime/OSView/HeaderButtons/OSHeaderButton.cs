@@ -31,7 +31,7 @@ namespace _SGUI_.osview
                 Vector2 minPos = rt.rect.min;
                 minPos.x += 10;
                 Vector2 listPos = rt.TransformPoint(minPos);
-                var list = SguiContextClick.instance.InstantiateListHere(listPos);
+                var list = SguiContextList.instance.InstantiateListHere(listPos);
                 onContextList(list);
             });
 

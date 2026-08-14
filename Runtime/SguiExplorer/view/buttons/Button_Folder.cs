@@ -121,7 +121,7 @@ namespace _SGUI_.Explorer
                     english = $"Create file",
                 });
 
-                button.button.onClick.AddListener(() => view.Prompt_CreateFile(current_dir));
+                button._button.onClick.AddListener(() => view.Prompt_CreateFile(current_dir));
             }
 
             {
@@ -131,7 +131,7 @@ namespace _SGUI_.Explorer
                     english = $"Create a directory",
                 });
 
-                button.button.onClick.AddListener(() => view.Prompt_CreateFolder(current_dir));
+                button._button.onClick.AddListener(() => view.Prompt_CreateFolder(current_dir));
             }
 
             if (SguiExplorerView.onContextClick_directory != null)

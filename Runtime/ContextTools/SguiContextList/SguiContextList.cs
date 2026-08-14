@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    public class SguiContextClick : MonoBehaviour
+    public class SguiContextList : MonoBehaviour
     {
         public interface IUser : IPointerClickHandler
         {
@@ -23,7 +23,7 @@ namespace _SGUI_
             }
         }
 
-        public static SguiContextClick instance;
+        public static SguiContextList instance;
 
         [SerializeField] internal ContextList prefab_list;
         [SerializeField] internal ContextList scrollview_lastRootList;

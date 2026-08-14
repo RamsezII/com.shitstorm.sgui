@@ -1,5 +1,6 @@
 ﻿using _ARK_;
 using _UTIL_;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -50,7 +51,7 @@ namespace _SGUI_.context_click
                             }
                     }
 
-                Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject);
+                Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject);
             };
         }
 
@@ -89,12 +90,32 @@ namespace _SGUI_.context_click
             var clone = prefab_button.Clone(true);
             clone.trad.SetTraductions(label);
             buttons_clones.Add(clone);
-            clone.button.onClick.AddListener(() => Destroy(SguiContextClick.instance.scrollview_lastRootList.gameObject));
+            clone._button.onClick.AddListener(() => Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject));
 
             if (didStart)
                 AutoSizeAndMove();
 
             return clone;
+        }
+
+        public void AddYesNo(in Action<bool> onResult) => AddDialog(
+            yes: new() { french = "Oui", english = "Yes", },
+            no: new() { french = "Non", english = "No", },
+            onResult: onResult
+        );
+
+        public void AddOnOff(in Action<bool> onResult) => AddDialog(
+            yes: new("On"),
+            no: new("Off"),
+            onResult: onResult
+        );
+
+        public void AddDialog(in Traductions yes, in Traductions no, Action<bool> onResult)
+        {
+            var byes = AddButton(yes);
+            byes._button.onClick.AddListener(() => onResult.Invoke(true));
+            var bno = AddButton(no);
+            bno._button.onClick.AddListener(() => onResult.Invoke(false));
         }
 
         public void AutoSizeAndMove()

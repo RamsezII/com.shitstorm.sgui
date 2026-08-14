@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 2495990313596930423}
   - component: {fileID: 4627771353072987823}
   m_Layer: 5
-  m_Name: _SGUI_.SguiContextClick
+  m_Name: _SGUI_.SguiContextList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

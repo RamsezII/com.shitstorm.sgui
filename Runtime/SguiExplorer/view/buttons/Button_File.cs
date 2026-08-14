@@ -31,7 +31,7 @@ namespace _SGUI_.Explorer
                     english = $"Open file outside",
                 });
 
-                button.button.onClick.AddListener(() =>
+                button._button.onClick.AddListener(() =>
                 {
                     Application.OpenURL(current_file.FullName);
                 });
@@ -46,7 +46,7 @@ namespace _SGUI_.Explorer
                     english = $"Create file",
                 });
 
-                button.button.onClick.AddListener(() => view.Prompt_CreateFile(pdir));
+                button._button.onClick.AddListener(() => view.Prompt_CreateFile(pdir));
             }
 
             {
@@ -56,7 +56,7 @@ namespace _SGUI_.Explorer
                     english = $"Create a directory",
                 });
 
-                button.button.onClick.AddListener(() => view.Prompt_CreateFolder(pdir));
+                button._button.onClick.AddListener(() => view.Prompt_CreateFolder(pdir));
             }
 
             if (SguiExplorerView.onContextClick_file != null)

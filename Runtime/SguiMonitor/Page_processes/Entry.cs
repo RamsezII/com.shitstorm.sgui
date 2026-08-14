@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _SGUI_.Monitor.Processes
 {
-    public class Entry : SectionChild, SguiContextClick.IUser
+    public class Entry : SectionChild, SguiContextList.IUser
     {
         [SerializeField] EntryColumn prefab_column;
         public readonly List<EntryColumn> columns = new();
@@ -38,7 +38,7 @@ namespace _SGUI_.Monitor.Processes
             return column;
         }
 
-        void SguiContextClick.IUser.OnSguiContextClick(ContextList context_list)
+        void SguiContextList.IUser.OnSguiContextClick(ContextList context_list)
         {
             onContextClick?.Invoke(context_list);
         }

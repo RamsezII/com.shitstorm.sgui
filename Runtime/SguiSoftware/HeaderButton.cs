@@ -37,7 +37,7 @@ namespace _SGUI_.window1
                 minPos += new Vector2(10, 0);
                 Vector3 listPos = button.transform.TransformPoint(minPos);
 
-                onContextList(SguiContextClick.instance.InstantiateListHere(listPos));
+                onContextList(SguiContextList.instance.InstantiateListHere(listPos));
             });
 
             trad.onRefresh += AutoSize;

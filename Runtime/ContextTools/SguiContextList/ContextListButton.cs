@@ -9,7 +9,7 @@ namespace _SGUI_.context_click
     {
         public ContextList plist;
         public RectTransform rt;
-        public Button button;
+        public Button _button;
         public Traductable trad;
         [SerializeField] RawImage arrow;
 
@@ -19,7 +19,7 @@ namespace _SGUI_.context_click
         {
             plist = GetComponentInParent<ContextList>();
             rt = (RectTransform)transform;
-            button = GetComponentInChildren<Button>();
+            _button = GetComponentInChildren<Button>();
             trad = GetComponentInChildren<Traductable>();
             arrow = transform.Find("arrow").GetComponent<RawImage>();
 
@@ -30,15 +30,15 @@ namespace _SGUI_.context_click
 
         public void SetupSublist(Action<ContextList> onSublist)
         {
-            button.onClick.RemoveAllListeners();
+            _button.onClick.RemoveAllListeners();
             arrow.gameObject.SetActive(true);
 
-            button.onClick.AddListener(() =>
+            _button.onClick.AddListener(() =>
             {
                 if (plist.sublist != null)
                     Destroy(plist.sublist.gameObject);
 
-                var sublist = plist.sublist = Instantiate(SguiContextClick.instance.prefab_list, plist.transform);
+                var sublist = plist.sublist = Instantiate(SguiContextList.instance.prefab_list, plist.transform);
 
                 sublist.gameObject.SetActive(true);
 

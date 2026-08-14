@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiExplorerView : SguiContextClick.IUser
+    partial class SguiExplorerView : SguiContextList.IUser
     {
         public void OnSguiContextClick(ContextList list)
         {
@@ -20,7 +20,7 @@ namespace _SGUI_
                     english = $"Create file",
                 });
 
-                button.button.onClick.AddListener(() => Prompt_CreateFile(pdir));
+                button._button.onClick.AddListener(() => Prompt_CreateFile(pdir));
             }
 
             {
@@ -30,7 +30,7 @@ namespace _SGUI_
                     english = $"Create a directory",
                 });
 
-                button.button.onClick.AddListener(() => Prompt_CreateFolder(pdir));
+                button._button.onClick.AddListener(() => Prompt_CreateFolder(pdir));
             }
 
             {
@@ -40,7 +40,7 @@ namespace _SGUI_
                     english = $"Open explorer here",
                 });
 
-                button.button.onClick.AddListener(() => Application.OpenURL(pdir.FullName));
+                button._button.onClick.AddListener(() => Application.OpenURL(pdir.FullName));
             }
         }
     }
