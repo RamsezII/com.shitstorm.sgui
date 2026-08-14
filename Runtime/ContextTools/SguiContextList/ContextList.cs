@@ -10,6 +10,26 @@ namespace _SGUI_.context_click
 {
     public sealed class ContextList : MonoBehaviour
     {
+        public struct SelectableLabel
+        {
+            public Traductions label;
+            public bool toggle;
+
+            //--------------------------------------------------------------------------------------------------------------
+
+            public SelectableLabel(in Traductions label, in bool toggle)
+            {
+                this.label = label;
+                this.toggle = toggle;
+            }
+
+            //--------------------------------------------------------------------------------------------------------------
+
+            public static implicit operator (Traductions label, bool toggle)(SelectableLabel value) => (value.label, value.toggle);
+
+            public static implicit operator SelectableLabel((Traductions label, bool toggle) value) => new SelectableLabel(value.label, value.toggle);
+        }
+
         CanvasGroup canvasGroup;
         public RectTransform prt, rt;
         public ContextList sublist;
@@ -18,6 +38,7 @@ namespace _SGUI_.context_click
         [SerializeField] ContextListButton prefab_button;
         [SerializeField] RectTransform prefab_line;
         public readonly List<ContextListButton> buttons_clones = new();
+        [SerializeField] bool multiSelect;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -82,7 +103,7 @@ namespace _SGUI_.context_click
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public RectTransform AddLine() => prefab_line.Clone(true);
+        public void AddLine() => prefab_line.Clone(true);
 
         public ContextListButton AddButton_label(in string label) => AddButton(new Traductions(label));
         public ContextListButton AddButton(in Traductions label)
@@ -90,7 +111,9 @@ namespace _SGUI_.context_click
             var clone = prefab_button.Clone(true);
             clone.trad.SetTraductions(label);
             buttons_clones.Add(clone);
-            clone._button.onClick.AddListener(() => Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject));
+
+            if (!multiSelect)
+                clone._button.onClick.AddListener(() => Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject));
 
             if (didStart)
                 AutoSizeAndMove();
@@ -98,24 +121,24 @@ namespace _SGUI_.context_click
             return clone;
         }
 
-        public void AddYesNo(in Action<bool> onResult) => AddDialog(
-            yes: new() { french = "Oui", english = "Yes", },
-            no: new() { french = "Non", english = "No", },
-            onResult: onResult
-        );
-
-        public void AddOnOff(in Action<bool> onResult) => AddDialog(
-            yes: new("On"),
-            no: new("Off"),
-            onResult: onResult
-        );
-
-        public void AddDialog(in Traductions yes, in Traductions no, Action<bool> onResult)
+        public SelectableLabel[] FillSelectables(Action<SelectableLabel[], int, bool> onStatus, params SelectableLabel[] selectables)
         {
-            var byes = AddButton(yes);
-            byes._button.onClick.AddListener(() => onResult.Invoke(true));
-            var bno = AddButton(no);
-            bno._button.onClick.AddListener(() => onResult.Invoke(false));
+            multiSelect = true;
+            for (int i = 0; i < selectables.Length; i++)
+            {
+                int _i = i;
+
+                var button = AddButton(selectables[_i].label);
+                button.checkmark.gameObject.SetActive(selectables[_i].toggle);
+
+                button._button.onClick.AddListener(() =>
+                {
+                    bool toggle = selectables[_i].toggle = !selectables[_i].toggle;
+                    button.checkmark.gameObject.SetActive(toggle);
+                    onStatus?.Invoke(selectables, _i, toggle);
+                });
+            }
+            return selectables;
         }
 
         public void AutoSizeAndMove()

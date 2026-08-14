@@ -11,7 +11,7 @@ namespace _SGUI_.context_click
         public RectTransform rt;
         public Button _button;
         public Traductable trad;
-        [SerializeField] RawImage arrow;
+        [SerializeField] internal RawImage arrow, checkmark;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ namespace _SGUI_.context_click
             _button = GetComponentInChildren<Button>();
             trad = GetComponentInChildren<Traductable>();
             arrow = transform.Find("arrow").GetComponent<RawImage>();
+            checkmark = transform.Find("checkmark").GetComponent<RawImage>();
 
             arrow.gameObject.SetActive(false);
         }
