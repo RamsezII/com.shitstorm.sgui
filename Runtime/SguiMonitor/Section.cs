@@ -103,7 +103,7 @@ namespace _SGUI_.Monitor
             arrow_rt.localRotation = Quaternion.Euler(0, 0, isOn ? 0 : 90);
         }
 
-        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);
+        public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);
         protected abstract void OnAutoSize();
 
         //--------------------------------------------------------------------------------------------------------------

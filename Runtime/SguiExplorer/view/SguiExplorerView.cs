@@ -161,7 +161,7 @@ namespace _SGUI_
             }
         }
 
-        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);
+        public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, OnAutoSize);
         void OnAutoSize()
         {
             Vector2 psize = scrollview.viewport.rect.size;

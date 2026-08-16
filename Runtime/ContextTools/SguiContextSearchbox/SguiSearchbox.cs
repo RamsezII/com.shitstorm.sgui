@@ -96,7 +96,7 @@ namespace _SGUI_
                 NUCLEOR.delegates.LateUpdate -= RefreshAlpha;
         }
 
-        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
+        public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
         internal void _AutoSize_Immediate()
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)vlayout.transform);

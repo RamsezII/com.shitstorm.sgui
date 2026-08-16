@@ -41,7 +41,7 @@ namespace _SGUI_.osview
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
+        public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
         void _AutoSize_Immediate()
         {
             rt.sizeDelta = new(trad.tmpro.preferredWidth, rt.sizeDelta.y);

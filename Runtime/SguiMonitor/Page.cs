@@ -121,7 +121,7 @@ namespace _SGUI_.Monitor
         {
         }
 
-        public void AutoSize() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize);
+        public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize);
         void _AutoSize()
         {
             if (this == null)

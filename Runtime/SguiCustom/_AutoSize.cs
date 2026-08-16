@@ -11,7 +11,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void AutoSizeAtEndOfFrame() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeNow);
+        public void AutoSizeAtEndOfFrame() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeNow);
         public void AutoSizeNow()
         {
             if (this == null)

@@ -46,7 +46,7 @@ namespace _SGUI_
             return column;
         }
 
-        public void AutoWidth() => Util.AddAction(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoWidth);
+        public void AutoWidth() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoWidth);
         void _AutoWidth()
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)hlayout.transform);
