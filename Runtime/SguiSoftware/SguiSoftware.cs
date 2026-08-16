@@ -83,7 +83,7 @@ namespace _SGUI_
             click_handler.onClick += (PointerEventData eventData) =>
             {
                 if (eventData.clickCount == 2)
-                    fullscreen.Toggle();
+                    fullscreen.ToggleAuto();
             };
 
             fullscreen.AddListener(toggle =>
@@ -101,7 +101,7 @@ namespace _SGUI_
                 OnResized();
             });
 
-            button_fullscreen.onClick.AddListener(fullscreen.Toggle);
+            button_fullscreen.onClick.AddListener(fullscreen.ToggleAuto);
 
             button_hide.onClick.AddListener(() =>
             {
@@ -150,7 +150,7 @@ namespace _SGUI_
                         return true;
 
                     case KeyCode.F11:
-                        fullscreen.Toggle();
+                        fullscreen.ToggleAuto();
                         return true;
                 }
             return false;

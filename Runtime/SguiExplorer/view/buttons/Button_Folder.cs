@@ -46,7 +46,7 @@ namespace _SGUI_.Explorer
         {
             base.Start();
 
-            transform.Find("rt/icon").GetComponent<PointerClickHandler>().onClick += eventData => toggle.Toggle();
+            transform.Find("rt/icon").GetComponent<PointerClickHandler>().onClick += eventData => toggle.ToggleAuto();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ namespace _SGUI_.Explorer
             {
                 case PointerEventData.InputButton.Left:
                     if (eventData.clickCount == 2)
-                        toggle.Toggle();
+                        toggle.ToggleAuto();
                     break;
             }
         }
