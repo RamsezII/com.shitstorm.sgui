@@ -38,7 +38,7 @@ namespace _SGUI_
         {
             Sequencable schedulable = NUCLEOR.instance.sequencer_mono.sequencables._collection[0];
 
-            float progress = schedulable.routine == null ? 0 : schedulable.routine.Current;
+            float progress = schedulable.Progress;
 
             percent.text = $"{Mathf.RoundToInt(100 * progress)}%";
             rt_progress.anchorMax = new Vector2(progress, 1);
