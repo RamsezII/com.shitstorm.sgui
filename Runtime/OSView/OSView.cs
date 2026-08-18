@@ -65,7 +65,7 @@ namespace _SGUI_
             rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
             taskbar_rt = (RectTransform)rootGroup.transform.Find("task-bar");
             rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
-            rt_unfocused = (RectTransform)rt_footer_persistent.Find("hlayout/focus");
+            rt_unfocused = (RectTransform)transform.Find("unfocused");
             rt_editor = (RectTransform)rootGroup.transform.Find("windows/editor-layer");
             rt_softwares = (RectTransform)rootGroup.transform.Find("windows/softwares-layer");
 
