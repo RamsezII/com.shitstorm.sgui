@@ -22,6 +22,7 @@ namespace _SGUI_
         public RectTransform
             header_rt, rt_header_persistent,
             taskbar_rt, rt_footer_persistent,
+            rt_unfocused,
             rt_editor,
             rt_editor_buttons,
             rt_softwares,
@@ -30,7 +31,9 @@ namespace _SGUI_
         public Button
             edit_play, edit_pause, edit_close;
 
-        [SerializeField] TextMeshProUGUI text_framerate;
+        [SerializeField]
+        TMP_Text
+            text_framerate;
 
         [SerializeField] OSHeaderButton prefab_headerbutton;
         [SerializeField] SoftwareButton prefab_softwarebutton;
@@ -62,10 +65,11 @@ namespace _SGUI_
             rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
             taskbar_rt = (RectTransform)rootGroup.transform.Find("task-bar");
             rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
+            rt_unfocused = (RectTransform)rt_footer_persistent.Find("hlayout/focus");
             rt_editor = (RectTransform)rootGroup.transform.Find("windows/editor-layer");
             rt_softwares = (RectTransform)rootGroup.transform.Find("windows/softwares-layer");
 
-            vchat_icon_rT = (RectTransform)rt_footer_persistent.Find("VChat/icon");
+            vchat_icon_rT = (RectTransform)rt_footer_persistent.Find("hlayout/VChat/icon");
             vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
 
             text_computer_time = rootGroup.transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
@@ -79,7 +83,7 @@ namespace _SGUI_
 
             prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
 
-            text_framerate = rt_footer_persistent.Find("Framerate/text").GetComponent<TextMeshProUGUI>();
+            text_framerate = rt_footer_persistent.Find("hlayout/Framerate/text").GetComponent<TextMeshProUGUI>();
 
             AwakeButtons();
             AwakeToggle();
@@ -144,6 +148,8 @@ namespace _SGUI_
             });
 
             StartButtons();
+
+            NUCLEOR.instance.isFocused.AddListener(isFocused => rt_unfocused.gameObject.SetActive(!isFocused));
         }
 
         //--------------------------------------------------------------------------------------------------------------

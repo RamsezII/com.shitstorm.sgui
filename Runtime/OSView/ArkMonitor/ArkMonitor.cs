@@ -39,7 +39,7 @@ namespace _SGUI_
                 if (sb.Length > 0)
                 {
                     gameObject.SetActive(true);
-                    text.text = sb.ToString()[..^1];
+                    text.text = sb.ToString().TrimEnd('\n');
                     rt.sizeDelta = text.GetPreferredValues(text.text);
                 }
                 else
