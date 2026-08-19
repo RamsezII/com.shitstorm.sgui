@@ -10,13 +10,15 @@ namespace _SGUIS_.Tests
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoad()
         {
-            TermServer.root_commands.AddCommandNode(new CmdCommand(
+            TermServer.root_commands.AddCommand(new(
                 name: "test_progress",
+                owner: null,
                 parse: (reader, context) =>
                 {
                     while (reader.TryRead(out string read))
                         if (float.TryParse(read, out float time) && time > 0)
                             context.args.Add(time);
+                    return null;
                 },
                 routine: static context =>
                 {
