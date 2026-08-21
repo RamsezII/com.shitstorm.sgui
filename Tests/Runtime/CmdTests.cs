@@ -13,21 +13,18 @@ namespace _SGUIS_.Tests
             TermServer.root_commands.AddCommand(new(
                 name: "test_progress",
                 owner: null,
-                parse: (reader, context) =>
+                execution: (reader, context) =>
                 {
                     while (reader.TryRead(out string read))
                         if (float.TryParse(read, out float time) && time > 0)
-                            context.args.Add(time);
-                    return null;
-                },
-                routine: static context =>
-                {
-                    return ERoutine(context);
+                            context.list_args.Add(time);
+
+                    return (CmdExecution)ERoutine;
                     static IEnumerator<CmdStep> ERoutine(CmdContext context)
                     {
-                        for (int i = 0; i < context.args.Count; i++)
+                        for (int i = 0; i < context.list_args.Count; i++)
                         {
-                            float value = (float)context.args[i];
+                            float value = (float)context.list_args[i];
                             yield return CmdStep.Status($"{i}: {value} seconds.");
 
                             float timer = 0;
