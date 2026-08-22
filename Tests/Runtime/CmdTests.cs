@@ -14,14 +14,14 @@ namespace _SGUIS_.Tests
             {
                 while (context.Reader.TryRead(out string read))
                     if (float.TryParse(read, out float time) && time > 0)
-                        context.list_args.Add(time);
+                        context.queue_args.Enqueue(time);
 
-                return (CmdExecution)ERoutine;
+                return new(ERoutine);
                 static IEnumerator<CmdStep> ERoutine(CmdContext context)
                 {
-                    for (int i = 0; i < context.list_args.Count; i++)
+                    for (int i = 0; i < context.queue_args.Count; i++)
                     {
-                        float value = (float)context.list_args[i];
+                        float value = (float)context.queue_args.Dequeue();
                         yield return CmdStep.Status($"{i}: {value} seconds.");
 
                         float timer = 0;
