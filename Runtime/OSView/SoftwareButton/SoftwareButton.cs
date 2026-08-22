@@ -82,7 +82,11 @@ namespace _SGUI_
                 case SguiSoftware w1:
                     w1.SetScalePivot(this);
                     if (randomize)
-                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => window.rt.anchoredPosition = 25 * (Vector2)Random.onUnitSphere;
+                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
+                        {
+                            if (window != null && window.rt != null)
+                                window.rt.anchoredPosition = 25 * (Vector2)Random.onUnitSphere;
+                        };
                     break;
             }
             return window;

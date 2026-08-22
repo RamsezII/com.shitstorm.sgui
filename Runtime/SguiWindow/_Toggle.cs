@@ -22,6 +22,8 @@ namespace _SGUI_
                 gameObject.SetActive(true);
                 TakeFocus();
             }
+            else
+                focused.RemoveElement(this);
 
             BaseStates state = state_base;
             float offset = 0;

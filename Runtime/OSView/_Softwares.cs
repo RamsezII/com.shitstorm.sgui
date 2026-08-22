@@ -11,7 +11,7 @@ namespace _SGUI_
             instance.ToggleSelf(true);
 
             SguiSoftware clone = Instantiate(prefab, instance.rt_softwares);
-            clone.OnAwake();
+            clone.Initialize();
 
             return clone;
         }

@@ -13,7 +13,7 @@ namespace _SGUI_
         public static SguiPrompt ShowPrompt(in SguiPrompt prefab)
         {
             SguiPrompt clone = Instantiate(prefab, SguiGlobal.instance.rt_sgui_prompts);
-            clone.OnAwake();
+            clone.Initialize();
             return clone;
         }
 

@@ -31,6 +31,7 @@ namespace _SGUI_
 
         static uint _id;
         public uint id;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -41,6 +42,19 @@ namespace _SGUI_
             instances.Reset();
             focused.Reset();
             focused.AddListener2(list => SoftwareButton.RefreshAllOpenStates());
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void Awake() => Initialize();
+
+        internal void Initialize()
+        {
+            if (initialized)
+                return;
+
+            initialized = true;
+            OnAwake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -93,7 +107,7 @@ namespace _SGUI_
             ToggleWindow(true);
             animator.Update(0);
 
-            button_close.onClick.AddListener(() => SetScalePivot(null));
+            button_close.onClick.AddListener(ResetScalePivot);
 
             focused.AddListener2(OnFocused);
         }
@@ -113,14 +127,20 @@ namespace _SGUI_
         }
 
         public virtual void OnSguiGlobalLeftClick() => TakeFocus();
-        public void TakeFocus() => focused.Modify(list =>
+        public void TakeFocus()
         {
-            if (focused.IsLast(this))
+            if (oblivionized)
                 return;
-            list.Remove(this);
-            list.Add(this);
-            ToggleWindow(true);
-        });
+
+            focused.Modify(list =>
+            {
+                if (focused.IsLast(this))
+                    return;
+                list.Remove(this);
+                list.Add(this);
+                ToggleWindow(true);
+            });
+        }
 
         void OnFocused(List<SguiWindow> list) => OnFocus(focused.IsLast(this));
         protected virtual void OnFocus(in bool has_focus)
@@ -178,6 +198,14 @@ namespace _SGUI_
         protected virtual void OnDestroy()
         {
             Oblivionize();
+
+            NUCLEOR.delegates.LateUpdate -= UpdateHue;
+            NUCLEOR.delegates.LateUpdate -= OnUpdateAlpha;
+            ResizerVisual.instance?.UntakeFocus(this);
+
+            button_close?.onClick.RemoveListener(ResetScalePivot);
+            button_close?.onClick.RemoveListener(OnClickClose);
+
             onDestroy?.Invoke();
             UsageManager.RemoveUser(this);
             instances.RemoveElement(this);
@@ -187,6 +215,14 @@ namespace _SGUI_
             focused._listeners2 -= OnFocused;
 
             focused.RemoveElement(this);
+
+            onState = onState_once = null;
+            onFunc_close = null;
+            onAction_close = onOblivion = onDestroy = null;
+            onToggle = null;
+
+            sgui_description.Reset();
+            sgui_description.Dispose();
         }
     }
 }

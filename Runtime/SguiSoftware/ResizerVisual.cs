@@ -13,6 +13,14 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            instance = null;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Awake()
         {
             instance = this;
@@ -27,13 +35,16 @@ namespace _SGUI_
         {
             base.Start();
 
-            current_user.AddListener(value => gameObject.SetActive(value != null));
+            current_user.AddListener(OnCurrentUserChanged);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         public void TakeFocus(in object user)
         {
+            if (current_user._value is Object current_object && current_object == null)
+                current_user.Value = null;
+
             if (current_user._value != null && current_user._value != user)
                 Debug.LogWarning($"user({user}) tried taking UIResizer from user({current_user._value})", this);
             current_user.Value = user;
@@ -51,6 +62,22 @@ namespace _SGUI_
                 current_user.Value = null;
 
             return false;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        void OnCurrentUserChanged(object value) => gameObject.SetActive(value != null);
+
+        protected override void OnDestroy()
+        {
+            current_user.RemoveListener(OnCurrentUserChanged);
+            current_user.Reset();
+            current_user.Dispose();
+
+            if (instance == this)
+                instance = null;
+
+            base.OnDestroy();
         }
     }
 }

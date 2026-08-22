@@ -121,5 +121,21 @@ namespace _SGUI_
             ResizerVisual.instance.rt.sizeDelta = window.rt.sizeDelta;
             ResizerVisual.instance.rt.position = window.rt.position;
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDisable()
+        {
+            drag_b = false;
+            ResizerVisual.instance?.UntakeFocus(this);
+            base.OnDisable();
+        }
+
+        protected override void OnDestroy()
+        {
+            drag_b = false;
+            ResizerVisual.instance?.UntakeFocus(this);
+            base.OnDestroy();
+        }
     }
 }

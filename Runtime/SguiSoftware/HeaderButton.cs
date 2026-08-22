@@ -49,7 +49,20 @@ namespace _SGUI_.window1
         public void AutoSize() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, _AutoSize_Immediate);
         void _AutoSize_Immediate()
         {
+            if (this == null || rt == null || trad == null)
+                return;
+
             rt.sizeDelta = new(trad.tmpro.preferredWidth, rt.sizeDelta.y);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        private void OnDestroy()
+        {
+            if (trad != null)
+                trad.onRefresh -= AutoSize;
+
+            onContextList = null;
         }
     }
 }

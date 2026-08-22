@@ -28,14 +28,19 @@ namespace _SGUI_
 
         private void Start()
         {
-            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         private void OnDestroy()
         {
-            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+
+            if (instance == this)
+                instance = null;
         }
     }
 }

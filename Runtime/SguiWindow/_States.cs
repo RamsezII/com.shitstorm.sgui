@@ -36,12 +36,26 @@ namespace _SGUI_
                             {
                                 case BaseStates.Default:
                                     if (oblivionized)
-                                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => Destroy(gameObject);
+                                    {
+                                        GameObject target = gameObject;
+                                        NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
+                                        {
+                                            if (target != null)
+                                                Destroy(target);
+                                        };
+                                    }
                                     else
                                     {
                                         OnUpdateAlpha();
                                         if (state_base == BaseStates.fromActive_)
-                                            NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () => gameObject.SetActive(false);
+                                        {
+                                            GameObject target = gameObject;
+                                            NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
+                                            {
+                                                if (target != null)
+                                                    target.SetActive(false);
+                                            };
+                                        }
                                     }
                                     break;
 

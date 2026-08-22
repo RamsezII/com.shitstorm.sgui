@@ -50,6 +50,9 @@ namespace _SGUI_
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
                 {
+                    if (this == null || huable_background == null)
+                        return;
+
                     ui_alpha = huable_background.color.a;
                     startedHue = true;
                 };
@@ -65,6 +68,8 @@ namespace _SGUI_
             onAction_close?.Invoke();
             Oblivionize();
         }
+
+        void ResetScalePivot() => SetScalePivot(null);
 
         //--------------------------------------------------------------------------------------------------------------
 
