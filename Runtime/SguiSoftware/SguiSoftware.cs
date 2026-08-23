@@ -34,6 +34,32 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        protected override void Awake()
+        {
+            toggle.AddListener(value =>
+            {
+                if (!value)
+                    if (ResizerVisual.instance != null)
+                        ResizerVisual.instance.UntakeFocus(this);
+            });
+
+            base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         internal protected override void OnInitialize()
         {
             base.OnInitialize();
@@ -50,18 +76,6 @@ namespace _SGUI_
             resizer_dragzone = rt.Find("_SGUI_.ResizerDragzone").GetComponent<ResizerDragzone>();
 
             rt_unselected = (RectTransform)rt.Find("unselected");
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -106,7 +120,7 @@ namespace _SGUI_
             button_hide.onClick.AddListener(() =>
             {
                 SetScalePivot(os_button);
-                ToggleWindow(false);
+                toggle.Value = false;
             });
 
             if (onHeaderButtonContextList_help != null)
@@ -181,6 +195,16 @@ namespace _SGUI_
             HeaderButton clone = prefab_headerbutton.Clone(true);
             clone.trad.SetTraductions(title);
             return clone;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
         }
     }
 }

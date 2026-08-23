@@ -69,7 +69,7 @@ namespace _SGUI_
             }
 
             bool randomize = false;
-            foreach (var w in SguiWindow.focused._collection)
+            foreach (var w in SguiWindow.openWindows._collection)
                 if (w.rt.anchoredPosition.sqrMagnitude < 1)
                 {
                     randomize = true;
@@ -108,7 +108,7 @@ namespace _SGUI_
                 if (!window.oblivionized && window.isActiveAndEnabled)
                 {
                     open = true;
-                    if (window.HasFocus())
+                    if (window.isFocused._value)
                         focus = true;
 
                     if (open && focus)

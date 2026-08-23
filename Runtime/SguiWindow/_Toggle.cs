@@ -1,75 +1,64 @@
-﻿using System;
+﻿using _UTIL_;
 
 namespace _SGUI_
 {
     partial class SguiWindow
     {
-        public Action<bool> onToggle;
+        public readonly ValueNotifier<bool> toggle = new(true);
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public bool IsWindowOpened => state_base switch
+        void InitToggle()
         {
-            BaseStates.Active or BaseStates.toActive => true,
-            _ => false,
-        };
-
-        public void ToggleWindow() => ToggleWindow(!IsWindowOpened);
-        public void ToggleWindow(bool toggle)
-        {
-            if (toggle)
+            toggle.AddListener(value =>
             {
-                gameObject.SetActive(true);
-                TakeFocus();
-            }
-            else
-                focused.RemoveElement(this);
+                if (value)
+                {
+                    gameObject.SetActive(true);
+                    TakeFocus();
+                }
+                else
+                    openWindows.RemoveElement(this);
 
-            BaseStates state = state_base;
-            float offset = 0;
+                BaseStates state = state_base;
+                float offset = 0;
 
-            switch (state)
-            {
-                default:
-                case BaseStates.Default:
-                    if (toggle)
-                    {
-                        gameObject.SetActive(true);
-                        state = BaseStates.toActive;
-                    }
-                    break;
+                switch (state)
+                {
+                    default:
+                    case BaseStates.Default:
+                        if (value)
+                        {
+                            gameObject.SetActive(true);
+                            state = BaseStates.toActive;
+                        }
+                        break;
 
-                case BaseStates.Active:
-                    if (!toggle)
-                        state = BaseStates.fromActive_;
-                    break;
+                    case BaseStates.Active:
+                        if (!value)
+                            state = BaseStates.fromActive_;
+                        break;
 
-                case BaseStates.toActive:
-                    if (!toggle)
-                    {
-                        state = BaseStates.fromActive_;
-                        offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
-                    }
-                    break;
+                    case BaseStates.toActive:
+                        if (!value)
+                        {
+                            state = BaseStates.fromActive_;
+                            offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
+                        }
+                        break;
 
-                case BaseStates.fromActive_:
-                    if (toggle)
-                    {
-                        state = BaseStates.toActive;
-                        offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
-                    }
-                    break;
-            }
+                    case BaseStates.fromActive_:
+                        if (value)
+                        {
+                            state = BaseStates.toActive;
+                            offset = 1 - animator.GetNormalizedTime01((int)AnimLayers.Base);
+                        }
+                        break;
+                }
 
-            if (state != state_base)
-                animator.CrossFade((int)state, 0, (int)AnimLayers.Base, offset);
-
-            OnToggleWindow(toggle);
-        }
-
-        protected virtual void OnToggleWindow(in bool toggle)
-        {
-            onToggle?.Invoke(toggle);
+                if (state != state_base)
+                    animator.CrossFade((int)state, 0, (int)AnimLayers.Base, offset);
+            });
         }
     }
 }

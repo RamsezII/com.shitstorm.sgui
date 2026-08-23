@@ -9,15 +9,10 @@ namespace _SGUI_
     public partial class SguiWindow : ArkComponent1, SguiGlobal.ISguiGlobalLeftClick
     {
         public static readonly ListListener<SguiWindow> instances = new();
-
-        public static readonly ListListener<SguiWindow> focused = new();
-        public readonly ValueNotifier<bool> hasFocus = new();
-
-        public bool HasFocus() => this == focused.IsLast(this);
+        public static readonly ListListener<SguiWindow> openWindows = new();
+        public readonly ValueNotifier<bool> isFocused = new();
 
         [HideInInspector] public Animator animator;
-
-        public Action<BaseStates, bool> onState, onState_once;
 
         public bool oblivionized;
         public Func<bool> onFunc_close;
@@ -28,7 +23,7 @@ namespace _SGUI_
         public Texture window_icon;
         protected SoftwareButton os_button;
 
-        public readonly ValueNotifier<Traductions> sgui_description = new();
+        public Traductions sgui_description;
 
         static uint _id;
         public uint id;
@@ -41,8 +36,8 @@ namespace _SGUI_
         {
             _id = 0;
             instances.Reset();
-            focused.Reset();
-            focused.AddListener2(list => SoftwareButton.RefreshAllOpenStates());
+            openWindows.Reset();
+            openWindows.AddListener2(list => SoftwareButton.RefreshAllOpenStates());
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -51,6 +46,7 @@ namespace _SGUI_
         {
             base.Awake();
             Initialize();
+            InitToggle();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -80,13 +76,13 @@ namespace _SGUI_
                 os_button = OSView.instance.AddSoftwareButton(GetType(), new(GetType().FullName));
 
             trad_title.SetText($"[{id}] {GetType().Name}");
-            sgui_description.Value = new($"[{id}] {GetType().FullName}");
+            sgui_description = new($"[{id}] {GetType().FullName}");
 
             instances.AddElement(this);
 
             saved_size = rt.rect.size;
 
-            focused.AddListener2(OnFocused);
+            openWindows.AddListener2(OnFocused);
         }
 
         protected override void OnEnable()
@@ -117,20 +113,19 @@ namespace _SGUI_
                 os_button.software_instances.AddElement(this);
 
             StartUI();
-            ToggleWindow(true);
             animator.Update(0);
 
             button_close.onClick.AddListener(ResetScalePivot);
 
-            hasFocus.AddListener(OnFocus);
+            isFocused.AddListener(OnFocus);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         public static bool TryGetFocused<T>(out T output) where T : SguiWindow
         {
-            if (focused.IsNotEmpty)
-                if (focused._collection[^1] is T t)
+            if (openWindows.IsNotEmpty)
+                if (openWindows._collection[^1] is T t)
                 {
                     output = t;
                     return true;
@@ -145,17 +140,17 @@ namespace _SGUI_
             if (oblivionized)
                 return;
 
-            focused.Modify(list =>
+            openWindows.Modify(list =>
             {
-                if (focused.IsLast(this))
+                if (openWindows.IsLast(this))
                     return;
                 list.Remove(this);
                 list.Add(this);
-                ToggleWindow(true);
+                toggle.Value = true;
             });
         }
 
-        void OnFocused(List<SguiWindow> list) => hasFocus.Value = HasFocus();
+        void OnFocused(List<SguiWindow> list) => isFocused.Value = isFocused._value;
         protected virtual void OnFocus(bool has_focus)
         {
             if (!has_focus)
@@ -194,11 +189,25 @@ namespace _SGUI_
                 return;
             oblivionized = true;
 
-            ToggleWindow(false);
+            toggle.Value = false;
             instances.RemoveElement(this);
+            openWindows.RemoveElement(this);
 
             if (os_button != null)
                 os_button.software_instances.RemoveElement(this);
+
+            openWindows._listeners2 -= OnFocused;
+            instances.RemoveElement(this);
+            openWindows.RemoveElement(this);
+            UsageManager.RemoveUser(this);
+            ResizerVisual.instance?.UntakeFocus(this);
+
+            button_close?.onClick.RemoveListener(ResetScalePivot);
+            button_close?.onClick.RemoveListener(OnClickClose);
+            os_button?.RefreshOpenState();
+
+            onFunc_close = null;
+            onAction_close = onOblivion = onDestroy = null;
 
             OnOblivion();
             onOblivion?.Invoke();
@@ -216,27 +225,6 @@ namespace _SGUI_
 
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             NUCLEOR.delegates.LateUpdate -= OnUpdateAlpha;
-            ResizerVisual.instance?.UntakeFocus(this);
-
-            button_close?.onClick.RemoveListener(ResetScalePivot);
-            button_close?.onClick.RemoveListener(OnClickClose);
-
-            UsageManager.RemoveUser(this);
-            instances.RemoveElement(this);
-
-            os_button?.RefreshOpenState();
-
-            focused._listeners2 -= OnFocused;
-
-            focused.RemoveElement(this);
-
-            onState = onState_once = null;
-            onFunc_close = null;
-            onAction_close = onOblivion = onDestroy = null;
-            onToggle = null;
-
-            sgui_description.Reset();
-            sgui_description.Dispose();
         }
     }
 }

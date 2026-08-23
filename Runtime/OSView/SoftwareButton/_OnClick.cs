@@ -36,8 +36,8 @@ namespace _SGUI_
                                 SguiWindow instance = software_instances._collection[0];
                                 instance.SetScalePivot(this);
 
-                                if (instance.HasFocus())
-                                    instance.ToggleWindow();
+                                if (instance.toggle._value)
+                                    instance.toggle.ToggleAuto();
                                 else
                                     instance.TakeFocus();
                             }
@@ -79,11 +79,11 @@ namespace _SGUI_
                                 SguiLoggerOverlay.Log($"error trad: {window}", window, logLevel: SguiLogLevel.Warning);
                             else
                             {
-                                var button = list.AddButton(window.sgui_description._value);
+                                var button = list.AddButton(window.sgui_description);
                                 button._button.onClick.AddListener(() =>
                                 {
                                     window.SetScalePivot(this);
-                                    window.ToggleWindow(true);
+                                    window.toggle.Value = true;
                                     window.TakeFocus();
                                 });
                             }

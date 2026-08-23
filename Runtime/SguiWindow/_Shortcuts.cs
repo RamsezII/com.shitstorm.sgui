@@ -12,8 +12,8 @@ namespace _SGUI_
                 shortcutName: "change focus",
                 action: static () =>
                 {
-                    if (focused._collection.Count > 0)
-                        focused._collection[0].TakeFocus();
+                    if (openWindows._collection.Count > 0)
+                        openWindows._collection[0].TakeFocus();
                 },
                 control: true,
                 bindings: "tab"
