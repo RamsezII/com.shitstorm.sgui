@@ -134,7 +134,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void OnFocus(in bool has_focus)
+        protected override void OnFocus(bool has_focus)
         {
             base.OnFocus(has_focus);
             rt_unselected.gameObject.SetActive(!has_focus);

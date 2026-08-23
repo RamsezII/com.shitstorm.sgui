@@ -11,6 +11,7 @@ namespace _SGUI_
         public static readonly ListListener<SguiWindow> instances = new();
 
         public static readonly ListListener<SguiWindow> focused = new();
+        public readonly ValueNotifier<bool> hasFocus = new();
 
         public bool HasFocus() => this == focused.IsLast(this);
 
@@ -80,6 +81,8 @@ namespace _SGUI_
             instances.AddElement(this);
 
             saved_size = rt.rect.size;
+
+            focused.AddListener2(OnFocused);
         }
 
         protected virtual void OnEnable()
@@ -109,7 +112,7 @@ namespace _SGUI_
 
             button_close.onClick.AddListener(ResetScalePivot);
 
-            focused.AddListener2(OnFocused);
+            hasFocus.AddListener(OnFocus);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -142,8 +145,8 @@ namespace _SGUI_
             });
         }
 
-        void OnFocused(List<SguiWindow> list) => OnFocus(focused.IsLast(this));
-        protected virtual void OnFocus(in bool has_focus)
+        void OnFocused(List<SguiWindow> list) => hasFocus.Value = HasFocus();
+        protected virtual void OnFocus(bool has_focus)
         {
             if (!has_focus)
                 return;
