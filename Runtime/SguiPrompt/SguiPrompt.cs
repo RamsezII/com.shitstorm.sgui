@@ -18,9 +18,9 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnAwake()
+        internal protected override void OnInitialize()
         {
-            base.OnAwake();
+            base.OnInitialize();
 
             canvasGroup_rt = rt.GetComponent<CanvasGroup>();
 

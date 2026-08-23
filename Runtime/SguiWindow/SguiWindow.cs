@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public partial class SguiWindow : MonoBehaviour, SguiGlobal.ISguiGlobalLeftClick
+    public partial class SguiWindow : ArkComponent1, SguiGlobal.ISguiGlobalLeftClick
     {
         public static readonly ListListener<SguiWindow> instances = new();
 
@@ -21,7 +21,7 @@ namespace _SGUI_
 
         public bool oblivionized;
         public Func<bool> onFunc_close;
-        public Action onAction_close, onOblivion, onDestroy;
+        public Action onAction_close, onOblivion;
 
         [SerializeField] protected bool animate_hue = true;
 
@@ -47,7 +47,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake() => Initialize();
+        protected override void Awake()
+        {
+            base.Awake();
+            Initialize();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         internal void Initialize()
         {
@@ -55,12 +61,10 @@ namespace _SGUI_
                 return;
 
             initialized = true;
-            OnAwake();
+            OnInitialize();
         }
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        internal protected virtual void OnAwake()
+        internal protected virtual void OnInitialize()
         {
             id = _id++;
 
@@ -85,24 +89,30 @@ namespace _SGUI_
             focused.AddListener2(OnFocused);
         }
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
             os_button?.RefreshOpenState();
         }
 
-        protected virtual void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             os_button?.RefreshOpenState();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (os_button != null)
                 os_button.software_instances.AddElement(this);
 
@@ -198,8 +208,10 @@ namespace _SGUI_
         {
         }
 
-        protected virtual void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             Oblivionize();
 
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
@@ -209,7 +221,6 @@ namespace _SGUI_
             button_close?.onClick.RemoveListener(ResetScalePivot);
             button_close?.onClick.RemoveListener(OnClickClose);
 
-            onDestroy?.Invoke();
             UsageManager.RemoveUser(this);
             instances.RemoveElement(this);
 

@@ -20,11 +20,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnAwake()
+        internal protected override void OnInitialize()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
 
-            base.OnAwake();
+            base.OnInitialize();
 
             trad_title.SetTraductions(new()
             {

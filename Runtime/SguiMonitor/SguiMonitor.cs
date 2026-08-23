@@ -35,13 +35,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnAwake()
+        internal protected override void OnInitialize()
         {
             page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);
             page_resources = GetComponentInChildren<ResourcesPage>(includeInactive: true);
             pages_buttons = GetComponentsInChildren<PageButton>(includeInactive: true);
 
-            base.OnAwake();
+            base.OnInitialize();
 
             trad_title.SetTraductions(new()
             {

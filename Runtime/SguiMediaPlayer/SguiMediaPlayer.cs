@@ -22,13 +22,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnAwake()
+        internal protected override void OnInitialize()
         {
             Transform video_rt = transform.Find("rT/body/video_player");
             video_player = video_rt.GetComponent<VideoPlayer>();
             audio_source = video_rt.GetComponent<AudioSource>();
 
-            base.OnAwake();
+            base.OnInitialize();
         }
     }
 }
