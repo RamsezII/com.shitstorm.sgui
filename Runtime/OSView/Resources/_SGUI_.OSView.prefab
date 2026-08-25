@@ -1610,7 +1610,8 @@ MonoBehaviour:
   rt_header_persistent: {fileID: 0}
   taskbar_rt: {fileID: 0}
   rt_footer_persistent: {fileID: 0}
-  rt_unfocused: {fileID: 0}
+  rt_unfocused_text: {fileID: 0}
+  rt_unfocused_overlay: {fileID: 0}
   rt_editor: {fileID: 0}
   rt_editor_buttons: {fileID: 0}
   rt_softwares: {fileID: 0}
