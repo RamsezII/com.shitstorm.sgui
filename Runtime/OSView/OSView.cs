@@ -17,12 +17,13 @@ namespace _SGUI_
         [HideInInspector] public CanvasGroup rootGroup;
         [HideInInspector] public GraphicRaycaster graphicRaycaster;
 
-        TextMeshProUGUI text_computer_time;
+        TMP_Text text_computer_time;
 
         public RectTransform
             header_rt, rt_header_persistent,
             taskbar_rt, rt_footer_persistent,
-            rt_unfocused,
+            rt_unfocused_text,
+            rt_unfocused_overlay,
             rt_editor,
             rt_editor_buttons,
             rt_softwares,
@@ -65,7 +66,8 @@ namespace _SGUI_
             rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
             taskbar_rt = (RectTransform)rootGroup.transform.Find("task-bar");
             rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
-            rt_unfocused = (RectTransform)transform.Find("unfocused");
+            rt_unfocused_overlay = (RectTransform)transform.Find("unfocused");
+            rt_unfocused_text = (RectTransform)transform.Find("root_group/task-bar/footer_persistent/hlayout/Unfocused");
             rt_editor = (RectTransform)rootGroup.transform.Find("windows/editor-layer");
             rt_softwares = (RectTransform)rootGroup.transform.Find("windows/softwares-layer");
 
@@ -149,7 +151,11 @@ namespace _SGUI_
 
             StartButtons();
 
-            NUCLEOR.instance.isFocused.AddListener(isFocused => rt_unfocused.gameObject.SetActive(!isFocused));
+            NUCLEOR.instance.isFocused.AddListener(isFocused =>
+            {
+                rt_unfocused_text.gameObject.SetActive(!isFocused);
+                rt_unfocused_overlay.gameObject.SetActive(!isFocused);
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------
