@@ -19,8 +19,6 @@ namespace _SGUI_
         private void Awake()
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
-
             rt_sgui_prompts = (RectTransform)transform.Find("sgui_prompts");
         }
 

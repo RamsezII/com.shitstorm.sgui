@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +9,12 @@ namespace _SGUI_
     public class SguiCustom_Dropdown : SguiCustom_Abstract
     {
         public TMP_Dropdown _dropdown;
-        public Dictionary<string, bool> toggles;
+        [SerializeField] Toggle[] toggles;
+        public readonly List<bool> currentValues_bool = new();
+        public readonly HashSet<string> currentValues_string = new(StringComparer.Ordinal);
         float current_scrollheight = 1;
         [SerializeField] bool stay_open;
-        public IEnumerable<string> ESelectedItems() => toggles?.Where(pair => pair.Value).Select(pair => pair.Key);
+        public Action<SguiCustom_Dropdown> onValuesChanged;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -52,28 +53,43 @@ namespace _SGUI_
                 scrollbar.value = current_scrollheight;
                 scrollbar.onValueChanged.AddListener(value => current_scrollheight = value);
 
-                toggles?.Clear();
-                toggles = new(StringComparer.OrdinalIgnoreCase);
+                toggles = template_clone.GetComponentsInChildren<Toggle>(true);
 
-                Toggle[] items = template_clone.GetComponentsInChildren<Toggle>(true);
-                for (int i = 0; i < items.Length; i++)
+                currentValues_string.Clear();
+                currentValues_bool.Clear();
+
+                for (int i1 = 0; i1 < toggles.Length; i1++)
                 {
-                    Toggle item = items[i];
+                    Toggle item = toggles[i1];
                     string toggle_name = null;
 
-                    if (i > 2)
+                    if (i1 >= 3)
                     {
                         toggle_name = item.Get_ItemName_From_DropdownToggle();
-                        toggles.Add(toggle_name, item.isOn);
+                        currentValues_bool.Add(item.isOn);
+
+                        if (item.isOn)
+                            currentValues_string.Add(toggle_name);
+                        else
+                            currentValues_string.Remove(toggle_name);
                     }
 
-                    int i_copy = i;
+                    int i2 = i1 - 3;
                     item.onValueChanged.AddListener(_ =>
                     {
-                        if (i_copy > 2)
-                            toggles[toggle_name] = item.isOn;
                         current_scrollheight = scrollbar.value;
                         _dropdown.Show();
+
+                        if (i2 >= 0)
+                        {
+                            currentValues_bool[i2] = item.isOn;
+                            if (item.isOn)
+                                currentValues_string.Add(toggle_name);
+                            else
+                                currentValues_string.Remove(toggle_name);
+                        }
+
+                        onValuesChanged?.Invoke(this);
                     });
                 }
             }
