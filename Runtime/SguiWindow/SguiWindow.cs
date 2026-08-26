@@ -207,7 +207,7 @@ namespace _SGUI_
             os_button?.RefreshOpenState();
 
             onFunc_close = null;
-            onAction_close = onOblivion = onDestroy = null;
+            onAction_close = null;
 
             OnOblivion();
             onOblivion?.Invoke();

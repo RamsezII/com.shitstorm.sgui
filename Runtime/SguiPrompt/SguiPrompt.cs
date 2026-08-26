@@ -35,13 +35,6 @@ namespace _SGUI_
 
             trad_cancel = button_cancel.transform.Find("label").GetComponent<Traductable>();
             trad_confirm = button_confirm.transform.Find("label").GetComponent<Traductable>();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void Start()
-        {
-            base.Start();
 
             button_confirm.onClick.AddListener(() =>
             {
