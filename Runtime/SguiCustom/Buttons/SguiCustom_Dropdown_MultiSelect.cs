@@ -66,15 +66,59 @@ namespace _SGUI_
 
         protected override void OnContextList(ContextList sguilist)
         {
+            var buttons = new List<ContextListButton>();
+
+            var bt_all = sguilist.AddButton_trad(new() { french = "Tout", english = "All", });
+            sguilist.AddLine();
+            var bt_none = sguilist.AddButton_trad(new() { french = "Rien", english = "None", });
+            sguilist.AddLine();
+
+            void RefreshAllNone()
+            {
+                int selected_count = options2.Count(option2 => option2._selected);
+                bool has_options = options2.Count > 0;
+
+                bt_all.toggle.Value = has_options && selected_count == options2.Count;
+                bt_none.toggle.Value = has_options && selected_count == 0;
+            }
+
+            bt_all._button.onClick.AddListener(() =>
+            {
+                foreach (var button in buttons)
+                    button.toggle.Value = true;
+
+                RefreshAllNone();
+            });
+
+            bt_none._button.onClick.AddListener(() =>
+            {
+                foreach (var button in buttons)
+                    button.toggle.Value = false;
+
+                RefreshAllNone();
+            });
+
             for (int i = 0; i < options2.Count; ++i)
             {
                 int index = i;
-                Option2 option2 = options2[index];
-                ContextListButton button = sguilist.AddButton_trad(option2.label);
+                var option2 = options2[index];
+                var button = sguilist.AddButton_trad(option2.label);
+
+                buttons.Add(button);
 
                 button.toggle.Value = option2._selected;
-                button.toggle.AddListener(value => OnOptionChangedFromUser(index, option2, value), do_not_call_this_time: true);
+
+                button.toggle.AddListener(
+                    action: value =>
+                    {
+                        OnOptionChangedFromUser(index, option2, value);
+                        RefreshAllNone();
+                    },
+                    do_not_call_this_time: true
+                );
             }
+
+            RefreshAllNone();
         }
 
         protected override void RefreshLabel()

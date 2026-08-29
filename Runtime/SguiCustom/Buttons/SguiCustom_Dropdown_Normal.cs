@@ -148,7 +148,7 @@ namespace _SGUI_
                 return;
 
             if (selectedIndex < 0 || selectedIndex >= options1.Count)
-                trad_button.SetText("None");
+                trad_button.SetTraductions(new() { french = "Rien", english = "None", });
             else
                 trad_button.SetTraductions(options1[selectedIndex].label);
         }
