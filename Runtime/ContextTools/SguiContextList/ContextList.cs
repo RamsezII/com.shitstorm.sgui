@@ -22,12 +22,11 @@ namespace _SGUI_.context_click
         public ContextList sublist;
         public ScrollRect scrollview;
         public VerticalLayoutGroup vlayout;
-        public Traductable target_trad;
         [SerializeField] ContextListButton prefab_button;
         [SerializeField] RectTransform prefab_line;
         public readonly List<ContextListButton> buttons_clones = new();
-        public readonly ValueNotifier<ContextListButton> last_button_toggled = new();
         public readonly HashSetListener<ContextListButton> buttons_toggled = new();
+        public readonly ValueNotifier<ContextListButton> last_button_toggled = new();
         public SguiListTypes type;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -102,37 +101,45 @@ namespace _SGUI_.context_click
         public ContextListButton AddButton_string(in string label) => AddButton_trad(new Traductions(label));
         public ContextListButton AddButton_trad(in Traductions label)
         {
-            var clone = prefab_button.Clone(true);
-            clone.index = buttons_clones.Count - 1;
-            clone.trad.SetTraductions(label);
-            buttons_clones.Add(clone);
+            var button = prefab_button.Clone(true);
+            button.index = buttons_clones.Count - 1;
+            button.trad.SetTraductions(label);
+            buttons_clones.Add(button);
 
-            clone._button.onClick.AddListener(() =>
+            button._button.onClick.AddListener(() =>
             {
-                if (type == SguiListTypes.MultiSelect)
+                switch (type)
                 {
-                    clone.toggle.ToggleAuto();
-                    if (target_trad != null)
-                        if (buttons_toggled.IsEmpty)
-                            target_trad.SetTraductions(new() { french = "Rien", english = "None", });
-                        else if (buttons_toggled._collection.Count == buttons_clones.Count)
-                            target_trad.SetTraductions(new() { french = "Tout", english = "All", });
-                        else
-                            target_trad.SetTraductions(new()
-                            {
-                                french = buttons_toggled._collection.Select(button => button.trad.traductions.french).Join(", "),
-                                english = buttons_toggled._collection.Select(button => button.trad.traductions.english).Join(", "),
-                            });
-                }
+                    case SguiListTypes.Normal:
+                        Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject);
+                        break;
 
-                if (type == SguiListTypes.Normal)
-                    Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject);
+                    case SguiListTypes.StayOpen:
+                        SelectButton(button);
+                        break;
+
+                    case SguiListTypes.MultiSelect:
+                        button.toggle.ToggleAuto();
+                        break;
+                }
             });
 
             if (didStart)
                 AutoSizeAndMove();
 
-            return clone;
+            return button;
+        }
+
+        public void SelectButton(in ContextListButton button)
+        {
+            foreach (var _button in buttons_clones)
+                _button.toggle.Value = _button == button;
+        }
+
+        public void SelectButton(in int index)
+        {
+            for (int i = 0; i < buttons_clones.Count; ++i)
+                buttons_clones[i].toggle.Value = i == index;
         }
 
         public void AutoSizeAndMove() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeAndMove_now);
