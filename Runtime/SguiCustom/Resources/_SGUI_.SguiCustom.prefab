@@ -5600,7 +5600,7 @@ PrefabInstance:
     - target: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -210
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 807828740312013534, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
@@ -5705,10 +5705,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -7212626210877754923, guid: 4b84d875640e3164ea87984542f97f4d,
         type: 2}
+    - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
+        type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8771155122496488577, guid: 796847eb85a18ab48a7828e3a14690e0,
         type: 3}
       propertyPath: m_VerticalAlignment
