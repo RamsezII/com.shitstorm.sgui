@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
+    [Obsolete]
     public class SguiCustom_Dropdown : SguiCustom_Abstract
     {
         public TMP_Dropdown _dropdown;

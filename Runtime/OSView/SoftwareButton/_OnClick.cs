@@ -57,7 +57,7 @@ namespace _SGUI_
 
                         if (enable_AddWindow)
                         {
-                            var button = list.AddButton(new()
+                            var button = list.AddButton_trad(new()
                             {
                                 french = $"Ouvrir une nouvelle fenêtre",
                                 english = $"Open new window",
@@ -70,7 +70,7 @@ namespace _SGUI_
                         }
 
                         foreach (var onButton in onButtons)
-                            onButton(list.AddButton(default));
+                            onButton(list.AddButton_trad(default));
 
                         for (int i = 0; i < software_instances._collection.Count; i++)
                         {
@@ -79,7 +79,7 @@ namespace _SGUI_
                                 SguiLoggerOverlay.Log($"error trad: {window}", window, logLevel: SguiLogLevel.Warning);
                             else
                             {
-                                var button = list.AddButton(window.sgui_description);
+                                var button = list.AddButton_trad(window.sgui_description);
                                 button._button.onClick.AddListener(() =>
                                 {
                                     window.SetScalePivot(this);
@@ -91,7 +91,7 @@ namespace _SGUI_
 
                         if (enable_CloseAll)
                         {
-                            var button = list.AddButton(new()
+                            var button = list.AddButton_trad(new()
                             {
                                 french = "Fermer toutes les fenêtres",
                                 english = "Close all windows",

@@ -63,14 +63,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281aa21d1bab2074bbf456bed6ceccbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick_List
+  _destroyed: 0
   prt: {fileID: 0}
   rt: {fileID: 0}
   sublist: {fileID: 0}
   scrollview: {fileID: 0}
   vlayout: {fileID: 0}
+  trad_status: {fileID: 0}
   prefab_button: {fileID: 0}
   prefab_line: {fileID: 0}
-  multiSelect: 0
+  type: 0
 --- !u!1 &213872176164555133
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,11 +401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb869eedc000eb4f81392ec9e667a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
-  tmpro: {fileID: 0}
-  auto_width: 0
+  autowidth_min: 0
+  autowidth_target: {fileID: 0}
   traductions:
     english: Button
     french: Bouton
+  tmpro: {fileID: 0}
 --- !u!114 &2933834590537580257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,7 +517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1975270467251127020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1283,10 +1286,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiContextClick_List_Button
   plist: {fileID: 0}
+  index: 0
   rt: {fileID: 0}
   _button: {fileID: 0}
   trad: {fileID: 0}
   arrow: {fileID: 0}
+  checkmark: {fileID: 0}
 --- !u!1 &9124273440004233208
 GameObject:
   m_ObjectHideFlags: 0

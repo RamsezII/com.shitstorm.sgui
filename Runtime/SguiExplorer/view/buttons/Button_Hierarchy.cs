@@ -82,7 +82,7 @@ namespace _SGUI_.Explorer
                         english = $"Rename",
                     };
 
-                    var button = list.AddButton(trad_rename);
+                    var button = list.AddButton_trad(trad_rename);
 
                     button._button.onClick.AddListener(() =>
                     {
@@ -138,7 +138,7 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton(new()
+                    var button = list.AddButton_trad(new()
                     {
                         french = $"Supprimer",
                         english = $"Delete",
@@ -174,7 +174,7 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton(new()
+                    var button = list.AddButton_trad(new()
                     {
                         french = "Copier le chemin",
                         english = "Copy path",
@@ -189,7 +189,7 @@ namespace _SGUI_.Explorer
                 }
 
                 {
-                    var button = list.AddButton(new()
+                    var button = list.AddButton_trad(new()
                     {
                         french = "Ouvrir dans l'explorateur",
                         english = "Open in the explorer",

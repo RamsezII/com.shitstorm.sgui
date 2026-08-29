@@ -115,7 +115,7 @@ namespace _SGUI_.Explorer
             list.AddLine();
 
             {
-                var button = list.AddButton(new()
+                var button = list.AddButton_trad(new()
                 {
                     french = $"Créer un fichier",
                     english = $"Create file",
@@ -125,7 +125,7 @@ namespace _SGUI_.Explorer
             }
 
             {
-                var button = list.AddButton(new()
+                var button = list.AddButton_trad(new()
                 {
                     french = $"Créer un dossier",
                     english = $"Create a directory",

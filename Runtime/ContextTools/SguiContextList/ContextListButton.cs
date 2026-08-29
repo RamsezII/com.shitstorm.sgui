@@ -1,4 +1,5 @@
 ﻿using _ARK_;
+using _UTIL_;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,11 @@ namespace _SGUI_.context_click
     public sealed class ContextListButton : MonoBehaviour
     {
         public ContextList plist;
+        public int index;
         public RectTransform rt;
         public Button _button;
         public Traductable trad;
+        public readonly ValueNotifier<bool> toggle = new();
         [SerializeField] internal RawImage arrow, checkmark;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -25,6 +28,16 @@ namespace _SGUI_.context_click
             checkmark = transform.Find("checkmark").GetComponent<RawImage>();
 
             arrow.gameObject.SetActive(false);
+
+            toggle.AddListener(value =>
+            {
+                checkmark.gameObject.SetActive(value);
+
+                plist.buttons_toggled.ToggleElement(this, value);
+
+                if (value)
+                    plist.last_button_toggled.Value = this;
+            });
         }
 
         //--------------------------------------------------------------------------------------------------------------

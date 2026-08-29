@@ -1,48 +1,38 @@
 ﻿using _ARK_;
 using _UTIL_;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.context_click
 {
-    public sealed class ContextList : MonoBehaviour
+    public enum SguiListTypes : byte
     {
-        public struct SelectableLabel
-        {
-            public Traductions label;
-            public bool toggle;
+        Normal,
+        StayOpen,
+        MultiSelect,
+    }
 
-            //--------------------------------------------------------------------------------------------------------------
-
-            public SelectableLabel(in Traductions label, in bool toggle)
-            {
-                this.label = label;
-                this.toggle = toggle;
-            }
-
-            //--------------------------------------------------------------------------------------------------------------
-
-            public static implicit operator (Traductions label, bool toggle)(SelectableLabel value) => (value.label, value.toggle);
-
-            public static implicit operator SelectableLabel((Traductions label, bool toggle) value) => new SelectableLabel(value.label, value.toggle);
-        }
-
+    public sealed class ContextList : ArkComponent1
+    {
         CanvasGroup canvasGroup;
         public RectTransform prt, rt;
         public ContextList sublist;
         public ScrollRect scrollview;
         public VerticalLayoutGroup vlayout;
+        public Traductable target_trad;
         [SerializeField] ContextListButton prefab_button;
         [SerializeField] RectTransform prefab_line;
         public readonly List<ContextListButton> buttons_clones = new();
-        [SerializeField] bool multiSelect;
+        public readonly ValueNotifier<ContextListButton> last_button_toggled = new();
+        public readonly HashSetListener<ContextListButton> buttons_toggled = new();
+        public SguiListTypes type;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        protected override void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             scrollview = GetComponentInChildren<ScrollRect>();
@@ -74,12 +64,16 @@ namespace _SGUI_.context_click
 
                 Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject);
             };
+
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (buttons_clones.Count == 0)
                 Destroy(gameObject);
 
@@ -105,15 +99,35 @@ namespace _SGUI_.context_click
 
         public void AddLine() => prefab_line.Clone(true);
 
-        public ContextListButton AddButton_label(in string label) => AddButton(new Traductions(label));
-        public ContextListButton AddButton(in Traductions label)
+        public ContextListButton AddButton_string(in string label) => AddButton_trad(new Traductions(label));
+        public ContextListButton AddButton_trad(in Traductions label)
         {
             var clone = prefab_button.Clone(true);
+            clone.index = buttons_clones.Count - 1;
             clone.trad.SetTraductions(label);
             buttons_clones.Add(clone);
 
-            if (!multiSelect)
-                clone._button.onClick.AddListener(() => Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject));
+            clone._button.onClick.AddListener(() =>
+            {
+                if (type == SguiListTypes.MultiSelect)
+                {
+                    clone.toggle.ToggleAuto();
+                    if (target_trad != null)
+                        if (buttons_toggled.IsEmpty)
+                            target_trad.SetTraductions(new() { french = "Rien", english = "None", });
+                        else if (buttons_toggled._collection.Count == buttons_clones.Count)
+                            target_trad.SetTraductions(new() { french = "Tout", english = "All", });
+                        else
+                            target_trad.SetTraductions(new()
+                            {
+                                french = buttons_toggled._collection.Select(button => button.trad.traductions.french).Join(", "),
+                                english = buttons_toggled._collection.Select(button => button.trad.traductions.english).Join(", "),
+                            });
+                }
+
+                if (type == SguiListTypes.Normal)
+                    Destroy(SguiContextList.instance.scrollview_lastRootList.gameObject);
+            });
 
             if (didStart)
                 AutoSizeAndMove();
@@ -121,27 +135,8 @@ namespace _SGUI_.context_click
             return clone;
         }
 
-        public SelectableLabel[] FillSelectables(Action<SelectableLabel[], int, bool> onStatus, params SelectableLabel[] selectables)
-        {
-            multiSelect = true;
-            for (int i = 0; i < selectables.Length; i++)
-            {
-                int _i = i;
-
-                var button = AddButton(selectables[_i].label);
-                button.checkmark.gameObject.SetActive(selectables[_i].toggle);
-
-                button._button.onClick.AddListener(() =>
-                {
-                    bool toggle = selectables[_i].toggle = !selectables[_i].toggle;
-                    button.checkmark.gameObject.SetActive(toggle);
-                    onStatus?.Invoke(selectables, _i, toggle);
-                });
-            }
-            return selectables;
-        }
-
-        public void AutoSizeAndMove()
+        public void AutoSizeAndMove() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeAndMove_now);
+        public void AutoSizeAndMove_now()
         {
             if (gameObject == null)
                 return;
