@@ -102,7 +102,7 @@ namespace _SGUI_.context_click
         public ContextListButton AddButton_trad(in Traductions label)
         {
             var button = prefab_button.Clone(true);
-            button.index = buttons_clones.Count - 1;
+            button.index = buttons_clones.Count;
             button.trad.SetTraductions(label);
             buttons_clones.Add(button);
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using TMPro;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace _SGUI_
 {
@@ -22,24 +21,22 @@ namespace _SGUI_
                 return inputfield;
         }
 
-        SguiCustom_Dropdown AddEnum(in Enum value)
+        SguiCustom_Dropdown_Normal AddEnum(in Enum value)
         {
-            var dropdown = AddButton<SguiCustom_Dropdown>();
+            var dropdown = AddButton<SguiCustom_Dropdown_Normal>();
 
             Type type = value.GetType();
-            Array values = Enum.GetValues(type);
-            string[] names = Enum.GetNames(type);
-
-            List<string> options = names.Where(name => name switch
+            var options = Enum.GetNames(type).Where(name => name switch
             {
                 string n when n.StartsWith('_') && n.EndsWith('_') => false,
                 _ => true,
             }).ToList();
 
-            dropdown._dropdown.ClearOptions();
-            dropdown._dropdown.AddOptions(options);
-            dropdown._dropdown.value = Array.IndexOf(values, value);
-            dropdown._dropdown.RefreshShownValue();
+            int selectedIndex = options.IndexOf(Enum.GetName(type, value));
+            dropdown.SetupOptions(
+                selectedIndex,
+                options
+            );
 
             return dropdown;
         }

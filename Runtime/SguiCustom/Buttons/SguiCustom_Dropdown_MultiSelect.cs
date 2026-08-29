@@ -1,77 +1,108 @@
-﻿using _ARK_;
+using _ARK_;
 using _SGUI_.context_click;
-using _UTIL_;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _SGUI_
 {
     public class SguiCustom_Dropdown_MultiSelect : SguiCustom_Dropdown_StayOpen
     {
-        public readonly struct Option
+        [Serializable]
+        public sealed class Option2
         {
             public readonly Traductions label;
-            public readonly ValueNotifier<bool> toggle;
+            public bool _selected;
 
             //--------------------------------------------------------------------------------------------------------------
 
-            public Option(in Traductions label, in bool toggle = default) : this(label, new ValueNotifier<bool>(toggle))
+            public Option2(in Traductions label_trad, in bool selected = default)
+            {
+                label = label_trad;
+                _selected = selected;
+            }
+
+            public Option2(in string label_string, in bool selected = default) : this(new Traductions(label_string), selected)
             {
             }
 
-            public Option(in Traductions label, in ValueNotifier<bool> toggle)
+            internal bool SetFromUser(in bool selected)
             {
-                this.label = label;
-                this.toggle = toggle;
+                if (_selected == selected)
+                    return false;
+
+                _selected = selected;
+                return true;
             }
         }
 
-        Option[] options;
+        public Action<int, bool> onOptionChanged;
+
+        public List<Option2> options2 = new();
+
+        protected override SguiListTypes ListType => SguiListTypes.MultiSelect;
+        protected override bool HasOptions => options2.Count > 0;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public Option[] SetupOptions(params Option[] options)
+        public void SetupOptions2(in List<string> options) => SetupOptions2(options.Select(option => new Option2(option, false)).ToList());
+        public void SetupOptions2(in List<Option2> options2)
         {
-            ClearOptions();
-            this.options = options;
+            Hide();
+            this.options2 = options2 ?? new();
+            _button.interactable = this.options2.Count > 0;
             RefreshLabel();
-            return options;
         }
 
-        public void ClearOptions()
+        public override void ClearOptions()
         {
-            options = null;
+            Hide();
+            options2 = new();
+            _button.interactable = false;
+            RefreshLabel();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        void RefreshLabel()
+        protected override void OnContextList(ContextList sguilist)
         {
-            int count = options.Count(option => option.toggle._value);
+            for (int i = 0; i < options2.Count; ++i)
+            {
+                int index = i;
+                Option2 option2 = options2[index];
+                ContextListButton button = sguilist.AddButton_trad(option2.label);
+
+                button.toggle.Value = option2._selected;
+                button.toggle.AddListener(value => OnOptionChangedFromUser(index, option2, value), do_not_call_this_time: true);
+            }
+        }
+
+        protected override void RefreshLabel()
+        {
+            if (trad_button == null)
+                return;
+
+            int count = options2.Count(option2 => option2._selected);
+
             if (count == 0)
                 trad_button.SetTraductions(new() { french = "Rien", english = "None", });
-            else if (count == options.Length)
+            else if (count == options2.Count)
                 trad_button.SetTraductions(new() { french = "Tout", english = "All", });
             else
                 trad_button.SetTraductions(new()
                 {
-                    french = options.Where(option => option.toggle._value).Select(option => option.label.french).Join(", "),
-                    english = options.Where(option => option.toggle._value).Select(option => option.label.english).Join(", "),
+                    french = options2.Where(option => option._selected).Select(option => option.label.french).Join(", "),
+                    english = options2.Where(option => option._selected).Select(option => option.label.english).Join(", "),
                 });
         }
 
-        protected override void OnContextList(ContextList sguilist)
+        void OnOptionChangedFromUser(int index, Option2 option2, bool value)
         {
-            base.OnContextList(sguilist);
+            if (!option2.SetFromUser(value))
+                return;
 
-            foreach (var option in options)
-            {
-                var button = sguilist.AddButton_trad(option.label);
-                button.toggle.Value = option.toggle._value;
-                button.toggle.AddListener(option.toggle.Update);
-                button.toggle.AddListener(RefreshLabel);
-            }
-
-            sguilist.buttons_toggled.AddListener2(list => RefreshLabel());
+            RefreshLabel();
+            onOptionChanged?.Invoke(index, value);
         }
     }
 }

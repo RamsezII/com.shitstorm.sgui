@@ -36,13 +36,11 @@ namespace _SGUI_
                             onAction_confirm += () => field.SetValue(result, toggle.toggle.isOn);
                             break;
 
-                        case SguiCustom_Dropdown dropdown:
+                        case SguiCustom_Dropdown_Normal dropdown:
                             onAction_confirm += () =>
                             {
-                                int index = dropdown._dropdown.value;
-                                string enum_name = dropdown._dropdown.GetSelectedName();
-                                field.SetValue(result, Enum.Parse(field_type, enum_name));
-                                ;
+                                if (dropdown.TryGetSelectedOption(out var option))
+                                    field.SetValue(result, Enum.Parse(field_type, option.label.english));
                             };
                             break;
 
@@ -150,12 +148,11 @@ namespace _SGUI_
                             }
                             break;
 
-                        case SguiCustom_Dropdown dropdown:
+                        case SguiCustom_Dropdown_Normal dropdown:
                             onAction_confirm += () =>
                             {
-                                int index = dropdown._dropdown.value;
-                                string enum_name = dropdown._dropdown.GetSelectedName();
-                                result = result.ModifyAnonymous(property_name, Enum.Parse(property_type, enum_name));
+                                if (dropdown.TryGetSelectedOption(out var option))
+                                    result = result.ModifyAnonymous(property_name, Enum.Parse(property_type, option.label.english));
                             };
                             break;
                     }
@@ -211,9 +208,9 @@ namespace _SGUI_
 
                     case Enum _enum:
                         {
-                            SguiCustom_Dropdown dropdown = AddEnum(_enum);
+                            SguiCustom_Dropdown_Normal dropdown = AddEnum(_enum);
                             button = dropdown;
-                            dropdown._dropdown.onValueChanged.AddListener(value => OnChange());
+                            dropdown.onValueChanged += value => OnChange();
                         }
                         break;
 
