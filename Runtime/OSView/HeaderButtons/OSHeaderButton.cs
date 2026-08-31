@@ -9,7 +9,7 @@ namespace _SGUI_.osview
     public class OSHeaderButton : MonoBehaviour
     {
         public RectTransform rt;
-        [SerializeField] Button button;
+        public Button _button;
         public Traductable trad;
         public Action<ContextList> onContextList;
 
@@ -18,7 +18,7 @@ namespace _SGUI_.osview
         private void Awake()
         {
             rt = (RectTransform)transform;
-            button = GetComponent<Button>();
+            _button = GetComponent<Button>();
             trad = GetComponentInChildren<Traductable>(true);
         }
 
@@ -26,7 +26,7 @@ namespace _SGUI_.osview
 
         private void Start()
         {
-            button.onClick.AddListener(() =>
+            _button.onClick.AddListener(() =>
             {
                 Vector2 minPos = rt.rect.min;
                 minPos.x += 10;

@@ -40,8 +40,6 @@ namespace _SGUI_
         [SerializeField] SoftwareButton prefab_softwarebutton;
         public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
 
-        public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
-
         readonly object timestopUser = new();
 
         //--------------------------------------------------------------------------------------------------------------
@@ -159,6 +157,8 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
 
         public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiSoftware => AddSoftwareButton(typeof(T), hoverInfos);
         public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
