@@ -33,8 +33,8 @@ namespace _SGUI_
             {
                 var sb = new StringBuilder();
 
-                NUCLEOR.instance.sequencer_mono.GetStatus(sb);
-                NUCLEOR.instance.sequencer_multi.GetStatus(sb);
+                NUCLEOR.instance.monolith.GetStatus(sb);
+                NUCLEOR.instance.routinizer.GetStatus(sb);
 
                 if (sb.Length > 0)
                 {

@@ -23,7 +23,7 @@ namespace _SGUI_
 
         private void Start()
         {
-            NUCLEOR.instance.sequencer_mono.sequencables.AddListener1(isNotEmpty =>
+            NUCLEOR.instance.monolith.sequencables.AddListener1(isNotEmpty =>
             {
                 NUCLEOR.delegates.LateUpdate -= Refresh;
                 if (isNotEmpty)
@@ -36,7 +36,7 @@ namespace _SGUI_
 
         void Refresh()
         {
-            Sequencable schedulable = NUCLEOR.instance.sequencer_mono.sequencables._collection[0];
+            Sequencable schedulable = NUCLEOR.instance.monolith.sequencables._collection[0];
 
             float progress = schedulable.Progress;
 
