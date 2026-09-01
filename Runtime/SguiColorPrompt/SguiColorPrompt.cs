@@ -104,7 +104,7 @@ namespace _SGUI_
             for (int i = 0; i < gradients.Length; ++i)
             {
                 var gradient = gradients[i];
-                gradient._slider.onValueChanged.AddListener(value => SetNewColor(ReadFromSliders()));
+                gradient._slider.onValueChanged.AddListener(value => SetNewColorFromSliders());
             }
 
             tmp_hex.onEndEdit.AddListener(SetHexColor);
@@ -230,11 +230,18 @@ namespace _SGUI_
 
         public void SetNewColor(in Color color)
         {
+            Color.RGBToHSV(color, out float H, out float S, out float V);
+            SetNewColor(color, new Vector3(H, S, V));
+        }
+
+        void SetNewColor(in Color color, in Vector3 hsv)
+        {
             this.color = color;
             new_color.SetColor(color);
 
-            Color.RGBToHSV(color, out float H, out float S, out float V);
-            Vector3 hsv = new(H, S, V);
+            float H = hsv.x;
+            float S = hsv.y;
+            float V = hsv.z;
             float angle = H * 2 * Mathf.PI;
 
             tmp_hex.SetTextWithoutNotify(ColorUtility.ToHtmlStringRGB(color));

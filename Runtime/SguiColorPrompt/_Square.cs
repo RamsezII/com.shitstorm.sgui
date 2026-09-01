@@ -21,10 +21,14 @@ namespace _SGUI_
 
                 float saturation = Mathf.Clamp01((lpos.x + rt_square.rect.width / 2) / rt_square.rect.width);
                 float value = Mathf.Clamp01((lpos.y + rt_square.rect.height / 2) / rt_square.rect.height);
-                Color.RGBToHSV(color, out float h, out _, out _);
-                Color newColor = Color.HSVToRGB(h, saturation, value);
-                newColor.a = color.a;
-                SetNewColor(newColor);
+
+                float hue;
+                if (mode == Modes.HSV_0_1)
+                    hue = gradients[0]._slider.value;
+                else
+                    Color.RGBToHSV(color, out hue, out _, out _);
+
+                SetNewColorFromHSV(hue, saturation, value);
             }
         }
     }

@@ -4,6 +4,31 @@ namespace _SGUI_
 {
     partial class SguiColorPrompt
     {
+        void SetNewColorFromSliders()
+        {
+            Color color = ReadFromSliders();
+
+            if (mode == Modes.HSV_0_1)
+            {
+                Vector3 hsv = new(
+                    gradients[0]._slider.value,
+                    gradients[1]._slider.value,
+                    gradients[2]._slider.value
+                );
+                SetNewColor(color, hsv);
+                return;
+            }
+
+            SetNewColor(color);
+        }
+
+        void SetNewColorFromHSV(float hue, float saturation, float value)
+        {
+            Color newColor = Color.HSVToRGB(hue, saturation, value);
+            newColor.a = color.a;
+            SetNewColor(newColor, new Vector3(hue, saturation, value));
+        }
+
         Color ReadFromSliders()
         {
             Color color = Color.clear;

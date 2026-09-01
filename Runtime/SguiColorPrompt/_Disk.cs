@@ -24,10 +24,20 @@ namespace _SGUI_
 
                 float hue = angle / (2 * Mathf.PI);
 
-                Color.RGBToHSV(ReadFromSliders(), out _, out float s, out float v);
-                Color newColor = Color.HSVToRGB(hue, s, v);
-                newColor.a = color.a;
-                SetNewColor(newColor);
+                float saturation;
+                float value;
+
+                if (mode == Modes.HSV_0_1)
+                {
+                    saturation = gradients[1]._slider.value;
+                    value = gradients[2]._slider.value;
+                }
+                else
+                {
+                    Color.RGBToHSV(color, out _, out saturation, out value);
+                }
+
+                SetNewColorFromHSV(hue, saturation, value);
             }
         }
     }
