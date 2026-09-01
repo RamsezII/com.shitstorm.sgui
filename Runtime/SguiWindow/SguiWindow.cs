@@ -82,7 +82,7 @@ namespace _SGUI_
 
             saved_size = rt.rect.size;
 
-            openWindows.AddListener2(OnFocused);
+            openWindows.AddListener2(OnWindowsListChanged);
         }
 
         protected override void OnEnable()
@@ -117,7 +117,7 @@ namespace _SGUI_
 
             button_close.onClick.AddListener(ResetScalePivot);
 
-            isFocused.AddListener(OnFocus);
+            isFocused.AddListener(OnToggleFocus);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -150,10 +150,10 @@ namespace _SGUI_
             });
         }
 
-        void OnFocused(List<SguiWindow> list) => isFocused.Value = isFocused._value;
-        protected virtual void OnFocus(bool has_focus)
+        void OnWindowsListChanged(List<SguiWindow> list) => isFocused.Value = list.Count > 0 && list[^1] == this;
+        protected virtual void OnToggleFocus(bool focus)
         {
-            if (!has_focus)
+            if (!focus)
                 return;
 
 #if UNITY_EDITOR
@@ -196,7 +196,7 @@ namespace _SGUI_
             if (os_button != null)
                 os_button.software_instances.RemoveElement(this);
 
-            openWindows._listeners2 -= OnFocused;
+            openWindows._listeners2 -= OnWindowsListChanged;
             instances.RemoveElement(this);
             openWindows.RemoveElement(this);
             UsageManager.RemoveUser(this);

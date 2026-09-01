@@ -1561,8 +1561,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2969275452427197880}
   - component: {fileID: 2208817278633937498}
-  - component: {fileID: 3541629348242193434}
-  - component: {fileID: 2701824975445887004}
   m_Layer: 5
   m_Name: _SGUI_.OSView
   m_TagString: Untagged
@@ -1625,47 +1623,6 @@ MonoBehaviour:
   button_bottom_audio: {fileID: 0}
   button_bottom_settings: {fileID: 0}
   toggle_lerp: 0
---- !u!223 &3541629348242193434
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098959381411802931}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &2701824975445887004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098959381411802931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &5120417317826379138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,6 +1683,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
   autowidth_min: 0
   autowidth_target: {fileID: 6888205241018653170}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Unfocused
     french: Inactif
@@ -2394,6 +2353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autowidth_min: 0
   autowidth_target: {fileID: 0}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Button
     french: Bouton
@@ -2711,7 +2672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rt: {fileID: 0}
-  button: {fileID: 0}
+  _button: {fileID: 0}
   trad: {fileID: 0}
 --- !u!1 &6734039853933618237
 GameObject:

@@ -15,7 +15,6 @@ namespace _SGUI_
         public static OSView instance;
 
         [HideInInspector] public CanvasGroup rootGroup;
-        [HideInInspector] public GraphicRaycaster graphicRaycaster;
 
         TMP_Text text_computer_time;
 
@@ -55,8 +54,6 @@ namespace _SGUI_
         private void Awake()
         {
             instance = this;
-
-            graphicRaycaster = GetComponent<GraphicRaycaster>();
 
             rootGroup = transform.Find("root_group").GetComponent<CanvasGroup>();
 
