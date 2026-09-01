@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public sealed partial class SoftwareButton : OSButton
+    public sealed partial class SoftwareButton : OSButton, SguiContextHover.IUser
     {
         internal static readonly HashSet<SoftwareButton> instances = new();
 
@@ -15,6 +15,9 @@ namespace _SGUI_
         public RawImage rimg_icon;
         RawImage[] rimg_instances;
         public int max_instances = 10;
+
+        public Traductions hover_info;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_info;
 
         internal SguiSoftware software_prefab;
         public readonly ListListener<SguiWindow> software_instances = new();
@@ -92,7 +95,8 @@ namespace _SGUI_
             return window;
         }
 
-        internal static void RefreshAllOpenStates()
+        internal static void RefreshAllOpenStates() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, RefreshAllOpenStates_now);
+        internal static void RefreshAllOpenStates_now()
         {
             foreach (var button in instances)
                 button.RefreshOpenState();
@@ -109,10 +113,10 @@ namespace _SGUI_
                 {
                     open = true;
                     if (window.isFocused._value)
+                    {
                         focus = true;
-
-                    if (open && focus)
                         break;
+                    }
                 }
             }
 

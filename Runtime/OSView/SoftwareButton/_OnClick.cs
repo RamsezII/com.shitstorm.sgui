@@ -17,31 +17,29 @@ namespace _SGUI_
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             SguiContextHover.instance.UnassignUser(this);
-
+            
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
                     if (software_instances.IsEmpty)
-                    {
                         if (onClick_left_empty == null)
                             InstantiateSoftware();
                         else
                             onClick_left_empty(eventData);
-                    }
-                    else
-                    {
-                        if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
-                            if (software_instances._collection.Count == 1)
-                            {
-                                SguiWindow instance = software_instances._collection[0];
-                                instance.SetScalePivot(this);
+                    else if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
+                        if (software_instances._collection.Count == 1)
+                        {
+                            SguiWindow instance = software_instances._collection[0];
+                            instance.SetScalePivot(this);
 
-                                if (instance.toggle._value)
-                                    instance.toggle.ToggleAuto();
-                                else
-                                    instance.TakeFocus();
-                            }
-                    }
+                            if (instance.toggle._value)
+                                instance.toggle.ToggleAuto();
+                            else
+                                instance.TakeFocus();
+                        }
+                        else
+                            foreach (var instance in software_instances._collection)
+                                instance.TakeFocus();
                     break;
 
                 case PointerEventData.InputButton.Middle:
