@@ -85,7 +85,7 @@ namespace _SGUI_
         void RaycastUnder(in IDraggable draggable, in PointerEventData eventData)
         {
             results.Clear();
-            ArkUI.instance.ui2D.raycaster.Raycast(eventData, results);
+            ArkUI.instance.graphic_raycaster.Raycast(eventData, results);
 
             bool found = false;
             bool accepts = false;

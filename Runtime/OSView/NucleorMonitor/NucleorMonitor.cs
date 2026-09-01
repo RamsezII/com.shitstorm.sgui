@@ -44,7 +44,7 @@ namespace _SGUI_
             rt_progress.anchorMax = new Vector2(progress, 1);
 
             text.text = schedulable.description;
-            rt.sizeDelta = new Vector2(0, text.GetPreferredValues(text.text, ArkUI.instance.ui2D.canvas_rt.rect.width, float.PositiveInfinity).y);
+            rt.sizeDelta = new Vector2(0, text.GetPreferredValues(text.text, ArkUI.instance.rt_canvas.rect.width, float.PositiveInfinity).y);
         }
 
         //--------------------------------------------------------------------------------------------------------------

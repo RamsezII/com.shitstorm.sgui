@@ -25,7 +25,7 @@ namespace _SGUI_
                     position = Input.mousePosition
                 };
 
-                ArkUI.instance.ui2D.raycaster.Raycast(data, rc_results);
+                ArkUI.instance.graphic_raycaster.Raycast(data, rc_results);
 
                 if (rc_results.Count > 0)
                     switch (e.keyCode)

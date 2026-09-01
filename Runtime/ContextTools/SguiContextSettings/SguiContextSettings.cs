@@ -94,7 +94,7 @@ namespace _SGUI_.context_tools
             float height = vlayout.preferredHeight;
             rt.sizeDelta = new Vector2(init_size.x, Mathf.Min(init_size.y, height));
 
-            if (Util.GetStayInsideCorrection(rt, ArkUI.instance.ui2D.canvas_rt, 5 * Vector2.one, out Vector2 correction))
+            if (Util.GetStayInsideCorrection(rt, ArkUI.instance.rt_canvas, 5 * Vector2.one, out Vector2 correction))
                 rt.position += (Vector3)correction;
         }
     }
