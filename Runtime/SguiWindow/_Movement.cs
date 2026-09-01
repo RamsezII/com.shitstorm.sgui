@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using _ARK_;
 
 namespace _SGUI_
 {
@@ -7,6 +8,9 @@ namespace _SGUI_
     {
         Vector2 saved_size;
         bool occupying_screen_portion;
+        RectTransform drag_space;
+        Vector2 drag_start_pointer, drag_start_position;
+        bool has_drag_start;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -15,11 +19,16 @@ namespace _SGUI_
             if (occupying_screen_portion)
             {
                 occupying_screen_portion = false;
-                Vector2 pos = rt.position;
+                Vector3 pos = rt.position;
                 rt.anchorMin = rt.anchorMax = .5f * Vector2.one;
                 rt.sizeDelta = saved_size;
                 rt.position = pos;
             }
+
+            drag_space = rt.parent as RectTransform;
+            has_drag_start = drag_space != null
+                && ArkUI.instance.ScreenPointToLocalPoint(drag_space, eventData.position, eventData.pressEventCamera, out drag_start_pointer);
+            drag_start_position = rt.anchoredPosition;
         }
 
         protected virtual void OnHeaderDrag(PointerEventData eventData)
@@ -27,8 +36,11 @@ namespace _SGUI_
             if (this is SguiSoftware window1 && window1.fullscreen._value)
                 return;
 
-            Vector2 delta = eventData.delta;
-            rt.position += (Vector3)delta;
+            if (!has_drag_start
+                || !ArkUI.instance.ScreenPointToLocalPoint(drag_space, eventData.position, eventData.pressEventCamera, out Vector2 pointer))
+                return;
+
+            rt.anchoredPosition = drag_start_position + pointer - drag_start_pointer;
 
             if (!CheckPosition(out Vector2 correc))
                 ResizerVisual.instance.UntakeFocus(this);

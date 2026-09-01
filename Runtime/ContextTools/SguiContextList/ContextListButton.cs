@@ -56,7 +56,7 @@ namespace _SGUI_.context_click
 
                 sublist.gameObject.SetActive(true);
 
-                Util.GetWorldCorners(rt, out _, out Vector2 max);
+                Util.GetWorldCorners(rt, out _, out Vector3 max);
                 sublist.rt.position = max;
                 sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 

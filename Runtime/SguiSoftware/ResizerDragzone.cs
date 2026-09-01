@@ -62,38 +62,40 @@ namespace _SGUI_
                 if (!drag_b)
                     return;
 
+                RectTransform resizeRt = ResizerVisual.instance.rt;
+                if (resizeRt.parent is not RectTransform resizeSpace
+                    || !ArkUI.instance.ScreenDeltaToLocal(resizeSpace, eventData.position, eventData.delta, eventData.pressEventCamera, out Vector2 localDelta))
+                    return;
+
                 {
-                    Vector2 pos = ResizerVisual.instance.rt.position;
+                    Vector2 pos = resizeRt.anchoredPosition;
 
                     if ((direction & (DIRS_FLAGS.Top | DIRS_FLAGS.Down)) != 0)
-                        pos.y += .5f * eventData.delta.y;
+                        pos.y += .5f * localDelta.y;
 
                     if ((direction & (DIRS_FLAGS.Left | DIRS_FLAGS.Right)) != 0)
-                        pos.x += .5f * eventData.delta.x;
+                        pos.x += .5f * localDelta.x;
 
-                    ResizerVisual.instance.rt.position = pos;
+                    resizeRt.anchoredPosition = pos;
                 }
 
                 {
-                    ArkUI.instance.ScreenPointToLocalPoint(eventData.delta, out Vector2 ldelta);
-                    SguiLoggerOverlay.Log(ldelta, this, timer: 0);
-
-                    Rect r = ResizerVisual.instance.rt.rect;
+                    Rect r = resizeRt.rect;
 
                     if (direction.HasFlag(DIRS_FLAGS.Top))
-                        r.yMax += ldelta.y;
+                        r.yMax += localDelta.y;
 
                     if (direction.HasFlag(DIRS_FLAGS.Right))
-                        r.xMax += ldelta.x;
+                        r.xMax += localDelta.x;
 
                     if (direction.HasFlag(DIRS_FLAGS.Left))
-                        r.xMin += ldelta.x;
+                        r.xMin += localDelta.x;
 
                     if (direction.HasFlag(DIRS_FLAGS.Down))
-                        r.yMin += ldelta.y;
+                        r.yMin += localDelta.y;
 
-                    ResizerVisual.instance.rt.sizeDelta = r.size;
-                    ResizerVisual.instance.rt.anchorMin = ResizerVisual.instance.rt.anchorMax = .5f * Vector2.one;
+                    resizeRt.sizeDelta = r.size;
+                    resizeRt.anchorMin = resizeRt.anchorMax = .5f * Vector2.one;
                 }
             };
 

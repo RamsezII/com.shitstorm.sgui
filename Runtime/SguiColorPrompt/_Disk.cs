@@ -1,4 +1,5 @@
 ﻿using _UTIL_;
+using _ARK_;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,10 +15,9 @@ namespace _SGUI_
 
             void Drag(PointerEventData eventData)
             {
-                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rt_disk, eventData.position, eventData.pressEventCamera, out Vector2 lpos))
+                if (!ArkUI.instance.ScreenPointToLocalPoint(rt_disk, eventData.position, eventData.pressEventCamera, out Vector2 lpos))
                     return;
 
-                float radius = lpos.magnitude;
                 float angle = Mathf.Atan2(lpos.y, lpos.x);
                 if (angle < 0)
                     angle += 2 * Mathf.PI;
@@ -25,7 +25,9 @@ namespace _SGUI_
                 float hue = angle / (2 * Mathf.PI);
 
                 Color.RGBToHSV(ReadFromSliders(), out _, out float s, out float v);
-                SetNewColor(Color.HSVToRGB(hue, s, v));
+                Color newColor = Color.HSVToRGB(hue, s, v);
+                newColor.a = color.a;
+                SetNewColor(newColor);
             }
         }
     }

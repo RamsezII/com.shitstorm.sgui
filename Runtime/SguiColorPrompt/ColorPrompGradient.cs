@@ -32,6 +32,21 @@ namespace _SGUI_.prompts.color_prompt
                 else
                     tmp_lint.text = text.SetColor(Color.red);
             });
+
+            inputField.onEndEdit.AddListener(text =>
+            {
+                if (Util.TryParseFloat(text, out float value))
+                    _slider.value = Mathf.Clamp(value, _slider.minValue, _slider.maxValue);
+
+                SetDisplayedValue(_slider.value);
+            });
+        }
+
+        public void SetDisplayedValue(float value)
+        {
+            string text = Util.FloatToString(value);
+            inputField.SetTextWithoutNotify(text);
+            tmp_lint.text = text;
         }
     }
 }

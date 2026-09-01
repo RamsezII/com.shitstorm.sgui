@@ -175,8 +175,8 @@ namespace _SGUI_
                 rt_scale.pivot = .5f * Vector2.one;
             else
             {
-                float x = RectTransformUtility.WorldToScreenPoint(null, os_button.rt.position).x;
-                x /= Screen.width;
+                float localX = rt_scale.InverseTransformPoint(os_button.rt.position).x;
+                float x = Mathf.InverseLerp(rt_scale.rect.xMin, rt_scale.rect.xMax, localX);
                 rt_scale.pivot = new(x, 0);
             }
         }

@@ -1,4 +1,5 @@
 ﻿using _SGUI_.prompts.color_prompt;
+using _ARK_;
 using _UTIL_;
 using System;
 using TMPro;
@@ -33,7 +34,7 @@ namespace _SGUI_
 
         [SerializeField] Modes mode;
 
-        [SerializeField] IA_ColorPrompt IA_inputs;
+        IA_ColorPrompt IA_inputs;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -95,7 +96,9 @@ namespace _SGUI_
 
             rt.GetComponent<DragHandler>().onDrag += (PointerEventData eventData) =>
             {
-                rt.anchoredPosition += eventData.delta;
+                if (rt.parent is RectTransform space
+                    && ArkUI.instance.ScreenDeltaToLocal(space, eventData.position, eventData.delta, eventData.pressEventCamera, out Vector2 localDelta))
+                    rt.anchoredPosition += localDelta;
             };
 
             for (int i = 0; i < gradients.Length; ++i)
@@ -103,6 +106,8 @@ namespace _SGUI_
                 var gradient = gradients[i];
                 gradient._slider.onValueChanged.AddListener(value => SetNewColor(ReadFromSliders()));
             }
+
+            tmp_hex.onEndEdit.AddListener(SetHexColor);
 
             dropdown_mode.value = 2;
             dropdown_mode.RefreshShownValue();
@@ -191,16 +196,36 @@ namespace _SGUI_
             SetNewColor(color);
         }
 
-        public void ShowColorPrompt(in Vector2 position, in Color currentColor, in Action<Color> onSubmit, in Action onCancel = null)
+        public void ShowColorPrompt(
+            in Vector2 screenPosition,
+            in Color currentColor,
+            in Action<Color> onSubmit,
+            in Action onCancel = null,
+            Camera eventCamera = null
+        )
         {
             gameObject.SetActive(true);
-            rt.position = position;
+            ArkUI.instance.SetScreenPosition(rt, screenPosition, eventCamera);
 
             current_color.SetColor(currentColor);
-            SetNewColor(color);
+            SetNewColor(currentColor);
 
             _onSubmit = onSubmit;
             _onCancel = onCancel;
+        }
+
+        void SetHexColor(string text)
+        {
+            string html = text.StartsWith("#") ? text : $"#{text}";
+            if (ColorUtility.TryParseHtmlString(html, out Color parsedColor))
+            {
+                parsedColor.a = color.a;
+                SetNewColor(parsedColor);
+            }
+            else
+            {
+                tmp_hex.SetTextWithoutNotify(ColorUtility.ToHtmlStringRGB(color));
+            }
         }
 
         public void SetNewColor(in Color color)
@@ -212,15 +237,13 @@ namespace _SGUI_
             Vector3 hsv = new(H, S, V);
             float angle = H * 2 * Mathf.PI;
 
-            tmp_hex.text = ColorUtility.ToHtmlStringRGB(color);
+            tmp_hex.SetTextWithoutNotify(ColorUtility.ToHtmlStringRGB(color));
 
             rt_disk_sel.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
             rt_square_sel.localPosition = new Vector2(S - .5f, V - .5f) * rt_square.sizeDelta;
 
             gradients[3]._slider.SetValueWithoutNotify(color.a);
             squareGradient_h.color = Color.HSVToRGB(H, 1, 1);
-
-            gradients[3]._slider.SetValueWithoutNotify(color.a);
 
             switch (mode)
             {
@@ -283,7 +306,7 @@ namespace _SGUI_
             for (int i = 0; i < gradients.Length; i++)
             {
                 var gradient = gradients[i];
-                gradient.inputField.text = Util.FloatToString(gradient._slider.value);
+                gradient.SetDisplayedValue(gradient._slider.value);
             }
         }
 

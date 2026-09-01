@@ -66,7 +66,7 @@ namespace _SGUI_
                 case KeyCode.Mouse4:
                 case KeyCode.Mouse5:
                 case KeyCode.Mouse6:
-                    if (!RectTransformUtility.RectangleContainsScreenPoint(rT_intel, Input.mousePosition))
+                    if (!RectTransformUtility.RectangleContainsScreenPoint(rT_intel, Input.mousePosition, ArkUI.instance.cameraUI))
                         ResetIntellisense();
                     return true;
 
@@ -99,7 +99,8 @@ namespace _SGUI_
             ClearIntellisense();
 
             toggle.Value = completions != null;
-            rT_intel.position = position + (Vector3)offset;
+            rT_intel.position = position;
+            rT_intel.anchoredPosition += offset;
 
             foreach (string completion in completions)
             {

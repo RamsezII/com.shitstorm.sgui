@@ -116,7 +116,8 @@ namespace _SGUI_
             if (!HasOptions)
                 return;
 
-            currentList = SguiContextList.instance.InstantiateListHere(rT.position + new Vector3(0, -.5f * rT.rect.height));
+            Vector3 listPosition = rT.TransformPoint(new Vector2(rT.rect.xMin, rT.rect.yMin));
+            currentList = SguiContextList.instance.InstantiateListAtWorldPoint(listPosition);
             currentList.rt.pivot = new Vector2(0, 1);
             currentList.type = ListType;
 

@@ -156,7 +156,7 @@ namespace _SGUI_.context_click
             Util.GetWorldCorners(prt, out Vector2 pmin, out Vector2 pmax);
             Util.GetWorldCorners(rt, out Vector2 min, out Vector2 max);
 
-            Vector2 pos = rt.position;
+            Vector3 pos = rt.position;
 
             for (int i = 0; i < 2; ++i)
             {

@@ -51,7 +51,7 @@ namespace _SGUI_
                 case PointerEventData.InputButton.Right:
                     {
                         bool enable_AddWindow = true, enable_CloseAll = true;
-                        var list = SguiContextList.instance.InstantiateListHere(eventData.position);
+                        var list = SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera);
                         List<Action<ContextListButton>> onButtons = new();
                         onRightClickhandler?.Invoke(eventData, ref enable_AddWindow, ref enable_CloseAll, onButtons);
 

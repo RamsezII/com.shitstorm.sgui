@@ -74,7 +74,7 @@ namespace _SGUI_
                         break;
 
                     case PointerEventData.InputButton.Right:
-                        rt.position = eventData.position;
+                        ArkUI.instance.SetScreenPosition(rt, eventData.position, eventData.pressEventCamera);
                         break;
                 }
             };
@@ -113,11 +113,11 @@ namespace _SGUI_
             gameObject.SetActive(toggle);
         }
 
-        public void OpenHere(in Vector2 screenPosition, in Traductions title)
+        public void OpenAtScreenPoint(in Vector2 screenPosition, in Traductions title, Camera eventCamera = null)
         {
             Toggle(true);
             trad_title.SetTraductions(title);
-            rt.position = screenPosition;
+            ArkUI.instance.SetScreenPosition(rt, screenPosition, eventCamera);
         }
 
         public SearchboxItem AddItem()

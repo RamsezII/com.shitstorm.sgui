@@ -45,12 +45,12 @@ namespace _SGUI_.Monitor.Processes
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            SguiContextHover.instance.AssignUser(this);
+            SguiContextHover.instance.AssignUser(this, eventData.position, eventData.enterEventCamera);
         }
 
         void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
         {
-            SguiContextHover.instance.AssignUser(this);
+            SguiContextHover.instance.AssignUser(this, eventData.position, eventData.enterEventCamera);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -60,8 +60,12 @@ namespace _SGUI_.Monitor.Processes
 
             RectTransform prev_rt = sorters.columns[column_index - 1].rt;
 
+            if (prev_rt.parent is not RectTransform space
+                || !ArkUI.instance.ScreenDeltaToLocal(space, eventData.position, eventData.delta, eventData.pressEventCamera, out Vector2 localDelta))
+                return;
+
             float w = prev_rt.sizeDelta.x;
-            w += eventData.delta.x;
+            w += localDelta.x;
             w = Mathf.Clamp(w, 20, 200);
             prev_rt.sizeDelta = new Vector2(w, sorters.init_height);
 

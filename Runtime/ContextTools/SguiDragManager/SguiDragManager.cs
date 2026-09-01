@@ -20,12 +20,12 @@ namespace _SGUI_
                 instance.gameObject.SetActive(true);
                 instance.text_label.text = DragDisplay;
                 instance.rt_size.sizeDelta = instance.text_label.GetPreferredValues();
-                instance.rt_pos.position = eventData.position;
+                ArkUI.instance.SetScreenPosition(instance.rt_pos, eventData.position, eventData.pressEventCamera);
             }
 
             void IDragHandler.OnDrag(PointerEventData eventData)
             {
-                instance.rt_pos.position = eventData.position;
+                ArkUI.instance.SetScreenPosition(instance.rt_pos, eventData.position, eventData.pressEventCamera);
                 instance.RaycastUnder(this, eventData);
             }
 

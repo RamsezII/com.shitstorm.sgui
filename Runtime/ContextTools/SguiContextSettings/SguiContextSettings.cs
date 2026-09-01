@@ -62,12 +62,12 @@ namespace _SGUI_.context_tools
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void OpenHere(in Vector2 position, in Vector2 pivot, in Traductions title)
+        public void OpenAtWorldPoint(in Vector3 worldPoint, in Vector2 pivot, in Traductions title)
         {
             DestroyChildren();
             gameObject.SetActive(true);
             rt.pivot = pivot;
-            rt.position = position;
+            rt.position = worldPoint;
             AddItem<SettingsHeader>(title);
         }
 

@@ -1,3 +1,4 @@
+using _ARK_;
 using _SGUI_.context_click;
 using System;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace _SGUI_
                     if (eventData.dragging)
                         return;
 
-                    var list = instance.InstantiateListHere(eventData.position);
+                    var list = instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera);
                     OnSguiContextClick(list);
                 }
             }
@@ -55,15 +56,27 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public ContextList InstantiateListHere(in Vector2 mousePosition)
+        ContextList InstantiateList()
         {
             if (scrollview_lastRootList != null)
                 Destroy(scrollview_lastRootList.gameObject);
 
             scrollview_lastRootList = prefab_list.Clone(true);
-            scrollview_lastRootList.rt.position = mousePosition;
-
             return scrollview_lastRootList;
+        }
+
+        public ContextList InstantiateListAtScreenPoint(in Vector2 screenPoint, Camera eventCamera = null)
+        {
+            ContextList list = InstantiateList();
+            ArkUI.instance.SetScreenPosition(list.rt, screenPoint, eventCamera);
+            return list;
+        }
+
+        public ContextList InstantiateListAtWorldPoint(in Vector3 worldPoint)
+        {
+            ContextList list = InstantiateList();
+            list.rt.position = worldPoint;
+            return list;
         }
     }
 }

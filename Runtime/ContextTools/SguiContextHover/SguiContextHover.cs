@@ -16,13 +16,13 @@ namespace _SGUI_
             {
                 if (eventData.dragging)
                     return;
-                instance.AssignUser(this);
+                instance.AssignUser(this, eventData.position, eventData.enterEventCamera);
             }
 
             void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
             {
                 if (this == instance.user)
-                    instance.AssignUser(this);
+                    instance.AssignUser(this, eventData.position, eventData.enterEventCamera);
             }
 
             void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
@@ -33,13 +33,13 @@ namespace _SGUI_
 
         public static SguiContextHover instance;
 
-        Canvas canvas;
         Animator animator;
         RectTransform rt_all, rt_square;
         TextMeshProUGUI text;
         Traductable trad;
         [SerializeField] IUser user;
         Vector2 tpos;
+        Camera eventCamera;
 
         public bool Enabled => state_base == BaseStates.Enable;
 
@@ -51,7 +51,6 @@ namespace _SGUI_
         {
             instance = this;
 
-            canvas = GetComponentInParent<Canvas>();
             animator = GetComponent<Animator>();
 
             rt_all = (RectTransform)transform;
@@ -81,19 +80,14 @@ namespace _SGUI_
 
             trad.SetTraductions(user.OnSguiContextHover());
 
-            Vector2 psize = rt_all.rect.size;
             Vector2 size = text.GetPreferredValues(text.text, 200, float.MaxValue);
 
             rt_square.sizeDelta = size;
-            rt_square.position = tpos;
+            ArkUI.instance.SetScreenPosition(rt_square, tpos, eventCamera);
+            rt_square.anchoredPosition += new Vector2(0, 5 + .5f * size.y);
 
-            Vector2 pos = rt_square.anchoredPosition;
-            pos.y += 5 + .5f * size.y;
-
-            pos.x = Mathf.Clamp(pos.x, 5 + .5f * size.x, psize.x - .5f * size.x - 5);
-            pos.y = Mathf.Clamp(pos.y, 5 + .5f * size.y, psize.y - .5f * size.y - 5);
-
-            rt_square.anchoredPosition = pos;
+            if (rt_square.GetStayInsideCorrection(rt_all, 5 * Vector2.one, out Vector2 correction))
+                rt_square.position += (Vector3)correction;
         }
 
         void ToggleMouseCheck(in bool toggle)
@@ -122,16 +116,16 @@ namespace _SGUI_
                 NUCLEOR.instance.scheduler_unscaled.AddOperation(op = new("wait before hover text", .25f, true, OnOperation));
         }
 
-        public void AssignUser(in IUser user)
+        public void AssignUser(in IUser user, in Vector2 screenPosition, Camera eventCamera)
         {
             if (string.IsNullOrWhiteSpace(user.OnSguiContextHover().GetAutomatic()))
                 return;
 
             this.user = user;
+            tpos = screenPosition;
+            this.eventCamera = eventCamera;
 
             Toggle(false);
-
-            tpos = Input.mousePosition;
 
             ToggleOperation(true);
         }

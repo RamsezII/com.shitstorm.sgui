@@ -115,16 +115,19 @@ namespace _SGUI_
 
                     Mouse.current?.WarpCursorPosition(last_position);
 
-                    rt_cursor.position = last_position;
+                    SetVisualPosition(last_position);
                 }
             }
         }
 
         public void MoveMouse(in Vector2 position)
         {
-            rt_cursor.position = last_position = position;
+            last_position = position;
             Mouse.current?.WarpCursorPosition(last_position);
+            SetVisualPosition(last_position);
         }
+
+        void SetVisualPosition(in Vector2 screenPosition) => ArkUI.instance.SetScreenPosition(rt_cursor, screenPosition);
 
         public void BlockMouse(in object user, in Vector2 mousePos)
         {

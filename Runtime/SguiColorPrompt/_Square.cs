@@ -1,4 +1,5 @@
 ﻿using _UTIL_;
+using _ARK_;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,13 +16,15 @@ namespace _SGUI_
 
             void Drag(PointerEventData eventData)
             {
-                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rt_square, eventData.position, eventData.pressEventCamera, out Vector2 lpos))
+                if (!ArkUI.instance.ScreenPointToLocalPoint(rt_square, eventData.position, eventData.pressEventCamera, out Vector2 lpos))
                     return;
 
                 float saturation = Mathf.Clamp01((lpos.x + rt_square.rect.width / 2) / rt_square.rect.width);
                 float value = Mathf.Clamp01((lpos.y + rt_square.rect.height / 2) / rt_square.rect.height);
                 Color.RGBToHSV(color, out float h, out _, out _);
-                SetNewColor(Color.HSVToRGB(h, saturation, value));
+                Color newColor = Color.HSVToRGB(h, saturation, value);
+                newColor.a = color.a;
+                SetNewColor(newColor);
             }
         }
     }
