@@ -1,7 +1,5 @@
-using _ARK_;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -51,21 +49,6 @@ namespace _SGUI_
             clone.gameObject.SetActive(true);
 
             return clone;
-        }
-
-        public void EditJSon<T>(in string file_path) where T : JSon => EditJSon(file_path, typeof(T));
-        public void EditJSon(string file_path, Type type)
-        {
-            object obj = JsonUtility.FromJson(File.ReadAllText(file_path), type);
-            JSon json = (JSon)obj;
-
-            ReflectionEditor(json, result =>
-            {
-                obj = JsonUtility.FromJson(JsonUtility.ToJson(result), type);
-                json = (JSon)obj;
-                json.Save(file_path, true);
-                NUCLEOR.delegates.OnApplicationFocus?.Invoke();
-            });
         }
     }
 }

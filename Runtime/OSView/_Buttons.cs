@@ -10,7 +10,8 @@ namespace _SGUI_
 
         public Button
             button_bottom_audio,
-            button_bottom_settings;
+            button_home_settings,
+            button_user_settings;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -21,7 +22,8 @@ namespace _SGUI_
             osbuttons_prefabs[typeof(SoftwareButton)] = rootGroup.transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
 
             button_bottom_audio = rootGroup.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
-            button_bottom_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
+            button_home_settings = rootGroup.transform.Find("task-bar/buttons-right/hometexts/button").GetComponent<Button>();
+            button_user_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
         }
 
         //--------------------------------------------------------------------------------------------------------------

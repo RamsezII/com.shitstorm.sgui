@@ -32,12 +32,12 @@ namespace _SGUI_
                     slider = AddButton<SguiCustom_Slider>();
                     slider.trad_label.SetText(splits[(is_01 ? 2 : 3)..].Join("_") + ":");
 
-                    slider.slider.wholeNumbers = is_wholeNumber;
-                    slider.slider.minValue = min;
-                    slider.slider.maxValue = max;
+                    slider._slider.wholeNumbers = is_wholeNumber;
+                    slider._slider.minValue = min;
+                    slider._slider.maxValue = max;
 
                     if (is_wholeNumber)
-                        slider.slider.value = value switch
+                        slider._slider.value = value switch
                         {
                             sbyte _sbyte => _sbyte,
                             byte _byte => _byte,
@@ -50,7 +50,7 @@ namespace _SGUI_
                             _ => throw new NotImplementedException($"wrong type for value \"{value}\" ({value.GetType()})")
                         };
                     else
-                        slider.slider.value = (float)value;
+                        slider._slider.value = (float)value;
 
                     return true;
                 }

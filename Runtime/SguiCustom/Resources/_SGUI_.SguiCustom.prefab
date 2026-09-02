@@ -288,6 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
   autowidth_min: 0
   autowidth_target: {fileID: 0}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Dropdown
     french: Dropdown
@@ -445,6 +447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
   autowidth_min: 0
   autowidth_target: {fileID: 0}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Dropdown
     french: Dropdown
@@ -1292,6 +1296,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._ARK_::_ARK_.Traductable
   autowidth_min: 0
   autowidth_target: {fileID: 0}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Dropdown
     french: Dropdown
@@ -2159,6 +2165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autowidth_min: 0
   autowidth_target: {fileID: 0}
+  autosize_min: {x: 0, y: 0}
+  autosize_target: {fileID: 0}
   traductions:
     english: Enter text...
     french: Entrez du texte...
@@ -2475,6 +2483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9029046451065794914}
   - component: {fileID: 6091699467521886772}
+  - component: {fileID: 6494618561813310909}
   m_Layer: 5
   m_Name: slider
   m_TagString: Untagged
@@ -2555,6 +2564,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6494618561813310909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699984141645578980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376aaa38c4143e54899c2698cf87615d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._UTIL_::_UTIL_.PointerClickHandler
+  propagateToParent: 0
 --- !u!1 &5705277321728365966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3881,7 +3903,8 @@ MonoBehaviour:
   rT_label: {fileID: 0}
   tmp_label: {fileID: 0}
   trad_label: {fileID: 0}
-  slider: {fileID: 0}
+  _slider: {fileID: 0}
+  click_handler: {fileID: 0}
   tmp_value: {fileID: 0}
 --- !u!1001 &2664410271820616167
 PrefabInstance:

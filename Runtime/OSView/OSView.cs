@@ -132,7 +132,7 @@ namespace _SGUI_
                 {
                     french = $"Éteindre {Application.productName.Bold()} ?",
                     english = $"Power off {Application.productName.Bold()}?",
-                }).onAction_confirm += () => ArkMachine.ShutdownApplication();
+                }).onAction_confirm += () => NUCLEOR.ShutdownApplication();
             });
 
             edit_pause.onClick.AddListener(() => NUCLEOR.instance.timeScale_raw.Value = NUCLEOR.instance.timeScale_raw._value > 0 ? 0 : 1);

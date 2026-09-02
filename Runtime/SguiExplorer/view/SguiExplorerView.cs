@@ -45,7 +45,7 @@ namespace _SGUI_
 
             base.Awake();
 
-            root_dpath = ArkMachine.DFHome.FullName;
+            root_dpath = NUCLEOR.DFHome.FullName;
         }
 
         //--------------------------------------------------------------------------------------------------------------

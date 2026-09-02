@@ -1,11 +1,28 @@
-﻿using System.Reflection;
+﻿using _ARK_;
 using System;
-using _ARK_;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
 
 namespace _SGUI_
 {
     partial class SguiCustom
     {
+        public void EditJSon<T>(in string file_path) where T : JSon => EditJSon(typeof(T), file_path);
+        public void EditJSon(Type type, string file_path)
+        {
+            object obj = JsonUtility.FromJson(File.ReadAllText(file_path), type);
+            JSon json = (JSon)obj;
+
+            ReflectionEditor(json, result =>
+            {
+                obj = JsonUtility.FromJson(JsonUtility.ToJson(result), type);
+                json = (JSon)obj;
+                json.Save(file_path, true);
+                NUCLEOR.delegates.OnApplicationFocus?.Invoke();
+            });
+        }
+
         public void ReflectionEditor<T>(T target, Action<object> on_confirm, Traductions title = default)
         {
             object result = target;
@@ -64,31 +81,31 @@ namespace _SGUI_
                             switch (field_value)
                             {
                                 case sbyte:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToSByte(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToSByte(slider._slider.value));
                                     break;
                                 case byte:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToByte(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToByte(slider._slider.value));
                                     break;
                                 case short:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt16(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt16(slider._slider.value));
                                     break;
                                 case ushort:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt16(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt16(slider._slider.value));
                                     break;
                                 case int:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt32(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt32(slider._slider.value));
                                     break;
                                 case uint:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt32(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt32(slider._slider.value));
                                     break;
                                 case long:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt64(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToInt64(slider._slider.value));
                                     break;
                                 case ulong:
-                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt64(slider.slider.value));
+                                    onAction_confirm += () => field.SetValue(result, Convert.ToUInt64(slider._slider.value));
                                     break;
                                 case float:
-                                    onAction_confirm += () => field.SetValue(result, slider.slider.value);
+                                    onAction_confirm += () => field.SetValue(result, slider._slider.value);
                                     break;
                             }
                             break;
@@ -140,10 +157,10 @@ namespace _SGUI_
                             switch (property_value)
                             {
                                 case int _int:
-                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Convert.ToInt32(slider.slider.value));
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, Convert.ToInt32(slider._slider.value));
                                     break;
                                 case float _float:
-                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, slider.slider.value);
+                                    onAction_confirm += () => result = result.ModifyAnonymous(property_name, slider._slider.value);
                                     break;
                             }
                             break;
@@ -200,7 +217,7 @@ namespace _SGUI_
                                     break;
 
                                 case SguiCustom_Slider slider:
-                                    slider.slider.onValueChanged.AddListener(value => OnChange());
+                                    slider._slider.onValueChanged.AddListener(value => OnChange());
                                     break;
                             }
                         }
