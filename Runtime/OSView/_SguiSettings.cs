@@ -39,7 +39,7 @@ namespace _SGUI_
                 window.trad_title.SetTraductions(new() { french = "Réglages Home", english = "Home Settings", });
                 window.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
-                foreach (var target in IHomeTexts._users.GroupBy(target => target.GetType()).Select(target => target.First()))
+                foreach (var target in IArkTexts._users.GroupBy(target => target.GetType()).Select(target => target.First()))
                 {
                     var button = window.AddButton<SguiCustom_Button>();
                     button.trad_label.SetText(target.GetType().FullName);
@@ -50,7 +50,7 @@ namespace _SGUI_
                         var subwindow = SguiWindow.CreatePrompt();
                         subwindow.trad_title.SetText(target.GetType().FullName);
                         subwindow.SetDialogButtons(SguiCancelTypes.Back, SguiConfirmTypes.Ok);
-                        subwindow.EditHomeText(target);
+                        subwindow.EditArkText(target);
                     });
                 }
             });

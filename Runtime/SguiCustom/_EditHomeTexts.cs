@@ -8,7 +8,7 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public void EditHomeText(IHomeTexts target)
+        public void EditArkText(IArkTexts target)
         {
             NUCLEOR.delegates.OnApplicationUnfocus += Oblivionize;
             onOblivion += () => NUCLEOR.delegates.OnApplicationUnfocus -= Oblivionize;
@@ -26,7 +26,7 @@ namespace _SGUI_
                             field.SetValue(target, Enum.ToObject(field.FieldType, new_value));
                         else
                             field.SetValue(target, Convert.ChangeType(new_value, field.FieldType, CultureInfo.InvariantCulture));
-                        target.SaveHomeText(log: true);
+                        target.SaveArkText(log: true);
                         NUCLEOR.delegates.OnApplicationFocus?.Invoke();
                     }
                     catch (Exception ex)
