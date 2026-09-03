@@ -2,6 +2,7 @@
 using _UTIL_;
 using System;
 using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 namespace _SGUI_
@@ -13,7 +14,7 @@ namespace _SGUI_
             NUCLEOR.delegates.OnApplicationUnfocus += Oblivionize;
             onOblivion += () => NUCLEOR.delegates.OnApplicationUnfocus -= Oblivionize;
 
-            foreach (var field in target.EFields<NJEditAttribute>())
+            foreach (var (field, _) in target.EFieldsAndAttributes<NJFieldAttribute>().Where(tuple => tuple.attribute.editable))
             {
                 object current_value = field.GetValue(target);
                 SguiCustom_Abstract button = null;
