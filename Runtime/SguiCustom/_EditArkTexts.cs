@@ -27,6 +27,7 @@ namespace _SGUI_
                             field.SetValue(target, Enum.ToObject(field.FieldType, new_value));
                         else
                             field.SetValue(target, Convert.ChangeType(new_value, field.FieldType, CultureInfo.InvariantCulture));
+
                         target.SaveArkText(log: true);
                         NUCLEOR.delegates.OnApplicationFocus?.Invoke();
                     }
