@@ -1,5 +1,6 @@
 ﻿using _ARK_;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _SGUI_
 {
@@ -8,15 +9,14 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void InitShortcuts()
         {
-            ArkShortcuts.AddShortcut(
+            ArkShortcuts.AddShortcut_keyboard(
                 shortcutName: "change focus",
                 action: static () =>
                 {
-                    if (openWindows._collection.Count > 0)
-                        openWindows._collection[0].TakeFocus();
+
                 },
                 control: true,
-                bindings: "tab"
+                bindings: Key.Tab
             );
         }
     }
