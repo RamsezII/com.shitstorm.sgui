@@ -144,6 +144,8 @@ namespace _SGUI_
                 button.transform.SetAsFirstSibling();
                 button.onContextList = list => onHeaderButtonContextList_settings(this, list);
             }
+
+            CheckBounds();
         }
 
         //--------------------------------------------------------------------------------------------------------------
