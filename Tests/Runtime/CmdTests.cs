@@ -16,7 +16,7 @@ namespace _SGUIS_.Tests
                     if (float.TryParse(read, out float time) && time > 0)
                         context.EnqueueArg(time);
 
-                return new(ERoutine);
+                return CmdExecution.Routine(ERoutine);
                 static IEnumerator<CmdStep> ERoutine(CmdContext context)
                 {
                     for (int i = 0; i < context.ArgsCount; i++)
