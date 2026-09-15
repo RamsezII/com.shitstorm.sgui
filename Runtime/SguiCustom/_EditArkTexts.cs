@@ -28,7 +28,7 @@ namespace _SGUI_
                         else
                             field.SetValue(target, Convert.ChangeType(new_value, field.FieldType, CultureInfo.InvariantCulture));
 
-                        target.SaveArkTexts(log: true);
+                        target.SaveArkTexts();
                         NUCLEOR.delegates.OnApplicationFocus?.Invoke();
                     }
                     catch (Exception ex)
