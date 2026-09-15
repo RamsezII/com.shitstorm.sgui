@@ -116,8 +116,14 @@ namespace _SGUI_
             if (!HasOptions)
                 return;
 
-            Vector3 listPosition = rT.TransformPoint(new Vector2(rT.rect.xMin, rT.rect.yMin));
-            currentList = SguiContextList.instance.InstantiateListAtWorldPoint(listPosition);
+            // changer (codex au pifometre)
+
+            RectTransform buttonRt = (RectTransform)_button.transform;
+            Canvas buttonCanvas = _button.GetComponentInParent<Canvas>().rootCanvas;
+            Camera buttonCamera = buttonCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : buttonCanvas.worldCamera;
+            Vector3 buttonCorner = buttonRt.TransformPoint(buttonRt.rect.min);
+            Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(buttonCamera, buttonCorner);
+            currentList = SguiContextList.instance.InstantiateListAtScreenPoint(screenPosition);
             currentList.rt.pivot = new Vector2(0, 1);
             currentList.type = ListType;
 
