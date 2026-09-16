@@ -36,21 +36,21 @@ namespace _SGUI_
             button_home_settings.onClick.AddListener(() =>
             {
                 var window = SguiWindow.CreatePrompt();
-                window.trad_title.SetTraductions(new() { french = "Réglages Home", english = "Home Settings", });
+                window.trad_title.SetTraductions(new() { french = "Réglages", english = "Settings", });
                 window.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
-                foreach (var target in IArkTexts._users.GroupBy(target => target.GetType()).Select(target => target.First()))
+                foreach (var arkComp in ArkComponent2.instances2.GroupBy(target => target.GetType()).Select(target => target.First()))
                 {
                     var button = window.AddButton<SguiCustom_Button>();
-                    button.trad_label.SetText(target.GetType().FullName);
+                    button.trad_label.SetText(arkComp.GetType().FullName);
 
                     button.button.onClick.AddListener(() =>
                     {
                         window.Oblivionize();
                         var subwindow = SguiWindow.CreatePrompt();
-                        subwindow.trad_title.SetText(target.GetType().FullName);
+                        subwindow.trad_title.SetText(arkComp.GetType().FullName);
                         subwindow.SetDialogButtons(SguiCancelTypes.Back, SguiConfirmTypes.Ok);
-                        subwindow.EditArkText(target);
+                        subwindow.EditArkTexts(arkComp);
                     });
                 }
             });

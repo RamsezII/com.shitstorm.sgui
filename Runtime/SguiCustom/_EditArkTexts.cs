@@ -9,10 +9,12 @@ namespace _SGUI_
 {
     partial class SguiCustom
     {
-        public void EditArkText(IArkTexts target)
+        public void EditArkTexts(ArkComponent2 target)
         {
             NUCLEOR.delegates.OnApplicationUnfocus += Oblivionize;
             onOblivion += () => NUCLEOR.delegates.OnApplicationUnfocus -= Oblivionize;
+
+            onAction_close += () => target.SaveArkTexts(reloadAllTextsAfterSave: true);
 
             foreach (var (field, _) in target.EFieldsAndAttributes<NJFieldAttribute>().Where(tuple => tuple.attribute.editable))
             {
@@ -28,8 +30,7 @@ namespace _SGUI_
                         else
                             field.SetValue(target, Convert.ChangeType(new_value, field.FieldType, CultureInfo.InvariantCulture));
 
-                        target.SaveArkTexts();
-                        NUCLEOR.delegates.OnApplicationFocus?.Invoke();
+                        target.SaveArkTexts(reloadAllTextsAfterSave: true);
                     }
                     catch (Exception ex)
                     {
