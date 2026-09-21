@@ -10,7 +10,7 @@ namespace _SGUI_
         {
             string selected_fsi = null;
 
-            if (this.selected_fsi._value != null)
+            if (this.selected_fsi.Has)
                 selected_fsi = this.selected_fsi._value.current_fsi.FullName;
 
             var all_toggled_folders = GetComponentsInChildren<Button_Folder>(true)

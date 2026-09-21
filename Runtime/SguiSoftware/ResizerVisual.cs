@@ -45,7 +45,7 @@ namespace _SGUI_
             if (current_user._value is Object current_object && current_object == null)
                 current_user.Value = null;
 
-            if (current_user._value != null && current_user._value != user)
+            if (current_user.Has && current_user._value != user)
                 Debug.LogWarning($"user({user}) tried taking UIResizer from user({current_user._value})", this);
             current_user.Value = user;
         }
@@ -58,7 +58,7 @@ namespace _SGUI_
                 return true;
             }
 
-            if (current_user._value == null)
+            if (current_user.HasNot)
                 current_user.Value = null;
 
             return false;

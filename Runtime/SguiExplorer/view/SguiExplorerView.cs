@@ -83,7 +83,7 @@ namespace _SGUI_
 
         public bool TryGetSelectedFSI(out FileSystemInfo fsi)
         {
-            if (selected_fsi._value != null)
+            if (selected_fsi.Has)
             {
                 fsi = selected_fsi._value.current_fsi;
                 return true;
