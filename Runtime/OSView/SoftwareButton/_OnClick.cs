@@ -21,15 +21,15 @@ namespace _SGUI_
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    if (software_instances.IsEmpty)
+                    if (users.IsEmpty)
                         if (onClick_left_empty == null)
                             InstantiateSoftware();
                         else
                             onClick_left_empty(eventData);
                     else if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
-                        if (software_instances._collection.Count == 1)
+                        if (users._collection.Count == 1)
                         {
-                            SguiWindow instance = software_instances._collection[0];
+                            SguiWindow instance = users._collection[0];
                             instance.SetScalePivot(this);
 
                             if (instance.toggle._value)
@@ -38,7 +38,7 @@ namespace _SGUI_
                                 instance.TakeFocus();
                         }
                         else
-                            foreach (var instance in software_instances._collection)
+                            foreach (var instance in users._collection)
                                 instance.TakeFocus();
                     break;
 
@@ -70,9 +70,9 @@ namespace _SGUI_
                         foreach (var onButton in onButtons)
                             onButton(list.AddButton_trad(default));
 
-                        for (int i = 0; i < software_instances._collection.Count; i++)
+                        for (int i = 0; i < users._collection.Count; i++)
                         {
-                            SguiWindow window = software_instances._collection[i];
+                            SguiWindow window = users._collection[i];
                             if (window.trad_title == null)
                                 SguiLoggerOverlay.Log($"error trad: {window}", window, logLevel: SguiLogLevel.Warning);
                             else
@@ -96,9 +96,9 @@ namespace _SGUI_
                             });
                             button._button.onClick.AddListener(() =>
                             {
-                                for (int i = software_instances._collection.Count - 1; i >= 0; --i)
+                                for (int i = users._collection.Count - 1; i >= 0; --i)
                                 {
-                                    SguiWindow window = software_instances._collection[i];
+                                    SguiWindow window = users._collection[i];
                                     window.SetScalePivot(null);
                                     window.Oblivionize();
                                 }

@@ -110,7 +110,7 @@ namespace _SGUI_
             base.Start();
 
             if (os_button != null)
-                os_button.software_instances.AddElement(this);
+                os_button.users.AddElement(this);
 
             StartUI();
             animator.Update(0);
@@ -194,7 +194,7 @@ namespace _SGUI_
             openWindows.RemoveElement(this);
 
             if (os_button != null)
-                os_button.software_instances.RemoveElement(this);
+                os_button.users.RemoveElement(this);
 
             openWindows._listeners2 -= OnWindowsListChanged;
             instances.RemoveElement(this);

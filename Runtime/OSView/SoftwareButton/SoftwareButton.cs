@@ -21,7 +21,7 @@ namespace _SGUI_
         Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_info;
 
         internal SguiSoftware software_prefab;
-        public readonly ListListener<SguiWindow> software_instances = new();
+        public readonly ListListener<SguiWindow> users = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ namespace _SGUI_
 
             rt.sizeDelta = 25 * Vector2.one;
 
-            software_instances.AddListener2(list =>
+            users.AddListener2(list =>
             {
                 for (int i = 0; i < rimg_instances.Length; ++i)
                     rimg_instances[i].gameObject.SetActive(i < list.Count);
@@ -99,9 +99,9 @@ namespace _SGUI_
         {
             bool open = false, focus = false;
 
-            for (int i = 0; i < software_instances._collection.Count; i++)
+            for (int i = 0; i < users._collection.Count; i++)
             {
-                SguiWindow window = software_instances._collection[i];
+                SguiWindow window = users._collection[i];
                 if (!window.oblivionized && window.isActiveAndEnabled)
                 {
                     open = true;
