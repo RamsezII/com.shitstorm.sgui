@@ -3,6 +3,7 @@ using _SGUI_.context_click;
 using _SGUI_.window1;
 using _UTIL_;
 using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace _SGUI_
         [SerializeField] HeaderButton prefab_headerbutton;
         [SerializeField] ResizerDragzone resizer_dragzone;
         [SerializeField] RectTransform rt_unselected;
+        public RectTransform rt_body;
 
         public readonly ValueNotifier<bool> fullscreen = new();
 
@@ -22,15 +24,7 @@ namespace _SGUI_
             min_width = 200,
             min_height = 150;
 
-        public static Action<SguiSoftware, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            onHeaderButtonContextList_settings = onHeaderButtonContextList_help = null;
-        }
+        [AutoStaticsCleanup] public static Action<SguiSoftware, ContextList> onHeaderButtonContextList_settings, onHeaderButtonContextList_help;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -42,6 +36,8 @@ namespace _SGUI_
                     if (ResizerVisual.instance != null)
                         ResizerVisual.instance.UntakeFocus(this);
             });
+
+            rt_body = (RectTransform)transform.Find("scale/rT/body");
 
             base.Awake();
         }
