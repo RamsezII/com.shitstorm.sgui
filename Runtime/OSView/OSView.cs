@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ namespace _SGUI_
 {
     public partial class OSView : MonoBehaviour
     {
-        public static OSView instance;
+        [AutoStaticsCleanup] public static OSView instance;
 
         [HideInInspector] public CanvasGroup rootGroup;
 
@@ -40,14 +41,6 @@ namespace _SGUI_
         public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
 
         readonly object timestopUser = new();
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void OnResetStatics()
-        {
-            onRuntimeSettingsPrompt.Clear();
-        }
 
         //--------------------------------------------------------------------------------------------------------------
 

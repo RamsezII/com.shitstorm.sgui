@@ -2,13 +2,14 @@ using _ARK_;
 using _UTIL_;
 using System.Text;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
 {
     partial class ArkMonitor : MonoBehaviour
     {
-        public static ArkMonitor instance;
+        [AutoStaticsCleanup] public static ArkMonitor instance;
 
         [SerializeField] RectTransform rt;
         [SerializeField] TMP_Text text;

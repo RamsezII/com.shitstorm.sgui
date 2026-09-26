@@ -1,6 +1,7 @@
 ﻿using _ARK_;
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 public enum SguiLogLevel
@@ -15,7 +16,7 @@ public enum SguiLogLevel
 
 partial class SguiLoggerOverlay
 {
-    static readonly List<(string text, float deadline)> logs = new();
+    [AutoStaticsCleanup] static readonly List<(string text, float deadline)> logs = new();
 
     //--------------------------------------------------------------------------------------------------------------
 

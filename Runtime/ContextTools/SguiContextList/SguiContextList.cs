@@ -1,12 +1,13 @@
 using _ARK_;
 using _SGUI_.context_click;
 using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    public class SguiContextList : MonoBehaviour
+    public sealed partial class SguiContextList : MonoBehaviour
     {
         public interface IUser : IPointerClickHandler
         {
@@ -24,20 +25,12 @@ namespace _SGUI_
             }
         }
 
-        public static SguiContextList instance;
+        [AutoStaticsCleanup] public static SguiContextList instance;
 
         [SerializeField] internal ContextList prefab_list;
         [SerializeField] internal ContextList scrollview_lastRootList;
 
-        public static Action<ContextList> onGlobalContextList;
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            onGlobalContextList = null;
-        }
+        [AutoStaticsCleanup] public static Action<ContextList> onGlobalContextList;
 
         //--------------------------------------------------------------------------------------------------------------
 

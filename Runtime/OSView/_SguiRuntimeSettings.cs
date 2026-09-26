@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine.UI;
 
 namespace _SGUI_
 {
     partial class OSView
     {
-        public static readonly Dictionary<object, Action<SguiCustom>> onRuntimeSettingsPrompt = new();
+        [AutoStaticsCleanup] public static readonly Dictionary<object, Action<SguiCustom>> onRuntimeSettingsPrompt = new();
 
         //--------------------------------------------------------------------------------------------------------------
 

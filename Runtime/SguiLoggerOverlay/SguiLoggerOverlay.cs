@@ -2,11 +2,12 @@
 using _UTIL_;
 using System.Text;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 public sealed partial class SguiLoggerOverlay : MonoBehaviour
 {
-    public static SguiLoggerOverlay instance;
+    [AutoStaticsCleanup] public static SguiLoggerOverlay instance;
 
     RectTransform rt;
     TextMeshProUGUI text;
@@ -14,12 +15,6 @@ public sealed partial class SguiLoggerOverlay : MonoBehaviour
     Scheduler.Operation operation;
 
     //--------------------------------------------------------------------------------------------------------------
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void OnResetStatics()
-    {
-        logs.Clear();
-    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoad()

@@ -3,18 +3,19 @@ using _SGUI_.context_tools.settings;
 using _UTIL_;
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_.context_tools
 {
-    public class SguiContextSettings : MonoBehaviour
+    public partial class SguiContextSettings : MonoBehaviour
     {
         public interface IUser
         {
         }
 
-        public static SguiContextSettings instance;
+        [AutoStaticsCleanup] public static SguiContextSettings instance;
 
         public RectTransform rt;
         [SerializeField] VerticalLayoutGroup vlayout;

@@ -1,13 +1,14 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiCompletor : MonoBehaviour
+    public sealed partial class SguiCompletor : MonoBehaviour
     {
-        public static SguiCompletor instance;
+        [AutoStaticsCleanup] public static SguiCompletor instance;
 
         RectTransform rT_intel;
         CompletorItem compl_prefab;
@@ -22,8 +23,6 @@ namespace _SGUI_
 
         private void Awake()
         {
-            instance = this;
-
             rT_intel = (RectTransform)transform.Find("rT");
             offset = rT_intel.localPosition;
 

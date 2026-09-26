@@ -1,6 +1,7 @@
 using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace _SGUI_
 {
     public sealed partial class SoftwareButton : OSButton, SguiContextHover.IUser
     {
-        internal static readonly HashSet<SoftwareButton> instances = new();
+        [AutoStaticsCleanup] internal static readonly HashSet<SoftwareButton> instances = new();
 
         public RectTransform rt;
         public Image img_icon, img_open, img_focus;
@@ -21,14 +22,6 @@ namespace _SGUI_
 
         internal SguiSoftware software_prefab;
         public readonly ListListener<SguiWindow> software_instances = new();
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            instances.Clear();
-        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -131,7 +124,7 @@ namespace _SGUI_
             instances.Remove(this);
 
             if (software_prefab != null)
-                foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include, FindObjectsSortMode.None))
+                foreach (SguiWindow instance in FindObjectsByType(software_prefab.GetType(), FindObjectsInactive.Include))
                     if (instance != null)
                         Destroy(instance.gameObject);
         }

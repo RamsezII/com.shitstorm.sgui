@@ -2,14 +2,15 @@ using _ARK_;
 using _UTIL_;
 using System;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
-    public class SguiInputField : MonoBehaviour, IMGUI_global.IEscapeUser
+    public partial class SguiInputField : MonoBehaviour, IMGUI_global.IEscapeUser
     {
-        public static SguiInputField instance;
+        [AutoStaticsCleanup] public static SguiInputField instance;
 
         [SerializeField] RectTransform rt;
         [SerializeField] CanvasGroup canvasGroup;

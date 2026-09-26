@@ -1,6 +1,7 @@
 ﻿using _ARK_;
 using _UTIL_;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,7 +32,7 @@ namespace _SGUI_
             }
         }
 
-        public static SguiContextHover instance;
+        [AutoStaticsCleanup] public static SguiContextHover instance;
 
         Animator animator;
         RectTransform rt_all, rt_square;

@@ -3,6 +3,7 @@ using _SGUI_.searchbox;
 using _UTIL_;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace _SGUI_
 {
     public sealed partial class SguiSearchbox : ArkComponent1
     {
-        public static SguiSearchbox instance;
+        [AutoStaticsCleanup] public static SguiSearchbox instance;
 
         [SerializeField] CanvasGroup canvasGroup;
         RectTransform rt;

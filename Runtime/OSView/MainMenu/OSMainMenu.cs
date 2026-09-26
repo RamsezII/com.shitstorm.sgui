@@ -1,3 +1,4 @@
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ namespace _SGUI_
 {
     internal partial class OSMainMenu : MonoBehaviour
     {
-        internal static OSMainMenu instance;
+        [AutoStaticsCleanup] internal static OSMainMenu instance;
         [HideInInspector] public Animator animator;
         public bool IsActive => state_base == BaseStates.Enable;
 
