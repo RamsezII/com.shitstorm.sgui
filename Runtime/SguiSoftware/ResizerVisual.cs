@@ -71,8 +71,7 @@ namespace _SGUI_
         protected override void OnDestroy()
         {
             current_user.RemoveListener(OnCurrentUserChanged);
-            current_user.Reset();
-            current_user.Dispose();
+            current_user.Clear();
 
             if (instance == this)
                 instance = null;
