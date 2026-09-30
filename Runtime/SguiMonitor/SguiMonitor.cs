@@ -1,4 +1,5 @@
 using _SGUI_.Monitor;
+using _SGUI_.composer;
 using _SGUI_.Monitor.Processes;
 using _SGUI_.Monitor.Resources;
 using _UTIL_;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    public class SguiMonitor : SguiSoftware
+    public class SguiMonitor : SguiFrame
     {
         public enum Pages : byte
         {
@@ -35,19 +36,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnInitialize()
+        protected override void Awake()
         {
             page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);
             page_resources = GetComponentInChildren<ResourcesPage>(includeInactive: true);
             pages_buttons = GetComponentsInChildren<PageButton>(includeInactive: true);
 
-            base.OnInitialize();
-
-            trad_title.SetTraductions(new()
-            {
-                french = "Moniteur",
-                english = "Monitor",
-            });
+            base.Awake();
 
             page_processes.OnAwake();
             page_resources.OnAwake();

@@ -7,7 +7,7 @@ namespace _SGUI_
 {
     class ResizerDragzone : ArkComponent1
     {
-        public SguiSoftware window;
+        public SguiComposer window;
         [SerializeField] internal DIRS_FLAGS direction;
         [SerializeField] internal bool hover_b, drag_b;
 
@@ -15,7 +15,7 @@ namespace _SGUI_
 
         protected override void Awake()
         {
-            window = GetComponentInParent<SguiSoftware>();
+            window = GetComponentInParent<SguiComposer>();
             base.Awake();
         }
 

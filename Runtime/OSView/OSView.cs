@@ -1,4 +1,5 @@
 using _ARK_;
+using _SGUI_.composer;
 using _SGUI_.osview;
 using _UTIL_;
 using System;
@@ -150,12 +151,12 @@ namespace _SGUI_
 
         public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
 
-        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiSoftware => AddSoftwareButton(typeof(T), hoverInfos);
+        public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiFrame => AddSoftwareButton(typeof(T), hoverInfos);
         public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
         {
             if (!softwaresButtons.TryGetValue(type, out SoftwareButton button) || button == null)
             {
-                SguiSoftware prefab = (SguiSoftware)Util.LoadResourceByType(type);
+                SguiFrame prefab = (SguiFrame)Util.LoadResourceByType(type);
                 if (prefab == null)
                     Debug.LogError($"{this}: Failed to load software prefab of type '{type}'.", this);
                 else
@@ -163,7 +164,7 @@ namespace _SGUI_
                     softwaresButtons[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
                     button.hover_info = hoverInfos;
                     button.rimg_icon.texture = prefab.window_icon;
-                    button.software_prefab = prefab;
+                    button.frame_prefab = prefab;
                     button.gameObject.SetActive(true);
                 }
             }

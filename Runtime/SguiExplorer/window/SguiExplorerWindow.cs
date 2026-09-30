@@ -1,8 +1,9 @@
 using UnityEngine;
+using _SGUI_.composer;
 
 namespace _SGUI_
 {
-    public sealed class SguiExplorerWindow : SguiSoftware
+    public sealed class SguiExplorerWindow : SguiFrame
     {
         public SguiExplorerView view;
 
@@ -20,17 +21,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal protected override void OnInitialize()
+        protected override void Awake()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
 
-            base.OnInitialize();
-
-            trad_title.SetTraductions(new()
-            {
-                french = $"Explorateur",
-                english = "Explorer",
-            });
+            base.Awake();
         }
     }
 }

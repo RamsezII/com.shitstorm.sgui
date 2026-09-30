@@ -1,23 +1,16 @@
 using _ARK_;
 using _UTIL_;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
 {
-    class ResizerVisual : ArkComponent1
+    internal partial class ResizerVisual : ArkComponent1
     {
-        public static ResizerVisual instance;
+        [AutoStaticsCleanup] public static ResizerVisual instance;
 
         public RectTransform rt;
         readonly ValueNotifier<object> current_user = new();
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            instance = null;
-        }
 
         //--------------------------------------------------------------------------------------------------------------
 

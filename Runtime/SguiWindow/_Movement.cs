@@ -33,7 +33,7 @@ namespace _SGUI_
 
         protected virtual void OnHeaderDrag(PointerEventData eventData)
         {
-            if (this is SguiSoftware window1 && window1.fullscreen._value)
+            if (this is SguiComposer window1 && window1.fullscreen._value)
                 return;
 
             if (!has_drag_start

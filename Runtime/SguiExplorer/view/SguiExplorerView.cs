@@ -43,6 +43,9 @@ namespace _SGUI_
             prefab_folder = GetComponentInChildren<Button_Folder>(true);
             prefab_file = GetComponentInChildren<Button_File>(true);
 
+            prefab_folder.gameObject.SetActive(false);
+            prefab_file.gameObject.SetActive(false);
+
             base.Awake();
 
             root_dpath = NUCLEOR.DFHome.FullName;

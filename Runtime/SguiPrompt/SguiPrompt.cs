@@ -27,9 +27,6 @@ namespace _SGUI_
             rimg_background = transform.Find("background").GetComponent<RawImage>();
             huable_background = rt.Find("background").GetComponent<Graphic>();
 
-            buttons_rt = (RectTransform)rt.Find("header/buttons");
-            button_close = buttons_rt.Find("button-close/Button").GetComponent<Button>();
-
             button_cancel = rt.Find("footer/button_cancel").GetComponent<Button>();
             button_confirm = rt.Find("footer/button_confirm").GetComponent<Button>();
 

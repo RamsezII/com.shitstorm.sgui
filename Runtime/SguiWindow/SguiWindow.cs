@@ -2,14 +2,15 @@
 using _UTIL_;
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public partial class SguiWindow : ArkComponent1, SguiGlobal.ISguiGlobalLeftClick
     {
-        public static readonly ListListener<SguiWindow> instances = new();
-        public static readonly ListListener<SguiWindow> openWindows = new();
+        [AutoStaticsCleanup] public static readonly ListListener<SguiWindow> instances = new();
+        [AutoStaticsCleanup] public static readonly ListListener<SguiWindow> openWindows = new();
         public readonly ValueNotifier<bool> isFocused = new();
 
         [HideInInspector] public Animator animator;
@@ -21,11 +22,10 @@ namespace _SGUI_
         [SerializeField] protected bool animate_hue = true;
 
         public Texture window_icon;
-        protected SoftwareButton os_button;
 
         public Traductions sgui_description;
 
-        static uint _id;
+        [AutoStaticsCleanup] static uint _id;
         public uint id;
         bool initialized;
 
@@ -34,9 +34,6 @@ namespace _SGUI_
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetStatics()
         {
-            _id = 0;
-            instances.Reset();
-            openWindows.Reset();
             openWindows.AddListener2(list => SoftwareButton.RefreshAllOpenStates());
         }
 
@@ -72,9 +69,6 @@ namespace _SGUI_
 
             AwakeUI();
 
-            if (window_icon != null)
-                os_button = OSView.instance.AddSoftwareButton(GetType(), new(GetType().FullName));
-
             trad_title.SetText($"[{id}] {GetType().Name}");
             sgui_description = new($"[{id}] {GetType().FullName}");
 
@@ -92,7 +86,6 @@ namespace _SGUI_
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
             if (animate_hue)
                 NUCLEOR.delegates.LateUpdate += UpdateHue;
-            os_button?.RefreshOpenState();
         }
 
         protected override void OnDisable()
@@ -100,7 +93,6 @@ namespace _SGUI_
             base.OnDisable();
 
             NUCLEOR.delegates.LateUpdate -= UpdateHue;
-            os_button?.RefreshOpenState();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -108,9 +100,6 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-
-            if (os_button != null)
-                os_button.users.AddElement(this);
 
             StartUI();
             animator.Update(0);
@@ -175,7 +164,7 @@ namespace _SGUI_
                 rt_scale.pivot = .5f * Vector2.one;
             else
             {
-                float localX = rt_scale.InverseTransformPoint(os_button.rt.position).x;
+                float localX = rt_scale.InverseTransformPoint(button.rt.position).x;
                 float x = Mathf.InverseLerp(rt_scale.rect.xMin, rt_scale.rect.xMax, localX);
                 rt_scale.pivot = new(x, 0);
             }
@@ -193,9 +182,6 @@ namespace _SGUI_
             instances.RemoveElement(this);
             openWindows.RemoveElement(this);
 
-            if (os_button != null)
-                os_button.users.RemoveElement(this);
-
             openWindows._listeners2 -= OnWindowsListChanged;
             instances.RemoveElement(this);
             openWindows.RemoveElement(this);
@@ -204,7 +190,7 @@ namespace _SGUI_
 
             button_close?.onClick.RemoveListener(ResetScalePivot);
             button_close?.onClick.RemoveListener(OnClickClose);
-            os_button?.RefreshOpenState();
+            SoftwareButton.RefreshAllOpenStates();
 
             onFunc_close = null;
             onAction_close = null;

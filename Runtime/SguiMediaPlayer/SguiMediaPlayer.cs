@@ -1,12 +1,13 @@
 using UnityEngine;
+using _SGUI_.composer;
 using UnityEngine.Video;
 
 namespace _SGUI_
 {
-    public partial class SguiMediaPlayer : SguiSoftware
+    public partial class SguiMediaPlayer : SguiFrame
     {
-        [HideInInspector] public VideoPlayer video_player;
-        [HideInInspector] public AudioSource audio_source;
+        public VideoPlayer video_player;
+        public AudioSource audio_source;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -18,17 +19,6 @@ namespace _SGUI_
                 french = "Lecteur multimédia",
                 english = "Médiaplayer",
             });
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        internal protected override void OnInitialize()
-        {
-            Transform video_rt = transform.Find("rT/body/video_player");
-            video_player = video_rt.GetComponent<VideoPlayer>();
-            audio_source = video_rt.GetComponent<AudioSource>();
-
-            base.OnInitialize();
         }
     }
 }
