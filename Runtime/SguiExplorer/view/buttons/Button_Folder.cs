@@ -16,7 +16,7 @@ namespace _SGUI_.Explorer
 
         public readonly ValueNotifier<bool> toggle = new();
 
-        public DirectoryInfo current_dir;
+        [NonSerialized] public DirectoryInfo current_dir;
         internal readonly Dictionary<string, Button_Hierarchy> paths_buttons = new(StringComparer.Ordinal);
 
         //--------------------------------------------------------------------------------------------------------------

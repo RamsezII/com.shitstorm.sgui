@@ -1,11 +1,12 @@
 ﻿using _ARK_;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
 {
     public sealed partial class SguiGlobal : MonoBehaviour, ArkUI.IGuiGlobal
     {
-        public static SguiGlobal instance;
+        [AutoStaticsCleanup] public static SguiGlobal instance;
 
         internal RectTransform rt_sgui_prompts;
 

@@ -1,5 +1,6 @@
 ﻿using _ARK_;
 using _UTIL_;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_
@@ -13,7 +14,7 @@ namespace _SGUI_
         readonly ValueNotifier<bool> toggle = new();
         public readonly ValueNotifier<bool> isVisible = new();
 
-        static readonly object auto_usage = new();
+        [NoAutoStaticsCleanup] static readonly object auto_usage = new();
         public void ToggleSelf(in bool toggle) => users_forceOpen.ToggleElement(auto_usage, toggle);
 
         [SerializeField, Range(0, 1)] float toggle_lerp;

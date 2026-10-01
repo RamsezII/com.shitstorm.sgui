@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_
 {
-    public partial class OSView : MonoBehaviour
+    public sealed partial class OSView : MonoBehaviour
     {
         [AutoStaticsCleanup] public static OSView instance;
 

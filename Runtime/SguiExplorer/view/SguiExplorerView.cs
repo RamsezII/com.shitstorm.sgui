@@ -4,6 +4,7 @@ using _SGUI_.Explorer;
 using _UTIL_;
 using System;
 using System.IO;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,17 +23,8 @@ namespace _SGUI_
 
         internal readonly ValueNotifier<Button_Hierarchy> selected_fsi = new();
 
-        public static Action<ContextList, DirectoryInfo> onContextClick_directory;
-        public static Action<ContextList, FileInfo> onContextClick_file;
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            onContextClick_directory = null;
-            onContextClick_file = null;
-        }
+        [AutoStaticsCleanup] public static Action<ContextList, DirectoryInfo> onContextClick_directory;
+        [AutoStaticsCleanup] public static Action<ContextList, FileInfo> onContextClick_file;
 
         //--------------------------------------------------------------------------------------------------------------
 

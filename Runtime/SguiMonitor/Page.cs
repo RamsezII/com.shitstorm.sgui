@@ -1,32 +1,24 @@
 using _ARK_;
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SGUI_.Monitor
 {
-    public abstract class Page : MonoBehaviour
+    public abstract partial class Page : MonoBehaviour
     {
-        static readonly Dictionary<Type, HashSet<Page>> all_active_pages = new();
-        static readonly Dictionary<Type, Action<Page>> pages_populators = new();
-        HashSet<Page> active_pages;
+        [AutoStaticsCleanup] static readonly Dictionary<Type, HashSet<Page>> all_active_pages = new();
+        [AutoStaticsCleanup] static readonly Dictionary<Type, Action<Page>> pages_populators = new();
 
+        HashSet<Page> active_pages;
         public SguiMonitor monitor;
         public ScrollRect scrollview;
         public VerticalLayoutGroup vlayout;
         [SerializeField] Section prefab_section;
 
         readonly List<Section> sections = new();
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
-        {
-            all_active_pages.Clear();
-            pages_populators.Clear();
-        }
 
         //--------------------------------------------------------------------------------------------------------------
 

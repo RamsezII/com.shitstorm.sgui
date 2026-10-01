@@ -5,7 +5,7 @@ namespace _SGUI_.Monitor.Resources
 {
     public class TimeGraph : ResourcesSectionChild
     {
-        public new UI_TimeGraphRenderer renderer;
+        public UI_TimeGraphRenderer renderer;
         public Scheduler.Operation op_refresh;
         public float renderStep = .2f;
 

@@ -2,6 +2,7 @@ using _ARK_;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -47,7 +48,7 @@ namespace _SGUI_
             }
         }
 
-        public static SguiDragManager instance;
+        [AutoStaticsCleanup] public static SguiDragManager instance;
 
         [SerializeField] RectTransform rt_pos, rt_size;
         [SerializeField] RawImage rimg_ok, rimg_no, rimg_none;

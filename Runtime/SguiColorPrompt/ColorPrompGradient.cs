@@ -10,7 +10,7 @@ namespace _SGUI_.prompts.color_prompt
         [SerializeField] SguiColorPrompt prompt;
         public TextMeshProUGUI label;
         public Slider _slider;
-        public new UI_GradientRenderer renderer;
+        public UI_GradientRenderer renderer;
         public TMP_InputField inputField;
         [SerializeField] TextMeshProUGUI tmp_lint;
 

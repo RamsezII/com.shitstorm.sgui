@@ -41,14 +41,20 @@ namespace _SGUI_.composer
         public void OnSguiGlobalLeftClick() => frame.TakeFocus();
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left) frame?.TakeFocus();
-            else if (eventData.button == PointerEventData.InputButton.Middle) frame?.RequestClose();
+            if (eventData.button == PointerEventData.InputButton.Left)
+                frame.TakeFocus();
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+                frame.RequestClose();
         }
 
         void OnContextList(ContextList list)
         {
-            var close = list.AddButton_trad(new() { french = "Fermer l’onglet", english = "Close tab" });
-            close._button.onClick.AddListener(() => frame?.RequestClose());
+            var close = list.AddButton_trad(new()
+            {
+                french = "Fermer l’onglet",
+                english = "Close tab",
+            });
+            close._button.onClick.AddListener(() => frame.RequestClose());
         }
 
         //--------------------------------------------------------------------------------------------------------------

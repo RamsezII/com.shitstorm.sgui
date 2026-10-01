@@ -1,4 +1,5 @@
 ﻿using _SGUI_.context_click;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace _SGUI_.Explorer
 {
     internal partial class Button_File : Button_Hierarchy
     {
-        public FileInfo current_file;
+        [NonSerialized] public FileInfo current_file;
 
         //--------------------------------------------------------------------------------------------------------------
 

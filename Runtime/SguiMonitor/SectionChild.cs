@@ -33,7 +33,7 @@ namespace _SGUI_.Monitor
 
         protected virtual void OnDestroy()
         {
-            section?.elements_clones.Remove(this);
+            section.elements_clones.Remove(this);
         }
     }
 }

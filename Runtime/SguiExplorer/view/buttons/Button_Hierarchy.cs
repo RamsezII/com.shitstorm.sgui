@@ -1,5 +1,6 @@
 ﻿using _ARK_;
 using _SGUI_.context_click;
+using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace _SGUI_.Explorer
         public TextMeshProUGUI text;
         public int depth;
 
-        public FileSystemInfo current_fsi;
+        [NonSerialized] public FileSystemInfo current_fsi;
         public string normalized_path;
 
         string SguiDragManager.IDraggable.DragDisplay => normalized_path;

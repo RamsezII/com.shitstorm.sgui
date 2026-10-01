@@ -1,5 +1,7 @@
 ﻿using _ARK_;
 using _UTIL_;
+using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +23,7 @@ namespace _SGUI_
 
     public sealed partial class SguiCursor : MonoBehaviour
     {
-        public static SguiCursor instance;
+        [AutoStaticsCleanup] public static SguiCursor instance;
 
         public interface IUser
         {
@@ -30,7 +32,7 @@ namespace _SGUI_
 
         [HideInInspector] public Animator animator;
         [SerializeField] RectTransform rt_cursor, rt_label, rt_icon_default;
-        public IA_SguiCursor inputActions;
+        [NonSerialized] public IA_SguiCursor inputActions;
 
         readonly ListListener block_users = new();
         public Vector2 last_position;

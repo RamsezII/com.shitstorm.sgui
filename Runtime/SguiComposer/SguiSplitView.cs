@@ -64,20 +64,24 @@ namespace _SGUI_.composer
 
         public void SelectFrame(SguiFrame frame)
         {
-            if (frame == null || frame.oblivionized || !frames.Contains(frame)) return;
+            SguiLoggerOverlay.Log($"SelectFrame {frame?.sgui_name} ({frame?.GetType().FullName})");
+
+            if (frame == null || frame.oblivionized || !frames.Contains(frame))
+                return;
+
             current_tab.Value = frame.tab;
             composer.active_frame.Value = frame;
-            NUCLEOR.delegates.LateUpdate_onEndOfFrame_once += () =>
-            {
-                if (this == null || frame == null || current_tab._value != frame.tab)
-                    return;
-                Canvas.ForceUpdateCanvases();
-                var bounds = RectTransformUtility.CalculateRelativeRectTransformBounds(scrollview.viewport, frame.tab.transform);
-                var viewport = scrollview.viewport.rect;
-                float correction = bounds.min.x < viewport.xMin ? viewport.xMin - bounds.min.x : bounds.max.x > viewport.xMax ? viewport.xMax - bounds.max.x : 0;
-                scrollview.StopMovement();
-                scrollview.content.anchoredPosition += new Vector2(correction, 0);
-            };
+
+            if (this == null || frame == null || current_tab._value != frame.tab)
+                return;
+
+            Canvas.ForceUpdateCanvases();
+
+            var bounds = RectTransformUtility.CalculateRelativeRectTransformBounds(scrollview.viewport, frame.tab.transform);
+            var viewport = scrollview.viewport.rect;
+            float correction = bounds.min.x < viewport.xMin ? viewport.xMin - bounds.min.x : bounds.max.x > viewport.xMax ? viewport.xMax - bounds.max.x : 0;
+            scrollview.StopMovement();
+            scrollview.content.anchoredPosition += new Vector2(correction, 0);
         }
 
         void OnCurrentTab(SguiTabHeader selected)

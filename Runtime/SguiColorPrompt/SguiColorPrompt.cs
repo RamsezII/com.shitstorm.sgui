@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Unity.Scripting.LifecycleManagement;
 
 namespace _SGUI_
 {
@@ -18,7 +19,7 @@ namespace _SGUI_
             HSV_0_1,
         }
 
-        public static SguiColorPrompt instance;
+        [AutoStaticsCleanup] public static SguiColorPrompt instance;
 
         [SerializeField] Color color;
         [SerializeField] RectTransform rt;
