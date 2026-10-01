@@ -24,6 +24,8 @@ namespace _SGUI_.composer
         public Action onAction_close, onOblivion;
         public SoftwareButton os_button;
 
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Awake()
         {
             pview = GetComponentInParent<SguiSplitView>(true);
@@ -44,12 +46,7 @@ namespace _SGUI_.composer
             }
         }
 
-        protected override void Start()
-        {
-            base.Start();
-            isFocused.AddListener(OnToggleFocus);
-            OnResized();
-        }
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnEnable()
         {
@@ -62,6 +59,17 @@ namespace _SGUI_.composer
             isFocused.Value = false;
             base.OnDisable();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void Start()
+        {
+            base.Start();
+            isFocused.AddListener(OnToggleFocus);
+            OnResized();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         internal void RefreshFocus()
         {
@@ -105,31 +113,36 @@ namespace _SGUI_.composer
 
         public void Oblivionize()
         {
-            if (oblivionized) return;
+            if (oblivionized) 
+                return;
             oblivionized = true;
+
             isFocused.Value = false;
             instances.RemoveElement(this);
             os_button?.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
             pview?.RemoveFrame(this);
+
             OnOblivion();
             onOblivion?.Invoke();
+
             onFunc_close = null;
             onAction_close = onOblivion = null;
-            if (!_destroyed) Destroy(gameObject);
+
+            if (!_destroyed) 
+                Destroy(gameObject);
         }
 
         protected virtual void OnOblivion() { }
 
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
+
             Oblivionize();
             isFocused.Clear();
         }
-
-        public static SguiCustom CreatePrompt() => SguiWindow.CreatePrompt();
-        public static SguiCustom ShowAlert(in SguiDialogs type, out SguiCustom_Alert alert, in Traductions traductions) => SguiWindow.ShowAlert(type, out alert, traductions);
-        public static SguiCustom ShowProgressBar(out SguiCustom_Progress progress_bar, in bool no_label = false, in bool no_cancel = false) => SguiWindow.ShowProgressBar(out progress_bar, no_label, no_cancel);
     }
 }

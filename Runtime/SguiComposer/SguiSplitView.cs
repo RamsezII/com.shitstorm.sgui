@@ -1,6 +1,5 @@
 using _ARK_;
 using _UTIL_;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +10,12 @@ namespace _SGUI_.composer
     {
         internal readonly ValueNotifier<SguiTabHeader> current_tab = new();
         [SerializeField] RectTransform rt_body;
-        public SguiComposer composer { get; private set; }
+        public SguiComposer composer;
         [SerializeField] ScrollRect scrollview;
         [SerializeField] SguiTabHeader prefab_tabHeader;
         public readonly List<SguiFrame> frames = new();
+
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
@@ -27,8 +28,7 @@ namespace _SGUI_.composer
             current_tab.AddListener(OnCurrentTab);
         }
 
-        public T AddTab<T>() where T : SguiFrame => (T)AddTab(typeof(T));
-        public SguiFrame AddTab(in Type type) => AddTab((SguiFrame)Util.LoadResourceByType(type));
+        //--------------------------------------------------------------------------------------------------------------
 
         public SguiFrame AddTab(SguiFrame prefab)
         {
@@ -54,7 +54,7 @@ namespace _SGUI_.composer
 
             frame.rt.FillParent();
             frames.Add(frame);
-            header.SetIcon(frame.window_icon);
+            header.rimg_icon.texture = prefab.window_icon;
             SelectFrame(frame);
 
             prefab.gameObject.SetActive(prefabWasActive);
@@ -104,6 +104,8 @@ namespace _SGUI_.composer
             if (selected && frames.Count > 0) SelectFrame(frames[Mathf.Min(index, frames.Count - 1)]);
             composer.OnFrameRemoved(frame);
         }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnDestroy()
         {

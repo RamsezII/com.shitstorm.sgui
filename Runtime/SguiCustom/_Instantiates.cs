@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _SGUI_
 {
-    partial class SguiWindow
+    partial class SguiCustom
     {
         public static SguiCustom CreatePrompt() => ShowPrompt<SguiCustom>();
 

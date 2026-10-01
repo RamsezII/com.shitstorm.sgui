@@ -14,6 +14,9 @@ namespace _SGUI_.composer
         public Traductable trad_title;
         public readonly ValueNotifier<bool> isSelected = new();
         [SerializeField] RawImage background;
+        [SerializeField] internal RawImage rimg_icon;
+
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void Awake()
         {
@@ -27,11 +30,7 @@ namespace _SGUI_.composer
                 listhandler.callback += OnContextList;
         }
 
-        internal void SetIcon(Texture texture)
-        {
-            var image = transform.Find("software-icon")?.GetComponent<RawImage>();
-            if (image != null) image.texture = texture;
-        }
+        //--------------------------------------------------------------------------------------------------------------
 
         void RefreshSize()
         {
@@ -52,11 +51,18 @@ namespace _SGUI_.composer
             close._button.onClick.AddListener(() => frame?.RequestClose());
         }
 
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void OnDestroy()
         {
-            if (trad_title != null) trad_title.onRefresh -= RefreshSize;
-            if (listhandler != null) listhandler.callback -= OnContextList;
+            if (trad_title != null)
+                trad_title.onRefresh -= RefreshSize;
+
+            if (listhandler != null)
+                listhandler.callback -= OnContextList;
+
             isSelected.Clear();
+
             base.OnDestroy();
         }
     }

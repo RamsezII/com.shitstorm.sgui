@@ -86,7 +86,7 @@ namespace _SGUI_.Explorer
 
                     button._button.onClick.AddListener(() =>
                     {
-                        var window = SguiWindow.CreatePrompt();
+                        var window = SguiCustom.CreatePrompt();
                         window.trad_title.SetTraductions(trad_rename);
 
                         var inputfield = window.AddButton<SguiCustom_InputField>();
@@ -102,7 +102,7 @@ namespace _SGUI_.Explorer
 
                             if (string.IsNullOrWhiteSpace(name))
                             {
-                                SguiWindow.ShowAlert(SguiDialogs.Error, out _, new()
+                                SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
                                 {
                                     french = "Choisissez un nom",
                                     english = "Choose a name",
@@ -146,7 +146,7 @@ namespace _SGUI_.Explorer
 
                     button._button.onClick.AddListener(() =>
                     {
-                        var window = SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
+                        var window = SguiCustom.ShowAlert(SguiDialogs.Dialog, out _, new()
                         {
                             french = $"Supprimer \"{current_fsi.Name}\" ?",
                             english = $"Delete \"{current_fsi.Name}\"?",

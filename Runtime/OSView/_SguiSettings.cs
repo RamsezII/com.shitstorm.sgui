@@ -10,7 +10,7 @@ namespace _SGUI_
         {
             button_user_settings.onClick.AddListener(() =>
             {
-                var window = SguiWindow.CreatePrompt();
+                var window = SguiCustom.CreatePrompt();
                 window.trad_title.SetTraductions(new() { french = "Réglages Machine", english = "Machine Settings", });
                 window.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
@@ -25,7 +25,7 @@ namespace _SGUI_
 
                             button.button.onClick.AddListener(() =>
                             {
-                                var subwindow = SguiWindow.CreatePrompt();
+                                var subwindow = SguiCustom.CreatePrompt();
                                 subwindow.trad_title.SetText(file.Name);
                                 subwindow.SetDialogButtons(SguiCancelTypes.Back, SguiConfirmTypes.Save);
                                 subwindow.EditJSon(type, file.FullName);
@@ -35,7 +35,7 @@ namespace _SGUI_
 
             button_home_settings.onClick.AddListener(() =>
             {
-                var window = SguiWindow.CreatePrompt();
+                var window = SguiCustom.CreatePrompt();
                 window.trad_title.SetTraductions(new() { french = "Réglages", english = "Settings", });
                 window.SetDialogButtons(SguiCancelTypes.Off, SguiConfirmTypes.Ok);
 
@@ -47,7 +47,7 @@ namespace _SGUI_
                     button.button.onClick.AddListener(() =>
                     {
                         window.Oblivionize();
-                        var subwindow = SguiWindow.CreatePrompt();
+                        var subwindow = SguiCustom.CreatePrompt();
                         subwindow.trad_title.SetText(arkComp.GetType().FullName);
                         subwindow.SetDialogButtons(SguiCancelTypes.Back, SguiConfirmTypes.Ok);
                         subwindow.EditArkTexts(arkComp);

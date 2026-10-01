@@ -122,7 +122,7 @@ namespace _SGUI_
 
             edit_close.onClick.AddListener(() =>
             {
-                SguiWindow.ShowAlert(SguiDialogs.Dialog, out _, new()
+                SguiCustom.ShowAlert(SguiDialogs.Dialog, out _, new()
                 {
                     french = $"Éteindre {Application.productName.Bold()} ?",
                     english = $"Power off {Application.productName.Bold()}?",

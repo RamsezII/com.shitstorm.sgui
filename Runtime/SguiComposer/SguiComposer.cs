@@ -14,12 +14,34 @@ namespace _SGUI_
         [SerializeField] SguiSplitView[] splitviews;
         public readonly ValueNotifier<SguiFrame> active_frame = new();
         public readonly ValueNotifier<bool> fullscreen = new();
-        public RectTransform rt_body;
-        public Button button_hide, button_fullscreen;
+        [SerializeField] RectTransform rt_body;
+        [SerializeField] Button button_hide, button_fullscreen;
         [SerializeField] RectTransform rt_unselected;
         bool closing, close_requested;
         public const int min_width = 200, min_height = 150;
         public SguiSplitView active_splitview => active_frame._value?.pview ?? splitviews.FirstOrDefault(v => v != null);
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
+        }
+
+        protected override void OnDisable()
+        {
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+
+            RefreshFrameFocus();
+
+            base.OnDisable();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         internal protected override void OnInitialize()
         {
@@ -31,50 +53,60 @@ namespace _SGUI_
             onFunc_close = RequestCloseFrames;
         }
 
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void Start()
         {
             base.Start();
-            var header = rt.Find("header/header_mask/padding/drag-button");
-            var drag = header.GetComponent<DragHandler>();
+
+            var drag = rt.Find("header/header_mask/padding/drag-button").GetComponent<DragHandler>();
             drag.onBeginDrag += OnHeaderBeginDrag;
             drag.onDrag += OnHeaderDrag;
             drag.onEndDrag += OnHeaderEndDrag;
-            header.GetComponent<PointerClickHandler>().onClick += data =>
+
+            rt.Find("header/header_mask/padding/drag-button").GetComponent<PointerClickHandler>().onClick += data =>
             {
                 if (data.clickCount == 2) fullscreen.ToggleAuto();
             };
+
             button_fullscreen.onClick.AddListener(fullscreen.ToggleAuto);
+
             button_hide.onClick.AddListener(() =>
             {
                 SetScalePivot(active_frame._value.os_button);
                 toggle.Value = false;
             });
+
             toggle.AddListener(value =>
             {
-                if (!value) ResizerVisual.instance?.UntakeFocus(this);
+                if (!value)
+                    ResizerVisual.instance?.UntakeFocus(this);
+
                 RefreshFrameFocus();
             });
+
             CheckBounds();
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            if (IMGUI_global.instance != null) IMGUI_global.instance.inputs_users.AddElement(OnImguiInputs);
-        }
-
-        protected override void OnDisable()
-        {
-            if (IMGUI_global.instance != null) IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
-            RefreshFrameFocus();
-            base.OnDisable();
-        }
+        //--------------------------------------------------------------------------------------------------------------
 
         bool OnImguiInputs(Event e)
         {
-            if (!isFocused._value || !toggle._value || e.type != EventType.KeyDown) return false;
-            if (e.keyCode == KeyCode.F10) { CheckBounds(); return true; }
-            if (e.keyCode == KeyCode.F11) { fullscreen.ToggleAuto(); return true; }
+            if (!isFocused._value || !toggle._value || e.type != EventType.KeyDown)
+                return false;
+
+            if (e.keyCode == KeyCode.F10)
+            {
+                CheckBounds();
+                return true;
+            }
+
+            if (e.keyCode == KeyCode.F11)
+            {
+                fullscreen.ToggleAuto();
+                return true;
+            }
+
             return false;
         }
 
@@ -88,13 +120,16 @@ namespace _SGUI_
                 rt.sizeDelta = Vector2.zero;
                 rt.anchoredPosition = Vector2.zero;
             }
-            else rect_current.Apply(rt);
+            else
+                rect_current.Apply(rt);
+
             OnResized();
         }
 
         protected override void OnToggleFocus(bool focus)
         {
             base.OnToggleFocus(focus);
+
             rt_unselected.gameObject.SetActive(!focus);
             RefreshFrameFocus();
         }
@@ -122,16 +157,23 @@ namespace _SGUI_
 
         internal void OnFrameRemoved(SguiFrame removed)
         {
-            if (oblivionized) return;
+            if (oblivionized)
+                return;
+
             if (active_frame._value == removed)
                 active_frame.Value = splitviews.Where(v => v != null).Select(v => v.current_tab._value?.frame).FirstOrDefault(f => f != null && !f.oblivionized);
-            if (closing) return;
+
+            if (closing)
+                return;
+
             if (close_requested)
             {
                 OnClickClose();
                 return;
             }
-            if (splitviews.All(v => v == null || v.frames.Count == 0)) Oblivionize();
+
+            if (splitviews.All(v => v == null || v.frames.Count == 0))
+                Oblivionize();
         }
 
         internal void CancelCloseRequest() => close_requested = false;
@@ -142,11 +184,15 @@ namespace _SGUI_
             closing = true;
             try
             {
-                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
-                    if (frame != null && !frame.RequestClose()) return false;
+                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames))
+                    if (frame != null && !frame.RequestClose())
+                        return false;
                 return true;
             }
-            finally { closing = false; }
+            finally
+            {
+                closing = false;
+            }
         }
 
         protected override void OnOblivion()
@@ -184,10 +230,15 @@ namespace _SGUI_
             OnResized();
         }
 
+        //--------------------------------------------------------------------------------------------------------------
+
         protected override void OnDestroy()
         {
-            if (IMGUI_global.instance != null) IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+            if (IMGUI_global.instance != null)
+                IMGUI_global.instance.inputs_users.RemoveElement(OnImguiInputs);
+
             base.OnDestroy();
+
             active_frame.Clear();
             fullscreen.Clear();
         }

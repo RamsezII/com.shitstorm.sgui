@@ -7,7 +7,7 @@ namespace _SGUI_
     {
         internal void Prompt_CreateFile(DirectoryInfo pdir)
         {
-            var window = SguiWindow.CreatePrompt();
+            var window = SguiCustom.CreatePrompt();
             window.trad_title.SetTraductions(new()
             {
                 french = "Créer un fichier",
@@ -26,7 +26,7 @@ namespace _SGUI_
                 string name = inputfield.input_field.text;
                 if (string.IsNullOrEmpty(name))
                 {
-                    SguiWindow.ShowAlert(SguiDialogs.Error, out _, new()
+                    SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
                     {
                         french = "Donnez un nom au fichier",
                         english = "Choose a file name",
@@ -45,7 +45,7 @@ namespace _SGUI_
                     }
                     catch (Exception ex)
                     {
-                        SguiWindow.ShowAlert(SguiDialogs.Error, out _, new(ex.TrimmedExceptionMessage()));
+                        SguiCustom.ShowAlert(SguiDialogs.Error, out _, new(ex.TrimmedExceptionMessage()));
                     }
                     return true;
                 }
@@ -54,7 +54,7 @@ namespace _SGUI_
 
         internal void Prompt_CreateFolder(DirectoryInfo pdir)
         {
-            var window = SguiWindow.CreatePrompt();
+            var window = SguiCustom.CreatePrompt();
             window.trad_title.SetTraductions(new()
             {
                 french = "Créer un dossier",
@@ -73,7 +73,7 @@ namespace _SGUI_
                 string name = inputfield.input_field.text;
                 if (string.IsNullOrEmpty(name))
                 {
-                    SguiWindow.ShowAlert(SguiDialogs.Error, out _, new()
+                    SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
                     {
                         french = "Choisissez un nom",
                         english = "Choose a name",
@@ -92,7 +92,7 @@ namespace _SGUI_
                     }
                     catch (Exception ex)
                     {
-                        SguiWindow.ShowAlert(SguiDialogs.Error, out _, new(ex.TrimmedExceptionMessage()));
+                        SguiCustom.ShowAlert(SguiDialogs.Error, out _, new(ex.TrimmedExceptionMessage()));
                     }
                     return true;
                 }
