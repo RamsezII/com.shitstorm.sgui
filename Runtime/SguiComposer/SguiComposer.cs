@@ -184,7 +184,7 @@ namespace _SGUI_
             closing = true;
             try
             {
-                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames))
+                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
                     if (frame != null && !frame.RequestClose())
                         return false;
                 return true;
@@ -193,14 +193,6 @@ namespace _SGUI_
             {
                 closing = false;
             }
-        }
-
-        protected override void OnOblivion()
-        {
-            foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
-                if (frame != null) frame.Oblivionize();
-            active_frame.Value = null;
-            base.OnOblivion();
         }
 
         public void CheckBounds()
@@ -231,6 +223,17 @@ namespace _SGUI_
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        protected override void OnOblivion()
+        {
+            foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
+                if (frame != null)
+                    frame.Oblivionize();
+
+            active_frame.Value = null;
+
+            base.OnOblivion();
+        }
 
         protected override void OnDestroy()
         {
