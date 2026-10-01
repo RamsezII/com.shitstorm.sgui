@@ -72,9 +72,6 @@ namespace _SGUI_.composer
             current_tab.Value = frame.tab;
             composer.active_frame.Value = frame;
 
-            if (this == null || frame == null || current_tab._value != frame.tab)
-                return;
-
             Canvas.ForceUpdateCanvases();
 
             var bounds = RectTransformUtility.CalculateRelativeRectTransformBounds(scrollview.viewport, frame.tab.transform);
