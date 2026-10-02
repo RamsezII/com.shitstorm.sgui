@@ -84,14 +84,19 @@ namespace _SGUI_.composer
         void OnCurrentTab(SguiTabHeader selected)
         {
             foreach (var frame in frames)
-            {
-                if (frame == null || frame.oblivionized) continue;
-                bool active = frame.tab == selected;
-                frame.tab.isSelected.Value = active;
-                if (!active) frame.isFocused.Value = false;
-                frame.gameObject.SetActive(active);
-                if (active) frame.OnResized();
-            }
+                if (frame != null && !frame.oblivionized)
+                {
+                    bool active = frame.tab == selected;
+                    frame.tab.isSelected.Value = active;
+
+                    if (!active)
+                        frame.isFocused.Value = false;
+
+                    frame.gameObject.SetActive(active);
+
+                    if (active)
+                        frame.OnResized();
+                }
         }
 
         internal void RemoveFrame(SguiFrame frame)
