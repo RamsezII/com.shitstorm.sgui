@@ -143,7 +143,8 @@ namespace _SGUI_
             NUCLEOR.instance.isFocused.AddListener(isFocused =>
             {
                 rt_unfocused_text.gameObject.SetActive(!isFocused);
-                rt_unfocused_overlay.gameObject.SetActive(!isFocused);
+                if (false)
+                    rt_unfocused_overlay.gameObject.SetActive(!isFocused);
             });
         }
 
