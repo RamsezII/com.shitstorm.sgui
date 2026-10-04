@@ -27,8 +27,6 @@ namespace _SGUI_
             for (int i = 0; i < content_layout_rT.childCount; ++i)
                 if (content_layout_rT.GetChild(i).TryGetComponent<SguiCustom_Abstract>(out var prefab))
                     button_prefabs[prefab.GetType()] = prefab;
-
-            EventSystem.current.SetSelectedGameObject(button_confirm.gameObject);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -37,6 +35,7 @@ namespace _SGUI_
         {
             base.Start();
             AutoSizeAtEndOfFrame();
+            EventSystem.current.SetSelectedGameObject(button_confirm.gameObject);
         }
 
         //--------------------------------------------------------------------------------------------------------------
