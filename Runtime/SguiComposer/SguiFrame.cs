@@ -107,10 +107,15 @@ namespace _SGUI_.composer
 
         public bool RequestClose()
         {
-            if (oblivionized) return true;
-            if (onFunc_close != null && !onFunc_close()) return false;
+            if (oblivionized)
+                return true;
+
+            if (onFunc_close != null && !onFunc_close())
+                return false;
+
             onAction_close?.Invoke();
             Oblivionize();
+
             return true;
         }
 
@@ -136,7 +141,9 @@ namespace _SGUI_.composer
                 Destroy(gameObject);
         }
 
-        protected virtual void OnOblivion() { }
+        protected virtual void OnOblivion()
+        {
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 

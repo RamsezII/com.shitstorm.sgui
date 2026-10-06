@@ -2,7 +2,6 @@ using _ARK_;
 using _SGUI_.context_click;
 using _UTIL_;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.composer
@@ -24,8 +23,35 @@ namespace _SGUI_.composer
             trad_title.onRefresh += RefreshSize;
             transform.Find("close").GetComponent<Button>().onClick.AddListener(() => frame.RequestClose());
 
-            if (listhandler != null)
-                listhandler.callback += OnContextList;
+            listhandler.callback += list =>
+            {
+                list.AddButton_trad(new()
+                {
+                    french = "Fermer l’onglet",
+                    english = "Close tab",
+                })._button.onClick.AddListener(() => frame.RequestClose());
+
+                list.AddButton_trad(new()
+                {
+                    french = "Fermer les autres onglets",
+                    english = "Close other tabs",
+                })._button.onClick.AddListener(() =>
+                {
+                    foreach (var frame in frame.pview.frames.ToArray())
+                        if (this.frame != frame)
+                            frame.RequestClose();
+                });
+
+                list.AddButton_trad(new()
+                {
+                    french = "Fermer tous les onglets",
+                    english = "Close all tabs",
+                })._button.onClick.AddListener(() =>
+                {
+                    foreach (var frame in frame.pview.frames.ToArray())
+                        frame.RequestClose();
+                });
+            };
 
             isSelected.AddListener(graphic_selected.gameObject.SetActive);
 
@@ -40,25 +66,12 @@ namespace _SGUI_.composer
             rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
         }
 
-        void OnContextList(ContextList list)
-        {
-            var close = list.AddButton_trad(new()
-            {
-                french = "Fermer l’onglet",
-                english = "Close tab",
-            });
-            close._button.onClick.AddListener(() => frame.RequestClose());
-        }
-
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnDestroy()
         {
             if (trad_title != null)
                 trad_title.onRefresh -= RefreshSize;
-
-            if (listhandler != null)
-                listhandler.callback -= OnContextList;
 
             isSelected.Clear();
 
