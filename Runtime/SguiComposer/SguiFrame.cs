@@ -86,9 +86,15 @@ namespace _SGUI_.composer
 
         public void TakeFocus()
         {
-            if (oblivionized || composer == null) return;
+            if (oblivionized || composer == null)
+                return;
+
             composer.CancelCloseRequest();
             OSView.instance.ToggleSelf(true);
+
+            if (isFocused._value)
+                return;
+
             pview.SelectFrame(this);
             composer.TakeFocus();
             RefreshFocus();

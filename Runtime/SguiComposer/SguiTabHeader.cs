@@ -1,14 +1,13 @@
 using _ARK_;
-using _SGUI_.context_click;
 using _UTIL_;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    internal sealed partial class SguiTabHeader : ArkComponent1
+    internal sealed partial class SguiTabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver
     {
-        [SerializeField] ContextListHandler listhandler;
         [SerializeField] Button button;
         [SerializeField] Graphic graphic_selected;
         public SguiFrame frame;
@@ -23,7 +22,7 @@ namespace _SGUI_.composer
             trad_title.onRefresh += RefreshSize;
             transform.Find("close").GetComponent<Button>().onClick.AddListener(() => frame.RequestClose());
 
-            listhandler.callback += list =>
+            GetComponent<ContextListHandler>().callback += list =>
             {
                 list.AddButton_trad(new()
                 {
@@ -65,6 +64,10 @@ namespace _SGUI_.composer
             var rt = (RectTransform)transform;
             rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
         }
+
+        string SguiDragManager.IDraggable.DragDisplay => frame.sgui_name.GetAutomatic();
+        object SguiDragManager.IDraggable.DragData => this;
+        void SguiDragManager.IOnDraggedOver.OnDraggedOver(in SguiDragManager.IDraggable draggable, PointerEventData eventData) => frame.TakeFocus();
 
         //--------------------------------------------------------------------------------------------------------------
 

@@ -38,7 +38,6 @@ namespace _SGUI_
 
         public interface IAcceptDraggable : IDropHandler
         {
-            virtual Type AcceptedDropType => null;
             bool TryAcceptDraggable(in IDraggable draggable, in bool onDrop);
             void IDropHandler.OnDrop(PointerEventData eventData)
             {
@@ -46,6 +45,11 @@ namespace _SGUI_
                     TryAcceptDraggable(draggable, true);
                 instance.gameObject.SetActive(false);
             }
+        }
+
+        public interface IOnDraggedOver
+        {
+            void OnDraggedOver(in IDraggable draggable, PointerEventData eventData);
         }
 
         [AutoStaticsCleanup] public static SguiDragManager instance;
@@ -91,9 +95,11 @@ namespace _SGUI_
             bool found = false;
             bool accepts = false;
 
-            for (int i = 0; i < results.Count; i++)
+            foreach (var result in results)
             {
-                IAcceptDraggable handler = results[i].gameObject.GetComponentInParent<IAcceptDraggable>(true);
+                result.gameObject.GetComponentInParent<IOnDraggedOver>(true)?.OnDraggedOver(draggable, eventData);
+
+                IAcceptDraggable handler = result.gameObject.GetComponentInParent<IAcceptDraggable>(true);
                 if (handler != null)
                 {
                     found = true;

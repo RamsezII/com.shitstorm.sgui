@@ -68,9 +68,15 @@ namespace _SGUI_.composer
             return frame;
         }
 
+        int _lastSelectFrameCount;
         public void SelectFrame(SguiFrame frame)
         {
-            SguiLoggerOverlay.Log($"SelectFrame {frame?.sgui_name} ({frame?.GetType().FullName})");
+            if (Time.frameCount == _lastSelectFrameCount)
+                if (frame == null)
+                    SguiLoggerOverlay.Log($"SelectFrame null", this);
+                else
+                    SguiLoggerOverlay.Log($"SelectFrame {frame.sgui_name} ({frame.GetType().FullName})", frame);
+            _lastSelectFrameCount = Time.frameCount;
 
             if (frame == null || frame.oblivionized || !frames.Contains(frame))
                 return;
