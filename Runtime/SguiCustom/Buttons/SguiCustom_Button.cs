@@ -11,14 +11,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            button = transform.Find("button").GetComponent<Button>();
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void OnDestroy()
         {
             base.OnDestroy();

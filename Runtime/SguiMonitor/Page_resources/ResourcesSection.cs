@@ -21,6 +21,8 @@ namespace _SGUI_.Monitor.Resources
             if (this == null)
                 return;
 
+            var rt = transform.AsRTfm();
+
             if (!vlayout.gameObject.activeInHierarchy)
             {
                 rt.sizeDelta = new(0, 20);

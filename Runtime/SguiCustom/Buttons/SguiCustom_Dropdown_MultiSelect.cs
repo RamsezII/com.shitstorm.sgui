@@ -50,7 +50,7 @@ namespace _SGUI_
         {
             Hide();
             this.options2 = options2 ?? new();
-            _button.interactable = this.options2.Count > 0;
+            button.interactable = this.options2.Count > 0;
             RefreshLabel();
         }
 
@@ -58,7 +58,7 @@ namespace _SGUI_
         {
             Hide();
             options2 = new();
-            _button.interactable = false;
+            button.interactable = false;
             RefreshLabel();
         }
 

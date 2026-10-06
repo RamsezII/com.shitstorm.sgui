@@ -13,16 +13,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            _slider = transform.Find("slider").GetComponent<Slider>();
-            click_handler = _slider.GetComponent<PointerClickHandler>();
-            tmp_value = transform.Find("value").GetComponent<TextMeshProUGUI>();
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void Start()
         {
             base.Start();

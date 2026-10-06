@@ -44,7 +44,18 @@ namespace _SGUI_
         public SguiCustom_Abstract AddButton(in Type type)
         {
             SguiCustom_Abstract prefab = button_prefabs[type];
-            SguiCustom_Abstract clone = Instantiate(prefab, prefab.transform.parent);
+            bool prefabWasActive = prefab.gameObject.activeSelf;
+            SguiCustom_Abstract clone;
+            prefab.gameObject.SetActive(false);
+            try
+            {
+                clone = Instantiate(prefab, prefab.transform.parent);
+            }
+            finally
+            {
+                prefab.gameObject.SetActive(prefabWasActive);
+            }
+            clone.Initialize();
             clone.gameObject.SetActive(true);
 
             return clone;

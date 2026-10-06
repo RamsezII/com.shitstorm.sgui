@@ -14,7 +14,6 @@ namespace _SGUI_.composer
         internal SguiSplitView pview;
         internal SguiTabHeader tab;
         public SguiComposer composer => pview == null ? null : pview.composer;
-        public RectTransform rt;
         public Canvas canvas;
         public GraphicRaycaster raycaster;
         public Texture window_icon;
@@ -23,19 +22,17 @@ namespace _SGUI_.composer
         public Func<bool> onFunc_close;
         public Action onAction_close, onOblivion;
         public SoftwareButton os_button;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        internal void Initialize()
         {
-            pview = GetComponentInParent<SguiSplitView>(true);
+            if (initialized) return;
+            initialized = true;
             pview = GetComponentInParent<SguiSplitView>(true);
             canvas = GetComponentInParent<Canvas>(true);
             raycaster = GetComponentInParent<GraphicRaycaster>(true);
-
-            rt = (RectTransform)transform;
-
-            base.Awake();
 
             instances.AddElement(this);
 
@@ -44,6 +41,12 @@ namespace _SGUI_.composer
                 os_button = OSView.instance.AddSoftwareButton(GetType(), sgui_description);
                 os_button.users.AddElement(this);
             }
+
+            OnInitialize();
+        }
+
+        protected virtual void OnInitialize()
+        {
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -113,7 +116,7 @@ namespace _SGUI_.composer
 
         public void Oblivionize()
         {
-            if (oblivionized) 
+            if (oblivionized)
                 return;
             oblivionized = true;
 
@@ -129,7 +132,7 @@ namespace _SGUI_.composer
             onFunc_close = null;
             onAction_close = onOblivion = null;
 
-            if (!_destroyed) 
+            if (!_destroyed)
                 Destroy(gameObject);
         }
 

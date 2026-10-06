@@ -163,6 +163,7 @@ namespace _SGUI_
                 else
                 {
                     softwaresButtons[type] = button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+                    button.Initialize();
                     button.hover_info = hoverInfos;
                     button.rimg_icon.texture = prefab.window_icon;
                     button.frame_prefab = prefab;
@@ -175,6 +176,7 @@ namespace _SGUI_
         public SoftwareButton AddSoftwareButton(in Traductions hoverInfos, in Texture icon)
         {
             var button = Instantiate(prefab_softwarebutton, prefab_softwarebutton.transform.parent);
+            button.Initialize();
             button.hover_info = hoverInfos;
             button.rimg_icon.texture = icon;
             button.gameObject.SetActive(true);

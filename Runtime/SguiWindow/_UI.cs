@@ -28,8 +28,8 @@ namespace _SGUI_
 
         void AwakeUI()
         {
-            canvas = GetComponentInParent<Canvas>();
-            raycaster = GetComponentInParent<GraphicRaycaster>();
+            canvas = GetComponentInParent<Canvas>(true);
+            raycaster = GetComponentInParent<GraphicRaycaster>(true);
 
             rt_root = (RectTransform)transform;
             rt_scale = rt_root = (RectTransform)rt_root.Find("scale");

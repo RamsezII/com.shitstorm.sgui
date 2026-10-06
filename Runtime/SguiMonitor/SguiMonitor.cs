@@ -36,13 +36,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
             page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);
             page_resources = GetComponentInChildren<ResourcesPage>(includeInactive: true);
             pages_buttons = GetComponentsInChildren<PageButton>(includeInactive: true);
 
-            base.Awake();
+            base.OnInitialize();
 
             page_processes.OnAwake();
             page_resources.OnAwake();

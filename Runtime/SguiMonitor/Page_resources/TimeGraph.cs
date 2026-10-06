@@ -11,10 +11,10 @@ namespace _SGUI_.Monitor.Resources
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
-            renderer = GetComponentInChildren<UI_TimeGraphRenderer>();
-            base.Awake();
+            renderer = GetComponentInChildren<UI_TimeGraphRenderer>(true);
+            base.OnInitialize();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ namespace _SGUI_.Monitor.Resources
         protected override void OnDisable()
         {
             base.OnDisable();
-            op_refresh.Dispose();
+            op_refresh?.Dispose();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace _SGUI_.Monitor.Resources
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            op_refresh.Dispose();
+            op_refresh?.Dispose();
         }
     }
 }

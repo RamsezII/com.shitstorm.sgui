@@ -28,6 +28,7 @@ namespace _SGUI_.Monitor
             scrollview = GetComponentInChildren<ScrollRect>(true);
             vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
             prefab_section = GetComponentInChildren<Section>(true);
+            prefab_section.Initialize();
         }
 
         protected virtual void Awake()
@@ -103,9 +104,12 @@ namespace _SGUI_.Monitor
         public T AddSection<T>() where T : Section, new()
         {
             T section = (T)Instantiate(prefab_section, prefab_section.transform.parent);
+            section.Initialize();
             section.gameObject.SetActive(true);
+
             sections.Add(section);
             OnSection(section);
+
             return section;
         }
 

@@ -48,6 +48,10 @@ namespace _SGUI_
             base.OnInitialize();
 
             splitviews = GetComponentsInChildren<SguiSplitView>(true);
+
+            foreach (var view in splitviews) 
+                view.Initialize();
+
             active_frame.AddListener(_ => RefreshFrameFocus());
             fullscreen.AddListener(OnFullscreen, do_not_call_this_time: true);
             onFunc_close = RequestCloseFrames;
@@ -146,12 +150,16 @@ namespace _SGUI_
         public SguiSplitView AddSplitView(Vector2 anchorMin, Vector2 anchorMax)
         {
             var view = Util.InstantiateOrCreate<SguiSplitView>(parent: rt_body);
-            var viewRt = (RectTransform)view.transform;
-            viewRt.anchorMin = anchorMin;
-            viewRt.anchorMax = anchorMax;
-            viewRt.offsetMin = viewRt.offsetMax = Vector2.zero;
+            view.Initialize();
+
+            var view_rt = view.transform.AsRTfm();
+            view_rt.anchorMin = anchorMin;
+            view_rt.anchorMax = anchorMax;
+            view_rt.offsetMin = view_rt.offsetMax = Vector2.zero;
+
             Array.Resize(ref splitviews, splitviews.Length + 1);
             splitviews[^1] = view;
+
             return view;
         }
 

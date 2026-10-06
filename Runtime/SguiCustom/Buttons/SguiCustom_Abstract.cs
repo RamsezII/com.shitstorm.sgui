@@ -1,28 +1,25 @@
 using _ARK_;
-using TMPro;
-using UnityEngine;
 
 namespace _SGUI_
 {
     public abstract class SguiCustom_Abstract : ArkComponent1
     {
         public SguiCustom window;
-        [HideInInspector] public RectTransform rT, rT_parent, rT_label;
-        [HideInInspector] public TextMeshProUGUI tmp_label;
-        [HideInInspector] public Traductable trad_label;
+        public Traductable trad_label;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        internal void Initialize()
         {
-            window = GetComponentInParent<SguiCustom>();
-            rT = (RectTransform)transform;
-            rT_parent = (RectTransform)transform.parent;
-            rT_label = (RectTransform)transform.Find("label");
-            tmp_label = rT_label.GetComponent<TextMeshProUGUI>();
-            trad_label = rT_label.GetComponent<Traductable>();
+            if (initialized) return;
+            initialized = true;
+            window = GetComponentInParent<SguiCustom>(true);
+            OnInitialize();
+        }
 
-            base.Awake();
+        protected virtual void OnInitialize()
+        {
         }
 
         //--------------------------------------------------------------------------------------------------------------

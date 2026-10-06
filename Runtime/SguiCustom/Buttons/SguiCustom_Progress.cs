@@ -10,15 +10,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            rT_fill = (RectTransform)transform.Find("progress-bar/mask/fill");
-            tmp_percentage = transform.Find("progress-bar/text").GetComponent<TextMeshProUGUI>();
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         public void SetProgress(in float progress)
         {
             rT_fill.anchorMax = new(progress, 1);

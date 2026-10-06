@@ -17,17 +17,22 @@ namespace _SGUI_.Monitor.Processes
         public int column_index;
 
         public Action<bool> onIsAscendingOrder;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        private void Awake() => Initialize();
+
+        internal void Initialize()
         {
+            if (initialized) return;
+            initialized = true;
             sorters = GetComponentInParent<ProcessesSorters>(true);
             column_index = 0;
             rt = (RectTransform)transform;
             toggle = GetComponent<Toggle>();
             rimg_arrow = transform.Find("arrow").GetComponent<RawImage>();
-            trad = GetComponentInChildren<Traductable>();
+            trad = GetComponentInChildren<Traductable>(true);
         }
 
         //--------------------------------------------------------------------------------------------------------------

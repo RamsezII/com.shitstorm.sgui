@@ -9,13 +9,18 @@ namespace _SGUI_.Monitor.Processes
         public Traductable trad;
         public int column_index;
         internal float init_height;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        private void Awake() => Initialize();
+
+        internal void Initialize()
         {
+            if (initialized) return;
+            initialized = true;
             rt = (RectTransform)transform;
-            trad = GetComponentInChildren<Traductable>();
+            trad = GetComponentInChildren<Traductable>(true);
             init_height = rt.sizeDelta.y;
         }
     }

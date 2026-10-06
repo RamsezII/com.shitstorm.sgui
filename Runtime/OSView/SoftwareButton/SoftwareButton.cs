@@ -11,38 +11,37 @@ namespace _SGUI_
     public sealed partial class SoftwareButton : OSButton, SguiContextHover.IUser
     {
         [AutoStaticsCleanup] internal static readonly HashSet<SoftwareButton> instances = new();
-        public RectTransform rt;
         public Image img_icon, img_open, img_focus;
         public RawImage rimg_icon;
-        RawImage[] rimg_instances;
+        [SerializeField] RawImage[] rimg_instances;
         public int max_instances = 10;
         public Traductions hover_info;
         Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_info;
         internal SguiFrame frame_prefab;
         public readonly ListListener<SguiFrame> users = new();
 
-        protected override void Awake()
+        //--------------------------------------------------------------------------------------------------------------
+
+        internal void Initialize()
         {
             instances.Add(this);
-            rt = (RectTransform)transform;
-            rimg_instances = transform.Find("active").GetComponentsInChildren<RawImage>(true);
-            img_icon = transform.Find("img_icon").GetComponent<Image>();
-            img_open = transform.Find("is-open").GetComponent<Image>();
-            img_focus = transform.Find("has-focus").GetComponent<Image>();
-            rimg_icon = transform.Find("rimg_icon").GetComponent<RawImage>();
-            base.Awake();
         }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void Start()
         {
             base.Start();
-            rt.sizeDelta = 25 * Vector2.one;
+            transform.AsRTfm().sizeDelta = 25 * Vector2.one;
             users.AddListener2(list =>
             {
-                for (int i = 0; i < rimg_instances.Length; ++i) rimg_instances[i].gameObject.SetActive(i < list.Count);
+                for (int i = 0; i < rimg_instances.Length; ++i)
+                    rimg_instances[i].gameObject.SetActive(i < list.Count);
                 RefreshOpenState();
             });
         }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         public SguiFrame InstantiateSoftware() => InstantiateSoftware(false);
         public SguiFrame InstantiateSoftware(bool new_window)
@@ -73,6 +72,8 @@ namespace _SGUI_
             img_open.gameObject.SetActive(open);
             img_focus.gameObject.SetActive(focus);
         }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         private void OnDestroy()
         {

@@ -31,9 +31,9 @@ namespace _SGUI_
             {
                 SguiCustom_Abstract clone = clones[i];
 
-                float pw = clone.tmp_label.preferredWidth;
-                float cw = clone.rT_label.rect.width;
-                float tw = clone.rT.rect.width;
+                float pw = clone.trad_label.tmpro.preferredWidth;
+                float cw = clone.trad_label.tmpro.rectTransform.rect.width;
+                float tw = clone.transform.AsRTfm().rect.width;
 
                 width = Mathf.Max(width, tw * ((25 + pw) / cw));
             }

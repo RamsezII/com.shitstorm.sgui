@@ -8,14 +8,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            toggle = transform.Find("toggle").GetComponent<Toggle>();
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void OnDestroy()
         {
             base.OnDestroy();

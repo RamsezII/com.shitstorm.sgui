@@ -9,7 +9,7 @@ namespace _SGUI_.composer
     public sealed partial class SguiSplitView : ArkComponent1
     {
         internal readonly ValueNotifier<SguiTabHeader> current_tab = new();
-        [SerializeField] RectTransform rt_body;
+        [SerializeField] internal RectTransform rt_body;
         public SguiComposer composer;
         [SerializeField] ScrollRect scrollview;
         [SerializeField] SguiTabHeader prefab_tabHeader;
@@ -17,13 +17,11 @@ namespace _SGUI_.composer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        internal void Initialize()
         {
             composer = GetComponentInParent<SguiComposer>(true);
-            rt_body = (RectTransform)transform.Find("body");
-            prefab_tabHeader.gameObject.SetActive(false);
 
-            base.Awake();
+            prefab_tabHeader.gameObject.SetActive(false);
 
             current_tab.AddListener(OnCurrentTab);
         }
@@ -32,32 +30,40 @@ namespace _SGUI_.composer
 
         public SguiFrame AddTab(SguiFrame prefab)
         {
-            bool prefabWasActive = prefab.gameObject.activeSelf;
-            prefab.gameObject.SetActive(false);
-
             composer.CancelCloseRequest();
 
             var header = Instantiate(prefab_tabHeader, parent: prefab_tabHeader.transform.parent);
             header.gameObject.SetActive(true);
+            header.Initialize();
             header.trad_title.SetTraductions(prefab.sgui_name);
 
             if (header.trad_title.traductions.IsDefault)
                 header.trad_title.SetText(prefab.GetType().FullName);
 
             // Clone an inactive frame without requiring an inactive prefab asset.
-            SguiFrame frame = Instantiate(prefab, rt_body);
+            bool prefabWasActive = prefab.gameObject.activeSelf;
+            SguiFrame frame;
+            prefab.gameObject.SetActive(false);
+            try
+            {
+                frame = Instantiate(prefab, rt_body);
+            }
+            finally
+            {
+                prefab.gameObject.SetActive(prefabWasActive);
+            }
             frame.pview = this;
             frame.tab = header;
             header.frame = frame;
 
-            frame.gameObject.SetActive(true);
+            frame.Initialize();
 
-            frame.rt.FillParent();
-            frames.Add(frame);
             header.rimg_icon.texture = prefab.window_icon;
-            SelectFrame(frame);
+            frame.transform.AsRTfm().FillParent();
 
-            prefab.gameObject.SetActive(prefabWasActive);
+            frames.Add(frame);
+            header.gameObject.SetActive(true);
+            SelectFrame(frame);
 
             return frame;
         }

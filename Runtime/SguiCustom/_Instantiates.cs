@@ -29,7 +29,7 @@ namespace _SGUI_
 
             if (no_label)
             {
-                progress_bar.rT_label.gameObject.SetActive(false);
+                progress_bar.trad_label.gameObject.SetActive(false);
                 RectTransform rt = (RectTransform)progress_bar.rT_fill.parent.parent;
                 rt.anchorMin = new(0, .5f);
             }

@@ -21,12 +21,9 @@ namespace _SGUI_.Explorer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
-            base.Awake();
-
-            icon_opened = rt.Find("icon/opened").GetComponent<RawImage>();
-            icon_closed = rt.Find("icon/closed").GetComponent<RawImage>();
+            base.OnInitialize();
 
             toggle.AddListener(value =>
             {
@@ -36,58 +33,46 @@ namespace _SGUI_.Explorer
                 if (toggle._value)
                     view.selected_fsi.Value = this;
 
-                Repopulate();
+                foreach (var path_button in paths_buttons)
+                {
+                    if (path_button.Value is Button_Folder bfolder)
+                        bfolder.toggle.Value = false;
+                    Destroy(path_button.Value.gameObject);
+                }
+
+                paths_buttons.Clear();
+
+                if (value)
+                {
+                    int sibling_index = transform.GetSiblingIndex();
+
+                    foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
+                        .OrderByDescending(x => x.Name, StringComparer.Ordinal)
+                        .OrderBy(x => x is DirectoryInfo))
+                    {
+                        Button_Hierarchy button = null;
+
+                        if (fsi is DirectoryInfo dir)
+                            button = view.prefab_folder.Clone(true);
+
+                        if (fsi is FileInfo file)
+                            button = view.prefab_file.Clone(true);
+
+                        paths_buttons.Add(fsi.Name, button);
+
+                        button.depth = 1 + depth;
+                        button.AssignFsi(fsi);
+                        button.transform.SetSiblingIndex(1 + sibling_index);
+                    }
+                }
+
+                view.AutoSize();
             });
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void Start()
-        {
-            base.Start();
 
             transform.Find("rt/icon").GetComponent<PointerClickHandler>().onClick += eventData => toggle.ToggleAuto();
         }
 
         //--------------------------------------------------------------------------------------------------------------
-
-        public void Repopulate()
-        {
-            foreach (var path_button in paths_buttons)
-            {
-                if (path_button.Value is Button_Folder bfolder)
-                    bfolder.toggle.Value = false;
-                Destroy(path_button.Value.gameObject);
-            }
-
-            paths_buttons.Clear();
-
-            if (toggle._value)
-            {
-                int sibling_index = transform.GetSiblingIndex();
-
-                foreach (var fsi in current_dir.EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
-                    .OrderByDescending(x => x.Name, StringComparer.Ordinal)
-                    .OrderBy(x => x is DirectoryInfo))
-                {
-                    Button_Hierarchy button = null;
-
-                    if (fsi is DirectoryInfo dir)
-                        button = view.prefab_folder.Clone(true);
-
-                    if (fsi is FileInfo file)
-                        button = view.prefab_file.Clone(true);
-
-                    paths_buttons.Add(fsi.Name, button);
-
-                    button.depth = 1 + depth;
-                    button.AssignFsi(fsi);
-                    button.transform.SetSiblingIndex(1 + sibling_index);
-                }
-            }
-
-            view.AutoSize();
-        }
 
         internal override void AssignFsi(in FileSystemInfo fsi)
         {

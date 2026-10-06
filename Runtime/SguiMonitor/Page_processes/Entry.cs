@@ -14,10 +14,10 @@ namespace _SGUI_.Monitor.Processes
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
             prefab_column = GetComponentInChildren<EntryColumn>(includeInactive: true);
-            base.Awake();
+            base.OnInitialize();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -32,9 +32,11 @@ namespace _SGUI_.Monitor.Processes
 
         internal EntryColumn AddColumn()
         {
-            EntryColumn column = prefab_column.Clone(true);
+            EntryColumn column = prefab_column.Clone(false);
+            column.Initialize();
             column.column_index = columnCount++;
             columns.Add(column);
+            column.gameObject.SetActive(true);
             return column;
         }
 

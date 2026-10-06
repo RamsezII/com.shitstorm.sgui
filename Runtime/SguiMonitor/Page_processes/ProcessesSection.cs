@@ -10,11 +10,13 @@ namespace _SGUI_.Monitor.Processes
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
             scrollview = GetComponentInChildren<ScrollRect>(includeInactive: true);
             sorters = GetComponentInChildren<ProcessesSorters>(includeInactive: true);
-            base.Awake();
+            sorters.Initialize();
+
+            base.OnInitialize();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ namespace _SGUI_.Monitor.Processes
 
             if (!vlayout.gameObject.activeInHierarchy)
             {
-                rt.sizeDelta = new(0, 20);
+                transform.AsRTfm().sizeDelta = new(0, 20);
                 return;
             }
 
@@ -66,7 +68,7 @@ namespace _SGUI_.Monitor.Processes
 
             scrollview.content.sizeDelta = new(w, h);
 
-            rt.sizeDelta = new(0, 35 + h);
+            transform.AsRTfm().sizeDelta = new(0, 35 + h);
         }
     }
 }

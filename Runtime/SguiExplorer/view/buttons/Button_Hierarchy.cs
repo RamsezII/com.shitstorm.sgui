@@ -14,26 +14,28 @@ namespace _SGUI_.Explorer
         public SguiExplorerView view;
 
         [SerializeField] RawImage rimg_selected;
-        public RectTransform rt;
         public TextMeshProUGUI text;
         public int depth;
 
         [NonSerialized] public FileSystemInfo current_fsi;
         public string normalized_path;
+        bool initialized;
 
         string SguiDragManager.IDraggable.DragDisplay => normalized_path;
         object SguiDragManager.IDraggable.DragData => normalized_path;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        internal void Initialize()
         {
+            if (initialized) return;
+            initialized = true;
             view = GetComponentInParent<SguiExplorerView>(true);
-            rimg_selected = transform.Find("selected").GetComponent<RawImage>();
-            rt = (RectTransform)transform.Find("rt");
-            text = rt.Find("text").GetComponent<TextMeshProUGUI>();
+            OnInitialize();
+        }
 
-            base.Awake();
+        protected virtual void OnInitialize()
+        {
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -46,13 +48,14 @@ namespace _SGUI_.Explorer
 
             view.selected_fsi.AddListener(OnSelectedButton);
 
-            rt.anchoredPosition += new Vector2(5 * depth, 0);
+            transform.AsRTfm().anchoredPosition += new Vector2(5 * depth, 0);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         internal virtual void AssignFsi(in FileSystemInfo fsi)
         {
+            Initialize();
             current_fsi = fsi;
             text.text = fsi.Name;
         }

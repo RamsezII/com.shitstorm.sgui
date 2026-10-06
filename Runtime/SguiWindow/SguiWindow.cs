@@ -39,22 +39,12 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            base.Awake();
-            Initialize();
-            InitToggle();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         internal void Initialize()
         {
-            if (initialized)
-                return;
-
+            if (initialized) return;
             initialized = true;
             OnInitialize();
+            InitToggle();
         }
 
         internal protected virtual void OnInitialize()
@@ -164,7 +154,7 @@ namespace _SGUI_
                 rt_scale.pivot = .5f * Vector2.one;
             else
             {
-                float localX = rt_scale.InverseTransformPoint(button.rt.position).x;
+                float localX = rt_scale.InverseTransformPoint(button.transform.position).x;
                 float x = Mathf.InverseLerp(rt_scale.rect.xMin, rt_scale.rect.xMax, localX);
                 rt_scale.pivot = new(x, 0);
             }

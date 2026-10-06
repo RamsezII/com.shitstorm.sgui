@@ -27,7 +27,7 @@ namespace _SGUI_
             }
         }
 
-        public Button _button;
+        [UnityEngine.Serialization.FormerlySerializedAs("_button")] public Button button;
         [SerializeField] protected Traductable trad_button;
 
         public Action<int> onValueChanged;
@@ -41,20 +41,10 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
-        {
-            _button = GetComponentInChildren<Button>(true);
-            trad_button = _button.GetComponentInChildren<Traductable>(true);
-
-            base.Awake();
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void Start()
         {
             base.Start();
-            _button.onClick.AddListener(Show);
+            button.onClick.AddListener(Show);
         }
 
         protected override void OnDestroy()
@@ -71,7 +61,7 @@ namespace _SGUI_
         {
             Hide();
             this.options1 = options1 ?? new();
-            _button.interactable = this.options1.Count > 0;
+            button.interactable = this.options1.Count > 0;
             SetValueWithoutNotify(selectedIndex);
         }
 
@@ -80,7 +70,7 @@ namespace _SGUI_
             Hide();
             options1 = new();
             selectedIndex = -1;
-            _button.interactable = false;
+            button.interactable = false;
             RefreshLabel();
         }
 
@@ -118,8 +108,8 @@ namespace _SGUI_
 
             // changer (codex au pifometre)
 
-            RectTransform buttonRt = (RectTransform)_button.transform;
-            Canvas buttonCanvas = _button.GetComponentInParent<Canvas>().rootCanvas;
+            RectTransform buttonRt = (RectTransform)button.transform;
+            Canvas buttonCanvas = button.GetComponentInParent<Canvas>().rootCanvas;
             Camera buttonCamera = buttonCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : buttonCanvas.worldCamera;
             Vector3 buttonCorner = buttonRt.TransformPoint(buttonRt.rect.min);
             Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(buttonCamera, buttonCorner);

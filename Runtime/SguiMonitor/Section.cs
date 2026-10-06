@@ -8,9 +8,8 @@ namespace _SGUI_.Monitor
 {
     public abstract class Section : MonoBehaviour
     {
-        SguiMonitor monitor;
+        public SguiMonitor monitor;
         public Page page;
-        public RectTransform prt, rt;
         [SerializeField] internal Toggle toggle;
         public Traductable trad;
         [SerializeField] RectTransform arrow_rt;
@@ -18,6 +17,9 @@ namespace _SGUI_.Monitor
 
         internal readonly Dictionary<Type, SectionChild> elements_prefabs = new();
         internal readonly List<SectionChild> elements_clones = new();
+        bool initialized;
+
+        //--------------------------------------------------------------------------------------------------------------
 
         private void OnValidate()
         {
@@ -27,19 +29,26 @@ namespace _SGUI_.Monitor
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected virtual void Awake()
+        internal void Initialize()
         {
+            if (initialized) return;
+            initialized = true;
             monitor = GetComponentInParent<SguiMonitor>(true);
-            page = GetComponentInParent<Page>();
-            prt = (RectTransform)transform.parent;
-            rt = (RectTransform)transform;
+            page = GetComponentInParent<Page>(true);
+
             toggle = GetComponent<Toggle>();
-            trad = GetComponentInChildren<Traductable>();
+            trad = GetComponentInChildren<Traductable>(true);
             arrow_rt = (RectTransform)transform.Find("text/arrow");
             vlayout = GetComponentInChildren<VerticalLayoutGroup>(includeInactive: true);
 
             foreach (var addable in vlayout.GetComponentsInChildren<SectionChild>(includeInactive: true))
                 elements_prefabs.Add(addable.GetType(), addable);
+
+            OnInitialize();
+        }
+
+        protected virtual void OnInitialize()
+        {
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -75,6 +84,7 @@ namespace _SGUI_.Monitor
 
             var element = Instantiate(prefab, prefab.transform.parent);
             element.section = this;
+            element.Initialize();
             elements_clones.Add(element);
             element.transform.SetSiblingIndex(transform.GetSiblingIndex() + elements_clones.Count);
             element.gameObject.SetActive(true);

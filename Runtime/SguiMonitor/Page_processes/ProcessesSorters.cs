@@ -14,11 +14,16 @@ namespace _SGUI_
         [SerializeField] SectionColumn prefab_column;
         internal readonly List<SectionColumn> columns = new();
         internal float init_height;
+        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        private void Awake()
+        private void Awake() => Initialize();
+
+        internal void Initialize()
         {
+            if (initialized) return;
+            initialized = true;
             section = GetComponentInParent<ProcessesSection>(true);
             rt = (RectTransform)transform;
             hlayout = GetComponentInChildren<HorizontalLayoutGroup>(true);
@@ -38,6 +43,7 @@ namespace _SGUI_
         public SectionColumn AddColumn()
         {
             SectionColumn column = Instantiate(prefab_column, prefab_column.transform.parent);
+            column.Initialize();
             column.column_index = columns.Count;
             column.gameObject.SetActive(true);
             columns.Add(column);

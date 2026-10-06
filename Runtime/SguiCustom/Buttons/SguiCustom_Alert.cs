@@ -13,20 +13,17 @@ namespace _SGUI_
 
     public class SguiCustom_Alert : SguiCustom_Abstract
     {
-        public Traductable trad_text;
-
         Vector2 initial_size;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
-            trad_text = transform.Find("label").GetComponent<Traductable>();
+            base.OnInitialize();
 
-            base.Awake();
-
-            initial_size = rT.rect.size;
-            rT.anchoredPosition = .5f * (rT_parent.rect.size - initial_size);
+            var rt = transform.AsRTfm();
+            initial_size = rt.rect.size;
+            rt.anchoredPosition = .5f * (transform.parent.AsRTfm().rect.size - initial_size);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -40,14 +37,14 @@ namespace _SGUI_
 
         public void SetText(in Traductions trads)
         {
-            trad_text.SetTraductions(trads);
+            trad_label.SetTraductions(trads);
             Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, FitText);
         }
 
         public void FitText()
         {
-            float height = trad_text.tmpro.preferredHeight;
-            rT.sizeDelta = initial_size + new Vector2(0, height);
+            float height = trad_label.tmpro.preferredHeight;
+            transform.AsRTfm().sizeDelta = initial_size + new Vector2(0, height);
         }
     }
 }

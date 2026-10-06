@@ -21,11 +21,11 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        protected override void OnInitialize()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
 
-            base.Awake();
+            base.OnInitialize();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace _SGUI_
         [SerializeField] internal Button_Folder root_folder;
 
         internal readonly ValueNotifier<Button_Hierarchy> selected_fsi = new();
+        bool initialized;
 
         [AutoStaticsCleanup] public static Action<ContextList, DirectoryInfo> onContextClick_directory;
         [AutoStaticsCleanup] public static Action<ContextList, FileInfo> onContextClick_file;
@@ -30,6 +31,14 @@ namespace _SGUI_
 
         protected override void Awake()
         {
+            base.Awake();
+            Initialize();
+        }
+
+        internal void Initialize()
+        {
+            if (initialized) return;
+            initialized = true;
             scrollview = GetComponentInChildren<ScrollRect>(true);
             vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
             prefab_folder = GetComponentInChildren<Button_Folder>(true);
@@ -38,7 +47,6 @@ namespace _SGUI_
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
 
-            base.Awake();
 
             root_dpath = NUCLEOR.DFHome.FullName;
         }
@@ -111,6 +119,7 @@ namespace _SGUI_
 
         public void GoHere(in FileSystemInfo fsi)
         {
+            Initialize();
             if (root_folder == null)
                 InitRootFolder();
 

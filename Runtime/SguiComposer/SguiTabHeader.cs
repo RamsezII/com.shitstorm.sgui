@@ -7,27 +7,29 @@ using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    internal sealed partial class SguiTabHeader : ArkComponent1, IPointerClickHandler, SguiGlobal.ISguiGlobalLeftClick
+    internal sealed partial class SguiTabHeader : ArkComponent1
     {
         [SerializeField] ContextListHandler listhandler;
+        [SerializeField] Button button;
+        [SerializeField] Graphic graphic_selected;
         public SguiFrame frame;
         public Traductable trad_title;
         public readonly ValueNotifier<bool> isSelected = new();
-        [SerializeField] RawImage background;
         [SerializeField] internal RawImage rimg_icon;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        internal void Initialize()
         {
-            base.Awake();
-
             trad_title.onRefresh += RefreshSize;
-            isSelected.AddListener(selected => background.color = new Color(1, 1, 1, selected ? .3f : .1f));
             transform.Find("close").GetComponent<Button>().onClick.AddListener(() => frame.RequestClose());
 
             if (listhandler != null)
                 listhandler.callback += OnContextList;
+
+            isSelected.AddListener(graphic_selected.gameObject.SetActive);
+
+            button.onClick.AddListener(() => frame.TakeFocus());
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -36,15 +38,6 @@ namespace _SGUI_.composer
         {
             var rt = (RectTransform)transform;
             rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
-        }
-
-        public void OnSguiGlobalLeftClick() => frame.TakeFocus();
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Left)
-                frame.TakeFocus();
-            else if (eventData.button == PointerEventData.InputButton.Middle)
-                frame.RequestClose();
         }
 
         void OnContextList(ContextList list)
