@@ -82,8 +82,6 @@ namespace _SGUI_
             AwakeRuntimeSettings();
 
             isVisible.AddListener(rt_softwares.gameObject.SetActive);
-
-            SguiMonitor.AddSoftwareButton();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -146,6 +144,15 @@ namespace _SGUI_
                 if (false)
                     rt_unfocused_overlay.gameObject.SetActive(!isFocused);
             });
+
+            foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
+            {
+                var prefab = Resources.Load<SguiFrame>(type.FullName);
+                if (prefab == null)
+                    Debug.LogWarning($"no resource with name \"{type}\"", this);
+                else
+                    AddSoftwareButton(prefab);
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -153,9 +160,12 @@ namespace _SGUI_
         public OSHeaderButton AddHeaderButton() => prefab_headerbutton.Clone(true);
 
         public SoftwareButton AddSoftwareButton<T>(in Traductions hoverInfos) where T : SguiFrame => AddSoftwareButton(typeof(T), hoverInfos);
+        public SoftwareButton AddSoftwareButton(in SguiFrame frame) => AddSoftwareButton(frame.GetType(), frame.sgui_description);
         public SoftwareButton AddSoftwareButton(in Type type, in Traductions hoverInfos)
         {
-            if (!softwaresButtons.TryGetValue(type, out SoftwareButton button) || button == null)
+            if (softwaresButtons.TryGetValue(type, out SoftwareButton button))
+                Debug.LogWarning($"already instantiated \"{type}\"", this);
+            else
             {
                 SguiFrame prefab = (SguiFrame)Util.LoadResourceByType(type);
                 if (prefab == null)

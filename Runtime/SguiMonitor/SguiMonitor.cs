@@ -25,17 +25,6 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal static void AddSoftwareButton()
-        {
-            OSView.instance.AddSoftwareButton<SguiMonitor>(new()
-            {
-                french = "Moniteur de Ressources",
-                english = "Resources Monitor",
-            });
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
         protected override void OnInitialize()
         {
             page_processes = GetComponentInChildren<ProcessesPage>(includeInactive: true);

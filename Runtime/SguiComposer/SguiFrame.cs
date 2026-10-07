@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    public abstract partial class SguiFrame : ArkComponent1, SguiGlobal.ISguiGlobalLeftClick
+    public abstract partial class SguiFrame : ArkComponent2, SguiGlobal.ISguiGlobalLeftClick
     {
         [AutoStaticsCleanup] public static readonly ListListener<SguiFrame> instances = new();
         public readonly ValueNotifier<bool> isFocused = new();

@@ -1,3 +1,4 @@
+%UNITY 7.0
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &846234380840681872
@@ -1890,6 +1891,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977122524472821089, guid: 9a99cec866e7c1a44b6f02066b0ed593, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977122524472821089, guid: 9a99cec866e7c1a44b6f02066b0ed593, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1911,11 +1916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7832436522925075069, guid: 9a99cec866e7c1a44b6f02066b0ed593, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7832436522925075069, guid: 9a99cec866e7c1a44b6f02066b0ed593, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8869974340448204296, guid: 9a99cec866e7c1a44b6f02066b0ed593, type: 3}
       propertyPath: m_Pivot.x

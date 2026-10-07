@@ -1,3 +1,4 @@
+%UNITY 7.0
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &2738419781552153904
@@ -139,13 +140,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyed: 0
-  rt: {fileID: 0}
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
   window_icon: {fileID: 2800000, guid: 4db40f814f1468d458331c2362ff3da6, type: 3}
   sgui_name:
-    english: 
-    french: 
+    english: Media player
+    french: "Lecteur multim\xE9dia"
   sgui_description:
     english: 
     french: 

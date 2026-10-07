@@ -11,14 +11,5 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void OnAfterSceneLoad()
-        {
-            OSView.instance.AddSoftwareButton<SguiMediaPlayer>(new()
-            {
-                french = "Lecteur multimédia",
-                english = "Médiaplayer",
-            });
-        }
     }
 }

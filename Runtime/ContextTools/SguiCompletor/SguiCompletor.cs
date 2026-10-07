@@ -23,6 +23,8 @@ namespace _SGUI_
 
         private void Awake()
         {
+            instance = this;
+
             rT_intel = (RectTransform)transform.Find("rT");
             offset = rT_intel.localPosition;
 
