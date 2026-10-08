@@ -13,7 +13,6 @@ namespace _SGUI_.composer
         [NonSerialized] public SguiComposer composer;
         [SerializeField] ScrollRect scrollview;
         [SerializeField] internal RectTransform rt_body, rt_dragzones;
-        Dragzone[] dragzones;
         [SerializeField] TabHeader prefab_tabHeader;
         public readonly List<SguiFrame> frames = new();
         internal readonly ValueNotifier<TabHeader> current_tab = new();
@@ -24,8 +23,6 @@ namespace _SGUI_.composer
         internal void Initialize()
         {
             composer = GetComponentInParent<SguiComposer>(includeInactive: true);
-
-            dragzones = GetComponentsInChildren<Dragzone>(includeInactive: true);
 
             prefab_tabHeader.gameObject.SetActive(false);
 

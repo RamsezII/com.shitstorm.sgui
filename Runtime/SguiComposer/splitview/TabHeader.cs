@@ -15,6 +15,7 @@ namespace _SGUI_.composer
         public Traductable trad_title;
         public readonly ValueNotifier<bool> isSelected = new();
         [SerializeField] internal RawImage rimg_icon;
+        [SerializeField] TabInsertDrop insert_L, insert_R;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +23,9 @@ namespace _SGUI_.composer
         {
             trad_title.onRefresh += RefreshSize;
             transform.Find("close").GetComponent<Button>().onClick.AddListener(() => frame.RequestClose());
+
+            insert_L.Initialize();
+            insert_R.Initialize();
 
             GetComponent<ContextListHandler>().callback += list =>
             {

@@ -1,7 +1,6 @@
 using _ARK_;
 using _SGUI_.composer;
 using _UTIL_;
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,15 +10,10 @@ namespace _SGUI_
 {
     public sealed partial class SguiComposer : SguiWindow
     {
-        [SerializeField] SguiSplitView[] splitviews;
-        public readonly ValueNotifier<SguiFrame> active_frame = new();
         public readonly ValueNotifier<bool> fullscreen = new();
-        [SerializeField] RectTransform rt_body;
+        [SerializeField] RectTransform rt_body, rt_unselected;
         [SerializeField] Button button_hide, button_fullscreen;
-        [SerializeField] RectTransform rt_unselected;
         bool closing, close_requested;
-        public const int min_width = 200, min_height = 150;
-        public SguiSplitView active_splitview => active_frame._value?.pview ?? splitviews.FirstOrDefault(v => v != null);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +43,7 @@ namespace _SGUI_
 
             splitviews = GetComponentsInChildren<SguiSplitView>(true);
 
-            foreach (var view in splitviews) 
+            foreach (var view in splitviews)
                 view.Initialize();
 
             active_frame.AddListener(_ => RefreshFrameFocus());
@@ -70,7 +64,8 @@ namespace _SGUI_
 
             rt.Find("header/header_mask/padding/drag-button").GetComponent<PointerClickHandler>().onClick += data =>
             {
-                if (data.clickCount == 2) fullscreen.ToggleAuto();
+                if (data.clickCount == 2)
+                    fullscreen.ToggleAuto();
             };
 
             button_fullscreen.onClick.AddListener(fullscreen.ToggleAuto);
@@ -90,6 +85,10 @@ namespace _SGUI_
             });
 
             CheckBounds();
+
+#if UNITY_EDITOR
+            ArkUI._VisibleInEditor.Add(gameObject);
+#endif
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -138,121 +137,15 @@ namespace _SGUI_
             RefreshFrameFocus();
         }
 
-        internal void RefreshFrameFocus()
-        {
-            foreach (var view in splitviews)
-                if (view != null)
-                    foreach (var frame in view.frames)
-                        if (frame != null) frame.RefreshFocus();
-        }
-
-        public SguiSplitView AddSplitView() => AddSplitView(Vector2.zero, Vector2.one);
-        public SguiSplitView AddSplitView(Vector2 anchorMin, Vector2 anchorMax, RectTransform parent = null)
-        {
-            var view = Util.InstantiateOrCreate<SguiSplitView>(parent: parent != null ? parent : rt_body);
-            view.Initialize();
-
-            var view_rt = view.transform.AsRTfm();
-            view_rt.anchorMin = anchorMin;
-            view_rt.anchorMax = anchorMax;
-            view_rt.offsetMin = view_rt.offsetMax = Vector2.zero;
-
-            Array.Resize(ref splitviews, splitviews.Length + 1);
-            splitviews[^1] = view;
-
-            return view;
-        }
-
-        internal SguiSplitView SplitView(SguiSplitView view, Dragzone dragzone)
-        {
-            var rt = view.transform.AsRTfm();
-            var group = new GameObject("SplitGroup", typeof(RectTransform)).transform.AsRTfm();
-            group.SetParent(rt.parent, false);
-            group.SetSiblingIndex(rt.GetSiblingIndex());
-            group.anchorMin = rt.anchorMin;
-            group.anchorMax = rt.anchorMax;
-            group.offsetMin = rt.offsetMin;
-            group.offsetMax = rt.offsetMax;
-
-            rt.SetParent(group, false);
-            rt.anchorMin = dragzone.opposite_dragzone.rt_zone.anchorMin;
-            rt.anchorMax = dragzone.opposite_dragzone.rt_zone.anchorMax;
-            rt.offsetMin = rt.offsetMax = Vector2.zero;
-
-            return AddSplitView(dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax, group);
-        }
-
-        internal void RemoveSplitView(SguiSplitView view)
-        {
-            splitviews = splitviews.Where(v => v != view).ToArray();
-            var group = view.transform.parent.AsRTfm();
-            view.gameObject.SetActive(false);
-            // Destroy is deferred; detach now to keep child counts correct this frame.
-            view.transform.SetParent(null, false);
-
-            if (group != null && group != rt_body && group.childCount == 1)
-            {
-                var sibling = group.GetChild(0).AsRTfm();
-                sibling.SetParent(group.parent, false);
-                sibling.SetSiblingIndex(group.GetSiblingIndex());
-                sibling.anchorMin = group.anchorMin;
-                sibling.anchorMax = group.anchorMax;
-                sibling.offsetMin = group.offsetMin;
-                sibling.offsetMax = group.offsetMax;
-                group.SetParent(null, false);
-                Destroy(group.gameObject);
-            }
-
-            Destroy(view.gameObject);
-            OnResized();
-        }
-
-        internal void OnFrameRemoved(SguiFrame removed)
-        {
-            if (oblivionized)
-                return;
-
-            if (active_frame._value == removed)
-                active_frame.Value = splitviews.Where(v => v != null).Select(v => v.current_tab._value?.frame).FirstOrDefault(f => f != null && !f.oblivionized);
-
-            if (closing)
-                return;
-
-            if (close_requested)
-            {
-                OnClickClose();
-                return;
-            }
-
-            if (splitviews.All(v => v == null || v.frames.Count == 0))
-                Oblivionize();
-        }
-
-        internal void CancelCloseRequest() => close_requested = false;
-
-        bool RequestCloseFrames()
-        {
-            close_requested = true;
-            closing = true;
-            try
-            {
-                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
-                    if (frame != null && !frame.RequestClose())
-                        return false;
-                return true;
-            }
-            finally
-            {
-                closing = false;
-            }
-        }
-
         public void CheckBounds()
         {
             if (!fullscreen._value)
             {
+                const int min_width = 200, min_height = 150;
+
                 var available = rt_root.rect.size;
                 var size = rt.rect.size;
+
                 rt.sizeDelta = new(Mathf.Clamp(size.x, Mathf.Min(min_width, available.x), available.x), Mathf.Clamp(size.y, Mathf.Min(min_height, available.y), available.y));
             }
             CheckPosition(out _);
@@ -272,6 +165,25 @@ namespace _SGUI_
         {
             base.OnHeaderEndDrag(eventData);
             OnResized();
+        }
+
+        internal void CancelCloseRequest() => close_requested = false;
+
+        bool RequestCloseFrames()
+        {
+            close_requested = true;
+            closing = true;
+            try
+            {
+                foreach (var frame in splitviews.Where(v => v != null).SelectMany(v => v.frames).ToArray())
+                    if (frame != null && !frame.RequestClose())
+                        return false;
+                return true;
+            }
+            finally
+            {
+                closing = false;
+            }
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -296,6 +208,10 @@ namespace _SGUI_
 
             active_frame.Clear();
             fullscreen.Clear();
+
+#if UNITY_EDITOR
+            ArkUI._VisibleInEditor.Remove(gameObject);
+#endif
         }
     }
 }
