@@ -1,5 +1,6 @@
 using _ARK_;
 using _UTIL_;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,22 +9,28 @@ namespace _SGUI_.composer
 {
     public sealed partial class SguiSplitView : ArkComponent1
     {
-        internal readonly ValueNotifier<SguiTabHeader> current_tab = new();
-        [SerializeField] internal RectTransform rt_body;
-        public SguiComposer composer;
+        [NonSerialized] public SguiComposer composer;
         [SerializeField] ScrollRect scrollview;
-        [SerializeField] SguiTabHeader prefab_tabHeader;
+        [SerializeField] internal RectTransform rt_body, rt_dragzones;
+        Dragzone[] dragzones;
+        [SerializeField] TabHeader prefab_tabHeader;
         public readonly List<SguiFrame> frames = new();
+        internal readonly ValueNotifier<TabHeader> current_tab = new();
+        internal readonly ValueNotifier<TabHeader> current_drag = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
         internal void Initialize()
         {
-            composer = GetComponentInParent<SguiComposer>(true);
+            composer = GetComponentInParent<SguiComposer>(includeInactive: true);
+
+            dragzones = GetComponentsInChildren<Dragzone>(includeInactive: true);
 
             prefab_tabHeader.gameObject.SetActive(false);
 
             current_tab.AddListener(OnCurrentTab);
+
+            current_drag.AddListener(() => rt_dragzones.gameObject.SetActive(current_drag.Has));
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -33,36 +40,31 @@ namespace _SGUI_.composer
             composer.CancelCloseRequest();
 
             var header = Instantiate(prefab_tabHeader, parent: prefab_tabHeader.transform.parent);
+            header.pview = this;
             header.gameObject.SetActive(true);
             header.Initialize();
             header.trad_title.SetTraductions(prefab.sgui_name);
+            header.rimg_icon.texture = prefab.window_icon;
 
             if (header.trad_title.traductions.IsDefault)
                 header.trad_title.SetText(prefab.GetType().FullName);
 
-            // Clone an inactive frame without requiring an inactive prefab asset.
             bool prefabWasActive = prefab.gameObject.activeSelf;
-            SguiFrame frame;
             prefab.gameObject.SetActive(false);
-            try
-            {
-                frame = Instantiate(prefab, rt_body);
-            }
-            finally
-            {
-                prefab.gameObject.SetActive(prefabWasActive);
-            }
+            SguiFrame frame = Instantiate(prefab, rt_body);
+            prefab.gameObject.SetActive(prefabWasActive);
+
             frame.pview = this;
             frame.tab = header;
             header.frame = frame;
+            frame.transform.AsRTfm().FillParent();
 
             frame.Initialize();
 
-            header.rimg_icon.texture = prefab.window_icon;
-            frame.transform.AsRTfm().FillParent();
+            header.gameObject.SetActive(true);
+            frame.gameObject.SetActive(true);
 
             frames.Add(frame);
-            header.gameObject.SetActive(true);
             SelectFrame(frame);
 
             return frame;
@@ -93,7 +95,7 @@ namespace _SGUI_.composer
             scrollview.content.anchoredPosition += new Vector2(correction, 0);
         }
 
-        void OnCurrentTab(SguiTabHeader selected)
+        void OnCurrentTab(TabHeader selected)
         {
             foreach (var frame in frames)
                 if (frame != null && !frame.oblivionized)
@@ -113,14 +115,33 @@ namespace _SGUI_.composer
 
         internal void RemoveFrame(SguiFrame frame)
         {
-            int index = frames.IndexOf(frame);
-            if (index < 0) return;
-            frames.RemoveAt(index);
-            if (frame.tab != null) Destroy(frame.tab.gameObject);
-            bool selected = current_tab._value == frame.tab;
-            if (selected) current_tab.Value = null;
-            if (selected && frames.Count > 0) SelectFrame(frames[Mathf.Min(index, frames.Count - 1)]);
+            int indexOfFrame = frames.IndexOf(frame);
+            if (indexOfFrame < 0)
+                return;
+
+            frames.RemoveAt(indexOfFrame);
+
+            if (frame.tab != null)
+                Destroy(frame.tab.gameObject);
+
+            if (current_tab._value == frame.tab)
+            {
+                current_tab.Value = null;
+                if (frames.Count > 0)
+                    SelectFrame(frames[Mathf.Min(indexOfFrame, frames.Count - 1)]);
+            }
+
             composer.OnFrameRemoved(frame);
+        }
+
+        internal void OnDropTab(in Dragzone dragzone, in TabHeader tab)
+        {
+            RemoveFrame(tab.frame);
+            var rt = transform.AsRTfm();
+            rt.anchorMin = dragzone.opposite_dragzone.rt_zone.anchorMin;
+            rt.anchorMax = dragzone.opposite_dragzone.rt_zone.anchorMax;
+            var newsplit = composer.AddSplitView(dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax);
+            newsplit.AddTab(tab.frame);
         }
 
         //--------------------------------------------------------------------------------------------------------------

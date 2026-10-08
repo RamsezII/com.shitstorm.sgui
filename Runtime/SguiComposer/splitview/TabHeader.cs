@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    internal sealed partial class SguiTabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver
+    internal sealed partial class TabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver
     {
+        internal SguiSplitView pview;
         [SerializeField] Button button;
         [SerializeField] Graphic graphic_selected;
         public SguiFrame frame;
@@ -63,6 +64,13 @@ namespace _SGUI_.composer
         {
             var rt = (RectTransform)transform;
             rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
+        }
+
+        void SguiDragManager.IDraggable.OnBegindDragExtra(PointerEventData eventData) => pview.current_drag.Value = this;
+        void SguiDragManager.IDraggable.OnEndDragExtra(PointerEventData eventData)
+        {
+            if (this == pview.current_drag._value)
+                pview.current_drag.Value = null;
         }
 
         string SguiDragManager.IDraggable.DragDisplay => frame.sgui_name.GetAutomatic();

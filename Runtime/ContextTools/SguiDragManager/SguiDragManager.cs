@@ -21,6 +21,11 @@ namespace _SGUI_
                 instance.text_label.text = DragDisplay;
                 instance.rt_size.sizeDelta = instance.text_label.GetPreferredValues();
                 ArkUI.instance.SetScreenPosition(instance.rt_pos, eventData.position, eventData.pressEventCamera);
+                OnBegindDragExtra(eventData);
+            }
+
+            void OnBegindDragExtra(PointerEventData eventdata)
+            {
             }
 
             void IDragHandler.OnDrag(PointerEventData eventData)
@@ -32,6 +37,11 @@ namespace _SGUI_
             void IEndDragHandler.OnEndDrag(PointerEventData eventData)
             {
                 instance.gameObject.SetActive(false);
+                OnEndDragExtra(eventData);
+            }
+
+            void OnEndDragExtra(PointerEventData eventData)
+            {
             }
         }
 

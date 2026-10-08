@@ -12,7 +12,7 @@ namespace _SGUI_.composer
         [AutoStaticsCleanup] public static readonly ListListener<SguiFrame> instances = new();
         public readonly ValueNotifier<bool> isFocused = new();
         internal SguiSplitView pview;
-        internal SguiTabHeader tab;
+        internal TabHeader tab;
         public SguiComposer composer => pview == null ? null : pview.composer;
         public Canvas canvas;
         public GraphicRaycaster raycaster;
