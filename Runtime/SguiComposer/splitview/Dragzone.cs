@@ -22,11 +22,13 @@ namespace _SGUI_.composer
 
         protected override void OnEnable()
         {
+            base.OnEnable();
             OnState(SelectionState.Normal);
         }
 
         protected override void OnDisable()
         {
+            base.OnDisable();
             OnState(SelectionState.Normal);
         }
 
