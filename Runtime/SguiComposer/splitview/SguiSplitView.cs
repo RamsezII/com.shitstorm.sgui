@@ -77,7 +77,7 @@ namespace _SGUI_.composer
                 if (frame == null)
                     SguiLoggerOverlay.Log($"SelectFrame null", this);
                 else
-                    SguiLoggerOverlay.Log($"SelectFrame {frame.sgui_name} ({frame.GetType().FullName})", frame);
+                    SguiLoggerOverlay.Log($"SelectFrame {frame.sgui_name} ({frame.GetType().FullName}[{frame.ark_id}])", frame);
             _lastSelectFrameCount = Time.frameCount;
 
             if (frame == null || frame.oblivionized || !frames.Contains(frame))
@@ -139,25 +139,46 @@ namespace _SGUI_.composer
 
         internal void OnDropTab(in Dragzone dragzone, in TabHeader tab)
         {
-            var source = tab.pview;
-            var frame = tab.frame;
-            if (source == this && frames.Count == 1)
+            if (tab.pview == this && frames.Count == 1)
                 return;
 
-            var newsplit = composer.SplitView(this, dragzone);
+            composer.SplitView(this, dragzone).MoveTabHere(tab);
+        }
+
+        internal void MoveTabHere(TabHeader tab, TabHeader beside = null, bool after = false)
+        {
+            if (tab == beside)
+                return;
+
+            var source = tab.pview;
+            var frame = tab.frame;
+            int frameIndex = beside == null ? frames.Count : frames.IndexOf(beside.frame) + (after ? 1 : 0);
+            int siblingIndex = beside == null ? prefab_tabHeader.transform.parent.childCount : beside.transform.GetSiblingIndex() + (after ? 1 : 0);
+
+            if (source == this)
+            {
+                // Both indices still include the tab being moved.
+                if (frames.IndexOf(frame) < frameIndex)
+                    frameIndex--;
+                if (tab.transform.GetSiblingIndex() < siblingIndex)
+                    siblingIndex--;
+                frames.Remove(frame);
+            }
 
             current_drag.Value = null;
             composer.CancelCloseRequest();
             source.composer.CancelCloseRequest();
             frame.isFocused.Value = false;
-            frame.pview = tab.pview = newsplit;
-            tab.transform.SetParent(newsplit.prefab_tabHeader.transform.parent, false);
-            frame.transform.SetParent(newsplit.rt_body, false);
+            frame.pview = tab.pview = this;
+            tab.transform.SetParent(prefab_tabHeader.transform.parent, false);
+            tab.transform.SetSiblingIndex(siblingIndex);
+            frame.transform.SetParent(rt_body, false);
             frame.transform.AsRTfm().FillParent();
             frame.canvas = frame.GetComponentInParent<Canvas>(true);
             frame.raycaster = frame.GetComponentInParent<GraphicRaycaster>(true);
-            newsplit.frames.Add(frame);
-            source.RemoveFrame(frame, destroyTab: false);
+            frames.Insert(frameIndex, frame);
+            if (source != this)
+                source.RemoveFrame(frame, destroyTab: false);
             frame.TakeFocus();
             composer.OnResized();
         }

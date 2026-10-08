@@ -15,7 +15,7 @@ namespace _SGUI_.composer
         public Traductable trad_title;
         public readonly ValueNotifier<bool> isSelected = new();
         [SerializeField] internal RawImage rimg_icon;
-        [SerializeField] TabInsertDrop insert_L, insert_R;
+        [SerializeField] internal TabInsertDrop insert_L, insert_R;
 
         //--------------------------------------------------------------------------------------------------------------
 

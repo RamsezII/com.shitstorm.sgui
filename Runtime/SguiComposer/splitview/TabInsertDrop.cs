@@ -19,10 +19,10 @@ namespace _SGUI_.composer
 
         bool SguiDragManager.IAcceptDraggable.TryAcceptDraggable(in SguiDragManager.IDraggable draggable, in bool onDrop)
         {
-            if (draggable is TabHeader newTab)
+            if (draggable is TabHeader newTab && newTab != parentTab)
             {
                 if (onDrop)
-                    ;
+                    parentTab.pview.MoveTabHere(newTab, parentTab, after: this == parentTab.insert_R);
                 return true;
             }
             return false;
@@ -30,7 +30,7 @@ namespace _SGUI_.composer
 
         void OnTabBeingDragged(TabHeader draggedTab)
         {
-            gameObject.SetActive(draggedTab != null);
+            gameObject.SetActive(draggedTab != null && draggedTab != parentTab);
         }
 
         //--------------------------------------------------------------------------------------------------------------
