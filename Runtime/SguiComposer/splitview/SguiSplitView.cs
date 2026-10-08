@@ -147,14 +147,7 @@ namespace _SGUI_.composer
             if (source == this && frames.Count == 1)
                 return;
 
-            var rt = transform.AsRTfm();
-            var min = rt.anchorMin;
-            var size = rt.anchorMax - min;
-            var opposite = dragzone.opposite_dragzone.rt_zone;
-            var newsplit = composer.AddSplitView(min + Vector2.Scale(size, dragzone.rt_zone.anchorMin), min + Vector2.Scale(size, dragzone.rt_zone.anchorMax));
-            rt.anchorMin = min + Vector2.Scale(size, opposite.anchorMin);
-            rt.anchorMax = min + Vector2.Scale(size, opposite.anchorMax);
-            rt.offsetMin = rt.offsetMax = Vector2.zero;
+            var newsplit = composer.SplitView(this, dragzone);
 
             current_drag.Value = null;
             composer.CancelCloseRequest();

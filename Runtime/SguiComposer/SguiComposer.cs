@@ -147,9 +147,9 @@ namespace _SGUI_
         }
 
         public SguiSplitView AddSplitView() => AddSplitView(Vector2.zero, Vector2.one);
-        public SguiSplitView AddSplitView(Vector2 anchorMin, Vector2 anchorMax)
+        public SguiSplitView AddSplitView(Vector2 anchorMin, Vector2 anchorMax, RectTransform parent = null)
         {
-            var view = Util.InstantiateOrCreate<SguiSplitView>(parent: rt_body);
+            var view = Util.InstantiateOrCreate<SguiSplitView>(parent: parent != null ? parent : rt_body);
             view.Initialize();
 
             var view_rt = view.transform.AsRTfm();
@@ -163,10 +163,48 @@ namespace _SGUI_
             return view;
         }
 
+        internal SguiSplitView SplitView(SguiSplitView view, Dragzone dragzone)
+        {
+            var rt = view.transform.AsRTfm();
+            var group = new GameObject("SplitGroup", typeof(RectTransform)).transform.AsRTfm();
+            group.SetParent(rt.parent, false);
+            group.SetSiblingIndex(rt.GetSiblingIndex());
+            group.anchorMin = rt.anchorMin;
+            group.anchorMax = rt.anchorMax;
+            group.offsetMin = rt.offsetMin;
+            group.offsetMax = rt.offsetMax;
+
+            rt.SetParent(group, false);
+            rt.anchorMin = dragzone.opposite_dragzone.rt_zone.anchorMin;
+            rt.anchorMax = dragzone.opposite_dragzone.rt_zone.anchorMax;
+            rt.offsetMin = rt.offsetMax = Vector2.zero;
+
+            return AddSplitView(dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax, group);
+        }
+
         internal void RemoveSplitView(SguiSplitView view)
         {
             splitviews = splitviews.Where(v => v != view).ToArray();
+            var group = view.transform.parent.AsRTfm();
+            view.gameObject.SetActive(false);
+            // Destroy is deferred; detach now to keep child counts correct this frame.
+            view.transform.SetParent(null, false);
+
+            if (group != null && group != rt_body && group.childCount == 1)
+            {
+                var sibling = group.GetChild(0).AsRTfm();
+                sibling.SetParent(group.parent, false);
+                sibling.SetSiblingIndex(group.GetSiblingIndex());
+                sibling.anchorMin = group.anchorMin;
+                sibling.anchorMax = group.anchorMax;
+                sibling.offsetMin = group.offsetMin;
+                sibling.offsetMax = group.offsetMax;
+                group.SetParent(null, false);
+                Destroy(group.gameObject);
+            }
+
             Destroy(view.gameObject);
+            OnResized();
         }
 
         internal void OnFrameRemoved(SguiFrame removed)
