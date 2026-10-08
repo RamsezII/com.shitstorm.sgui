@@ -66,11 +66,11 @@ namespace _SGUI_.composer
             rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
         }
 
-        void SguiDragManager.IDraggable.OnBegindDragExtra(PointerEventData eventData) => pview.current_drag.Value = this;
+        void SguiDragManager.IDraggable.OnBegindDragExtra(PointerEventData eventData) => SguiSplitView.current_drag.Value = this;
         void SguiDragManager.IDraggable.OnEndDragExtra(PointerEventData eventData)
         {
-            if (this == pview.current_drag._value)
-                pview.current_drag.Value = null;
+            if (this == SguiSplitView.current_drag._value)
+                SguiSplitView.current_drag.Value = null;
         }
 
         string SguiDragManager.IDraggable.DragDisplay => frame.sgui_name.GetAutomatic();
@@ -81,6 +81,9 @@ namespace _SGUI_.composer
 
         protected override void OnDestroy()
         {
+            if (this == SguiSplitView.current_drag._value)
+                SguiSplitView.current_drag.Value = null;
+
             if (trad_title != null)
                 trad_title.onRefresh -= RefreshSize;
 

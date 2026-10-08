@@ -22,12 +22,12 @@ namespace _SGUI_.composer
 
         protected override void OnEnable()
         {
-            rt_zone.gameObject.SetActive(previousState == SelectionState.Highlighted);
+            OnState(SelectionState.Normal);
         }
 
         protected override void OnDisable()
         {
-            rt_zone.gameObject.SetActive(false);
+            OnState(SelectionState.Normal);
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -40,6 +40,11 @@ namespace _SGUI_.composer
                 return;
             previousState = state;
 
+            OnState(state);
+        }
+
+        void OnState(SelectionState state)
+        {
             rt_zone.gameObject.SetActive(state == SelectionState.Highlighted);
         }
 

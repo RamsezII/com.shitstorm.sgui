@@ -2,6 +2,7 @@ using _ARK_;
 using _UTIL_;
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ namespace _SGUI_.composer
         [SerializeField] TabHeader prefab_tabHeader;
         public readonly List<SguiFrame> frames = new();
         internal readonly ValueNotifier<TabHeader> current_tab = new();
-        internal readonly ValueNotifier<TabHeader> current_drag = new();
+        [AutoStaticsCleanup] internal static readonly ValueNotifier<TabHeader> current_drag = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -30,8 +31,10 @@ namespace _SGUI_.composer
 
             current_tab.AddListener(OnCurrentTab);
 
-            current_drag.AddListener(() => rt_dragzones.gameObject.SetActive(current_drag.Has));
+            current_drag.AddListener(OnCurrentDrag);
         }
+
+        void OnCurrentDrag() => rt_dragzones.gameObject.SetActive(current_drag.Has && (current_drag._value.pview != this || frames.Count > 1));
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -113,7 +116,7 @@ namespace _SGUI_.composer
                 }
         }
 
-        internal void RemoveFrame(SguiFrame frame)
+        internal void RemoveFrame(SguiFrame frame, bool destroyTab = true)
         {
             int indexOfFrame = frames.IndexOf(frame);
             if (indexOfFrame < 0)
@@ -121,7 +124,7 @@ namespace _SGUI_.composer
 
             frames.RemoveAt(indexOfFrame);
 
-            if (frame.tab != null)
+            if (destroyTab && frame.tab != null)
                 Destroy(frame.tab.gameObject);
 
             if (current_tab._value == frame.tab)
@@ -131,23 +134,51 @@ namespace _SGUI_.composer
                     SelectFrame(frames[Mathf.Min(indexOfFrame, frames.Count - 1)]);
             }
 
+            if (frames.Count == 0)
+                composer.RemoveSplitView(this);
+
             composer.OnFrameRemoved(frame);
         }
 
         internal void OnDropTab(in Dragzone dragzone, in TabHeader tab)
         {
-            RemoveFrame(tab.frame);
+            var source = tab.pview;
+            var frame = tab.frame;
+            if (source == this && frames.Count == 1)
+                return;
+
             var rt = transform.AsRTfm();
-            rt.anchorMin = dragzone.opposite_dragzone.rt_zone.anchorMin;
-            rt.anchorMax = dragzone.opposite_dragzone.rt_zone.anchorMax;
-            var newsplit = composer.AddSplitView(dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax);
-            newsplit.AddTab(tab.frame);
+            var min = rt.anchorMin;
+            var size = rt.anchorMax - min;
+            var opposite = dragzone.opposite_dragzone.rt_zone;
+            var newsplit = composer.AddSplitView(min + Vector2.Scale(size, dragzone.rt_zone.anchorMin), min + Vector2.Scale(size, dragzone.rt_zone.anchorMax));
+            rt.anchorMin = min + Vector2.Scale(size, opposite.anchorMin);
+            rt.anchorMax = min + Vector2.Scale(size, opposite.anchorMax);
+            rt.offsetMin = rt.offsetMax = Vector2.zero;
+
+            current_drag.Value = null;
+            composer.CancelCloseRequest();
+            source.composer.CancelCloseRequest();
+            frame.isFocused.Value = false;
+            frame.pview = tab.pview = newsplit;
+            tab.transform.SetParent(newsplit.prefab_tabHeader.transform.parent, false);
+            frame.transform.SetParent(newsplit.rt_body, false);
+            frame.transform.AsRTfm().FillParent();
+            frame.canvas = frame.GetComponentInParent<Canvas>(true);
+            frame.raycaster = frame.GetComponentInParent<GraphicRaycaster>(true);
+            newsplit.frames.Add(frame);
+            source.RemoveFrame(frame, destroyTab: false);
+            frame.TakeFocus();
+            composer.OnResized();
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnDestroy()
         {
+            current_drag.RemoveListener(OnCurrentDrag);
+            if (current_drag._value != null && current_drag._value.pview == this)
+                current_drag.Value = null;
             current_tab.Clear();
             base.OnDestroy();
         }

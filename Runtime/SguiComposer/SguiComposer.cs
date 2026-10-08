@@ -163,6 +163,12 @@ namespace _SGUI_
             return view;
         }
 
+        internal void RemoveSplitView(SguiSplitView view)
+        {
+            splitviews = splitviews.Where(v => v != view).ToArray();
+            Destroy(view.gameObject);
+        }
+
         internal void OnFrameRemoved(SguiFrame removed)
         {
             if (oblivionized)
