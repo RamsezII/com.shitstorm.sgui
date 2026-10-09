@@ -316,7 +316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1977122524472821089}
   - component: {fileID: 923395650750304936}
-  - component: {fileID: 5649820414908369042}
   - component: {fileID: 5411361124427396665}
   m_Layer: 5
   m_Name: tab-header
@@ -397,18 +396,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5649820414908369042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818705416105152164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae0ad66c4993be04abfaed882c1fddaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.ContextListHandler
 --- !u!114 &5411361124427396665
 MonoBehaviour:
   m_ObjectHideFlags: 0

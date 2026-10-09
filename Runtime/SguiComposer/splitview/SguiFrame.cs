@@ -1,4 +1,5 @@
 using _ARK_;
+using _SGUI_.context_click;
 using _UTIL_;
 using System;
 using Unity.Scripting.LifecycleManagement;
@@ -73,6 +74,10 @@ namespace _SGUI_.composer
         }
 
         //--------------------------------------------------------------------------------------------------------------
+
+        public virtual void OnTabContextList(in ContextList list)
+        {
+        }
 
         internal void RefreshFocus()
         {
