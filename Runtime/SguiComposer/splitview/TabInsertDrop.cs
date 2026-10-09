@@ -13,7 +13,6 @@ namespace _SGUI_.composer
         {
             parentTab = GetComponentInParent<TabHeader>(includeInactive: true);
             SguiSplitView.current_drag.AddListener(OnTabBeingDragged);
-            SguiLoggerOverlay.Log(transform.GetPath(true), this);
         }
 
         //--------------------------------------------------------------------------------------------------------------
