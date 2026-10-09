@@ -19,19 +19,16 @@ namespace _SGUI_.composer
         public Canvas canvas;
         public GraphicRaycaster raycaster;
         public Texture window_icon;
-        public Traductions sgui_name, sgui_description;
+        public Traductions sgui_description;
         public bool oblivionized;
         public Func<bool> onFunc_close;
         public Action onAction_close, onOblivion;
         public SoftwareButton os_button;
-        bool initialized;
 
         //--------------------------------------------------------------------------------------------------------------
 
         internal void Initialize()
         {
-            if (initialized) return;
-            initialized = true;
             pview = GetComponentInParent<SguiSplitView>(true);
             canvas = GetComponentInParent<Canvas>(true);
             raycaster = GetComponentInParent<GraphicRaycaster>(true);

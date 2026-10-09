@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.context_click
 {
-    public sealed class ContextListButton : MonoBehaviour
+    public sealed class ContextListButton : MonoBehaviour, SguiContextHover.IUser
     {
         public ContextList plist;
         public int index;
@@ -15,6 +15,8 @@ namespace _SGUI_.context_click
         public Traductable trad;
         public readonly ValueNotifier<bool> toggle = new();
         [SerializeField] internal RawImage arrow, checkmark;
+        public Traductions hover_infos;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
         //--------------------------------------------------------------------------------------------------------------
 

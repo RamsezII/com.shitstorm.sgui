@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    internal sealed partial class TabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver, SguiContextList.IUser
+    internal sealed partial class TabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver, SguiContextList.IUser, SguiContextHover.IUser
     {
         internal SguiSplitView pview;
         public SguiFrame frame;
@@ -17,7 +17,7 @@ namespace _SGUI_.composer
         public readonly ValueNotifier<bool> isSelected = new();
         [SerializeField] internal RawImage rimg_icon;
         [SerializeField] internal TabInsertDrop insert_L, insert_R;
-        bool SguiContextList.IUser.AcceptsLeftClick => true;
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => new(frame.GetArkName());
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -46,49 +46,52 @@ namespace _SGUI_.composer
         {
             pview.SelectFrame(frame);
 
-            SguiLoggerOverlay.Log(eventData.button, this, timer: 5);
-
-            if (eventData.button == PointerEventData.InputButton.Right)
+            list.AddButton_trad(new()
             {
-                list.AddButton_trad(new()
-                {
-                    french = "Fermer l’onglet",
-                    english = "Close tab",
-                })._button.onClick.AddListener(() => frame.RequestClose());
+                french = "Fermer l’onglet",
+                english = "Close tab",
+            })._button.onClick.AddListener(() => frame.RequestClose());
 
-                list.AddButton_trad(new()
-                {
-                    french = "Fermer les autres onglets",
-                    english = "Close other tabs",
-                })._button.onClick.AddListener(() =>
-                {
-                    foreach (var frame in frame.pview.frames.ToArray())
-                        if (this.frame != frame)
-                            frame.RequestClose();
-                });
-
-                list.AddButton_trad(new()
-                {
-                    french = "Fermer tous les onglets",
-                    english = "Close all tabs",
-                })._button.onClick.AddListener(() =>
-                {
-                    foreach (var frame in frame.pview.frames.ToArray())
+            list.AddButton_trad(new()
+            {
+                french = "Fermer les autres onglets",
+                english = "Close other tabs",
+            })._button.onClick.AddListener(() =>
+            {
+                foreach (var frame in frame.pview.frames.ToArray())
+                    if (this.frame != frame)
                         frame.RequestClose();
-                });
+            });
 
-                list.AddLine();
+            list.AddButton_trad(new()
+            {
+                french = "Fermer tous les onglets",
+                english = "Close all tabs",
+            })._button.onClick.AddListener(() =>
+            {
+                foreach (var frame in frame.pview.frames.ToArray())
+                    frame.RequestClose();
+            });
 
-                list.AddButton_trad(new()
+            list.AddLine();
+
+            list.AddButton_trad(new()
+            {
+                french = "Ajouter un onglet",
+                english = "Add tab",
+            }).SetupSublist(sublist =>
+            {
+                foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
                 {
-                    french = "Ajouter un onglet",
-                    english = "Add tab",
-                }).SetupSublist(sublist =>
-                {
-                    foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
-                        sublist.AddButton_string(type.FullName);
-                });
-            }
+                    var prefab = Resources.Load<SguiFrame>(type.FullName);
+                    if (prefab == null)
+                        continue;
+
+                    var button = sublist.AddButton_string(type.FullName);
+                    button.hover_infos = prefab.sgui_description;
+                    button._button.onClick.AddListener(() => pview.AddTab(prefab).TakeFocus());
+                }
+            });
 
             frame.OnTabContextList(eventData, list);
         }
@@ -100,7 +103,7 @@ namespace _SGUI_.composer
                 SguiSplitView.current_drag.Value = null;
         }
 
-        string SguiDragManager.IDraggable.DragDisplay => frame.sgui_name.GetAutomatic();
+        string SguiDragManager.IDraggable.DragDisplay => frame.GetArkName();
         object SguiDragManager.IDraggable.DragData => this;
         void SguiDragManager.IOnDraggedOver.OnDraggedOver(in SguiDragManager.IDraggable draggable, PointerEventData eventData) => frame.TakeFocus();
 

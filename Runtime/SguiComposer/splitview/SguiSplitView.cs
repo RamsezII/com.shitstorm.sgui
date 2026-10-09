@@ -11,6 +11,7 @@ namespace _SGUI_.composer
     public sealed partial class SguiSplitView : ArkComponent1
     {
         [NonSerialized] public SguiComposer composer;
+        [SerializeField] internal ContextListHandler button_settings;
         [SerializeField] ScrollRect scrollview;
         [SerializeField] internal RectTransform rt_body, rt_dragzones;
         [SerializeField] TabHeader prefab_tabHeader;
@@ -29,6 +30,8 @@ namespace _SGUI_.composer
             current_tab.AddListener(OnCurrentTab);
 
             current_drag.AddListener(OnCurrentDrag);
+
+            button_settings.callback += (eventData, list) => composer.active_frame._value.OnTabContextList(eventData, list);
         }
 
         void OnCurrentDrag() => rt_dragzones.gameObject.SetActive(current_drag.Has && (current_drag._value.pview != this || frames.Count > 1));
@@ -43,7 +46,7 @@ namespace _SGUI_.composer
             header.pview = this;
             header.gameObject.SetActive(true);
             header.Initialize();
-            header.trad_title.SetTraductions(prefab.sgui_name);
+            header.trad_title.SetText(prefab.GetType().FullName);
             header.rimg_icon.texture = prefab.window_icon;
 
             if (header.trad_title.traductions.IsDefault)
@@ -77,7 +80,7 @@ namespace _SGUI_.composer
                 if (frame == null)
                     SguiLoggerOverlay.Log($"SelectFrame null", this);
                 else
-                    SguiLoggerOverlay.Log($"SelectFrame {frame.sgui_name} ({frame.GetType().FullName}[{frame.ark_id}])", frame);
+                    SguiLoggerOverlay.Log($"SelectFrame {frame.GetArkName()} ({frame.GetType().FullName}[{frame.ark_id}])", frame);
             _lastSelectFrameCount = Time.frameCount;
 
             if (frame == null || frame.oblivionized || !frames.Contains(frame))
