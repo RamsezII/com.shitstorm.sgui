@@ -11,24 +11,20 @@ namespace _SGUI_
     {
         public interface IUser : IPointerClickHandler
         {
-            PointerEventData.InputButton AcceptedButton => PointerEventData.InputButton.Right;
-            void OnSguiContextClick(ContextList list);
+            virtual bool AcceptsLeftClick => false;
+            virtual bool AcceptsRightClick => true;
+            void OnSguiContextClick(PointerEventData eventData, ContextList list);
             void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
             {
-                if (eventData.button == AcceptedButton)
+                if (AcceptsLeftClick && eventData.button == PointerEventData.InputButton.Left || AcceptsRightClick && eventData.button == PointerEventData.InputButton.Right)
                 {
                     if (eventData.dragging)
                         return;
 
                     var list = instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera);
-                    OnSguiContextClick(list);
+                    OnSguiContextClick(eventData, list);
                 }
             }
-        }
-
-        public interface IUser_LeftClick : IUser
-        {
-            PointerEventData.InputButton IUser.AcceptedButton => PointerEventData.InputButton.Left;
         }
 
         [AutoStaticsCleanup] public static SguiContextList instance;

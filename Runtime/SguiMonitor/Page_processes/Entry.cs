@@ -2,6 +2,7 @@ using _SGUI_.context_click;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _SGUI_.Monitor.Processes
 {
@@ -40,7 +41,7 @@ namespace _SGUI_.Monitor.Processes
             return column;
         }
 
-        void SguiContextList.IUser.OnSguiContextClick(ContextList context_list)
+        void SguiContextList.IUser.OnSguiContextClick(PointerEventData eventData, ContextList context_list)
         {
             onContextClick?.Invoke(context_list);
         }

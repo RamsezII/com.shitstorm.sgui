@@ -4,6 +4,7 @@ using _UTIL_;
 using System;
 using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.composer
@@ -75,7 +76,7 @@ namespace _SGUI_.composer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public virtual void OnTabContextList(in ContextList list)
+        public virtual void OnTabContextList(in PointerEventData eventData, in ContextList list)
         {
         }
 

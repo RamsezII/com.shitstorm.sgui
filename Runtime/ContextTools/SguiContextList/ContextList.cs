@@ -97,6 +97,11 @@ namespace _SGUI_.context_click
         //--------------------------------------------------------------------------------------------------------------
 
         public void AddLine() => prefab_line.Clone(true);
+        public void AddLine_IfAny()
+        {
+            if (buttons_clones.Count > 0)
+                AddLine();
+        }
 
         public ContextListButton AddButton_string(in string label) => AddButton_trad(new Traductions(label));
         public ContextListButton AddButton_trad(in Traductions label)

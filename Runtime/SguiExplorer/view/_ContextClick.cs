@@ -3,12 +3,13 @@ using _SGUI_.Explorer;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _SGUI_
 {
     partial class SguiExplorerView : SguiContextList.IUser
     {
-        public void OnSguiContextClick(ContextList list)
+        public void OnSguiContextClick(PointerEventData eventData, ContextList list)
         {
             DirectoryInfo pdir = GetComponentsInChildren<Button_Folder>().Where(x => x.toggle._value).Last().current_dir;
             SguiLoggerOverlay.Log($"view click: ({pdir.FullName})", this);

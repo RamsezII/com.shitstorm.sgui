@@ -66,7 +66,7 @@ namespace _SGUI_
             {
                 selected_fsi.Value = null;
                 if (eventData.button == PointerEventData.InputButton.Right)
-                    ((SguiContextList.IUser)this).OnSguiContextClick(SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera));
+                    ((SguiContextList.IUser)this).OnSguiContextClick(eventData, SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera));
             };
 
             NUCLEOR.delegates.OnApplicationFocus += RebuildHierarchy;
