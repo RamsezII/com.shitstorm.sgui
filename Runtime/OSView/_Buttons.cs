@@ -6,25 +6,12 @@ namespace _SGUI_
 {
     partial class OSView
     {
-        readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
-
         public Button
             button_bottom_audio,
             button_home_settings,
             button_user_settings;
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        void AwakeButtons()
-        {
-            foreach (OSButton button in GetComponentsInChildren<OSButton>(true))
-                osbuttons_prefabs[button.GetType()] = button;
-            osbuttons_prefabs[typeof(SoftwareButton)] = rootGroup.transform.Find("task-bar/buttons-left/" + typeof(SoftwareButton).FullName).GetComponent<SoftwareButton>();
-
-            button_bottom_audio = rootGroup.transform.Find("task-bar/buttons-right/audio/button").GetComponent<Button>();
-            button_home_settings = rootGroup.transform.Find("task-bar/buttons-right/hometexts/button").GetComponent<Button>();
-            button_user_settings = rootGroup.transform.Find("task-bar/buttons-right/machine/button").GetComponent<Button>();
-        }
+        readonly Dictionary<Type, OSButton> osbuttons_prefabs = new();
 
         //--------------------------------------------------------------------------------------------------------------
 

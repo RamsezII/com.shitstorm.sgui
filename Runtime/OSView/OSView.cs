@@ -16,9 +16,9 @@ namespace _SGUI_
     {
         [AutoStaticsCleanup] public static OSView instance;
 
-        [HideInInspector] public CanvasGroup rootGroup;
+        public CanvasGroup rootGroup;
 
-        TMP_Text text_computer_time;
+        [SerializeField] TMP_Text text_computer_time;
 
         public RectTransform
             header_rt, rt_header_persistent,
@@ -30,13 +30,9 @@ namespace _SGUI_
             rt_softwares,
             vchat_icon_rT, vchat_bar_rT;
 
-        public Button
-            edit_play, edit_pause, edit_close;
-
-        [SerializeField]
-        TMP_Text
-            text_framerate;
-
+        public Button edit_play, edit_pause, edit_close;
+        public BackgroundReceiver bg_receiver;
+        [SerializeField] TMP_Text text_framerate;
         [SerializeField] OSHeaderButton prefab_headerbutton;
         [SerializeField] SoftwareButton prefab_softwarebutton;
         public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
@@ -49,34 +45,10 @@ namespace _SGUI_
         {
             instance = this;
 
-            rootGroup = transform.Find("root_group").GetComponent<CanvasGroup>();
+            foreach (OSButton button in GetComponentsInChildren<OSButton>(true))
+                osbuttons_prefabs[button.GetType()] = button;
+            osbuttons_prefabs[typeof(SoftwareButton)] = prefab_softwarebutton;
 
-            header_rt = (RectTransform)rootGroup.transform.Find("header");
-            rt_header_persistent = (RectTransform)header_rt.Find("header_persistent");
-            taskbar_rt = (RectTransform)rootGroup.transform.Find("task-bar");
-            rt_footer_persistent = (RectTransform)taskbar_rt.Find("footer_persistent");
-            rt_unfocused_overlay = (RectTransform)transform.Find("unfocused");
-            rt_unfocused_text = (RectTransform)transform.Find("root_group/task-bar/footer_persistent/hlayout/Unfocused");
-            rt_editor = (RectTransform)rootGroup.transform.Find("windows/editor-layer");
-            rt_softwares = (RectTransform)rootGroup.transform.Find("windows/softwares-layer");
-
-            vchat_icon_rT = (RectTransform)rt_footer_persistent.Find("hlayout/VChat/icon");
-            vchat_bar_rT = (RectTransform)vchat_icon_rT.Find("bar");
-
-            text_computer_time = rootGroup.transform.Find("task-bar/buttons-right/time/text").GetComponent<TextMeshProUGUI>();
-
-            rt_editor_buttons = (RectTransform)rootGroup.transform.Find("header/buttons-central");
-            edit_play = rt_editor_buttons.Find("layout/play").GetComponent<Button>();
-            edit_pause = rt_editor_buttons.Find("layout/pause").GetComponent<Button>();
-            edit_close = rt_editor_buttons.Find("layout/close").GetComponent<Button>();
-
-            prefab_softwarebutton = rootGroup.transform.Find("task-bar/buttons-left/_SGUI_.SoftwareButton").GetComponent<SoftwareButton>();
-
-            prefab_headerbutton = GetComponentInChildren<OSHeaderButton>(true);
-
-            text_framerate = rt_footer_persistent.Find("hlayout/Framerate/text").GetComponent<TextMeshProUGUI>();
-
-            AwakeButtons();
             AwakeToggle();
             AwakeSguiSettings();
             AwakeRuntimeSettings();
@@ -88,15 +60,9 @@ namespace _SGUI_
 
         private void Start()
         {
-            RectTransform rt_clickable = (RectTransform)rootGroup.transform.Find("clickable");
-            rt_clickable.GetComponent<PointerClickHandler>().onClick += _ => ToggleSelf(false);
+            bg_receiver.onPointerClick_data += _ => ToggleSelf(false);
 
-            Graphic invisible_click_graphic = rt_clickable.GetComponent<Graphic>();
-            toggle.AddListener(value =>
-            {
-                if (invisible_click_graphic != null)
-                    invisible_click_graphic.raycastTarget = value;
-            });
+            toggle.AddListener(value => bg_receiver.raycastReceiver.raycastTarget = value);
 
             rootGroup.transform.Find("task-bar/main-button").GetComponent<Button>().onClick.AddListener(OSMainMenu.instance.Toggle);
 
