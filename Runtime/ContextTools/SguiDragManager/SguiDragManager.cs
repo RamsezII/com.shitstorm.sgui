@@ -47,11 +47,11 @@ namespace _SGUI_
 
         public interface IAcceptDraggable : IDropHandler
         {
-            bool TryAcceptDraggable(in IDraggable draggable, in bool onDrop);
+            bool TryAcceptDraggable(in PointerEventData eventData, in IDraggable draggable, in bool onDrop);
             void IDropHandler.OnDrop(PointerEventData eventData)
             {
                 if (eventData.pointerDrag.TryGetComponent<IDraggable>(out var draggable))
-                    TryAcceptDraggable(draggable, true);
+                    TryAcceptDraggable(eventData, draggable, true);
                 instance.gameObject.SetActive(false);
             }
         }
@@ -112,7 +112,7 @@ namespace _SGUI_
                 if (handler != null)
                 {
                     found = true;
-                    if (handler.TryAcceptDraggable(draggable, false))
+                    if (handler.TryAcceptDraggable(eventData, draggable, false))
                     {
                         accepts = true;
                         break;

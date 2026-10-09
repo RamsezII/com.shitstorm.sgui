@@ -10,7 +10,7 @@ namespace _SGUI_.osview
     {
         [SerializeField] internal RaycastReceiver raycastReceiver;
         public Action<PointerEventData> onPointerClick_data;
-        public List<Func<SguiDragManager.IDraggable, bool, bool>> stack_onTryAcceptDraggable = new();
+        public List<Func<PointerEventData, SguiDragManager.IDraggable, bool, bool>> stack_onTryAcceptDraggable = new();
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -19,10 +19,10 @@ namespace _SGUI_.osview
             onPointerClick_data?.Invoke(eventData);
         }
 
-        bool SguiDragManager.IAcceptDraggable.TryAcceptDraggable(in SguiDragManager.IDraggable draggable, in bool onDrop)
+        bool SguiDragManager.IAcceptDraggable.TryAcceptDraggable(in PointerEventData eventData, in SguiDragManager.IDraggable draggable, in bool onDrop)
         {
             foreach (var callback in stack_onTryAcceptDraggable)
-                if (callback(draggable, onDrop))
+                if (callback(eventData, draggable, onDrop))
                     return true;
             return false;
         }

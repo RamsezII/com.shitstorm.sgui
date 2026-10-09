@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.composer
@@ -50,7 +51,7 @@ namespace _SGUI_.composer
             rt_zone.gameObject.SetActive(state == SelectionState.Highlighted);
         }
 
-        bool SguiDragManager.IAcceptDraggable.TryAcceptDraggable(in SguiDragManager.IDraggable draggable, in bool onDrop)
+        bool SguiDragManager.IAcceptDraggable.TryAcceptDraggable(in PointerEventData eventData, in SguiDragManager.IDraggable draggable, in bool onDrop)
         {
             if (draggable is TabHeader tab)
             {
