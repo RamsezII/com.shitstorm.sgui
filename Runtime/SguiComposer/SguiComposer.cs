@@ -11,7 +11,8 @@ namespace _SGUI_
     public sealed partial class SguiComposer : SguiWindow
     {
         public readonly ValueNotifier<bool> fullscreen = new();
-        [SerializeField] RectTransform rt_body, rt_unselected;
+        [SerializeField] internal RectTransform rt_body;
+        [SerializeField] RectTransform rt_unselected;
         [SerializeField] Button button_hide, button_fullscreen;
         bool closing, close_requested;
 
