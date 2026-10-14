@@ -1,4 +1,3 @@
-%UNITY 7.0
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &4652296961849306661
@@ -68,9 +67,6 @@ MonoBehaviour:
   canvas: {fileID: 0}
   raycaster: {fileID: 0}
   window_icon: {fileID: 2800000, guid: 0c0fba77feb16e6469efaafd5635074d, type: 3}
-  sgui_name:
-    english: Explorer
-    french: Explorateur
   sgui_description:
     english: File Explorer
     french: Explorateur de fichiers
