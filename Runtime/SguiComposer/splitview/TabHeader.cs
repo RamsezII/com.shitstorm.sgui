@@ -75,23 +75,7 @@ namespace _SGUI_.composer
 
             list.AddLine();
 
-            list.AddButton_trad(new()
-            {
-                french = "Ajouter un onglet",
-                english = "Add tab",
-            }).SetupSublist(sublist =>
-            {
-                foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
-                {
-                    var prefab = Resources.Load<SguiFrame>(type.FullName);
-                    if (prefab == null)
-                        continue;
-
-                    var button = sublist.AddButton_string(type.FullName);
-                    button.hover_infos = prefab.sgui_description;
-                    button._button.onClick.AddListener(() => pview.AddTab(prefab).TakeFocus());
-                }
-            });
+            (pview as SguiContextList.IUser).OnSguiContextClick(eventData, list);
 
             frame.OnTabContextList(eventData, list);
         }

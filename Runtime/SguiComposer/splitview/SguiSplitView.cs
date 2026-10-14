@@ -1,14 +1,16 @@
 using _ARK_;
+using _SGUI_.context_click;
 using _UTIL_;
 using System;
 using System.Collections.Generic;
 using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    public sealed partial class SguiSplitView : ArkComponent1
+    public sealed partial class SguiSplitView : ArkComponent1, SguiContextList.IUser
     {
         [NonSerialized] public SguiComposer composer;
         [SerializeField] internal ContextListHandler button_settings;
@@ -37,6 +39,27 @@ namespace _SGUI_.composer
         void OnCurrentDrag() => rt_dragzones.gameObject.SetActive(current_drag.Has && (current_drag._value.pview != this || frames.Count > 1));
 
         //--------------------------------------------------------------------------------------------------------------
+
+        void SguiContextList.IUser.OnSguiContextClick(PointerEventData eventData, ContextList list)
+        {
+            list.AddButton_trad(new()
+            {
+                french = "Ajouter un onglet",
+                english = "Add tab",
+            }).SetupSublist(sublist =>
+            {
+                foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
+                {
+                    var prefab = Resources.Load<SguiFrame>(type.FullName);
+                    if (prefab == null)
+                        continue;
+
+                    var button = sublist.AddButton_string(type.FullName);
+                    button.hover_infos = prefab.sgui_description;
+                    button._button.onClick.AddListener(() => AddTab(prefab).TakeFocus());
+                }
+            });
+        }
 
         public SguiFrame AddTab(SguiFrame prefab)
         {
