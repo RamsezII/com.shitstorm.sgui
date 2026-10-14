@@ -21,15 +21,17 @@ namespace _SGUI_
                         composer = candidate;
                         break;
                     }
-            if (composer == null)
+            bool new_composer = composer == null;
+            if (new_composer)
             {
                 composer = Instantiate((SguiComposer)Util.LoadResourceByType(typeof(SguiComposer)), instance.rt_softwares);
                 composer.Initialize();
                 composer.rt.sizeDelta = ((UnityEngine.RectTransform)prefab.transform).sizeDelta;
             }
             composer.TakeFocus();
-            var view = composer.active_splitview ?? composer.AddSplitView();
-            var frame = view.AddTab(prefab);
+            var frame = new_composer ? prefab.OpenInNewComposer(composer) : (composer.active_splitview ?? composer.AddSplitView()).AddTab(prefab);
+            if (new_composer)
+                composer.CheckBounds();
             frame.TakeFocus();
             return frame;
         }

@@ -39,7 +39,23 @@ namespace _SGUI_
             return view;
         }
 
-        internal SguiSplitView SplitView(SguiSplitView view, Dragzone dragzone)
+        internal SguiSplitView SplitView(SguiSplitView view, Dragzone dragzone) => SplitView(view, dragzone.opposite_dragzone.rt_zone.anchorMin, dragzone.opposite_dragzone.rt_zone.anchorMax, dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax);
+
+        // Axis 0 splits left/right, axis 1 splits bottom/top. The existing view keeps the low side.
+        public SguiSplitView SplitView(SguiSplitView view, int axis, float ratio = 0.5f)
+        {
+            if (view == null) throw new ArgumentNullException(nameof(view));
+            if (view.composer != this) throw new ArgumentException("The split view belongs to another composer.", nameof(view));
+            if (axis != 0 && axis != 1) throw new ArgumentOutOfRangeException(nameof(axis));
+            if (!(ratio > 0 && ratio < 1)) throw new ArgumentOutOfRangeException(nameof(ratio));
+
+            var lowMax = Vector2.one;
+            var highMin = Vector2.zero;
+            lowMax[axis] = highMin[axis] = ratio;
+            return SplitView(view, Vector2.zero, lowMax, highMin, Vector2.one);
+        }
+
+        SguiSplitView SplitView(SguiSplitView view, Vector2 anchorMin, Vector2 anchorMax, Vector2 newAnchorMin, Vector2 newAnchorMax)
         {
             var rt = view.transform.AsRTfm();
             var rt_group = (RectTransform)new GameObject("SplitGroup", typeof(RectTransform)).transform;
@@ -51,11 +67,11 @@ namespace _SGUI_
             rt_group.offsetMax = rt.offsetMax;
 
             rt.SetParent(rt_group, false);
-            rt.anchorMin = dragzone.opposite_dragzone.rt_zone.anchorMin;
-            rt.anchorMax = dragzone.opposite_dragzone.rt_zone.anchorMax;
+            rt.anchorMin = anchorMin;
+            rt.anchorMax = anchorMax;
             rt.offsetMin = rt.offsetMax = Vector2.zero;
 
-            return AddSplitView(dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax, rt_group);
+            return AddSplitView(newAnchorMin, newAnchorMax, rt_group);
         }
 
         internal void RemoveSplitView(SguiSplitView view)

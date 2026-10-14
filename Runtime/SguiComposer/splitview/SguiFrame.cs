@@ -27,6 +27,8 @@ namespace _SGUI_.composer
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public virtual SguiFrame OpenInNewComposer(SguiComposer composer) => composer.AddSplitView().AddTab(this);
+
         internal void Initialize()
         {
             pview = GetComponentInParent<SguiSplitView>(true);

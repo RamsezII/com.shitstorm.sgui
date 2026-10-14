@@ -20,7 +20,7 @@ namespace _SGUI_
                 case PointerEventData.InputButton.Left:
                     if (users.IsEmpty)
                     {
-                        if (onClick_left_empty == null) InstantiateSoftware();
+                        if (onClick_left_empty == null) InstantiateSoftware(true);
                         else onClick_left_empty(eventData);
                     }
                     else if (onClick_left_notEmpty == null || onClick_left_notEmpty(eventData))
