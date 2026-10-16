@@ -24,6 +24,8 @@ namespace _SGUI_.composer
         public Func<bool> onFunc_close;
         public Action onAction_close, onOblivion;
         public SoftwareButton os_button;
+        public void ChangeTitle(in string title) => tab.trad_title.SetText(title);
+        public void ChangeTitle(in Traductions title) => tab.trad_title.SetTraductions(title);
 
         //--------------------------------------------------------------------------------------------------------------
 

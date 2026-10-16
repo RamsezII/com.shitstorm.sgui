@@ -10,9 +10,8 @@ namespace _SGUI_.context_click
     {
         public ContextList plist;
         public int index;
-        public RectTransform rt;
         public Button _button;
-        public Traductable trad;
+        public Traductable label_left, label_right;
         public readonly ValueNotifier<bool> toggle = new();
         [SerializeField] internal RawImage arrow, checkmark;
         public Traductions hover_infos;
@@ -23,11 +22,6 @@ namespace _SGUI_.context_click
         private void Awake()
         {
             plist = GetComponentInParent<ContextList>();
-            rt = (RectTransform)transform;
-            _button = GetComponentInChildren<Button>();
-            trad = GetComponentInChildren<Traductable>();
-            arrow = transform.Find("arrow").GetComponent<RawImage>();
-            checkmark = transform.Find("checkmark").GetComponent<RawImage>();
 
             arrow.gameObject.SetActive(false);
 
@@ -58,7 +52,7 @@ namespace _SGUI_.context_click
 
                 sublist.gameObject.SetActive(true);
 
-                Util.GetWorldCorners(rt, out _, out Vector3 max);
+                Util.GetWorldCorners(transform.AsRTfm(), out _, out Vector3 max);
                 sublist.rt.position = max;
                 sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 

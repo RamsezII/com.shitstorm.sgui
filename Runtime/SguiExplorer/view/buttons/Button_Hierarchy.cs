@@ -42,7 +42,7 @@ namespace _SGUI_.Explorer
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
-            view.selected_path.Value = current_fsi;
+            view.selected_fsi.Value = current_fsi;
 
             if (eventData.button == PointerEventData.InputButton.Right)
             {
@@ -84,8 +84,8 @@ namespace _SGUI_.Explorer
                             }
                             else
                             {
-                                if (current_fsi == view.selected_path._value)
-                                    view.selected_path.Value = null;
+                                if (current_fsi == view.selected_fsi._value)
+                                    view.selected_fsi.Value = null;
 
                                 var pdir = Directory.GetParent(current_fsi.FullName);
                                 string newpath = Path.Combine(pdir.FullName, name);
@@ -94,12 +94,12 @@ namespace _SGUI_.Explorer
                                 {
                                     case FileInfo file:
                                         file.MoveTo(newpath);
-                                        view.selected_path.Value = file;
+                                        view.selected_fsi.Value = file;
                                         break;
 
                                     case DirectoryInfo dir:
                                         dir.MoveTo(newpath);
-                                        view.selected_path.Value = dir;
+                                        view.selected_fsi.Value = dir;
                                         break;
                                 }
 
@@ -126,8 +126,8 @@ namespace _SGUI_.Explorer
 
                         window.onAction_confirm += () =>
                         {
-                            if (current_fsi == view.selected_path._value)
-                                view.selected_path.Value = null;
+                            if (current_fsi == view.selected_fsi._value)
+                                view.selected_fsi.Value = null;
 
                             switch (current_fsi)
                             {

@@ -20,7 +20,7 @@ namespace _SGUI_
 
         public string root_path;
         internal readonly HashSet<string> opened_folders = new(pathComparer);
-        public readonly ValueNotifier<FileSystemInfo> selected_path = new();
+        public readonly ValueNotifier<FileSystemInfo> selected_fsi = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -86,7 +86,7 @@ namespace _SGUI_
         {
             clones.Add(path, row);
             row.transform.SetAsLastSibling();
-            row.SetSelected(pathComparer.Equals(path, selected_path._value?.FullName.NormalizePath()));
+            row.SetSelected(pathComparer.Equals(path, selected_fsi._value?.FullName.NormalizePath()));
             row.gameObject.SetActive(true);
         }
 

@@ -108,7 +108,7 @@ namespace _SGUI_.context_click
         {
             var button = prefab_button.Clone(true);
             button.index = buttons_clones.Count;
-            button.trad.SetTraductions(label);
+            button.label_left.SetTraductions(label);
             buttons_clones.Add(button);
 
             button._button.onClick.AddListener(() =>

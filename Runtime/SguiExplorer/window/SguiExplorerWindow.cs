@@ -13,6 +13,14 @@ namespace _SGUI_
             view = GetComponentInChildren<SguiExplorerView>(true);
 
             base.OnInitialize();
+
+            view.selected_fsi.AddListener(fsi =>
+            {
+                if (view.selected_fsi.Has)
+                    ChangeTitle(fsi.FullName);
+                else
+                    ChangeTitle(view.root_path);
+            });
         }
     }
 }

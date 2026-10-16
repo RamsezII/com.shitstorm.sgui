@@ -71,12 +71,12 @@ namespace _SGUI_
 
             transform.Find("scroll-view/viewport/background").GetComponent<PointerClickHandler>().onClick += (PointerEventData eventData) =>
             {
-                selected_path.Value = null;
+                selected_fsi.Value = null;
                 if (eventData.button == PointerEventData.InputButton.Right)
                     ((SguiContextList.IUser)this).OnSguiContextClick(eventData, SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera));
             };
 
-            selected_path.AddListener(RebuildHierarchy);
+            selected_fsi.AddListener(RebuildHierarchy);
         }
 
         //--------------------------------------------------------------------------------------------------------------
