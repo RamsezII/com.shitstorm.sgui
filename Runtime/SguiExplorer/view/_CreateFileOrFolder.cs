@@ -37,11 +37,9 @@ namespace _SGUI_
                 {
                     try
                     {
-                        selected_fsi.Value = null;
                         string final_path = Path.Combine(pdir.FullName, name);
                         File.WriteAllText(final_path, string.Empty);
-                        RebuildHierarchy();
-                        GoHere(new FileInfo(final_path));
+                        selected_path.Value = new FileInfo(final_path);
                     }
                     catch (Exception ex)
                     {
@@ -84,11 +82,9 @@ namespace _SGUI_
                 {
                     try
                     {
-                        selected_fsi.Value = null;
                         string final_path = Path.Combine(pdir.FullName, name);
                         Directory.CreateDirectory(final_path);
-                        RebuildHierarchy();
-                        GoHere(new DirectoryInfo(final_path));
+                        selected_path.Value = new DirectoryInfo(final_path);
                     }
                     catch (Exception ex)
                     {

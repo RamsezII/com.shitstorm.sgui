@@ -1,8 +1,4 @@
 ﻿using _SGUI_.context_click;
-using _SGUI_.Explorer;
-using System.IO;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _SGUI_
@@ -11,17 +7,12 @@ namespace _SGUI_
     {
         public void OnSguiContextClick(PointerEventData eventData, ContextList list)
         {
-            DirectoryInfo pdir = GetComponentsInChildren<Button_Folder>().Where(x => x.toggle._value).Last().current_dir;
-            SguiLoggerOverlay.Log($"view click: ({pdir.FullName})", this);
-
             {
                 var button = list.AddButton_trad(new()
                 {
                     french = $"Créer un fichier",
                     english = $"Create file",
                 });
-
-                button._button.onClick.AddListener(() => Prompt_CreateFile(pdir));
             }
 
             {
@@ -30,8 +21,6 @@ namespace _SGUI_
                     french = $"Créer un dossier",
                     english = $"Create a directory",
                 });
-
-                button._button.onClick.AddListener(() => Prompt_CreateFolder(pdir));
             }
 
             {
@@ -40,8 +29,6 @@ namespace _SGUI_
                     french = $"Ouvrir l'explorateur ici",
                     english = $"Open explorer here",
                 });
-
-                button._button.onClick.AddListener(() => Application.OpenURL(pdir.FullName));
             }
         }
     }

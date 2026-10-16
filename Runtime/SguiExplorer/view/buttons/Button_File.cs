@@ -11,11 +11,13 @@ namespace _SGUI_.Explorer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal override void AssignFsi(in FileSystemInfo fsi)
+        internal void Initialize(in FileInfo file)
         {
-            base.AssignFsi(fsi);
-            current_file = (FileInfo)fsi;
+            current_file = file;
+            base.Initialize(file);
         }
+
+        //--------------------------------------------------------------------------------------------------------------
 
         protected override void OnContextList(in ContextList list)
         {

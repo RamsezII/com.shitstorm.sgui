@@ -12,30 +12,23 @@ namespace _SGUI_.Explorer
     internal partial class Button_Hierarchy : ArkComponent1, IPointerClickHandler, SguiDragManager.IDraggable
     {
         public SguiExplorerView view;
-
-        [SerializeField] RawImage rimg_selected;
-        public TextMeshProUGUI text;
-        public int depth;
+        [SerializeField] RectTransform rt_size;
+        [SerializeField] internal Button button;
+        [SerializeField] internal TextMeshProUGUI text;
+        [SerializeField] internal int depth;
 
         [NonSerialized] public FileSystemInfo current_fsi;
-        public string normalized_path;
-        bool initialized;
 
-        string SguiDragManager.IDraggable.DragDisplay => normalized_path;
-        object SguiDragManager.IDraggable.DragData => normalized_path;
+        string SguiDragManager.IDraggable.DragDisplay => current_fsi.FullName;
+        object SguiDragManager.IDraggable.DragData => current_fsi;
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal void Initialize()
+        protected void Initialize(in FileSystemInfo fsi)
         {
-            if (initialized) return;
-            initialized = true;
             view = GetComponentInParent<SguiExplorerView>(true);
-            OnInitialize();
-        }
-
-        protected virtual void OnInitialize()
-        {
+            current_fsi = fsi;
+            text.text = fsi.Name;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -43,37 +36,14 @@ namespace _SGUI_.Explorer
         protected override void Start()
         {
             base.Start();
-
-            normalized_path = current_fsi.FullName.NormalizePath();
-
-            view.selected_fsi.AddListener(OnSelectedButton);
-
-            transform.AsRTfm().anchoredPosition += new Vector2(5 * depth, 0);
+            rt_size.sizeDelta = new Vector2(-5 * depth, 0);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal virtual void AssignFsi(in FileSystemInfo fsi)
-        {
-            Initialize();
-            current_fsi = fsi;
-            text.text = fsi.Name;
-        }
-
-        void OnSelectedButton(Button_Hierarchy value)
-        {
-            bool selected = this == value;
-            OnSelected(selected);
-        }
-
-        protected virtual void OnSelected(in bool selected)
-        {
-            rimg_selected.gameObject.SetActive(selected);
-        }
-
         public virtual void OnPointerClick(PointerEventData eventData)
         {
-            view.selected_fsi.Value = this;
+            view.selected_path.Value = current_fsi;
 
             if (eventData.button == PointerEventData.InputButton.Right)
             {
@@ -115,8 +85,8 @@ namespace _SGUI_.Explorer
                             }
                             else
                             {
-                                if (this == view.selected_fsi._value)
-                                    view.selected_fsi.Value = null;
+                                if (current_fsi == view.selected_path._value)
+                                    view.selected_path.Value = null;
 
                                 var pdir = Directory.GetParent(current_fsi.FullName);
                                 string newpath = Path.Combine(pdir.FullName, name);
@@ -125,15 +95,14 @@ namespace _SGUI_.Explorer
                                 {
                                     case FileInfo file:
                                         file.MoveTo(newpath);
+                                        view.selected_path.Value = file;
                                         break;
 
                                     case DirectoryInfo dir:
                                         dir.MoveTo(newpath);
+                                        view.selected_path.Value = dir;
                                         break;
                                 }
-
-                                view.RebuildHierarchy();
-                                view.selected_fsi.Value = this;
 
                                 return true;
                             }
@@ -158,8 +127,8 @@ namespace _SGUI_.Explorer
 
                         window.onAction_confirm += () =>
                         {
-                            if (this == view.selected_fsi._value)
-                                view.selected_fsi.Value = null;
+                            if (current_fsi == view.selected_path._value)
+                                view.selected_path.Value = null;
 
                             switch (current_fsi)
                             {
@@ -168,7 +137,7 @@ namespace _SGUI_.Explorer
                                     break;
 
                                 case DirectoryInfo dir:
-                                    dir.Delete(true);
+                                    dir.Delete(recursive: true);
                                     break;
                             }
 
@@ -207,15 +176,6 @@ namespace _SGUI_.Explorer
 
         protected virtual void OnContextList(in ContextList list)
         {
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            view.selected_fsi.RemoveListener(OnSelectedButton);
         }
     }
 }
