@@ -15,9 +15,9 @@ namespace _SGUI_
     {
         [SerializeField] ScrollRect scrollview;
         [SerializeField] VerticalLayoutGroup vlayout;
-        [AutoStaticsCleanup] public static Action<ContextList, FileSystemInfo> onContextList_fileAndDirectory;
-        [AutoStaticsCleanup] public static Action<ContextList, FileInfo> onContextList_file;
-        [AutoStaticsCleanup] public static Action<ContextList, DirectoryInfo> onContextList_directory;
+        [AutoStaticsCleanup] public static Action<SguiExplorerView, ContextList, FileSystemInfo> onContextList_fileAndDirectory;
+        [AutoStaticsCleanup] public static Action<SguiExplorerView, ContextList, FileInfo> onContextList_file;
+        [AutoStaticsCleanup] public static Action<SguiExplorerView, ContextList, DirectoryInfo> onContextList_directory;
 
         //--------------------------------------------------------------------------------------------------------------
 

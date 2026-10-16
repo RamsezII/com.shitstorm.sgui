@@ -174,7 +174,7 @@ namespace _SGUI_.Explorer
                 if (SguiExplorerView.onContextList_fileAndDirectory != null)
                 {
                     list.AddLine();
-                    SguiExplorerView.onContextList_fileAndDirectory(list, current_fsi);
+                    SguiExplorerView.onContextList_fileAndDirectory(view, list, current_fsi);
                 }
             }
         }

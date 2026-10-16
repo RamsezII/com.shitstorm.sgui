@@ -67,7 +67,7 @@ namespace _SGUI_.Explorer
             if (SguiExplorerView.onContextList_file != null)
             {
                 list.AddLine();
-                SguiExplorerView.onContextList_file(list, current_file);
+                SguiExplorerView.onContextList_file(view, list, current_file);
             }
         }
     }

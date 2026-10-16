@@ -76,7 +76,7 @@ namespace _SGUI_.Explorer
             if (SguiExplorerView.onContextList_directory != null)
             {
                 list.AddLine();
-                SguiExplorerView.onContextList_directory(list, current_dir);
+                SguiExplorerView.onContextList_directory(view, list, current_dir);
             }
         }
     }
