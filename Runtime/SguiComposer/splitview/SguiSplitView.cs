@@ -168,7 +168,7 @@ namespace _SGUI_.composer
             composer.SplitView(this, dragzone).MoveTabHere(tab);
         }
 
-        internal void MoveTabHere(TabHeader tab, TabHeader beside = null, bool after = false)
+        public void MoveTabHere(TabHeader tab, TabHeader beside = null, bool after = false)
         {
             if (tab == beside)
                 return;
