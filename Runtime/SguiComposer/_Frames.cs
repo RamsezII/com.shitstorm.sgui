@@ -8,6 +8,12 @@ namespace _SGUI_
 {
     partial class SguiComposer
     {
+        public enum SplitAxis : byte
+        {
+            Horizontal,
+            Vertical,
+        }
+
         [SerializeField] SguiSplitView[] splitviews;
         public readonly ValueNotifier<SguiFrame> active_frame = new();
         public SguiSplitView active_splitview => active_frame._value?.pview ?? splitviews.FirstOrDefault(v => v != null);
@@ -42,16 +48,29 @@ namespace _SGUI_
         internal SguiSplitView SplitView(SguiSplitView view, Dragzone dragzone) => SplitView(view, dragzone.opposite_dragzone.rt_zone.anchorMin, dragzone.opposite_dragzone.rt_zone.anchorMax, dragzone.rt_zone.anchorMin, dragzone.rt_zone.anchorMax);
 
         // Axis 0 splits left/right, axis 1 splits bottom/top. The existing view keeps the low side.
-        public SguiSplitView SplitView(SguiSplitView view, int axis, float ratio = 0.5f)
+        public SguiSplitView SplitView(SguiSplitView view, SplitAxis axis, float ratio = 0.5f)
         {
-            if (view == null) throw new ArgumentNullException(nameof(view));
-            if (view.composer != this) throw new ArgumentException("The split view belongs to another composer.", nameof(view));
-            if (axis != 0 && axis != 1) throw new ArgumentOutOfRangeException(nameof(axis));
-            if (!(ratio > 0 && ratio < 1)) throw new ArgumentOutOfRangeException(nameof(ratio));
+            if (view == null)
+                throw new ArgumentNullException(nameof(view));
+
+            if (view.composer != this)
+                throw new ArgumentException("The split view belongs to another composer.", nameof(view));
+
+            switch (axis)
+            {
+                case SplitAxis.Horizontal:
+                case SplitAxis.Vertical:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(axis));
+            }
+
+            if (!(ratio > 0 && ratio < 1))
+                throw new ArgumentOutOfRangeException(nameof(ratio));
 
             var lowMax = Vector2.one;
             var highMin = Vector2.zero;
-            lowMax[axis] = highMin[axis] = ratio;
+            lowMax[(int)axis] = highMin[(int)axis] = ratio;
             return SplitView(view, Vector2.zero, lowMax, highMin, Vector2.one);
         }
 

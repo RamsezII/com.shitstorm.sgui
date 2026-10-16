@@ -14,12 +14,14 @@ namespace _SGUI_
 
             base.OnInitialize();
 
+            view.Initialize();
+
             view.selected_fsi.AddListener(fsi =>
             {
                 if (view.selected_fsi.Has)
-                    ChangeTitle(fsi.FullName);
+                    tab.trad_title.SetText(fsi.FullName);
                 else
-                    ChangeTitle(view.root_path);
+                    tab.trad_title.SetText(view.root_path);
             });
         }
     }

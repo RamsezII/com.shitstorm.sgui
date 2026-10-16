@@ -61,7 +61,7 @@ namespace _SGUI_.composer
             });
         }
 
-        public SguiFrame AddTab(SguiFrame prefab)
+        public T AddTab<T>(T prefab) where T : SguiFrame
         {
             composer.CancelCloseRequest();
 
@@ -69,15 +69,12 @@ namespace _SGUI_.composer
             header.pview = this;
             header.gameObject.SetActive(true);
             header.Initialize();
-            header.trad_title.SetText(prefab.GetType().FullName);
+            header.trad_title.SetText(prefab.GetType().FullName.Italic());
             header.rimg_icon.texture = prefab.window_icon;
-
-            if (header.trad_title.traductions.IsDefault)
-                header.trad_title.SetText(prefab.GetType().FullName);
 
             bool prefabWasActive = prefab.gameObject.activeSelf;
             prefab.gameObject.SetActive(false);
-            SguiFrame frame = Instantiate(prefab, rt_body);
+            T frame = Instantiate(prefab, rt_body);
             prefab.gameObject.SetActive(prefabWasActive);
 
             frame.pview = this;

@@ -97,14 +97,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 197856610100753310, guid: a011cb22249178540be77dbefbafa20f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 197856610100753310, guid: a011cb22249178540be77dbefbafa20f, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 6102922471337131618, guid: a011cb22249178540be77dbefbafa20f, type: 3}
       propertyPath: m_Name
       value: file-button
@@ -234,11 +226,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_File
   _destroyed: 0
   view: {fileID: 0}
+  rt_size: {fileID: 0}
   rimg_selected: {fileID: 1185562541535507020}
-  rt: {fileID: 0}
+  button: {fileID: 0}
   text: {fileID: 7203807729295675067}
   depth: 0
-  normalized_path: 
 --- !u!224 &5124827924943520482 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 197856610100753310, guid: a011cb22249178540be77dbefbafa20f, type: 3}

@@ -13,21 +13,42 @@ namespace _SGUI_
     partial class SguiExplorerView
     {
         [NoAutoStaticsCleanup] static readonly StringComparer pathComparer = Util.is_windows ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        [NoAutoStaticsCleanup] static readonly PathEqualityComparer pathEqualityComparer = new();
+
+        sealed class PathEqualityComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y)
+            {
+                if (x == null || y == null)
+                    return x == y;
+
+                return pathComparer.Equals(TrimEndingSeparator(x), TrimEndingSeparator(y));
+            }
+
+            public int GetHashCode(string path) => path == null ? 0 : pathComparer.GetHashCode(TrimEndingSeparator(path));
+
+            static string TrimEndingSeparator(string path)
+            {
+                string root = Path.GetPathRoot(path);
+                string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                return trimmed.Length < root.Length ? root : trimmed;
+            }
+        }
 
         [SerializeField] Button_Folder prefab_folder;
         [SerializeField] Button_File prefab_file;
-        readonly Dictionary<string, Button_Hierarchy> clones = new(pathComparer);
+        readonly Dictionary<string, Button_Hierarchy> clones = new(pathEqualityComparer);
 
         public string root_path;
-        internal readonly HashSet<string> opened_folders = new(pathComparer);
+        public readonly HashSet<string> opened_folders = new(pathEqualityComparer);
         public readonly ValueNotifier<FileSystemInfo> selected_fsi = new();
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal void RebuildHierarchy() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, RebuildHierarchy_now);
+        public void RebuildHierarchy() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, RebuildHierarchy_now);
         void RebuildHierarchy_now()
         {
-            if (this == null || !initialized)
+            if (this == null)
                 return;
 
             foreach (var clone in clones.Values)
@@ -45,7 +66,7 @@ namespace _SGUI_
 
         void PopulateDirectory(DirectoryInfo directory, int depth)
         {
-            string path = directory.FullName.NormalizePath();
+            string path = directory.FullName;
             bool opened = opened_folders.Contains(path);
 
             var folder = prefab_folder.Clone(parent: vlayout.transform);
@@ -77,7 +98,7 @@ namespace _SGUI_
                     var button = prefab_file.Clone(parent: vlayout.transform);
                     button.depth = depth + 1;
                     button.Initialize(file);
-                    AddHierarchyRow(file.FullName.NormalizePath(), button);
+                    AddHierarchyRow(file.FullName, button);
                 }
             }
         }
@@ -86,13 +107,13 @@ namespace _SGUI_
         {
             clones.Add(path, row);
             row.transform.SetAsLastSibling();
-            row.SetSelected(pathComparer.Equals(path, selected_fsi._value?.FullName.NormalizePath()));
+            row.SetSelected(pathEqualityComparer.Equals(path, selected_fsi._value?.FullName));
             row.gameObject.SetActive(true);
         }
 
         internal void ToggleFolder(DirectoryInfo directory)
         {
-            string path = directory.FullName.NormalizePath();
+            string path = directory.FullName;
             if (!opened_folders.Add(path))
                 opened_folders.Remove(path);
 

@@ -15,7 +15,6 @@ namespace _SGUI_
     {
         [SerializeField] ScrollRect scrollview;
         [SerializeField] VerticalLayoutGroup vlayout;
-        bool initialized;
         [AutoStaticsCleanup] public static Action<ContextList, FileSystemInfo> onContextList_fileAndDirectory;
         [AutoStaticsCleanup] public static Action<ContextList, FileInfo> onContextList_file;
         [AutoStaticsCleanup] public static Action<ContextList, DirectoryInfo> onContextList_directory;
@@ -25,14 +24,15 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
+
             NUCLEOR.delegates.OnApplicationFocus += RebuildHierarchy;
-            if (initialized)
-                RebuildHierarchy();
+            RebuildHierarchy();
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
+
             NUCLEOR.delegates.OnApplicationFocus -= RebuildHierarchy;
             NUCLEOR.delegates.LateUpdate_onEndOfFrame_once -= RebuildHierarchy_now;
             NUCLEOR.delegates.LateUpdate_onEndOfFrame_once -= AutoSize_now;
@@ -40,23 +40,23 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal void Initialize(in string root_path)
+        internal void Initialize()
         {
-            if (!initialized)
-            {
-                scrollview = GetComponentInChildren<ScrollRect>(true);
-                vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
-                prefab_folder = GetComponentInChildren<Button_Folder>(true);
-                prefab_file = GetComponentInChildren<Button_File>(true);
-            }
+            scrollview = GetComponentInChildren<ScrollRect>(true);
+            vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
+            prefab_folder = GetComponentInChildren<Button_Folder>(true);
+            prefab_file = GetComponentInChildren<Button_File>(true);
 
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
 
-            this.root_path = root_path.NormalizePath();
+            if (string.IsNullOrWhiteSpace(root_path))
+                root_path = NUCLEOR.DFHome.FullName;
+
+            root_path = new DirectoryInfo(root_path).FullName;
             opened_folders.Clear();
-            opened_folders.Add(this.root_path);
-            initialized = true;
+            opened_folders.Add(root_path);
+
             RebuildHierarchy();
         }
 
@@ -65,9 +65,6 @@ namespace _SGUI_
         protected override void Start()
         {
             base.Start();
-
-            if (!initialized)
-                Initialize(string.IsNullOrWhiteSpace(root_path) ? NUCLEOR.DFHome.FullName : root_path);
 
             transform.Find("scroll-view/viewport/background").GetComponent<PointerClickHandler>().onClick += (PointerEventData eventData) =>
             {

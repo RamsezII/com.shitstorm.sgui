@@ -106,8 +106,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "hierarchy-button\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1c31798c52fa197478619dbc23def8ed, type: 2}
-  m_sharedMaterial: {fileID: 1771178799086956252, guid: 1c31798c52fa197478619dbc23def8ed, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6357e47a32784847988f7bfa8d3102e, type: 2}
+  m_sharedMaterial: {fileID: -142418033189278952, guid: d6357e47a32784847988f7bfa8d3102e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -137,11 +137,11 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 8192
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -5
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -368,7 +368,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 11, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9001664141407396341
 GameObject:

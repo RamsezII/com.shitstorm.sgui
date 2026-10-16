@@ -13,8 +13,8 @@ namespace _SGUI_.composer
     {
         [AutoStaticsCleanup] public static readonly ListListener<SguiFrame> instances = new();
         public readonly ValueNotifier<bool> isFocused = new();
-        internal SguiSplitView pview;
-        internal TabHeader tab;
+        public SguiSplitView pview;
+        public TabHeader tab;
         public SguiComposer composer => pview == null ? null : pview.composer;
         public Canvas canvas;
         public GraphicRaycaster raycaster;
@@ -24,8 +24,6 @@ namespace _SGUI_.composer
         public Func<bool> onFunc_close;
         public Action onAction_close, onOblivion;
         public SoftwareButton os_button;
-        public void ChangeTitle(in string title) => tab.trad_title.SetText(title);
-        public void ChangeTitle(in Traductions title) => tab.trad_title.SetTraductions(title);
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -140,9 +138,9 @@ namespace _SGUI_.composer
 
             isFocused.Value = false;
             instances.RemoveElement(this);
-            os_button?.users.RemoveElement(this);
+            os_button.users.RemoveElement(this);
             UsageManager.RemoveUser(this);
-            pview?.RemoveFrame(this);
+            pview.RemoveFrame(this);
 
             OnOblivion();
             onOblivion?.Invoke();

@@ -7,17 +7,17 @@ using UnityEngine.UI;
 
 namespace _SGUI_.composer
 {
-    internal sealed partial class TabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver, SguiContextList.IUser, SguiContextHover.IUser
+    public sealed partial class TabHeader : ArkComponent1, SguiDragManager.IDraggable, SguiDragManager.IOnDraggedOver, SguiContextList.IUser, SguiContextHover.IUser
     {
         internal SguiSplitView pview;
         public SguiFrame frame;
         [SerializeField] Button button;
         [SerializeField] Graphic graphic_selected;
         public Traductable trad_title;
-        public readonly ValueNotifier<bool> isSelected = new();
+        internal readonly ValueNotifier<bool> isSelected = new();
         [SerializeField] internal RawImage rimg_icon;
         [SerializeField] internal TabInsertDrop insert_L, insert_R;
-        Traductions SguiContextHover.IUser.OnSguiContextHover() => new(frame.GetArkName());
+        Traductions SguiContextHover.IUser.OnSguiContextHover() => trad_title.traductions;
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +39,10 @@ namespace _SGUI_.composer
         void RefreshSize()
         {
             var rt = (RectTransform)transform;
-            rt.sizeDelta = new(Mathf.Max(110, trad_title.tmpro.preferredWidth), rt.sizeDelta.y);
+            float width = trad_title.tmpro.preferredWidth;
+            width = Mathf.Max(70, width);
+            width = Mathf.Min(100, width);
+            rt.sizeDelta = new(width, rt.sizeDelta.y);
         }
 
         void SguiContextList.IUser.OnSguiContextClick(PointerEventData eventData, ContextList list)
