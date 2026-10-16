@@ -413,8 +413,7 @@ MonoBehaviour:
   vlayout: {fileID: 0}
   prefab_folder: {fileID: 0}
   prefab_file: {fileID: 0}
-  root_dpath: 
-  root_folder: {fileID: 0}
+  root_path: 
 --- !u!1 &5509008416093199053
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,15 +904,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 4584835861618280309}
     m_Modifications:
     - target: {fileID: 49493861049818879, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}
-      propertyPath: m_Pivot.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 49493861049818879, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49493861049818879, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 408038408024965257, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}

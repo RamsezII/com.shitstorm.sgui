@@ -1,6 +1,8 @@
 ﻿using _SGUI_.context_click;
+using _UTIL_;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.Explorer
@@ -16,6 +18,16 @@ namespace _SGUI_.Explorer
         {
             base.Initialize(directory);
             current_dir = directory;
+
+            var icon = transform.Find("rt/icon");
+            var clickHandler = icon.GetComponent<PointerClickHandler>();
+            if (clickHandler == null)
+                clickHandler = icon.gameObject.AddComponent<PointerClickHandler>();
+            clickHandler.onClick += eventData =>
+            {
+                if (eventData.button == PointerEventData.InputButton.Left)
+                    view.ToggleFolder(current_dir);
+            };
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -24,6 +36,13 @@ namespace _SGUI_.Explorer
         {
             icon_opened.gameObject.SetActive(value);
             icon_closed.gameObject.SetActive(!value);
+        }
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            base.OnPointerClick(eventData);
+            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount == 2)
+                view.ToggleFolder(current_dir);
         }
 
         protected override void OnContextList(in ContextList list)

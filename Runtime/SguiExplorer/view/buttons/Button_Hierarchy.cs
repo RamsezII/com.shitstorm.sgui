@@ -13,6 +13,7 @@ namespace _SGUI_.Explorer
     {
         public SguiExplorerView view;
         [SerializeField] RectTransform rt_size;
+        [SerializeField] RawImage rimg_selected;
         [SerializeField] internal Button button;
         [SerializeField] internal TextMeshProUGUI text;
         [SerializeField] internal int depth;
@@ -29,17 +30,14 @@ namespace _SGUI_.Explorer
             view = GetComponentInParent<SguiExplorerView>(true);
             current_fsi = fsi;
             text.text = fsi.Name;
+            if (rt_size == null)
+                rt_size = (RectTransform)transform.Find("rt");
+            rt_size.sizeDelta = new Vector2(-5 * depth, rt_size.sizeDelta.y);
         }
 
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Start()
-        {
-            base.Start();
-            rt_size.sizeDelta = new Vector2(-5 * depth, 0);
-        }
-
-        //--------------------------------------------------------------------------------------------------------------
+        internal void SetSelected(bool selected) => rimg_selected.gameObject.SetActive(selected);
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
