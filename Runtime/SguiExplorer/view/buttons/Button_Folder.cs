@@ -1,6 +1,8 @@
 ﻿using _SGUI_.context_click;
 using _UTIL_;
+using System;
 using System.IO;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -71,10 +73,10 @@ namespace _SGUI_.Explorer
                 button._button.onClick.AddListener(() => view.Prompt_CreateFolder(current_dir));
             }
 
-            if (SguiExplorerView.onContextClick_directory != null)
+            if (SguiExplorerView.onContextList_directory != null)
             {
                 list.AddLine();
-                SguiExplorerView.onContextClick_directory(list, current_dir);
+                SguiExplorerView.onContextList_directory(list, current_dir);
             }
         }
     }

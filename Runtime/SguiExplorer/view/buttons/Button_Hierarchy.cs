@@ -3,6 +3,7 @@ using _SGUI_.context_click;
 using System;
 using System.IO;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -169,6 +170,12 @@ namespace _SGUI_.Explorer
                 }
 
                 OnContextList(list);
+
+                if (SguiExplorerView.onContextList_fileAndDirectory != null)
+                {
+                    list.AddLine();
+                    SguiExplorerView.onContextList_fileAndDirectory(list, current_fsi);
+                }
             }
         }
 

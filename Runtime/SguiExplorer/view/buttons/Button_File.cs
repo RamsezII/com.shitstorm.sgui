@@ -1,12 +1,14 @@
 ﻿using _SGUI_.context_click;
 using System;
 using System.IO;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace _SGUI_.Explorer
 {
     internal partial class Button_File : Button_Hierarchy
     {
+        [AutoStaticsCleanup] public static Action<ContextList, FileInfo> onContextClick_static;
         [NonSerialized] public FileInfo current_file;
 
         //--------------------------------------------------------------------------------------------------------------
@@ -62,10 +64,10 @@ namespace _SGUI_.Explorer
                 button._button.onClick.AddListener(() => view.Prompt_CreateFolder(pdir));
             }
 
-            if (SguiExplorerView.onContextClick_file != null)
+            if (SguiExplorerView.onContextList_file != null)
             {
                 list.AddLine();
-                SguiExplorerView.onContextClick_file(list, current_file);
+                SguiExplorerView.onContextList_file(list, current_file);
             }
         }
     }
