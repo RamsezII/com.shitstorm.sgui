@@ -409,10 +409,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.SguiExplorerView
   _destroyed: 0
-  scrollview: {fileID: 0}
-  vlayout: {fileID: 0}
-  prefab_folder: {fileID: 0}
-  prefab_file: {fileID: 0}
+  scrollview: {fileID: 1706891118285706620}
+  vlayout: {fileID: 7869653738652271794}
+  prefab_folder: {fileID: 2590713793782899750}
+  prefab_file: {fileID: 1193825847185035407}
   root_path: 
 --- !u!1 &5509008416093199053
 GameObject:
@@ -890,6 +890,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 715bd5772357eda4a92155d09f614376, type: 3}
+--- !u!114 &1193825847185035407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 281394137035020791, guid: 715bd5772357eda4a92155d09f614376, type: 3}
+  m_PrefabInstance: {fileID: 1402559239032752504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad6ac9b5da5b14438e0a975a95304ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_File
 --- !u!224 &2671579100905004934 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3919749314044335870, guid: 715bd5772357eda4a92155d09f614376, type: 3}
@@ -1008,6 +1019,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}
+--- !u!114 &2590713793782899750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1602208155672285662, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}
+  m_PrefabInstance: {fileID: 3875417487423501816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb4c89fac6fd1241bc13980fc85cf52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_Folder
 --- !u!224 &7349088048970067252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5779537828805023948, guid: 0f5e73d8cc3084343ba3e1694d1e1b87, type: 3}

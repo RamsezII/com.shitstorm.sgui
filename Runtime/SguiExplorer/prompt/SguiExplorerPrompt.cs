@@ -9,7 +9,10 @@ namespace _SGUI_
         internal protected override void OnInitialize()
         {
             view = GetComponentInChildren<SguiExplorerView>(true);
+
             base.OnInitialize();
+
+            view.Initialize();
         }
     }
 }

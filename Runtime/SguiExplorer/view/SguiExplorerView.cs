@@ -42,11 +42,6 @@ namespace _SGUI_
 
         internal void Initialize()
         {
-            scrollview = GetComponentInChildren<ScrollRect>(true);
-            vlayout = GetComponentInChildren<VerticalLayoutGroup>(true);
-            prefab_folder = GetComponentInChildren<Button_Folder>(true);
-            prefab_file = GetComponentInChildren<Button_File>(true);
-
             prefab_folder.gameObject.SetActive(false);
             prefab_file.gameObject.SetActive(false);
 
