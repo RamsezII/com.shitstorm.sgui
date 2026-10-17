@@ -89,6 +89,13 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
+        public void ClearClones()
+        {
+            foreach (var item in clones)
+                Destroy(item.gameObject);
+            clones.Clear();
+        }
+
         void RefreshAlpha()
         {
             float a = Mathf.MoveTowards(canvasGroup.alpha, 1, 10 * Time.deltaTime);
@@ -108,9 +115,7 @@ namespace _SGUI_
         public void Close() => Toggle(false);
         void Toggle(in bool toggle)
         {
-            foreach (var item in clones)
-                Destroy(item.gameObject);
-            clones.Clear();
+            ClearClones();
             gameObject.SetActive(toggle);
         }
 
