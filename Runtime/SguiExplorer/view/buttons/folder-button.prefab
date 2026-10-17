@@ -308,6 +308,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8600987112845761892}
   m_SourcePrefab: {fileID: 100100000, guid: a011cb22249178540be77dbefbafa20f, type: 3}
+--- !u!224 &49493861049818879 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2548619598115316145, guid: a011cb22249178540be77dbefbafa20f, type: 3}
+  m_PrefabInstance: {fileID: 2589941845654830926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &408038408024965257 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2763229572238917575, guid: a011cb22249178540be77dbefbafa20f, type: 3}
@@ -372,9 +377,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_Folder
   _destroyed: 0
   view: {fileID: 0}
+  rt_size: {fileID: 49493861049818879}
   rimg_selected: {fileID: 8512721296953523326}
+  button: {fileID: 0}
   text: {fileID: 408038408024965257}
   depth: 0
-  normalized_path: 
   icon_opened: {fileID: 5036236720008742245}
   icon_closed: {fileID: 5677992307236621217}

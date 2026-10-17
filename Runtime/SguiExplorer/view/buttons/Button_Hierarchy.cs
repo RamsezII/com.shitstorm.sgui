@@ -31,8 +31,6 @@ namespace _SGUI_.Explorer
             view = GetComponentInParent<SguiExplorerView>(true);
             current_fsi = fsi;
             text.text = fsi.Name;
-            if (rt_size == null)
-                rt_size = (RectTransform)transform.Find("rt");
             rt_size.sizeDelta = new Vector2(-5 * depth, rt_size.sizeDelta.y);
         }
 
@@ -49,18 +47,16 @@ namespace _SGUI_.Explorer
                 var list = SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera);
 
                 {
-                    var trad_rename = new Traductions()
+                    var button = list.AddButton_trad(new()
                     {
                         french = $"Renommer",
                         english = $"Rename",
-                    };
-
-                    var button = list.AddButton_trad(trad_rename);
+                    });
 
                     button._button.onClick.AddListener(() =>
                     {
                         var window = SguiCustom.CreatePrompt();
-                        window.trad_title.SetTraductions(trad_rename);
+                        window.trad_title.SetTraductions(button.label_left.traductions);
 
                         var inputfield = window.AddButton<SguiCustom_InputField>();
                         inputfield.trad_label.SetTraductions(new()
@@ -103,6 +99,7 @@ namespace _SGUI_.Explorer
                                         break;
                                 }
 
+                                view.RebuildHierarchy();
                                 return true;
                             }
                         };

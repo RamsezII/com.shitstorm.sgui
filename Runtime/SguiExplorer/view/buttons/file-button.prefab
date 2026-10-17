@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: shitstorm._SGUI_::_SGUI_.Button_File
   _destroyed: 0
   view: {fileID: 0}
-  rt_size: {fileID: 0}
+  rt_size: {fileID: 7421758827965796557}
   rimg_selected: {fileID: 1185562541535507020}
   button: {fileID: 0}
   text: {fileID: 7203807729295675067}
@@ -247,3 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!224 &7421758827965796557 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2548619598115316145, guid: a011cb22249178540be77dbefbafa20f, type: 3}
+  m_PrefabInstance: {fileID: 5017544697594671484}
+  m_PrefabAsset: {fileID: 0}

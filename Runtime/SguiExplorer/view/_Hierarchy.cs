@@ -111,6 +111,13 @@ namespace _SGUI_
             row.gameObject.SetActive(true);
         }
 
+        void RefreshSelection()
+        {
+            string selected_path = selected_fsi._value?.FullName;
+            foreach (var pair in clones)
+                pair.Value.SetSelected(pathEqualityComparer.Equals(pair.Key, selected_path));
+        }
+
         internal void ToggleFolder(DirectoryInfo directory)
         {
             string path = directory.FullName;

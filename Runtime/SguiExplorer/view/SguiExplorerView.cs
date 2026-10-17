@@ -73,7 +73,7 @@ namespace _SGUI_
                     ((SguiContextList.IUser)this).OnSguiContextClick(eventData, SguiContextList.instance.InstantiateListAtScreenPoint(eventData.position, eventData.pressEventCamera));
             };
 
-            selected_fsi.AddListener(RebuildHierarchy);
+            selected_fsi.AddListener(RefreshSelection);
         }
 
         //--------------------------------------------------------------------------------------------------------------
