@@ -117,6 +117,7 @@ namespace _SGUI_
                 CompletorItem clone = Instantiate(compl_prefab, compl_prefab.transform.parent);
                 this.completions.Add(clone);
                 clone.gameObject.SetActive(true);
+                clone.label.richText = false;
                 clone.label.text = completion;
             }
 
