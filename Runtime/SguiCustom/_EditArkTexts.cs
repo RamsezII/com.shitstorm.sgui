@@ -16,7 +16,7 @@ namespace _SGUI_
 
             onAction_close += () => target.SaveArkTexts(reloadAllTextsAfterSave: true);
 
-            foreach (var (field, _) in target.EFieldsAndAttributes<NJFieldAttribute>().Where(tuple => tuple.attribute.editable))
+            foreach (var (field, _) in target.GetType().EFieldsAndAttributes<NJFieldAttribute>().Where(tuple => tuple.attribute.editable))
             {
                 object current_value = field.GetValue(target);
                 SguiCustom_Abstract button = null;
