@@ -44,6 +44,10 @@ namespace _SGUI_.composer
             }
 
             OnInitialize();
+
+#if UNITY_EDITOR
+            ArkUI._VisibleInEditor.Add(gameObject);
+#endif
         }
 
         protected virtual void OnInitialize()
@@ -164,6 +168,10 @@ namespace _SGUI_.composer
 
             Oblivionize();
             isFocused.Clear();
+
+#if UNITY_EDITOR
+            ArkUI._VisibleInEditor.Remove(gameObject);
+#endif
         }
     }
 }
