@@ -16,6 +16,7 @@ namespace _SGUI_.composer
         public SguiSplitView pview;
         public TabHeader tab;
         public SguiComposer composer => pview == null ? null : pview.composer;
+        public SguiFrameHeader header;
         public Canvas canvas;
         public GraphicRaycaster raycaster;
         public Texture window_icon;
