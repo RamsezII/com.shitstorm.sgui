@@ -16,7 +16,7 @@ namespace _SGUI_.composer
         public SguiSplitView pview;
         public TabHeader tab;
         public SguiComposer composer => pview == null ? null : pview.composer;
-        public SguiFrameHeader header;
+        public FrameHeader header;
         public Canvas canvas;
         public GraphicRaycaster raycaster;
         public Texture window_icon;
@@ -43,6 +43,10 @@ namespace _SGUI_.composer
                 os_button = OSView.instance.AddSoftwareButton(GetType(), sgui_description);
                 os_button.users.AddElement(this);
             }
+
+            header = GetComponentInChildren<FrameHeader>();
+            if (header != null)
+                header.Initialize();
 
             OnInitialize();
 
