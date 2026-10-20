@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 2255249875090416580}
   - component: {fileID: 606062777687355587}
   - component: {fileID: 7069420127163397026}
+  - component: {fileID: 1023944723717367896}
   - component: {fileID: 3675835944788148335}
   m_Layer: 5
   m_Name: limit
@@ -97,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05, g: 0.05, b: 0.05, a: 0.8509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: -1, z: 0, w: -1}
+  m_RaycastPadding: {x: 0, y: -2, z: 0, w: -2}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -111,6 +112,50 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1023944723717367896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77034914567240189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 0.8509804}
+    m_HighlightedColor: {r: 0.65, g: 0.65, b: 0.65, a: 0.8509804}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8509804}
+    m_SelectedColor: {r: 1, g: 0, b: 1, a: 1}
+    m_DisabledColor: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 7069420127163397026}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3675835944788148335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +472,7 @@ GameObject:
   - component: {fileID: 3007335119436829557}
   - component: {fileID: 2822650868299947951}
   m_Layer: 5
-  m_Name: message
+  m_Name: prefab_entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,10 +497,10 @@ RectTransform:
   - {fileID: 4074131035933303768}
   m_Father: {fileID: 6899429612428139776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -10}
-  m_SizeDelta: {x: 250, y: 20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3007335119436829557
 MonoBehaviour:
@@ -1329,7 +1374,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 150}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8520688102992287373
 MonoBehaviour:
@@ -1357,15 +1402,14 @@ MonoBehaviour:
   oblivionized: 0
   os_button: {fileID: 0}
   tmp_selected: {fileID: 7071777656449485248}
-  drag_ratio: {fileID: 3675835944788148335}
   scrollview_list: {fileID: 2805856058053487826}
   scrollview_selected: {fileID: 2161259393648819429}
   scroll_selected: {fileID: 3355460091180764949}
-  vlayout: {fileID: 6574228726791050494}
-  prefab_message: {fileID: 2822650868299947951}
   icon_log: {fileID: 2800000, guid: d11eb7d39641b35488965dcc95bdf55d, type: 3}
   icon_warn: {fileID: 2800000, guid: f83dcdea60227954ca0b6f07082aeea2, type: 3}
   icon_err: {fileID: 2800000, guid: 7381dd4ff140c7a418d7c865dc6181c5, type: 3}
+  prefab_entry: {fileID: 2822650868299947951}
+  drag_ratio: {fileID: 3675835944788148335}
 --- !u!1 &6810703883388715733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,7 +1518,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4178349662296745769}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2925
+  m_Size: 0.40083334
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

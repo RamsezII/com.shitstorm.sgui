@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace _SGUI_.console
 {
-    public sealed partial class SguiConsoleMessage : MonoBehaviour, IPointerClickHandler
+    public sealed partial class SguiConsoleEntry : MonoBehaviour, IPointerClickHandler
     {
         public SguiConsole console;
-        [SerializeField] internal SguiConsole.LogMessage message;
+        [SerializeField] internal SguiConsole.LogEntry message;
         [SerializeField] internal TMP_Text tmptext;
         [SerializeField] Graphic graphic_bg;
         [SerializeField] RawImage rimg_icon;
@@ -18,7 +18,7 @@ namespace _SGUI_.console
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal void Initialize(in SguiConsole.LogMessage message)
+        internal void Initialize(in SguiConsole.LogEntry message)
         {
             console = GetComponentInParent<SguiConsole>(includeInactive: true);
 
@@ -41,7 +41,7 @@ namespace _SGUI_.console
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            console.OnSelectEntry(this);
+            console.OnEntrySelected(this);
         }
     }
 }
