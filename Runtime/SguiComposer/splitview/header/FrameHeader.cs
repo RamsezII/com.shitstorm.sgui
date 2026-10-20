@@ -16,11 +16,11 @@ namespace _SGUI_.composer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public FrameHeaderButton AddButton(in Traductions label, in bool arrow)
+        public FrameHeaderButton AddButton(in Traductions label, in bool arrow = false, in bool toggle = false)
         {
             var clone = Instantiate(prefab_button, parent: prefab_button.transform.parent);
             clone.gameObject.SetActive(true);
-            clone.Initialize(arrow: arrow);
+            clone.Initialize(show_arrow: arrow, use_toggle: toggle);
             clone.label.SetTraductions(label);
             return clone;
         }
