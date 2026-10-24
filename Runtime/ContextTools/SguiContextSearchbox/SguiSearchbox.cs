@@ -62,6 +62,7 @@ namespace _SGUI_
             base.Start();
 
             prefab_item.gameObject.SetActive(false);
+            button_category.gameObject.SetActive(false);
 
             transform.Find("background").GetComponent<PointerClickHandler>().onClick += eventData =>
             {

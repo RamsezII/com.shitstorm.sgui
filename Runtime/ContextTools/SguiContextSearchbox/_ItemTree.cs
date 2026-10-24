@@ -9,11 +9,16 @@ namespace _SGUI_
     {
         public sealed class ItemNode
         {
+            public readonly ItemNode parent;
             public readonly string label;
             public Action action;
             public Traductions hover_infos;
             public readonly List<ItemNode> children = new();
-            public ItemNode(in string label) => this.label = label;
+            public ItemNode(in ItemNode parent, in string label)
+            {
+                this.parent = parent;
+                this.label = label;
+            }
         }
 
         public delegate ItemNode OnAddSearchboxItems(Action onClick, params string[] path);
@@ -26,7 +31,7 @@ namespace _SGUI_
             trad_title.SetTraductions(title);
             ArkUI.instance.SetScreenPosition(transform.AsRTfm(), screenPosition, eventCamera);
 
-            var root = new ItemNode(default);
+            var root = new ItemNode(parent: null, label: null);
             onCreateItems(OnAddItem);
             ShowChildren(root);
 
@@ -39,24 +44,29 @@ namespace _SGUI_
                     var child = node.children.Find(item => item.label.Equals(branch, StringComparison.OrdinalIgnoreCase));
                     if (child == null)
                     {
-                        child = new ItemNode(branch);
+                        child = new ItemNode(node, branch);
                         node.children.Add(child);
                     }
                     node = child;
                 }
 
-                node.action = onClick;
+                node.action += onClick;
                 return node;
             }
         }
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        void ShowChildren(ItemNode parent)
+        void ShowChildren(ItemNode node)
         {
             ClearClones();
 
-            foreach (var child in parent.children)
+            button_category.onClick.RemoveAllListeners();
+            button_category.gameObject.SetActive(node.parent != null);
+            text_category.text = node.label;
+
+            if (node.parent != null)
+                button_category.onClick.AddListener(() => ShowChildren(node.parent));
+
+            foreach (var child in node.children)
             {
                 var clone = Instantiate(prefab_item, parent: prefab_item.transform.parent);
                 clone.label.text = child.label;
