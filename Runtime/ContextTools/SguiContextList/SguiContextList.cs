@@ -32,8 +32,6 @@ namespace _SGUI_
         [SerializeField] internal ContextList prefab_list;
         [SerializeField] internal ContextList scrollview_lastRootList;
 
-        [AutoStaticsCleanup] public static Action<ContextList> onGlobalContextList;
-
         //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
