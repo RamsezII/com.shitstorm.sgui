@@ -1,26 +1,40 @@
 ﻿using _ARK_;
+using _SGUI_.context_click;
+using System;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _SGUI_.searchbox
 {
-    public sealed class SearchboxItem : ArkComponent1, SguiContextHover.IUser
+    public sealed class SearchboxItem : MonoBehaviour, SguiContextHover.IUser, SguiContextList.IUser
     {
-        public SguiSearchbox searchbox;
-        public Button button;
+        [NonSerialized] public SguiSearchbox pbox;
+
+        [SerializeField] internal Button button;
         public TextMeshProUGUI label;
+        [SerializeField] Graphic arrow;
+
         public Traductions hover_infos;
         Traductions SguiContextHover.IUser.OnSguiContextHover() => hover_infos;
 
+        public Action<ContextList> onContextList;
+        void SguiContextList.IUser.OnSguiContextClick(PointerEventData eventData, ContextList list) => onContextList?.Invoke(list);
+
         //--------------------------------------------------------------------------------------------------------------
 
-        protected override void Awake()
+        private void Awake()
         {
-            searchbox = GetComponentInParent<SguiSearchbox>(true);
-            button = GetComponentInChildren<Button>();
-            label = GetComponentInChildren<TextMeshProUGUI>();
+            pbox = GetComponentInParent<SguiSearchbox>(true);
+        }
 
-            base.Awake();
+        //--------------------------------------------------------------------------------------------------------------
+
+        internal void ShowArrow()
+        {
+            arrow.gameObject.SetActive(true);
+            label.margin = new(5, 0, 10, 0);
         }
     }
 }

@@ -15,8 +15,9 @@ namespace _SGUI_
         [AutoStaticsCleanup] public static SguiSearchbox instance;
 
         CanvasGroup canvasGroup;
-        [SerializeField] Button button_close, button_clear;
+        [SerializeField] Button button_close, button_clear, button_category;
         [SerializeField] Traductable trad_title;
+        [SerializeField] internal TextMeshProUGUI text_category;
         [SerializeField] ScrollRect scrollview;
         [SerializeField] VerticalLayoutGroup vlayout;
         [SerializeField] TMP_InputField input_search;
@@ -40,6 +41,7 @@ namespace _SGUI_
         protected override void OnEnable()
         {
             base.OnEnable();
+
             trad_title.SetText(GetType().FullName);
             canvasGroup.alpha = 0;
             NUCLEOR.delegates.LateUpdate += RefreshAlpha;
@@ -48,8 +50,9 @@ namespace _SGUI_
         protected override void OnDisable()
         {
             NUCLEOR.delegates.LateUpdate -= RefreshAlpha;
-            base.OnDisable();
             input_search.text = string.Empty;
+
+            base.OnDisable();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -75,7 +78,6 @@ namespace _SGUI_
             };
 
             button_close.onClick.AddListener(Close);
-
             button_clear.onClick.AddListener(() => input_search.text = string.Empty);
 
             Close();
@@ -83,7 +85,7 @@ namespace _SGUI_
 
         //--------------------------------------------------------------------------------------------------------------
 
-        public void ClearClones()
+        void ClearClones()
         {
             foreach (var item in clones)
                 Destroy(item.gameObject);
@@ -111,22 +113,6 @@ namespace _SGUI_
         {
             ClearClones();
             gameObject.SetActive(toggle);
-        }
-
-        public void OpenAtScreenPoint(in Vector2 screenPosition, in Traductions title, Camera eventCamera = null)
-        {
-            Toggle(true);
-            trad_title.SetTraductions(title);
-            ArkUI.instance.SetScreenPosition(transform.AsRTfm(), screenPosition, eventCamera);
-        }
-
-        public SearchboxItem AddItem()
-        {
-            var clone = prefab_item.Clone(true);
-            clone.button.onClick.AddListener(Close);
-            clones.Add(clone);
-            AutoSize();
-            return clone;
         }
 
         //--------------------------------------------------------------------------------------------------------------
