@@ -14,12 +14,12 @@ namespace _SGUI_
     {
         [AutoStaticsCleanup] public static SguiSearchbox instance;
 
-        [SerializeField] CanvasGroup canvasGroup;
-        RectTransform rt;
+        CanvasGroup canvasGroup;
+        [SerializeField] Button button_close, button_clear;
         [SerializeField] Traductable trad_title;
-        ScrollRect scrollview;
-        VerticalLayoutGroup vlayout;
-        public TMP_InputField input_search;
+        [SerializeField] ScrollRect scrollview;
+        [SerializeField] VerticalLayoutGroup vlayout;
+        [SerializeField] TMP_InputField input_search;
         [SerializeField] SearchboxItem prefab_item;
 
         readonly List<SearchboxItem> clones = new();
@@ -30,15 +30,9 @@ namespace _SGUI_
         {
             instance = this;
 
-            base.Awake();
-
             canvasGroup = GetComponent<CanvasGroup>();
-            rt = (RectTransform)transform.Find("rT");
-            trad_title = transform.Find("rT/margin/title").GetComponent<Traductable>();
-            scrollview = GetComponentInChildren<ScrollRect>(true);
-            vlayout = scrollview.content.GetComponentInChildren<VerticalLayoutGroup>(true);
-            input_search = GetComponentInChildren<TMP_InputField>(true);
-            prefab_item = vlayout.GetComponentInChildren<SearchboxItem>(true);
+
+            base.Awake();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -75,14 +69,14 @@ namespace _SGUI_
                         break;
 
                     case PointerEventData.InputButton.Right:
-                        ArkUI.instance.SetScreenPosition(rt, eventData.position, eventData.pressEventCamera);
+                        ArkUI.instance.SetScreenPosition(transform.AsRTfm(), eventData.position, eventData.pressEventCamera);
                         break;
                 }
             };
 
-            transform.Find("rT/margin/button-close").GetComponent<Button>().onClick.AddListener(Close);
+            button_close.onClick.AddListener(Close);
 
-            input_search.transform.Find("clear-icon").GetComponent<Button>().onClick.AddListener(() => input_search.text = string.Empty);
+            button_clear.onClick.AddListener(() => input_search.text = string.Empty);
 
             Close();
         }
@@ -123,7 +117,7 @@ namespace _SGUI_
         {
             Toggle(true);
             trad_title.SetTraductions(title);
-            ArkUI.instance.SetScreenPosition(rt, screenPosition, eventCamera);
+            ArkUI.instance.SetScreenPosition(transform.AsRTfm(), screenPosition, eventCamera);
         }
 
         public SearchboxItem AddItem()
