@@ -29,7 +29,7 @@ namespace _SGUI_
         {
             Toggle(true);
             trad_title.SetTraductions(title);
-            ArkUI.instance.SetScreenPosition(transform.AsRTfm(), screenPosition, eventCamera);
+            ArkUI.instance.SetScreenPosition(rt_box, screenPosition, eventCamera);
 
             var root = new ItemNode(parent: null, label: null);
             onCreateItems(OnAddItem);

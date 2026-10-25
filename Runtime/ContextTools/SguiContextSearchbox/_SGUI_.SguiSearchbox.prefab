@@ -1344,6 +1344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyed: 0
+  rt_box: {fileID: 6932576391996782933}
   button_close: {fileID: 3469314451923588487}
   button_clear: {fileID: 8180632587816918804}
   button_category: {fileID: 6132926928282154098}
@@ -2022,7 +2023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6932576391996782933}
   m_Layer: 5
-  m_Name: rt
+  m_Name: rt_box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

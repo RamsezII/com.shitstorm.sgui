@@ -15,6 +15,7 @@ namespace _SGUI_
         [AutoStaticsCleanup] public static SguiSearchbox instance;
 
         CanvasGroup canvasGroup;
+        [SerializeField] RectTransform rt_box;
         [SerializeField] Button button_close, button_clear, button_category;
         [SerializeField] Traductable trad_title;
         [SerializeField] internal TextMeshProUGUI text_category;
