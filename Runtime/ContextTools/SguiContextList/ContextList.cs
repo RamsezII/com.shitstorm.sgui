@@ -1,7 +1,6 @@
 ﻿using _ARK_;
 using _UTIL_;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,7 +14,7 @@ namespace _SGUI_.context_click
         MultiSelect,
     }
 
-    public sealed class ContextList : ArkComponent1
+    public sealed partial class ContextList : ArkComponent1
     {
         CanvasGroup canvasGroup;
         public RectTransform prt, rt;

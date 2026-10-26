@@ -11,6 +11,7 @@ namespace _SGUI_.context_click
         public ContextList plist;
         public int index;
         public Button _button;
+        public Action action;
         public Traductable label_left, label_right;
         public readonly ValueNotifier<bool> toggle = new();
         [SerializeField] internal RawImage arrow, checkmark;
@@ -34,6 +35,8 @@ namespace _SGUI_.context_click
                 if (value)
                     plist.last_button_toggled.Value = this;
             });
+
+            _button.onClick.AddListener(() => action?.Invoke());
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -43,7 +46,7 @@ namespace _SGUI_.context_click
             _button.onClick.RemoveAllListeners();
             arrow.gameObject.SetActive(true);
 
-            _button.onClick.AddListener(() =>
+            action += () =>
             {
                 if (plist.sublist != null)
                     Destroy(plist.sublist.gameObject);
@@ -57,7 +60,7 @@ namespace _SGUI_.context_click
                 sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 
                 onSublist(sublist);
-            });
+            };
         }
     }
 }
