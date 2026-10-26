@@ -43,11 +43,13 @@ namespace _SGUI_.context_click
 
         public void SetupSublist(Action<ContextList> onSublist)
         {
-            _button.onClick.RemoveAllListeners();
             arrow.gameObject.SetActive(true);
 
-            action += () =>
+            _button.onClick.RemoveAllListeners();
+            _button.onClick.AddListener(() =>
             {
+                action?.Invoke();
+
                 if (plist.sublist != null)
                     Destroy(plist.sublist.gameObject);
 
@@ -60,7 +62,7 @@ namespace _SGUI_.context_click
                 sublist.rt.anchoredPosition += new Vector2(0, plist.vlayout.padding.top);
 
                 onSublist(sublist);
-            };
+            });
         }
     }
 }
