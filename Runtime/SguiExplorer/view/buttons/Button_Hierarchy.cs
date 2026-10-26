@@ -53,7 +53,7 @@ namespace _SGUI_.Explorer
                         english = $"Rename",
                     });
 
-                    button._button.onClick.AddListener(() =>
+                    button.action += () =>
                     {
                         var window = SguiCustom.CreatePrompt();
                         window.trad_title.SetTraductions(button.label_left.traductions);
@@ -103,7 +103,7 @@ namespace _SGUI_.Explorer
                                 return true;
                             }
                         };
-                    });
+                    };
                 }
 
                 {
@@ -113,7 +113,7 @@ namespace _SGUI_.Explorer
                         english = $"Delete",
                     });
 
-                    button._button.onClick.AddListener(() =>
+                    button.action += () =>
                     {
                         var window = SguiCustom.ShowAlert(SguiDialogs.Dialog, out _, new()
                         {
@@ -139,7 +139,7 @@ namespace _SGUI_.Explorer
 
                             view.RebuildHierarchy();
                         };
-                    });
+                    };
                 }
 
                 {
@@ -149,12 +149,12 @@ namespace _SGUI_.Explorer
                         english = "Copy path",
                     });
 
-                    button._button.onClick.AddListener(() =>
+                    button.action += () =>
                     {
                         string path = current_fsi.FullName;
                         GUIUtility.systemCopyBuffer = path;
                         SguiLoggerOverlay.Log($"Path copied to clipboard ({path})", this, timer: 5);
-                    });
+                    };
                 }
 
                 {
@@ -163,7 +163,7 @@ namespace _SGUI_.Explorer
                         french = "Ouvrir dans l'explorateur",
                         english = "Open in the explorer",
                     });
-                    button._button.onClick.AddListener(() => Application.OpenURL(current_fsi.FullName));
+                    button.action += () => Application.OpenURL(current_fsi.FullName);
                 }
 
                 OnContextList(list);

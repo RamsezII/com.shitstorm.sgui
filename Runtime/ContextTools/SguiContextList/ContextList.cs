@@ -149,7 +149,7 @@ namespace _SGUI_.context_click
         public void AutoSizeAndMove() => Util.AddActionOnce(ref NUCLEOR.delegates.LateUpdate_onEndOfFrame_once, AutoSizeAndMove_now);
         public void AutoSizeAndMove_now()
         {
-            if (gameObject == null)
+            if (this == null || gameObject == null)
                 return;
 
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)vlayout.transform);

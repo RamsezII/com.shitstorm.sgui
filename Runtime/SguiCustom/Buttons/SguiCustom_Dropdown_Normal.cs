@@ -135,7 +135,7 @@ namespace _SGUI_
                 int index = i;
                 ContextListButton button = sguilist.AddButton_trad(options1[index].label);
                 button.toggle.Value = index == selectedIndex;
-                button._button.onClick.AddListener(() => SelectFromUser(index));
+                button.action += () => SelectFromUser(index);
             }
         }
 

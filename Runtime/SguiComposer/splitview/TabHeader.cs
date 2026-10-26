@@ -53,28 +53,28 @@ namespace _SGUI_.composer
             {
                 french = "Fermer l’onglet",
                 english = "Close tab",
-            })._button.onClick.AddListener(() => frame.RequestClose());
+            }).action += () => frame.RequestClose();
 
             list.AddButton_trad(new()
             {
                 french = "Fermer les autres onglets",
                 english = "Close other tabs",
-            })._button.onClick.AddListener(() =>
+            }).action += () =>
             {
                 foreach (var frame in frame.pview.frames.ToArray())
                     if (this.frame != frame)
                         frame.RequestClose();
-            });
+            };
 
             list.AddButton_trad(new()
             {
                 french = "Fermer tous les onglets",
                 english = "Close all tabs",
-            })._button.onClick.AddListener(() =>
+            }).action += () =>
             {
                 foreach (var frame in frame.pview.frames.ToArray())
                     frame.RequestClose();
-            });
+            };
 
             list.AddLine();
 

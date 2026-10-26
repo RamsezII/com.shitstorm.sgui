@@ -47,23 +47,23 @@ namespace _SGUI_
                     if (enable_AddWindow)
                     {
                         var tab = list.AddButton_trad(new() { french = "Ouvrir un nouvel onglet", english = "Open new tab" });
-                        tab._button.onClick.AddListener(() => InstantiateSoftware());
+                        tab.action += () => InstantiateSoftware();
                         var window = list.AddButton_trad(new() { french = "Ouvrir dans une nouvelle fenêtre", english = "Open in new window" });
-                        window._button.onClick.AddListener(() => InstantiateSoftware(true));
+                        window.action += () => InstantiateSoftware(true);
                     }
                     foreach (var onButton in onButtons) onButton(list.AddButton_trad(default));
                     foreach (var frame in users._collection)
                     {
                         var button = list.AddButton_trad(frame.tab.trad_title.traductions);
-                        button._button.onClick.AddListener(frame.TakeFocus);
+                        button.action += frame.TakeFocus;
                     }
                     if (enable_CloseAll)
                     {
                         var close = list.AddButton_trad(new() { french = "Fermer tous les onglets de ce logiciel", english = "Close all tabs of this software" });
-                        close._button.onClick.AddListener(() =>
+                        close.action += () =>
                         {
                             foreach (var frame in users._collection.ToArray()) if (frame != null) frame.RequestClose();
-                        });
+                        };
                     }
                     break;
             }

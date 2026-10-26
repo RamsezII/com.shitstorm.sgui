@@ -56,7 +56,7 @@ namespace _SGUI_.composer
 
                     var button = sublist.AddButton_string(type.FullName);
                     button.hover_infos = prefab.sgui_description;
-                    button._button.onClick.AddListener(() => AddTab(prefab).TakeFocus());
+                    button.action += () => AddTab(prefab).TakeFocus();
                 }
             });
         }

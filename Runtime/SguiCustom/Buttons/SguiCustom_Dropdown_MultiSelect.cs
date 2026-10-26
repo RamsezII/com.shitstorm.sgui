@@ -82,21 +82,21 @@ namespace _SGUI_
                 bt_none.toggle.Value = has_options && selected_count == 0;
             }
 
-            bt_all._button.onClick.AddListener(() =>
+            bt_all.action += () =>
             {
                 foreach (var button in buttons)
                     button.toggle.Value = true;
 
                 RefreshAllNone();
-            });
+            };
 
-            bt_none._button.onClick.AddListener(() =>
+            bt_none.action += () =>
             {
                 foreach (var button in buttons)
                     button.toggle.Value = false;
 
                 RefreshAllNone();
-            });
+            };
 
             for (int i = 0; i < options2.Count; ++i)
             {
