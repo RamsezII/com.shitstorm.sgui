@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "name": "IA_ButtonHierarchy",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "1902c94f-2394-40a9-9fdc-860412639abb",
+            "actions": [
+                {
+                    "name": "Rename",
+                    "type": "Button",
+                    "id": "19e44d50-2e81-4ccc-9ecd-07bcd52a0efd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2f7597bd-9ddc-4106-84cf-ad960438f540",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rename",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

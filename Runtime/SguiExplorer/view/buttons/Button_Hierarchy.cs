@@ -14,7 +14,7 @@ namespace _SGUI_.Explorer
     {
         public SguiExplorerView view;
         [SerializeField] RectTransform rt_size;
-        [SerializeField] RawImage rimg_selected;
+        [SerializeField] Graphic graphic_selected;
         [SerializeField] internal Button button;
         [SerializeField] internal TextMeshProUGUI text;
         [SerializeField] internal int depth;
@@ -23,6 +23,27 @@ namespace _SGUI_.Explorer
 
         string SguiDragManager.IDraggable.DragDisplay => current_fsi.FullName;
         object SguiDragManager.IDraggable.DragData => current_fsi;
+
+        [NoAutoStaticsCleanup] static IA_ButtonHierarchy iam;
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void InitInputs()
+        {
+            iam?.Disable();
+            iam?.Dispose();
+            iam = new();
+            iam.Enable();
+
+            iam.Main.Rename.performed += context =>
+            {
+                var ob = EventSystem.current.currentSelectedGameObject;
+                if (ob != null)
+                    if (ob.TryGetComponent<Button_Hierarchy>(out var instance))
+                        instance.Rename();
+            };
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
@@ -36,7 +57,7 @@ namespace _SGUI_.Explorer
 
         //--------------------------------------------------------------------------------------------------------------
 
-        internal void SetSelected(bool selected) => rimg_selected.gameObject.SetActive(selected);
+        internal void SetSelected(bool selected) => graphic_selected.gameObject.SetActive(selected);
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
@@ -52,58 +73,7 @@ namespace _SGUI_.Explorer
                         french = $"Renommer",
                         english = $"Rename",
                     });
-
-                    button.action += () =>
-                    {
-                        var window = SguiCustom.CreatePrompt();
-                        window.trad_title.SetTraductions(button.label_left.traductions);
-
-                        var inputfield = window.AddButton<SguiCustom_InputField>();
-                        inputfield.trad_label.SetTraductions(new()
-                        {
-                            french = "Nouveau nom :",
-                            english = "New name:",
-                        });
-
-                        window.onFunc_confirm += () =>
-                        {
-                            string name = inputfield.input_field.text;
-
-                            if (string.IsNullOrWhiteSpace(name))
-                            {
-                                SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
-                                {
-                                    french = "Choisissez un nom",
-                                    english = "Choose a name",
-                                });
-                                return false;
-                            }
-                            else
-                            {
-                                if (current_fsi == view.selected_fsi._value)
-                                    view.selected_fsi.Value = null;
-
-                                var pdir = Directory.GetParent(current_fsi.FullName);
-                                string newpath = Path.Combine(pdir.FullName, name);
-
-                                switch (current_fsi)
-                                {
-                                    case FileInfo file:
-                                        file.MoveTo(newpath);
-                                        view.selected_fsi.Value = file;
-                                        break;
-
-                                    case DirectoryInfo dir:
-                                        dir.MoveTo(newpath);
-                                        view.selected_fsi.Value = dir;
-                                        break;
-                                }
-
-                                view.RebuildHierarchy();
-                                return true;
-                            }
-                        };
-                    };
+                    button.action += Rename;
                 }
 
                 {
@@ -178,6 +148,85 @@ namespace _SGUI_.Explorer
 
         protected virtual void OnContextList(in ContextList list)
         {
+        }
+
+        public void Rename()
+        {
+            SguiInputField.instance.ShowHere(text, placeholder: new(text.text), onSubmit: output =>
+            {
+                if (current_fsi == view.selected_fsi._value)
+                    view.selected_fsi.Value = null;
+
+                var pdir = Directory.GetParent(current_fsi.FullName);
+                string newpath = Path.Combine(pdir.FullName, output);
+
+                switch (current_fsi)
+                {
+                    case FileInfo file:
+                        file.MoveTo(newpath);
+                        view.selected_fsi.Value = file;
+                        break;
+
+                    case DirectoryInfo dir:
+                        dir.MoveTo(newpath);
+                        view.selected_fsi.Value = dir;
+                        break;
+                }
+
+                view.RebuildHierarchy();
+            });
+        }
+
+        public void Rename_old()
+        {
+            var window = SguiCustom.CreatePrompt();
+            window.trad_title.SetTraductions(new() { french = "Renommer", english = "Rename", });
+
+            var inputfield = window.AddButton<SguiCustom_InputField>();
+            inputfield.trad_label.SetTraductions(new()
+            {
+                french = "Nouveau nom :",
+                english = "New name:",
+            });
+
+            window.onFunc_confirm += () =>
+            {
+                string name = inputfield.input_field.text;
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
+                    {
+                        french = "Choisissez un nom",
+                        english = "Choose a name",
+                    });
+                    return false;
+                }
+                else
+                {
+                    if (current_fsi == view.selected_fsi._value)
+                        view.selected_fsi.Value = null;
+
+                    var pdir = Directory.GetParent(current_fsi.FullName);
+                    string newpath = Path.Combine(pdir.FullName, name);
+
+                    switch (current_fsi)
+                    {
+                        case FileInfo file:
+                            file.MoveTo(newpath);
+                            view.selected_fsi.Value = file;
+                            break;
+
+                        case DirectoryInfo dir:
+                            dir.MoveTo(newpath);
+                            view.selected_fsi.Value = dir;
+                            break;
+                    }
+
+                    view.RebuildHierarchy();
+                    return true;
+                }
+            };
         }
     }
 }

@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5936965472143114258}
   - component: {fileID: 3812777331269022692}
-  - component: {fileID: 6184023415238542128}
+  - component: {fileID: 4235416122234972737}
   m_Layer: 5
   m_Name: selected
   m_TagString: Untagged
@@ -213,7 +213,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -5, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3812777331269022692
 CanvasRenderer:
@@ -223,7 +223,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4167779142174687787}
   m_CullTransparentMesh: 1
---- !u!114 &6184023415238542128
+--- !u!114 &4235416122234972737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,24 +232,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4167779142174687787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5019608, g: 0.83137256, b: 1, a: 0.29803923}
+  m_Color: {r: 0.25, g: 0.74606293, b: 1, a: 0.29803923}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 21300000, guid: 1404bccc6df90114eb3a195786762bfd, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 0
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 5
 --- !u!1 &6102922471337131618
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -313,8 +316,8 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.5, g: 0.83333325, b: 1, a: 0}
     m_HighlightedColor: {r: 0.5019608, g: 0.83137256, b: 1, a: 0.2}
-    m_PressedColor: {r: 0.50261784, g: 0.82722497, b: 1, a: 0.4}
-    m_SelectedColor: {r: 0.5, g: 0.83333325, b: 1, a: 0}
+    m_PressedColor: {r: 0.2275, g: 0.5036221, b: 0.65, a: 0.2}
+    m_SelectedColor: {r: 0.5, g: 0.83333325, b: 1, a: 0.101960786}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.2509804}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.05
