@@ -176,57 +176,5 @@ namespace _SGUI_.Explorer
                 view.RebuildHierarchy();
             });
         }
-
-        public void Rename_old()
-        {
-            var window = SguiCustom.CreatePrompt();
-            window.trad_title.SetTraductions(new() { french = "Renommer", english = "Rename", });
-
-            var inputfield = window.AddButton<SguiCustom_InputField>();
-            inputfield.trad_label.SetTraductions(new()
-            {
-                french = "Nouveau nom :",
-                english = "New name:",
-            });
-
-            window.onFunc_confirm += () =>
-            {
-                string name = inputfield.input_field.text;
-
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    SguiCustom.ShowAlert(SguiDialogs.Error, out _, new()
-                    {
-                        french = "Choisissez un nom",
-                        english = "Choose a name",
-                    });
-                    return false;
-                }
-                else
-                {
-                    if (current_fsi == view.selected_fsi._value)
-                        view.selected_fsi.Value = null;
-
-                    var pdir = Directory.GetParent(current_fsi.FullName);
-                    string newpath = Path.Combine(pdir.FullName, name);
-
-                    switch (current_fsi)
-                    {
-                        case FileInfo file:
-                            file.MoveTo(newpath);
-                            view.selected_fsi.Value = file;
-                            break;
-
-                        case DirectoryInfo dir:
-                            dir.MoveTo(newpath);
-                            view.selected_fsi.Value = dir;
-                            break;
-                    }
-
-                    view.RebuildHierarchy();
-                    return true;
-                }
-            };
-        }
     }
 }
