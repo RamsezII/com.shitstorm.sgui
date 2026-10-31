@@ -1,4 +1,3 @@
-%UNITY 7.0
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &169280803355979810
@@ -1648,6 +1647,7 @@ MonoBehaviour:
   edit_close: {fileID: 8866724208430968389}
   bg_receiver: {fileID: 6387033337744080768}
   text_framerate: {fileID: 355059813784183620}
+  trad_focus: {fileID: 8233786982722371381}
   prefab_headerbutton: {fileID: 1328410763631480195}
   prefab_softwarebutton: {fileID: 900672723866096229}
   button_bottom_audio: {fileID: 2933307061128801232}

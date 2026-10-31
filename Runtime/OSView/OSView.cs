@@ -33,6 +33,7 @@ namespace _SGUI_
         public Button edit_play, edit_pause, edit_close;
         public BackgroundReceiver bg_receiver;
         [SerializeField] TMP_Text text_framerate;
+        [SerializeField] Traductable trad_focus;
         [SerializeField] OSHeaderButton prefab_headerbutton;
         [SerializeField] SoftwareButton prefab_softwarebutton;
         public readonly Dictionary<Type, SoftwareButton> softwaresButtons = new();
@@ -106,9 +107,10 @@ namespace _SGUI_
 
             NUCLEOR.instance.isFocused.AddListener(isFocused =>
             {
-                rt_unfocused_text.gameObject.SetActive(!isFocused);
-                if (false)
-                    rt_unfocused_overlay.gameObject.SetActive(!isFocused);
+                if (isFocused)
+                    trad_focus.SetTraductions(new() { french = "Focused", english = "Focused", });
+                else
+                    trad_focus.SetTraductions(new() { french = "Unfocused", english = "Unfocused", });
             });
 
             foreach (var type in Util.EGetAllDerivedTypes<SguiFrame>())
