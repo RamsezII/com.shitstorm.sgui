@@ -1,0 +1,28 @@
+{
+    "name": "shitstorm._SGUI_.Boa",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ec96f6dc48fee4244bcebc247464e471",
+        "GUID:2a84e452762c9634994f1da664544658",
+        "GUID:84fa75d71d64bc04e87c47a81fe0ee9c",
+        "GUID:7b3a84fb72d6f0d499c2e3e318bcef0c",
+        "GUID:a30d2e7b10eb07947bce91ff0b5eb4bf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "HAS_BOA"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.shitstorm.boa",
+            "expression": "",
+            "define": "HAS_BOA"
+        }
+    ],
+    "noEngineReferences": false
+}
