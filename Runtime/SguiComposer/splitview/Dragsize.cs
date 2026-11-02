@@ -1,4 +1,5 @@
 using _ARK_;
+using _UTIL_;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,7 @@ namespace _SGUI_.composer
     internal sealed partial class Dragsize : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         SguiSplitView pview;
+        ResizerDragzone window_resizer;
         RectTransform rt_group, rt_low, rt_high;
         int axis;
         float drag_ratio, min_low, min_high;
@@ -23,8 +25,11 @@ namespace _SGUI_.composer
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
+            CancelWindowResize();
             rt_group = rt_low = rt_high = null;
-            var handle = (RectTransform)transform;
+            if (pview == null || transform is not RectTransform handle)
+                return;
+
             Vector2 side = handle.anchorMin + handle.anchorMax - Vector2.one;
             axis = side.x != 0 ? 0 : 1;
             bool highSide = side[axis] > 0;
@@ -44,10 +49,32 @@ namespace _SGUI_.composer
                 pview.composer.TakeFocus();
                 break;
             }
+
+            if (rt_group == null)
+            {
+                DIRS_FLAGS direction = axis == 0 ? (highSide ? DIRS_FLAGS.Right : DIRS_FLAGS.Left) : (highSide ? DIRS_FLAGS.Top : DIRS_FLAGS.Down);
+                foreach (var resizer in pview.composer.GetComponentsInChildren<ResizerDragzone>())
+                    if (resizer.direction == direction)
+                    {
+                        window_resizer = resizer;
+                        pview.composer.TakeFocus();
+                        window_resizer.BeginDrag(eventData);
+                        break;
+                    }
+                return;
+            }
+
+            ((IDragHandler)this).OnDrag(eventData);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
+            if (window_resizer != null)
+            {
+                window_resizer.Drag(eventData);
+                return;
+            }
+
             if (rt_group == null || rt_low == null || rt_high == null)
                 return;
 
@@ -76,10 +103,24 @@ namespace _SGUI_.composer
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
+            if (window_resizer != null)
+                window_resizer.EndDrag(eventData);
+            window_resizer = null;
             rt_group = rt_low = rt_high = null;
         }
 
-        void OnDisable() => rt_group = rt_low = rt_high = null;
+        void OnDisable()
+        {
+            CancelWindowResize();
+            rt_group = rt_low = rt_high = null;
+        }
+
+        void CancelWindowResize()
+        {
+            if (window_resizer != null)
+                window_resizer.CancelDrag();
+            window_resizer = null;
+        }
 
         //--------------------------------------------------------------------------------------------------------------
 
