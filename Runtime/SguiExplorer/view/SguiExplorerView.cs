@@ -1,6 +1,5 @@
 using _ARK_;
 using _SGUI_.context_click;
-using _SGUI_.Explorer;
 using _UTIL_;
 using System;
 using System.IO;
